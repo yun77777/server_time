@@ -45,6 +45,18 @@
 		</interceptor>
 	</interceptors>
 	
+		<interceptors>
+		<interceptor>
+			<mapping path="/user/afterLogin.do" />
+				<!-- <mvc:mapping path="/article/paging/search/write"/>
+		        <mvc:mapping path="/article/paging/search/modify"/>
+		        <mvc:mapping path="/article/paging/search/remove"/>
+		        <mvc:mapping path="/user/info"/> -->
+			<beans:bean
+				class="com.mall.common.AuthInterceptor" />
+		</interceptor>
+	</interceptors>
+	
 </beans:beans>
 
 

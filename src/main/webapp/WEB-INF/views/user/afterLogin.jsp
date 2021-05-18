@@ -34,46 +34,10 @@
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">member ${login} login successfully</p>
- 		<form id="loginForm" method="post" enctype="multipart/form-data">
-            <div class="form-group has-feedback">
-                <input type="text" id="id" name="ID" class="form-control" placeholder="아아디">
-                <span class="glyphicon glyphicon-exclamation-sign form-control-feedback"></span>
-            </div>
-            <div class="form-group has-feedback">
-                <input type="password" id="pw" name="PW" class="form-control" placeholder="비밀번호">
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
-            <div class="row">
-                <div class="col-xs-8">
-                    <div class="checkbox icheck">
-                        <label>
-                            <input type="checkbox" name="useCookie"> 로그인유지
-                        </label>
-                    </div>
-                </div>
-                <!-- /.col -->
-                <div class="col-xs-4">
-                    <button type="submit" onclick="fn_sign_in()" class="btn btn-primary btn-block btn-flat">
-                        <i class="fa fa-sign-in"></i> 로그인
-                    </button>
-                </div>
-                <!-- /.col -->
-            </div>
-
-        <div class="social-auth-links text-center">
-            <p>- 또는 -</p>
-            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat">
-                <i class="fa fa-facebook"></i> 페이스북으로 로그인
-            </a>
-            <a href="#" class="btn btn-block btn-social btn-google btn-flat">
-                <i class="fa fa-google-plus"></i> 구글 계정으로 로그인
-            </a>
-        </div>
-        <!-- /.social-auth-links -->
-
-        <a href="#">비밀번호 찾기</a><br>
-        <a href="${path}/user/register" class="text-center">회원가입</a>
+    <c:if test="${not empty login}">
+    	<p class="login-box-msg">member ${login} login successfully</p>
+    </c:if>
+		<form id="loginForm" method="post" enctype="multipart/form-data">
 	</form>
     </div>
     <!-- /.login-box-body -->
