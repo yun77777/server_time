@@ -34,7 +34,7 @@
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">successfully login</p>
+        <p class="login-box-msg">member ${login} login successfully</p>
  		<form id="loginForm" method="post" enctype="multipart/form-data">
             <div class="form-group has-feedback">
                 <input type="text" id="id" name="ID" class="form-control" placeholder="아아디">

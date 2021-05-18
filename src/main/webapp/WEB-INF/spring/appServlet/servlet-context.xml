@@ -36,7 +36,8 @@
 
 	<interceptors>
 		<interceptor>
-			<mapping path="/*/*.do" />
+			<mapping path="/user/loginPost.do" />
+<!-- 			<mapping path="/*/*.do" /> -->
 <!-- 			        <mvc:mapping path="/user/loginPost"/>
  -->			
 			<beans:bean

@@ -46,6 +46,7 @@ public class UserLoginController {
 	@RequestMapping(value = "/loginPost.do", method = RequestMethod.POST)
 	public void loginPOST(Map<String, Object> paramMap, LoginDTO loginDTO, HttpSession httpSession, Model model)
 			throws Exception {
+		
 		System.err.println("log:");
 		System.err.println(loginDTO.getID());
 		System.err.println(loginDTO.getPW());
@@ -58,7 +59,7 @@ public class UserLoginController {
 //            	if (userVO == null || !BCrypt.checkpw(loginDTO.getPW(), userVO.get("PW").toString())) {
 
 				Map<String, Object> userVO = userService.login(loginDTO);
-				System.err.println("$$$$$$$$$$userVO");
+				System.err.println("$$$$$$$$$$userVO in loginPost");
 				System.err.println(userVO);
 				System.err.println("$$$$$$$$$$");
 				model.addAttribute("user", userVO);
@@ -74,7 +75,9 @@ public class UserLoginController {
 	
 	// 로그인 페이지
 		@RequestMapping(value = "/afterLogin.do", method = RequestMethod.GET)
-		public String loginGETAfter(Map<String, Object> paramMap, @ModelAttribute("loginDTO") LoginDTO loginDTO) {
+		public String loginGETAfter(Map<String, Object> paramMap, @ModelAttribute("loginDTO") LoginDTO loginDTO, HttpSession httpSession, Model model) {
+			System.err.println(httpSession.getAttribute("login"));
+			model.addAttribute("login",httpSession.getAttribute("login"));
 			return "/user/afterLogin";
 		}
 
