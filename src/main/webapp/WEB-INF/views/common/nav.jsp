@@ -20,9 +20,14 @@
                         <li class="nav-item"><a class="nav-link" href="/about.do">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="/boardList.do">Board</a></li>
                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <c:if test="${not empty login}">
+                       <li class="nav-item"><a class="nav-link" href="/user/logout.do">Log Out</a></li>
+				    </c:if>
+                     <c:if test="${empty login}">
                         <li class="nav-item"><a class="nav-link" href="/user/login.do">sign In</a></li>
-<!--                         <li class="nav-item"><a class="nav-link" href="/signIn.do">sign In</a></li> -->
                         <li class="nav-item"><a class="nav-link" href="/signUp.do">Sign Up</a></li>
+				    </c:if>    
+                        
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Portfolio</a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">

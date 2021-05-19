@@ -59,7 +59,8 @@
 	
 	<interceptors>
 		<interceptor>
-			<mapping path="/*.do" />
+			<mapping path="/**/" />
+<!-- 			<mapping path="/*.do" /> -->
 			<beans:bean
 				class="com.mall.common.RememberMeInterceptor" />
 		</interceptor>

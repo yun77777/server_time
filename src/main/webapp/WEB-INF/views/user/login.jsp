@@ -47,18 +47,22 @@
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
-                <div class="col-xs-8">
-                    <div class="checkbox icheck"><input type="checkbox" name="useCookie">
+                <!-- <div class="col-xs-8">
+                    <div class="checkbox icheck">
                         <label>
                             <input type="checkbox" name="useCookie"> 로그인유지
                         </label>
                     </div>
-                </div>
+                </div> -->
                 <!-- /.col -->
                 <div class="col-xs-4">
                     <button type="submit" onclick="fn_sign_in()" class="btn btn-primary btn-block btn-flat">
                         <i class="fa fa-sign-in"></i> 로그인
                     </button>
+                </div>
+                <div class="col-xs-4">
+					<input type="checkbox" name="useCookie"> 
+					<i class="fa fa-sign-in"></i> 로그인유지
                 </div>
                 <!-- /.col -->
             </div>
