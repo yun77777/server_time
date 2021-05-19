@@ -45,7 +45,7 @@
 		</interceptor>
 	</interceptors>
 	
-		<interceptors>
+	<interceptors>
 		<interceptor>
 			<mapping path="/test.do" />
 				<!-- <mvc:mapping path="/article/paging/search/write"/>
@@ -54,6 +54,14 @@
 		        <mvc:mapping path="/user/info"/> -->
 			<beans:bean
 				class="com.mall.common.AuthInterceptor" />
+		</interceptor>
+	</interceptors>
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/*.do" />
+			<beans:bean
+				class="com.mall.common.RememberMeInterceptor" />
 		</interceptor>
 	</interceptors>
 	

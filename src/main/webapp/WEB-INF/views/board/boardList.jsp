@@ -171,23 +171,30 @@ function fn_list(no) {
 };
 
 function fn_insert(){
-	$('#boardForm').attr({
-		action : '<c:url value="/boardInsert.do" />',
-		target : '_self'
-	}).submit();
+	if('${login.ID}'==null)
+		alert("You need to log in first");
+	else{
+		$('#boardForm').attr({
+			action : '<c:url value="/boardInsert.do" />',
+			target : '_self'
+		}).submit();
+	}
+	
 
 }
 
 function fn_detail(no){
 	//var  formData= $('#boardForm').serialize();
-
-	$('#boardForm #no').val(no);
-	
-	$('#boardForm').attr({
-		action : '<c:url value="/boardDetail.do" />',
-		target : '_self'
-	}).submit();
-
+	if('${login.ID}'==null)
+		alert("You need to log in first");
+	else{
+		$('#boardForm #no').val(no);
+		
+		$('#boardForm').attr({
+			action : '<c:url value="/boardDetail.do" />',
+			target : '_self'
+		}).submit();
+	}
 }
 
 $(function () {

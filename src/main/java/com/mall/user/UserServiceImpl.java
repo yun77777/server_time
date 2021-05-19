@@ -1,5 +1,6 @@
 package com.mall.user;
 
+import java.util.Date;
 import java.util.Map;
 
 import com.mall.board.web.boardController;
@@ -46,5 +47,22 @@ public class UserServiceImpl implements UserService {
 		System.err.println(userMapper.login(loginDTO));
 		return userMapper.login(loginDTO);
 
+	}
+
+	// 로그인 유지 처리
+	@Override
+	public void keepLogin(Map<String,Object> paramMap) throws Exception {
+//		public void keepLogin(Map<String,Object> paramMap, String userId, String sessionId, Date sessionLimit) throws Exception {
+//		paramMap.put("userId", userId);
+//		paramMap.put("sessionId", sessionId);
+//		paramMap.put("sessionLimit", sessionLimit);
+
+		userMapper.keepLogin(paramMap);
+//		userMapper.keepLogin(userId, sessionId, sessionLimit);
+	}
+
+	@Override
+	public Map<String, Object> checkLoginBefore(String value) throws Exception {
+		return userMapper.checkUserWithSessionKey(value);
 	}
 }

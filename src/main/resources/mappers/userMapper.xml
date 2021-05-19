@@ -21,4 +21,19 @@
 		FROM member
 		WHERE ID = #{ID} and PW=#{PW}
 	</select>
+
+	<update id="keepLogin" parameterType="map">
+		UPDATE member
+		SET SESSION_KEY = #{sessionId}
+		,
+		SESSION_LIMIT = #{sessionLimit}
+		WHERE ID = #{ID}
+	</update>
+	
+	<select id="checkUserWithSessionKey" resultType="java.util.Map">
+		SELECT
+		*
+		FROM member
+		WHERE SESSION_KEY = #{value}
+	</select>
 </mapper>

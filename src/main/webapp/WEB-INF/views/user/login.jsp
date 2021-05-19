@@ -48,7 +48,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-8">
-                    <div class="checkbox icheck">
+                    <div class="checkbox icheck"><input type="checkbox" name="useCookie">
                         <label>
                             <input type="checkbox" name="useCookie"> 로그인유지
                         </label>

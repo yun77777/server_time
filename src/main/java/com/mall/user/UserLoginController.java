@@ -1,5 +1,6 @@
 package com.mall.user;
 
+import java.util.Date;
 import java.util.Map;
 
 import com.mall.board.web.boardController;
@@ -47,9 +48,6 @@ public class UserLoginController {
 	public void loginPOST(Map<String, Object> paramMap, LoginDTO loginDTO, HttpSession httpSession, Model model)
 			throws Exception {
 		
-		System.err.println("log:");
-		System.err.println(loginDTO.getID());
-		System.err.println(loginDTO.getPW());
 		paramMap.put("ID", loginDTO.getID());
 		paramMap.put("PW", loginDTO.getPW());
 
@@ -59,11 +57,26 @@ public class UserLoginController {
 //            	if (userVO == null || !BCrypt.checkpw(loginDTO.getPW(), userVO.get("PW").toString())) {
 
 				Map<String, Object> userVO = userService.login(loginDTO);
-				System.err.println("$$$$$$$$$$userVO in loginPost");
-				System.err.println(userVO);
-				System.err.println("$$$$$$$$$$");
+				
 				model.addAttribute("user", userVO);
 				model.addAttribute("id", userVO.get("ID"));
+				
+				// 로그인 유지를 선택할 경우
+			    if (loginDTO.isUseCookie()) {
+			        int amount = 60 * 60 * 24 * 7;  // 7일
+			        Date sessionLimit = new Date(System.currentTimeMillis() + (1000 * amount)); // 로그인 유지기간 설정
+			        System.err.println("keepLogin");
+			        System.err.println(userVO.get("ID"));
+			        System.err.println(httpSession.getId());
+			        System.err.println(sessionLimit);
+			        
+			        paramMap.put("userId", userVO.get("ID"));
+					paramMap.put("sessionId", httpSession.getId());
+					paramMap.put("sessionLimit", sessionLimit);
+					
+			        userService.keepLogin(paramMap);
+//			        userService.keepLogin(paramMap, userVO.get("ID").toString(), httpSession.getId(), sessionLimit);
+			    }
 
 			}
 
