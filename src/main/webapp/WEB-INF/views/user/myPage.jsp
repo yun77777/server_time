@@ -35,8 +35,20 @@
 
 				<!-- Page Heading/Breadcrumbs-->
 				<h1>
-					Member <small>registration</small>
+					Member <small>My Page</small>
 				</h1>
+				
+				<div class="control-group form-group">
+					<div class="controls">
+						<label>id:</label>
+						<label>
+							<c:if test="${not empty login}">
+		                    	<li class="nav-item"><p class="nav-link">Welcome <b>${login.ID}</b>!</p></li>
+						    </c:if>
+						</label>
+					</div>
+				</div>
+				
 				<!-- Content Row-->
 				<!-- Contact Form-->
 				<!-- In order to set the email address and subject line for the contact form go to the assets/mail/contact_me.php file.-->
@@ -45,11 +57,11 @@
 						<div class="control-group form-group">
 							<div class="controls">
 								<label>id:</label> <input class="form-control" id="id"
-									name="ID" type="text" required
-									data-validation-required-message="Please enter your phone number." />
-								<button type="button" onclick="fn_dp_chk()">duplication check</button>
+									name="ID" type="text" value="${login.ID}" disabled/>
 							</div>
 						</div>
+						
+						
 						<div class="control-group form-group">
 							<div class="controls">
 								<label>password:</label> <input class="form-control" id="pw"
@@ -110,8 +122,9 @@
 						<div id="success"></div>
 						<!-- For success/fail messages-->
                         <button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="button">Go to the list</button>
-						<button class="btn btn-primary" id="sendMessageButton" onclick="fn_sign_up()" type="button">SignUp</button>
-						<button class="btn btn-primary" onclick="fn_sign_up2()" id="signIn" type="submit">Sign Up2</button>
+<!-- 						<button class="btn btn-primary" id="sendMessageButton" onclick="fn_sign_up()" type="button">SignUp</button>
+ -->						<button class="btn btn-primary" onclick="fn_sign_up2()" id="signIn" type="submit">Update</button>
+							<button class="btn btn-primary" onclick="" id="" type="submit">Delete</button>
 						
 <!-- 						<button class="btn btn-primary" onclick="fn_insert()" id="submit" type="button">submit</button> -->
 					</div>
@@ -173,6 +186,8 @@ function fn_sign_up2() {
 	//var formData = $('#boardForm').serialize();
 	var wholeAddress=$("#postalCode").val()+', '+$("#address").val()+', '+$("#addressDetail").val();
 	$("#wholeAddress").val(wholeAddress);
+	
+	$('#boardForm #id').attr('disabled',false);
 
 	$('#boardForm').attr({
 		action : '<c:url value="/user/register.do"/>',

@@ -74,11 +74,11 @@ public class UserLoginController {
 	}
 	
 	// 로그인 페이지
-		@RequestMapping(value = "/afterLogin.do", method = RequestMethod.GET)
-		public String loginGETAfter(Map<String, Object> paramMap, @ModelAttribute("loginDTO") LoginDTO loginDTO, HttpSession httpSession, Model model) {
-			System.err.println(httpSession.getAttribute("login"));
-			model.addAttribute("login",httpSession.getAttribute("login"));
-			return "/user/afterLogin";
-		}
+	@RequestMapping(value = "/afterLogin.do", method = RequestMethod.GET)
+	public String loginGETAfter(Map<String, Object> paramMap, @ModelAttribute("loginDTO") LoginDTO loginDTO, HttpSession httpSession, Model model) {
+		System.err.println(httpSession.getAttribute("login"));
+		model.addAttribute("login",httpSession.getAttribute("login"));
+		return "/user/afterLogin";
+	}
 
 }

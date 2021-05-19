@@ -59,14 +59,16 @@ d
 						<div id="success"></div>
 						<!-- For success/fail messages-->
                         <button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="button">Go to the list</button>
-						<button class="btn btn-primary" onclick="fn_sign_in()" id="signIn" type="button">Sign In</button>
-						<button class="btn btn-primary" id="sendMessageButton" onclick="fn_sign_up()" type="button">Sign Up</button>
+<!-- 						<button class="btn btn-primary" onclick="fn_sign_in()" id="signIn" type="button">Sign In</button>
+ -->						
+ 						<button class="btn btn-primary" id="sendMessageButton" onclick="fn_sign_up()" type="button">Sign Up</button>
 						<a href="">Find id</a>
 						<a href="">Find password</a>
 						<button class="btn btn-primary" onclick="" id="submit" type="button">naver sign in</button>
 						<button class="btn btn-primary" onclick="" id="submit" type="button">kakao sign in</button>
-												<button class="btn btn-primary" onclick="fn_sign_in2()" id="signIn" type="button">Sign In2</button>
-												<button class="btn btn-primary" onclick="fn_sign_in3()" id="signIn" type="submit">Sign In3</button>
+<!-- 						<button class="btn btn-primary" onclick="fn_sign_in2()" id="signIn" type="button">Sign In2</button>
+ -->						
+						<button class="btn btn-primary" onclick="fn_sign_in3()" id="signIn" type="submit">Sign In</button>
 						
 <!-- 						<button class="btn btn-primary" onclick="fn_insert()" id="submit" type="button">submit</button> -->
 					</div>

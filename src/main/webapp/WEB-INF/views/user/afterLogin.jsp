@@ -35,7 +35,7 @@
     <!-- /.login-logo -->
     <div class="login-box-body">
     <c:if test="${not empty login}">
-    	<p class="login-box-msg">member ${login} login successfully</p>
+    	<p class="login-box-msg">member ${login.ID} login successfully</p>
     </c:if>
 		<form id="loginForm" method="post" enctype="multipart/form-data">
 	</form>

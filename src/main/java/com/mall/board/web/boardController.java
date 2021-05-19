@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import com.mall.common.PaginationVO;
+import com.mall.user.LoginDTO;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,24 +36,30 @@ public class boardController {
 	@Resource(name = "boardService")
 	private boardService boardService;
 	
-	@RequestMapping(value = "/test.do")
-	public String test(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="20") int recordCountPerPage,
-			@RequestParam Map<String, Object> paramMap, HttpSession session, HttpServletRequest request, Model model) throws Exception {
-		
-		return "test";
+//	@RequestMapping(value = "/test.do")
+//	public String test(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="20") int recordCountPerPage,
+//			@RequestParam Map<String, Object> paramMap, HttpSession session, HttpServletRequest request, Model model) throws Exception {
+//		
+//		return "test";
+//	}
+	@RequestMapping(value = "/test.do", method = RequestMethod.GET)
+	public String test(Map<String, Object> paramMap, @ModelAttribute("loginDTO") LoginDTO loginDTO, HttpSession httpSession, Model model) {
+		System.err.println(httpSession.getAttribute("login"));
+		model.addAttribute("login",httpSession.getAttribute("login"));
+		return "/test";
 	}
+	
 	@RequestMapping(value = "/about.do")
-	public String about(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="20") int recordCountPerPage,
-			@RequestParam Map<String, Object> paramMap, HttpSession session, HttpServletRequest request, Model model) throws Exception {
-		
-		return "about";
+	public String about(Map<String, Object> paramMap, @ModelAttribute("loginDTO") LoginDTO loginDTO, HttpSession httpSession, Model model) {
+		System.err.println(httpSession.getAttribute("login"));
+		model.addAttribute("login",httpSession.getAttribute("login"));
+		return "/about";
 	}
 	
 	@RequestMapping(value = "/boardList.do")
 	public String boardList(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="5") int recordCountPerPage,
-			@RequestParam Map<String, Object> paramMap, HttpSession session, HttpServletRequest request, Model model) throws Exception {
-		System.err.println("searchList@@@");
-		System.err.println(paramMap);
+			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+		model.addAttribute("login",httpSession.getAttribute("login"));
 		
 		paramMap.put("recordCountPerPage", recordCountPerPage);
 		paramMap.put("currentPageNo", currentPageNo);
@@ -78,8 +86,10 @@ public class boardController {
 	
 	@RequestMapping(value = "/boardDetail.do")
 	public String boardDetail(
-			@RequestParam Map<String, Object> paramMap, HttpSession session, HttpServletRequest request, Model model) throws Exception {
+			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
 		try {
+			model.addAttribute("login",httpSession.getAttribute("login"));
+
 			Map<String,Object> detail=boardService.selectBoardDetail(paramMap);
 			System.err.println("detailP");
 			System.err.println(paramMap);
@@ -113,8 +123,10 @@ public class boardController {
 	
 	@RequestMapping(value = "/boardInsert.do")
 	public String boardInsert(
-			@RequestParam Map<String, Object> paramMap, HttpSession session, HttpServletRequest request, Model model) throws Exception {
+			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
 		try {
+			model.addAttribute("login",httpSession.getAttribute("login"));
+
 			paramMap.put("no",boardService.selectBoardMaxNo(paramMap)+1);
 			model.addAttribute("paramMap",paramMap);
 		} catch (Exception e) {
@@ -126,7 +138,9 @@ public class boardController {
 	@ResponseBody
 	@RequestMapping(value = "/insertBoard.do")
 	public Map<String,Object> insertBoard(
-			MultipartHttpServletRequest multi, @RequestParam Map<String, Object> paramMap, HttpSession session, HttpServletRequest request, Model model) throws Exception {
+			MultipartHttpServletRequest multi, @RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+		model.addAttribute("login",httpSession.getAttribute("login"));
+
 		System.err.println("@@@@@@@@@@@@@@@@@@@");
 		System.err.println(paramMap.get("content"));
 		System.err.println("@@@@@@@@@@@@@@@@@@@");
@@ -144,9 +158,10 @@ public class boardController {
 	@ResponseBody
 	@RequestMapping(value = "/deleteBoard.do")
 	public Map<String,Object> deleteBoard(
-			MultipartHttpServletRequest multi, @RequestParam Map<String, Object> paramMap, HttpSession session, HttpServletRequest request, Model model) throws Exception {
-		
+			MultipartHttpServletRequest multi, @RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
 		try {
+			model.addAttribute("login",httpSession.getAttribute("login"));
+
 			boardService.deleteBoard(paramMap, multi, request);
 			model.addAttribute("paramMap", paramMap);
 		} catch (Exception e) {

@@ -26,6 +26,8 @@
 <link href="<c:url value='/resources/css/styles.css'/>" rel="stylesheet" />
 </head>
 <body class="hold-transition login-page">
+<%@ include file="/WEB-INF/views/common/nav.jsp"%>
+
 <div class="login-box">
     <div class="login-logo">
         <a href="${path}/">
@@ -79,6 +81,7 @@
     <!-- /.login-box-body -->
 </div>
 <!-- /.login-box -->
+	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
 	<!-- Bootstrap core JS-->
 	<script
@@ -108,8 +111,6 @@
     
     function fn_sign_in() {
     	//var formData = $('#boardForm').serialize();
-    	alert('f');
-    	alert($("#id").val());
     	$('#loginForm').attr({
     		action : '<c:url value="/user/loginPost.do"/>',
     		target : '_self'

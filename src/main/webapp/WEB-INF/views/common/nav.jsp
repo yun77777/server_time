@@ -1,4 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
+<%@ page session="false"%>
  <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
@@ -6,10 +13,16 @@
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
+                    <c:if test="${not empty login}">
+                    	<li class="nav-item"><p class="nav-link">Welcome <b>${login.ID}</b>!</p></li>
+				    </c:if>
+                        <li class="nav-item"><a class="nav-link" href="/user/myPage.do">My Page</a></li>
                         <li class="nav-item"><a class="nav-link" href="/about.do">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="/boardList.do">Board</a></li>
                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/signIn.do">signIn</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/user/login.do">sign In</a></li>
+<!--                         <li class="nav-item"><a class="nav-link" href="/signIn.do">sign In</a></li> -->
+                        <li class="nav-item"><a class="nav-link" href="/signUp.do">Sign Up</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Portfolio</a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">

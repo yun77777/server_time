@@ -47,7 +47,7 @@
 	
 		<interceptors>
 		<interceptor>
-			<mapping path="/user/afterLogin.do" />
+			<mapping path="/test.do" />
 				<!-- <mvc:mapping path="/article/paging/search/write"/>
 		        <mvc:mapping path="/article/paging/search/modify"/>
 		        <mvc:mapping path="/article/paging/search/remove"/>

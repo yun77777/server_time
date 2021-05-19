@@ -54,7 +54,7 @@
 						<div class="control-group form-group">
 							<div class="controls">
 								<label>id:</label> <input class="form-control" id="id"
-									name="id" type="text" value="${detail.id}" required
+									name="id" type="text" value="${login.ID}" required
 									data-validation-required-message="Please enter your phone number." />
 							</div>
 						</div>
