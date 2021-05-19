@@ -16,11 +16,11 @@
                     <c:if test="${not empty login}">
                     	<li class="nav-item"><p class="nav-link">Welcome <b>${login.ID}</b>!</p></li>
 				    </c:if>
-                        <li class="nav-item"><a class="nav-link" href="/user/myPage.do">My Page</a></li>
                         <li class="nav-item"><a class="nav-link" href="/about.do">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="/boardList.do">Board</a></li>
                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                     <c:if test="${not empty login}">
+                       <li class="nav-item"><a class="nav-link" href="/user/myPage.do">My Page</a></li>
                        <li class="nav-item"><a class="nav-link" href="/user/logout.do">Log Out</a></li>
 				    </c:if>
                      <c:if test="${empty login}">

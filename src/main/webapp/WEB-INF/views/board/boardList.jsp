@@ -91,7 +91,7 @@
 						<!-- //search-->
 						<button class="btn btn-primary" onclick="fn_list('1')" type="button">Search</button>
 						<br><br>
-						<button class="btn btn-primary" onclick="fn_insert()" type="button">Insert</button>
+						<button class="btn btn-primary" onclick="fn_insert('${login.ID}')" type="button">Insert</button>
 					</div>
 				</div>
           		<span>총 <em>${pg.totalRecordCount}</em>건 </span>
@@ -110,7 +110,7 @@
 						<c:forEach var="result" items="${list}" varStatus="status">
 							<tr>
 								<th scope="row">${result.B_NO}</th>
-								<td><a href="#" onclick="fn_detail('${result.B_NO}');">${result.title}</a></td>
+								<td><a href="#" onclick="fn_detail('${result.B_NO}','${login.ID}');">${result.title}</a></td>
 								<td>${result.id}</td>
 								<td>${result.input_dt}</td>
 								<td>${result.cnt}</td>
@@ -170,8 +170,8 @@ function fn_list(no) {
 	}).submit();
 };
 
-function fn_insert(){
-	if('${login.ID}'==null)
+function fn_insert(id){
+	if(id.length==0)
 		alert("You need to log in first");
 	else{
 		$('#boardForm').attr({
@@ -183,9 +183,10 @@ function fn_insert(){
 
 }
 
-function fn_detail(no){
+function fn_detail(no,id){
 	//var  formData= $('#boardForm').serialize();
-	if('${login.ID}'==null)
+	
+	if(id.length==0)
 		alert("You need to log in first");
 	else{
 		$('#boardForm #no').val(no);
