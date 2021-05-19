@@ -40,7 +40,7 @@ public class boardController {
 //	}
 	@RequestMapping(value = "/test.do", method = RequestMethod.GET)
 	public String test(Map<String, Object> paramMap, @ModelAttribute("loginDTO") LoginDTO loginDTO, HttpSession httpSession, Model model) {
-		System.err.println(httpSession.getAttribute("login"));
+		System.err.println("test:"+httpSession.getAttribute("login"));
 		model.addAttribute("login",httpSession.getAttribute("login"));
 		return "/test";
 	}

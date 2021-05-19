@@ -1,6 +1,5 @@
 package com.mall.user;
 
-import java.util.Date;
 import java.util.Map;
 
 public interface UserService {
@@ -9,6 +8,8 @@ public interface UserService {
 	public void register(Map<String, Object> paramMap, UserVO userVO) throws Exception;
 
 	Map<String, Object> login(LoginDTO loginDTO) throws Exception;
+
+	Map<String, Object> memberInfo(Map<String, Object> paramMap) throws Exception;
 
 	public void keepLogin(Map<String, Object> paramMap) throws Exception;
 //	public void keepLogin(Map<String, Object> paramMap, String userId, String sessionId, Date sessionLimit)

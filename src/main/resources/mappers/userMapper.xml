@@ -36,4 +36,11 @@
 		FROM member
 		WHERE SESSION_KEY = #{value}
 	</select>
+	
+	<select id="memberInfo" parameterType="map" resultType="java.util.Map">
+		SELECT
+		*
+		FROM member
+		WHERE ID = #{ID}
+	</select>
 </mapper>

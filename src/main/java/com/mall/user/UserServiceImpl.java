@@ -48,6 +48,11 @@ public class UserServiceImpl implements UserService {
 		return userMapper.login(loginDTO);
 
 	}
+	@Override
+	public Map<String, Object> memberInfo(Map<String, Object> paramMap) throws Exception{
+		return userMapper.memberInfo(paramMap);
+		
+	}
 
 	// 로그인 유지 처리
 	@Override

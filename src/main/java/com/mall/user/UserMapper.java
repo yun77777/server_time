@@ -9,7 +9,9 @@ public interface UserMapper {
 
 	Map<String, Object> login(LoginDTO loginDTO) throws Exception;
 
-	public void keepLogin(Map<String,Object> paramMap) throws Exception;
+	Map<String, Object> memberInfo(Map<String, Object> paramMap) throws Exception;
+
+	public void keepLogin(Map<String, Object> paramMap) throws Exception;
 //	public void keepLogin(String userId, String sessionId, Date sessionLimit) throws Exception;
 
 	public Map<String, Object> checkUserWithSessionKey(String value) throws Exception;

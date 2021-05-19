@@ -65,7 +65,7 @@
 						<div class="control-group form-group">
 							<div class="controls">
 								<label>password:</label> <input class="form-control" id="pw"
-									name="PW" type="text" required
+									name="PW" type="text" value="${info.PW}" required
 									data-validation-required-message="Please enter your email address." />
 							</div>
 							<div class="controls">
@@ -77,7 +77,7 @@
 						<div class="control-group form-group">
 							<div class="controls">
 								<label>name:</label> <input class="form-control" id="name"
-									name="NAME" type="text" required
+									name="NAME" type="text" value="${info.NAME}" required
 									data-validation-required-message="Please enter your email address." />
 							</div>
 						</div>
@@ -86,13 +86,13 @@
 								<label>address:</label> 
 								<input type="hidden" id="wholeAddress" name="ADDRESS">
 								<input class="form-control" id="postalCode"
-									name="postalCode" type="text" required
+									name="postalCode" type="text" value="${info.ADDRESS}" required
 									data-validation-required-message="Please enter your email address." />
 									<button type="button" onclick="fn_dp_chk()">postal code check</button>
-								<input class="form-control" id="address"
+								<input class="form-control" id="address" value="${info.ADDRESS}"
 									name="address" type="text" required
 									data-validation-required-message="Please enter your email address." />
-								<input class="form-control" id="addressDetail"
+								<input class="form-control" id="addressDetail" value="${info.ADDRESS}"
 									name="addressDetail" type="text" required
 									data-validation-required-message="Please enter your email address." />
 							</div>
@@ -100,7 +100,7 @@
 						<div class="control-group form-group">
 							<div class="controls">
 								<label>contact:</label> 
-								<input class="form-control" id="contact"
+								<input class="form-control" id="contact" value="${info.CONTACT}"
 									name="CONTACT" type="text" required
 									data-validation-required-message="Please enter your email address." />
 							</div>
@@ -108,13 +108,13 @@
 						<div class="control-group form-group">
 							<div class="controls">
 								<label>phone:</label> <input class="form-control" id="phone"
-									name="PHONE" type="text" required
+									name="PHONE" type="text" required value="${info.PHONE}"
 									data-validation-required-message="Please enter your email address." />
 							</div>
 						</div>
 						<div class="control-group form-group">
 							<div class="controls">
-								<label>email:</label> <input class="form-control" id="email"
+								<label>email:</label> <input class="form-control" id="email" value="${info.EMAIL}"
 									name="EMAIL" type="text" required
 									data-validation-required-message="Please enter your email address." />
 							</div>
