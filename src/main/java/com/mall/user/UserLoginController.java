@@ -120,21 +120,29 @@ public class UserLoginController {
 //				loginCookie.setPath("/");
 				cookie.setMaxAge(0);
 				response.addCookie(cookie);
+				
+				paramMap.put("userId", userVO.get("ID"));
+				paramMap.put("sessionId", "none");
+				paramMap.put("sessionLimit", new Date());
+				
+				System.err.println("paramMap:"+paramMap);
+				userService.keepLogin(paramMap);
+				
 
-				if (loginCookie != null) {
-					loginCookie.setPath("/test.do");
-//					loginCookie.setPath("/");
-					loginCookie.setMaxAge(0);
-					response.addCookie(loginCookie);
-					
-					paramMap.put("userId", userVO.get("ID"));
-					paramMap.put("sessionId", "none");
-					paramMap.put("sessionLimit", new Date());
-					
-					System.err.println("paramMap:"+paramMap);
-					userService.keepLogin(paramMap);
-//					userService.keepLogin(userVO.get("ID"), "none", new Date());
-				}
+//				if (loginCookie != null) {
+//					loginCookie.setPath("/test.do");
+////					loginCookie.setPath("/");
+//					loginCookie.setMaxAge(0);
+//					response.addCookie(loginCookie);
+//					
+//					paramMap.put("userId", userVO.get("ID"));
+//					paramMap.put("sessionId", "none");
+//					paramMap.put("sessionLimit", new Date());
+//					
+//					System.err.println("paramMap:"+paramMap);
+//					userService.keepLogin(paramMap);
+////					userService.keepLogin(userVO.get("ID"), "none", new Date());
+//				}
 			}
 
 		} catch (Exception e) {
