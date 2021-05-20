@@ -168,15 +168,23 @@ public class boardController {
 	
 	
 	@RequestMapping(value = "/chatting.do", method = RequestMethod.GET)
-	public String loginProcess(HttpSession httpSession, HttpServletRequest request) {
+	public String loginProcess(@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request) {
 //		public String loginProcess(@RequestParam String id, HttpServletRequest request) {
-		
+		Map<String, Object> login=(Map<String, Object>) httpSession.getAttribute("login");
     	String id = request.getSession().getId();
-    	
 		System.err.println("xxx");
 		logger.info("Welcome "+id);
 
 		httpSession.setAttribute("id", id);
+		
+		if(login==null)
+			httpSession.setAttribute("ID", "게스트");
+		else
+			httpSession.setAttribute("ID", login.get("ID"));
+		
+		System.err.println("id:"+httpSession.getAttribute("id"));
+		System.err.println("login:"+httpSession.getAttribute("login"));
+		System.err.println("login2"+login);
 		return "chat/chattingview";
 //		System.err.println("xxx");
 //		logger.info("Welcome "+id);
