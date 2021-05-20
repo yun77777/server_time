@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import com.mall.common.PaginationVO;
 import com.mall.user.LoginDTO;
+import com.mall.user.UserVO;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.support.SecurityContextProvider;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.mall.board.service.boardService;
 
@@ -166,64 +170,22 @@ public class boardController {
 		return paramMap;
 	}
 	
-//	@RequestMapping(value = "/signIn.do")
-//	public String signIn( @RequestParam Map<String, Object> paramMap, HttpSession session, HttpServletRequest request, Model model) throws Exception {
-//		System.err.println("searchList@@@");
-//		System.err.println(paramMap);
-//		
-//		try {
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//	return "signIn";
-//	}
-//	
-//	//memberLogin
-//	
-//	@ResponseBody
-//	@RequestMapping(value = "/memberLogin.do")
-//	public Map<String,Object> memberLogin(
-//			MultipartHttpServletRequest multi, @RequestParam Map<String, Object> paramMap, HttpSession session, HttpServletRequest request, Model model) throws Exception {
-//		try {
-//			System.err.println("ff:"+paramMap);
-//			if(boardService.memberLogin(paramMap)==1)
-//				paramMap.put("result","success");
-//			else
-//				paramMap.put("result","fail");
-//				
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}		
-//		return paramMap;
-//	}
-//	
-//	
-//	@RequestMapping(value = "/signUp.do")
-//	public String signUp( @RequestParam Map<String, Object> paramMap, HttpSession session, HttpServletRequest request, Model model) throws Exception {
-//		System.err.println("searchList@@@");
-//		System.err.println(paramMap);
-//		
-//		try {
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//	return "signUp";
-//	}
-//	
-//	@ResponseBody
-//	@RequestMapping(value = "/insertMember.do")
-//	public Map<String,Object> insertMember(
-//			MultipartHttpServletRequest multi, @RequestParam Map<String, Object> paramMap, HttpSession session, HttpServletRequest request, Model model) throws Exception {
-//		try {
-//			boardService.insertMember(paramMap, multi, request);
-//			model.addAttribute("paramMap", paramMap);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}		
-//		return paramMap;
-//	}
+	
+	@RequestMapping(value="/chatting.do", method=RequestMethod.GET)
+	public ModelAndView chat(ModelAndView mv) {
+		mv.setViewName("chat/chattingview");
+		
+		UserVO user=(UserVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		System.err.println("user name: "+user.getNAME());
+		System.err.println("normal chatting page");
+		
+		mv.addObject("userid",user.getNAME());
+		
+		return mv;
+	}
+	
+	
+	
+	
 }
