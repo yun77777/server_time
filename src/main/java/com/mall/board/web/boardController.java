@@ -136,10 +136,9 @@ public class boardController {
 	public Map<String,Object> insertBoard(
 			MultipartHttpServletRequest multi, @RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
 		model.addAttribute("login",httpSession.getAttribute("login"));
-
-		System.err.println("@@@@@@@@@@@@@@@@@@@");
-		System.err.println(paramMap.get("content"));
-		System.err.println("@@@@@@@@@@@@@@@@@@@");
+		System.err.println("insert:"+paramMap);
+		System.err.println("file:"+multi);
+		
 		try {
 			if(paramMap.get("no").toString()!=null||!paramMap.get("no").toString().trim().equals(""))
 				paramMap.put("no",paramMap.get("no"));

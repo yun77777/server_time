@@ -35,7 +35,7 @@ public class FileUtils {
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		Map<String, Object> listMap = null;
 		
-		int bno = Integer.parseInt(boardVO.get("B_NO").toString());
+		int no = Integer.parseInt(boardVO.get("no").toString());
 //		int bno = boardVO.getB_NO();
 		
 		File file = new File(filePath);
@@ -53,7 +53,8 @@ public class FileUtils {
 				file = new File(filePath + storedFileName);
 				multipartFile.transferTo(file);
 				listMap = new HashMap<String, Object>();
-				listMap.put("BNO", bno);
+				listMap.put("B_NO", no);
+//				listMap.put("B_NO", bno);
 				listMap.put("ORG_FILE_NAME", originalFileName);
 				listMap.put("STORED_FILE_NAME", storedFileName);
 				listMap.put("FILE_SIZE", multipartFile.getSize());

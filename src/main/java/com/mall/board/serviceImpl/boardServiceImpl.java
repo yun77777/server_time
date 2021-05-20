@@ -18,8 +18,8 @@ public class boardServiceImpl implements boardService {
 	@Autowired
 	private boardMapper boardMapper;
 	
-//	@Resource(name = "fileUtils")
-//	private FileUtils fileUtils;
+	@Resource(name = "fileUtils")
+	private FileUtils fileUtils;
 
 	@Override
 	public List<Map<String, Object>> selectBoardList(Map<String, Object> paramMap) throws Exception {
@@ -62,12 +62,15 @@ public class boardServiceImpl implements boardService {
 		System.err.println("$$$$$$$$$:" + paramMap);
 		boardMapper.mergeBoard(paramMap);
 		boardMapper.insertHisBoard(paramMap);
+		List<Map<String,Object>> list = fileUtils.parseInsertFileInfo(paramMap, multi); 
+		int size = list.size();
+		System.err.println("multi list:"+list);
+		if(size>0) {
+			for(int i=0; i<size; i++){ 
+				boardMapper.insertFile(list.get(i)); 
+			}
+		}
 		
-//		List<Map<String,Object>> list = fileUtils.parseInsertFileInfo(paramMap, multi); 
-//		int size = list.size();
-//		for(int i=0; i<size; i++){ 
-//			boardMapper.insertFile(list.get(i)); 
-//		}
 	}
 
 	@Override

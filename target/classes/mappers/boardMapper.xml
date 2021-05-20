@@ -81,7 +81,10 @@
 		,B.cnt
 		,B.input_dt
 		,B.updt_dt
+		,MF.ORG_FILE_NAME file
 		from board B
+		inner join MP_FILE MF
+		on B.B_NO=MF.BNO
 		where B.B_NO=#{no,jdbcType=VARCHAR}
 
 	</select>
@@ -211,8 +214,8 @@
 			FILE_SIZE,
 			SEQ_MP_FILE_NO
 		)VALUES(
-			SEQ_MP_FILE_NO.NEXTVAL,
-			#{BNO},
+			#{SEQ_MP_FILE_NO},
+			#{B_NO},
 			#{ORG_FILE_NAME},
 			#{STORED_FILE_NAME},
 			#{FILE_SIZE},

@@ -55,18 +55,24 @@
                             <div class="control-group form-group">
                                 <div class="controls">
                                     <label>id:</label>
-                                    <input class="form-control" id="id" name="id" type="tel"  value="${detail.id}" required data-validation-required-message="Please enter your phone number." />
+                                    <input class="form-control" id="id" name="id" type="text"  value="${detail.id}" required data-validation-required-message="Please enter your phone number." />
                                 </div>
                             </div>
                             <div class="control-group form-group">
                                 <div class="controls">
                                     <label>title:</label>
-                                    <input class="form-control" id="title" name="title" type="email"  value="${detail.title}" required data-validation-required-message="Please enter your email address." />
+                                    <input class="form-control" id="title" name="title" type="text"  value="${detail.title}" required data-validation-required-message="Please enter your email address." />
                                 </div>
                             </div>
                             <div class="control-group form-group">
                                 <div class="controls">
-                         						<%@ include file="/WEB-INF/views/common/smartEditor.jsp"%>
+                                    <label>files:</label>
+                                     <input class="form-control" id="file" name="file" type="text"  value="${detail.file}" required data-validation-required-message="Please enter your email address." />
+                                </div>
+                            </div>
+                            <div class="control-group form-group">
+                                <div class="controls">
+                      				<%@ include file="/WEB-INF/views/common/smartEditor.jsp"%>
                                 </div>
                                 
                                 
