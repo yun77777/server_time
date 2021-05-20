@@ -65,6 +65,13 @@
 									data-validation-required-message="Please enter your email address." />
 							</div>
 						</div>
+						<div class="control-group form-group">
+							<div class="controls">
+								<label>files:</label> <input class="form-control" id="file"
+									name="file" type="file" required
+									data-validation-required-message="Please enter your email address." />
+							</div>
+						</div>
 						<%-- <div class="control-group form-group">
 							<div class="controls">
 								<label>content:</label>

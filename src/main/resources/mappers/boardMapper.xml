@@ -199,5 +199,24 @@
 		   )
 	</select>
 	
-	
+	<insert id="insertFile" parameterType="hashMap">
+	<selectKey resultType="int" keyProperty="SEQ_MP_FILE_NO" order="BEFORE">
+		SELECT COALESCE(MAX(SEQ_MP_FILE_NO),0)+1 AS SEQ_MP_FILE_NO FROM MP_FILE
+	</selectKey>
+		INSERT INTO MP_FILE(
+			FILE_NO,
+			BNO,
+			ORG_FILE_NAME,
+			STORED_FILE_NAME,
+			FILE_SIZE,
+			SEQ_MP_FILE_NO
+		)VALUES(
+			SEQ_MP_FILE_NO.NEXTVAL,
+			#{BNO},
+			#{ORG_FILE_NAME},
+			#{STORED_FILE_NAME},
+			#{FILE_SIZE},
+			#{SEQ_MP_FILE_NO}
+		)
+    </insert>
 </mapper>

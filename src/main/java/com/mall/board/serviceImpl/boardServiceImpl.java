@@ -3,6 +3,7 @@ package com.mall.board.serviceImpl;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +11,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mall.board.service.boardService;
+import com.mall.common.FileUtils;
 
 @Service("boardService")
 public class boardServiceImpl implements boardService {
 	@Autowired
 	private boardMapper boardMapper;
+	
+//	@Resource(name = "fileUtils")
+//	private FileUtils fileUtils;
 
 	@Override
 	public List<Map<String, Object>> selectBoardList(Map<String, Object> paramMap) throws Exception {
@@ -34,9 +39,9 @@ public class boardServiceImpl implements boardService {
 	public Integer selectBoardListCnt(Map<String, Object> paramMap) throws Exception {
 		return boardMapper.selectBoardListCnt(paramMap);
 	}
-	
+
 	public Integer memberLogin(Map<String, Object> paramMap) throws Exception {
-		System.err.println("login@:"+paramMap);
+		System.err.println("login@:" + paramMap);
 		System.err.println(boardMapper.memberLogin(paramMap));
 		return boardMapper.memberLogin(paramMap);
 	}
@@ -54,19 +59,24 @@ public class boardServiceImpl implements boardService {
 	@Override
 	public void insertBoard(Map<String, Object> paramMap, MultipartHttpServletRequest multi, HttpServletRequest request)
 			throws Exception {
-		System.err.println("$$$$$$$$$:"+paramMap);
+		System.err.println("$$$$$$$$$:" + paramMap);
 		boardMapper.mergeBoard(paramMap);
 		boardMapper.insertHisBoard(paramMap);
+		
+//		List<Map<String,Object>> list = fileUtils.parseInsertFileInfo(paramMap, multi); 
+//		int size = list.size();
+//		for(int i=0; i<size; i++){ 
+//			boardMapper.insertFile(list.get(i)); 
+//		}
 	}
-	
+
 	@Override
-	public void insertMember(Map<String, Object> paramMap, MultipartHttpServletRequest multi, HttpServletRequest request)
-			throws Exception {
-		System.err.println("$$$$$$$$$:"+paramMap);
+	public void insertMember(Map<String, Object> paramMap, MultipartHttpServletRequest multi,
+			HttpServletRequest request) throws Exception {
+		System.err.println("$$$$$$$$$:" + paramMap);
 		boardMapper.insertMember(paramMap);
 		boardMapper.insertMemberHis(paramMap);
 	}
-	
 
 	@Override
 	public void deleteBoard(Map<String, Object> paramMap, MultipartHttpServletRequest multi, HttpServletRequest request)

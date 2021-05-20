@@ -181,7 +181,6 @@ public class boardController {
 			httpSession.setAttribute("ID", "게스트");
 		else
 			httpSession.setAttribute("ID", login.get("ID"));
-		
 		System.err.println("id:"+httpSession.getAttribute("id"));
 		System.err.println("login:"+httpSession.getAttribute("login"));
 		System.err.println("login2"+login);
