@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 import com.mall.common.PaginationVO;
 import com.mall.user.LoginDTO;
-import com.mall.user.UserVO;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.support.SecurityContextProvider;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.mall.board.service.boardService;
 
@@ -171,18 +167,23 @@ public class boardController {
 	}
 	
 	
-	@RequestMapping(value="/chatting.do", method=RequestMethod.GET)
-	public ModelAndView chat(ModelAndView mv) {
-		mv.setViewName("chat/chattingview");
+	@RequestMapping(value = "/chatting.do", method = RequestMethod.GET)
+	public String loginProcess(HttpSession httpSession, HttpServletRequest request) {
+//		public String loginProcess(@RequestParam String id, HttpServletRequest request) {
 		
-		UserVO user=(UserVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
-		System.err.println("user name: "+user.getNAME());
-		System.err.println("normal chatting page");
-		
-		mv.addObject("userid",user.getNAME());
-		
-		return mv;
+    	String id = request.getSession().getId();
+    	
+		System.err.println("xxx");
+		logger.info("Welcome "+id);
+
+		httpSession.setAttribute("id", id);
+		return "chat/chattingview";
+//		System.err.println("xxx");
+//		logger.info("Welcome "+id);
+//		
+//		HttpSession session = request.getSession();
+//		session.setAttribute("id", id);
+//		return "chat/chattingview";
 	}
 	
 	
