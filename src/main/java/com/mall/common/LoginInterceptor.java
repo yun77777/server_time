@@ -1,5 +1,7 @@
 package com.mall.common;
 
+import java.util.Map;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -7,15 +9,21 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import com.mall.login.serviceImpl.loginMapper;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 	private static final String LOGIN = "login";
 	private static final Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
-
+	
+	@Autowired
+	private loginMapper loginMapper;
+	
 //	@Override
 //	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 //			ModelAndView modelAndView) throws Exception {
@@ -42,6 +50,11 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	    if (userVO != null) {
 	        logger.info("new login success");
 	        httpSession.setAttribute(LOGIN, userVO);
+	        System.err.println("session:"+userVO);
+	        Map<String, Object> member=loginMapper.selectMember(userVO.toString());
+	        System.err.println("member:"+member);
+	        httpSession.setAttribute("member", member);
+
 	        //response.sendRedirect("/");
 
 	        if (request.getParameter("useCookie") != null) {

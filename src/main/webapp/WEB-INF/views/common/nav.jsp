@@ -13,32 +13,37 @@
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                    <c:if test="${not empty login}">
-                    	<li class="nav-item"><p class="nav-link">Welcome <b>${login.ID}</b>!</p></li>
+                    <c:if test="${not empty member}">
+                    	<li class="nav-item"><p class="nav-link">Welcome <b>${member.ID}</b>!</p></li>
+<%--                     	<li class="nav-item"><p class="nav-link">Welcome <b>${login.ID}</b>!</p></li> --%>
 				    </c:if>
                         <li class="nav-item"><a class="nav-link" href="/about.do">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="/boardList.do">Board</a></li>
                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                         <li class="nav-item"><a class="nav-link" href="/chatting.do">Chat</a></li>
-                    <c:if test="${not empty login}">
+                        <c:if test="${not empty member.MNG_DIV and member.MNG_DIV eq 'Y'}">
+                           <li class="nav-item"><a class="nav-link" href="/boardList.do" style="color:red">Manage</a></li>
+                        </c:if>
+                    <c:if test="${not empty member}">
                        <li class="nav-item"><a class="nav-link" href="/user/myPage.do">My Page</a></li>
                        <li class="nav-item"><a class="nav-link" href="/user/logout.do">Log Out</a></li>
 				    </c:if>
-                     <c:if test="${empty login}">
+                     <c:if test="${empty member}">
                         <li class="nav-item"><a class="nav-link" href="/user/login.do">sign In</a></li>
                         <li class="nav-item"><a class="nav-link" href="/signUp.do">Sign Up</a></li>
 				    </c:if>    
+                    <c:if test="${not empty member.MNG_DIV and member.MNG_DIV eq 'Y'}">
+						<li class="nav-item dropdown">
+                           <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:red">Manage</a>
+                           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                               <a class="dropdown-item" href="portfolio-1-col.html">Manage items</a>
+                               <a class="dropdown-item" href="portfolio-2-col.html">Item list</a>
+                               <a class="dropdown-item" href="portfolio-3-col.html">Check the reviews</a>
+                               <a class="dropdown-item" href="portfolio-4-col.html">User list</a>
+                           </div>
+                       </li>
+					</c:if>
                         
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Portfolio</a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                                <a class="dropdown-item" href="portfolio-1-col.html">1 Column Portfolio</a>
-                                <a class="dropdown-item" href="portfolio-2-col.html">2 Column Portfolio</a>
-                                <a class="dropdown-item" href="portfolio-3-col.html">3 Column Portfolio</a>
-                                <a class="dropdown-item" href="portfolio-4-col.html">4 Column Portfolio</a>
-                                <a class="dropdown-item" href="portfolio-item.html">Single Portfolio Item</a>
-                            </div>
-                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Blog</a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">

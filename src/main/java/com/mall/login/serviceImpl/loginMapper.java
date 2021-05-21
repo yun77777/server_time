@@ -10,4 +10,5 @@ public interface loginMapper {
 
 	public void insertMemberHis(Map<String, Object> paramMap) throws Exception;
 
+	public Map<String, Object> selectMember(String member) throws Exception;
 }

@@ -13,4 +13,6 @@ public interface loginService {
 	public void insertMember(Map<String, Object> paramMap, MultipartHttpServletRequest multi,
 			HttpServletRequest request) throws Exception;
 
+	public Map<String, Object> selectMember(String member) throws Exception;
+
 }

@@ -63,4 +63,13 @@
 			FROM member
 			WHERE ID=TRIM(#{ID, jdbcType=VARCHAR}) and PW=TRIM(#{PW, jdbcType=VARCHAR})
 	</select>
+	
+	<select id="selectMember" parameterType="String"
+		resultType="java.util.HashMap">
+ 	SELECT 
+ 		ID
+		,MNG_DIV
+	FROM MEMBER
+	WHERE ID=#{ID}
+	</select>
 </mapper>

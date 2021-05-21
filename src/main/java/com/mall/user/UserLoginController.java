@@ -1,6 +1,7 @@
 package com.mall.user;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.mall.board.web.boardController;
@@ -107,7 +108,8 @@ public class UserLoginController {
 			Object object = httpSession.getAttribute("login");
 			System.err.println("logout session login:"+object);
 			if (object != null) {
-				Map<String, Object> userVO = (Map<String, Object>) object;
+				Map<String, Object> userVO = new HashMap<String,Object>();
+				userVO.put("login",object);
 				System.err.println("fff@@");
 				System.err.println(userVO);
 				httpSession.removeAttribute("login");
