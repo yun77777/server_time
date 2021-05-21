@@ -47,7 +47,13 @@ public class boardServiceImpl implements boardService {
 	}
 
 	public Integer selectBoardMaxNo(Map<String, Object> paramMap) throws Exception {
-		return boardMapper.selectBoardMaxNo(paramMap);
+		int maxNo;
+		
+		if(boardMapper.selectBoardMaxNo(paramMap)==null)
+			maxNo=0;
+		else
+			maxNo=boardMapper.selectBoardMaxNo(paramMap);
+		return maxNo;
 	}
 
 	@Override

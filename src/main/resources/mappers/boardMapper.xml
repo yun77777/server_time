@@ -67,9 +67,9 @@
 		,B.updt_dt
 		,MF.ORG_FILE_NAME file
 		from board B
-		inner join MP_FILE MF
+		left outer join MP_FILE MF
 		on B.B_NO=MF.BNO
-		where B.B_NO={no,jdbcType=VARCHAR}
+		where B.B_NO=#{no} and B_TYPE=#{B_TYPE}
 	</select>
 	
 	<update id="updateCnt" parameterType="map">
