@@ -1,5 +1,3 @@
-
-
      <!-- Page Content-->
         <!-- <section class="py-5">
             <div class="container">
@@ -67,16 +65,20 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-sm-6 mb-4">
-                        <div class="card h-100">
-                            <a href="#!"><img class="card-img-top" src="https://via.placeholder.com/700x400" alt="..." /></a>
-                            <div class="card-body">
-                                <h4 class="card-title"><a href="#!">Project Four</a></h4>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-6 mb-4">
+                    
+                    <c:forEach var="result" items="${list}" varStatus="status">
+	                   <div class="col-lg-4 col-sm-6 mb-4">
+	                       <div class="card h-100">
+	                           <a href="#!"><img class="card-img-top" src="https://via.placeholder.com/700x400" alt="..." /></a>
+	                           <div class="card-body">
+	                               <h4 class="card-title"><a href="#!">${result.title}</a></h4>
+	                               <p class="card-text">${result.content}</p>
+	                           </div>
+	                       </div>
+	                   </div>
+                    </c:forEach>
+                    
+                    <!-- <div class="col-lg-4 col-sm-6 mb-4">
                         <div class="card h-100">
                             <a href="#!"><img class="card-img-top" src="https://via.placeholder.com/700x400" alt="..." /></a>
                             <div class="card-body">
@@ -93,7 +95,7 @@
                                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque earum nostrum suscipit ducimus nihil provident, perferendis rem illo, voluptate atque, sit eius in voluptates, nemo repellat fugiat excepturi! Nemo, esse.</p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </section>

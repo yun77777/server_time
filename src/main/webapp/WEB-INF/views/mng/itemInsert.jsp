@@ -54,7 +54,8 @@
 						<div class="control-group form-group">
 							<div class="controls">
 								<label>id:</label> <input class="form-control" id="id"
-									name="id" type="text" value="${login.ID}" required
+									name="id" type="text" value="${login}" disabled
+<%-- 									name="id" type="text" value="${login.ID}" required --%>
 									data-validation-required-message="Please enter your phone number." />
 							</div>
 						</div>
@@ -120,6 +121,7 @@ function fn_list(no) {
 function fn_insert() {
 	//var formData = $('#boardForm').serialize();
 	$('#boardForm #no').attr('disabled',false);
+	$('#boardForm #id').attr('disabled',false);
 	var formData = new FormData($("#boardForm")[0]);
 	alert($("#file").val());
 	$.ajax({

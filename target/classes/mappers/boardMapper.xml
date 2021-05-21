@@ -69,7 +69,7 @@
 		from board B
 		left outer join MP_FILE MF
 		on B.B_NO=MF.BNO
-		where B.B_NO=#{no} and B_TYPE=#{B_TYPE}
+		where B.B_NO=#{no} and B.B_TYPE=#{B_TYPE}
 	</select>
 	
 	<update id="updateCnt" parameterType="map">
@@ -203,14 +203,32 @@
 			ORG_FILE_NAME,
 			STORED_FILE_NAME,
 			FILE_SIZE,
-			SEQ_MP_FILE_NO
+			SEQ_MP_FILE_NO,
+			B_TYPE
 		)VALUES(
 			#{SEQ_MP_FILE_NO},
 			#{B_NO},
 			#{ORG_FILE_NAME},
 			#{STORED_FILE_NAME},
 			#{FILE_SIZE},
-			#{SEQ_MP_FILE_NO}
+			#{SEQ_MP_FILE_NO},
+			#{B_TYPE}
 		)
     </insert>
+    
+    <select id="selectItemList" parameterType="java.util.HashMap"
+		resultType="java.util.HashMap">
+ 	SELECT @rownum:=@rownum+1 ROWNUM
+ 	,B.B_NO
+		,B.id
+		,B.title
+		,B.content
+		<!-- ,(SELECT date_format(input_dt,'%Y-%m-%d') FROM board WHERE no=B.B_NO) input_dt
+		,(SELECT date_format(input_dt,'%H:%m:%s') FROM board WHERE no=B.B_NO) input_h -->
+        ,IF(date_format(NOW(),'%Y-%m-%d')=date_format(input_dt,'%Y-%m-%d'),(SELECT date_format(input_dt,'%H:%m:%s') FROM board WHERE B_NO=B.B_NO AND B_TYPE=#{B_TYPE}),(SELECT date_format(input_dt,'%Y-%m-%d') FROM board WHERE B_NO=B.B_NO AND B_TYPE=#{B_TYPE})) input_dt
+		FROM board B,(SELECT @rownum:=0) R
+		where B.B_NO>0 AND B.B_TYPE=#{B_TYPE}
+		<include refid="searchOption"/>
+		ORDER BY B.B_NO DESC
+	</select>
 </mapper>

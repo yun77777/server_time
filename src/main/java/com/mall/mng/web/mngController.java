@@ -90,6 +90,14 @@ public class mngController {
 			paramMap.put("B_TYPE",4);
 
 			paramMap.put("no",boardService.selectBoardMaxNo(paramMap)+1);
+			Map<String,Object> detail=boardService.selectBoardDetail(paramMap);
+			System.err.println("detailP");
+			System.err.println(detail);
+			System.err.println(paramMap);
+			List<Map<String,Object>> list=boardService.selectBoardHisList(paramMap);
+			
+			model.addAttribute("detail",detail);
+			model.addAttribute("list",list);
 			model.addAttribute("paramMap",paramMap);
 		} catch (Exception e) {
 			e.printStackTrace();

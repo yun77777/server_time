@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -36,13 +38,14 @@ public class FileUtils {
 		Map<String, Object> listMap = null;
 		
 		int no = Integer.parseInt(boardVO.get("no").toString());
+		int B_TYPE = Integer.parseInt(boardVO.get("B_TYPE").toString());
 //		int bno = boardVO.getB_NO();
 		
 		File file = new File(filePath);
 		if(file.exists() == false) {
 			file.mkdirs();
 		}
-		
+		System.err.println("aa:"+boardVO);
 		while(iterator.hasNext()) {
 			multipartFile = mpRequest.getFile(iterator.next());
 			if(multipartFile.isEmpty() == false) {
@@ -52,8 +55,10 @@ public class FileUtils {
 				
 				file = new File(filePath + storedFileName);
 				multipartFile.transferTo(file);
+				
 				listMap = new HashMap<String, Object>();
 				listMap.put("B_NO", no);
+				listMap.put("B_TYPE", B_TYPE);
 //				listMap.put("B_NO", bno);
 				listMap.put("ORG_FILE_NAME", originalFileName);
 				listMap.put("STORED_FILE_NAME", storedFileName);

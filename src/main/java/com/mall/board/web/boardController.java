@@ -46,6 +46,16 @@ public class boardController {
 		model.addAttribute("login",httpSession.getAttribute("login"));
 		model.addAttribute("member",httpSession.getAttribute("member"));
 		
+		try {
+			paramMap.put("B_TYPE",4);
+			List<Map<String, Object>> list=boardService.selectItemList(paramMap);
+			model.addAttribute("list",list);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		return "/test";
 	}
 	
