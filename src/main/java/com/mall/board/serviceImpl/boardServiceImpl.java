@@ -17,7 +17,7 @@ import com.mall.common.FileUtils;
 public class boardServiceImpl implements boardService {
 	@Autowired
 	private boardMapper boardMapper;
-	
+
 	@Resource(name = "fileUtils")
 	private FileUtils fileUtils;
 
@@ -25,7 +25,7 @@ public class boardServiceImpl implements boardService {
 	public List<Map<String, Object>> selectBoardList(Map<String, Object> paramMap) throws Exception {
 		return boardMapper.selectBoardList(paramMap);
 	}
-	
+
 	@Override
 	public List<Map<String, Object>> selectItemList(Map<String, Object> paramMap) throws Exception {
 		return boardMapper.selectItemList(paramMap);
@@ -41,6 +41,11 @@ public class boardServiceImpl implements boardService {
 		return boardMapper.selectContent(paramMap);
 	}
 
+	@Override
+	public Map<String, Object> selectFile(Map<String, Object> paramMap) throws Exception {
+		return boardMapper.selectFile(paramMap);
+	}
+
 	public Integer selectBoardListCnt(Map<String, Object> paramMap) throws Exception {
 		return boardMapper.selectBoardListCnt(paramMap);
 	}
@@ -53,18 +58,18 @@ public class boardServiceImpl implements boardService {
 
 	public Integer selectBoardMaxNo(Map<String, Object> paramMap) throws Exception {
 		int maxNo;
-		
-		if(boardMapper.selectBoardMaxNo(paramMap)==null)
-			maxNo=0;
+
+		if (boardMapper.selectBoardMaxNo(paramMap) == null)
+			maxNo = 0;
 		else
-			maxNo=boardMapper.selectBoardMaxNo(paramMap);
+			maxNo = boardMapper.selectBoardMaxNo(paramMap);
 		return maxNo;
 	}
 
 	@Override
 	public Map<String, Object> selectBoardDetail(Map<String, Object> paramMap) throws Exception {
-		System.err.println("param:"+paramMap);
-		System.err.println("oardMapper.selectBoardDetail(paramMap:"+boardMapper.selectBoardDetail(paramMap));
+		System.err.println("param:" + paramMap);
+		System.err.println("oardMapper.selectBoardDetail(paramMap:" + boardMapper.selectBoardDetail(paramMap));
 		boardMapper.updateCnt(paramMap);
 		return boardMapper.selectBoardDetail(paramMap);
 	}
@@ -75,15 +80,15 @@ public class boardServiceImpl implements boardService {
 		System.err.println("$$$$$$$$$:" + paramMap);
 		boardMapper.mergeBoard(paramMap);
 		boardMapper.insertHisBoard(paramMap);
-		List<Map<String,Object>> list = fileUtils.parseInsertFileInfo(paramMap, multi); 
+		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(paramMap, multi);
 		int size = list.size();
-		System.err.println("multi list:"+list);
-		if(size>0) {
-			for(int i=0; i<size; i++){ 
-				boardMapper.insertFile(list.get(i)); 
+		System.err.println("multi list:" + list);
+		if (size > 0) {
+			for (int i = 0; i < size; i++) {
+				boardMapper.insertFile(list.get(i));
 			}
 		}
-		
+
 	}
 
 	@Override

@@ -204,6 +204,7 @@
 			STORED_FILE_NAME,
 			FILE_SIZE,
 			SEQ_MP_FILE_NO,
+			FILE_PATH,
 			B_TYPE
 		)VALUES(
 			#{SEQ_MP_FILE_NO},
@@ -212,6 +213,7 @@
 			#{STORED_FILE_NAME},
 			#{FILE_SIZE},
 			#{SEQ_MP_FILE_NO},
+			#{FILE_PATH},
 			#{B_TYPE}
 		)
     </insert>
@@ -223,12 +225,34 @@
 		,B.id
 		,B.title
 		,B.content
+		
 		<!-- ,(SELECT date_format(input_dt,'%Y-%m-%d') FROM board WHERE no=B.B_NO) input_dt
 		,(SELECT date_format(input_dt,'%H:%m:%s') FROM board WHERE no=B.B_NO) input_h -->
         ,IF(date_format(NOW(),'%Y-%m-%d')=date_format(input_dt,'%Y-%m-%d'),(SELECT date_format(input_dt,'%H:%m:%s') FROM board WHERE B_NO=B.B_NO AND B_TYPE=#{B_TYPE}),(SELECT date_format(input_dt,'%Y-%m-%d') FROM board WHERE B_NO=B.B_NO AND B_TYPE=#{B_TYPE})) input_dt
+		
+		,(SELECT ORG_FILE_NAME FROM MP_FILE WHERE B.B_NO=BNO) file
+		,(SELECT FILE_PATH FROM MP_FILE WHERE B.B_NO=BNO) file_src
+		,(SELECT SEQ_MP_FILE_NO FROM MP_FILE WHERE B.B_NO=BNO) file_no
 		FROM board B,(SELECT @rownum:=0) R
 		where B.B_NO>0 AND B.B_TYPE=#{B_TYPE}
 		<include refid="searchOption"/>
 		ORDER BY B.B_NO DESC
+	</select>
+	
+	
+	
+	<select id="selectFile" parameterType="java.util.HashMap"
+		resultType="java.util.HashMap">
+ 	SELECT 
+			FILE_NO,
+			BNO,
+			ORG_FILE_NAME,
+			STORED_FILE_NAME,
+			FILE_SIZE,
+			SEQ_MP_FILE_NO,
+			FILE_PATH,
+			B_TYPE
+		FROM MP_FILE
+		WHERE FILE_NO=#{file_no}
 	</select>
 </mapper>

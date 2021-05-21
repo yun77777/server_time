@@ -69,10 +69,13 @@
                     <c:forEach var="result" items="${list}" varStatus="status">
 	                   <div class="col-lg-4 col-sm-6 mb-4">
 	                       <div class="card h-100">
-	                           <a href="#!"><img class="card-img-top" src="https://via.placeholder.com/700x400" alt="..." /></a>
+	                           <a href="#!"><img class="card-img-top" src="/displayImages.do?file_no=${result.file_no}" alt="no image" /></a>
 	                           <div class="card-body">
 	                               <h4 class="card-title"><a href="#!">${result.title}</a></h4>
 	                               <p class="card-text">${result.content}</p>
+	                               <p class="card-text">${result.file}</p>
+	                               <p class="card-text">${result.file_src}</p>
+	                               <p class="card-text">${result.file_no}</p>
 	                           </div>
 	                       </div>
 	                   </div>
