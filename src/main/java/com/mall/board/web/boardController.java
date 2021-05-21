@@ -53,6 +53,8 @@ public class boardController {
 	public String about(Map<String, Object> paramMap, @ModelAttribute("loginDTO") LoginDTO loginDTO, HttpSession httpSession, Model model) {
 		System.err.println(httpSession.getAttribute("login"));
 		model.addAttribute("login",httpSession.getAttribute("login"));
+		model.addAttribute("member",httpSession.getAttribute("member"));
+
 		return "/about";
 	}
 	
@@ -60,9 +62,12 @@ public class boardController {
 	public String boardList(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="5") int recordCountPerPage,
 			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
 		model.addAttribute("login",httpSession.getAttribute("login"));
-		
+		model.addAttribute("member",httpSession.getAttribute("member"));
+
 		paramMap.put("recordCountPerPage", recordCountPerPage);
 		paramMap.put("currentPageNo", currentPageNo);
+		
+		paramMap.put("B_TYPE",1);
 		
 		try {
 			PaginationVO pg = new PaginationVO(currentPageNo, recordCountPerPage, 3, 
@@ -89,32 +94,19 @@ public class boardController {
 			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
 		try {
 			model.addAttribute("login",httpSession.getAttribute("login"));
+			model.addAttribute("member",httpSession.getAttribute("member"));
+			
+			paramMap.put("B_TYPE",1);
 
 			Map<String,Object> detail=boardService.selectBoardDetail(paramMap);
 			System.err.println("detailP");
 			System.err.println(paramMap);
-//			int no=Integer.parseInt(paramMap.get("no").toString());
-//			System.err.println("no:"+no);
-//			
-//			//rownum
-//			paramMap.put("contentNo",no-1);
-//			Map<String,Object> beforeContent=boardService.selectContent(paramMap);
-//			paramMap.put("contentNo",no+1);
-//			Map<String,Object> afterContent=boardService.selectContent(paramMap);
-			
+			System.err.println(detail);
 			
 			List<Map<String,Object>> list=boardService.selectBoardHisList(paramMap);
 
-//			System.err.println("before@@@");
-//			System.err.println(beforeContent);
-//			System.err.println("after@@@");
-//			System.err.println(afterContent);
-			
 			model.addAttribute("detail",detail);
 			model.addAttribute("list",list);
-//			model.addAttribute("beforeContent",beforeContent);
-//			model.addAttribute("afterContent",afterContent);
-			System.err.println("detaiL@@@@@@@");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
@@ -126,6 +118,9 @@ public class boardController {
 			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
 		try {
 			model.addAttribute("login",httpSession.getAttribute("login"));
+			model.addAttribute("member",httpSession.getAttribute("member"));
+			
+			paramMap.put("B_TYPE",1);
 
 			paramMap.put("no",boardService.selectBoardMaxNo(paramMap)+1);
 			model.addAttribute("paramMap",paramMap);
@@ -140,9 +135,13 @@ public class boardController {
 	public Map<String,Object> insertBoard(
 			MultipartHttpServletRequest multi, @RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
 		model.addAttribute("login",httpSession.getAttribute("login"));
+		model.addAttribute("member",httpSession.getAttribute("member"));
+
 		System.err.println("insert:"+paramMap);
 		System.err.println("file:"+multi);
 		
+		paramMap.put("B_TYPE",1);
+
 		try {
 			if(paramMap.get("no").toString()!=null||!paramMap.get("no").toString().trim().equals(""))
 				paramMap.put("no",paramMap.get("no"));
@@ -160,6 +159,7 @@ public class boardController {
 			MultipartHttpServletRequest multi, @RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
 		try {
 			model.addAttribute("login",httpSession.getAttribute("login"));
+			model.addAttribute("member",httpSession.getAttribute("member"));
 
 			boardService.deleteBoard(paramMap, multi, request);
 			model.addAttribute("paramMap", paramMap);
@@ -195,8 +195,5 @@ public class boardController {
 //		session.setAttribute("id", id);
 //		return "chat/chattingview";
 	}
-	
-	
-	
 	
 }

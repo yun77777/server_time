@@ -36,7 +36,7 @@
 						<li class="nav-item dropdown">
                            <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:red">Manage</a>
                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                               <a class="dropdown-item" href="portfolio-1-col.html">Manage items</a>
+                               <a class="dropdown-item" href="/itemList.do">Manage items</a>
                                <a class="dropdown-item" href="portfolio-2-col.html">Item list</a>
                                <a class="dropdown-item" href="portfolio-3-col.html">Check the reviews</a>
                                <a class="dropdown-item" href="portfolio-4-col.html">User list</a>

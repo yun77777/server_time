@@ -54,8 +54,7 @@
 						<div class="control-group form-group">
 							<div class="controls">
 								<label>id:</label> <input class="form-control" id="id"
-									name="id" type="text" value="${member.ID}" required
-<%-- 									name="id" type="text" value="${login.ID}" required --%>
+									name="id" type="text" value="${login.ID}" required
 									data-validation-required-message="Please enter your phone number." />
 							</div>
 						</div>
@@ -110,7 +109,7 @@
 <script>
 function fn_list(no) {
 	//$('#currentPageNo').val(no);
-	window.location='<c:url value="/boardList.do"/>';
+	window.location='<c:url value="/itemList.do"/>';
 	
 	/* $('#boardForm').attr({
 		action : '<c:url value="/boardList.do"/>',
@@ -124,7 +123,7 @@ function fn_insert() {
 	var formData = new FormData($("#boardForm")[0]);
 	alert($("#file").val());
 	$.ajax({
-		url : "${pageContext.request.contextPath}/insertBoard.do",
+		url : "${pageContext.request.contextPath}/insertItem.do",
 		type : "post",
 		enctype: 'multipart/form-data',
 		data : formData,

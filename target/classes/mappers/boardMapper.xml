@@ -14,22 +14,6 @@
 		<if test="searchId != ''.toString() and searchId != null">
 			AND B.title LIKE CONCAT('%',TRIM(#{searchId}),'%')
 		</if>
-		
-		<!-- <if test="searchOutingStat != ''.toString() and searchOutingStat != null">
-			AND RRI.OUTING_STAT = #{searchOutingStat} 
-		</if> -->
-		
-		
-		
-		<!-- 개별제출확인 신청 및 진행현황 페이지-->
-		<!-- <if test="PAGE=='status'">
-		AND RRI.OUTING_STAT IN ('RG5401','RG5402','RG5481','RG5403','RG5412','RG5413','RG5482')
-		</if> -->
-		
-		<!-- 개별제출확인 완료 내역 페이지-->
-		<!-- <if test="PAGE=='complete'">
- 			AND RRI.OUTING_STAT IN ('RG5405')
-		</if> -->
 	</sql>
 	
 	<!-- 게시판 목록 -->
@@ -44,9 +28,9 @@
 		,B.cnt
 		<!-- ,(SELECT date_format(input_dt,'%Y-%m-%d') FROM board WHERE no=B.B_NO) input_dt
 		,(SELECT date_format(input_dt,'%H:%m:%s') FROM board WHERE no=B.B_NO) input_h -->
-        ,IF(date_format(NOW(),'%Y-%m-%d')=date_format(input_dt,'%Y-%m-%d'),(SELECT date_format(input_dt,'%H:%m:%s') FROM board WHERE B_NO=B.B_NO),(SELECT date_format(input_dt,'%Y-%m-%d') FROM board WHERE B_NO=B.B_NO)) input_dt
+        ,IF(date_format(NOW(),'%Y-%m-%d')=date_format(input_dt,'%Y-%m-%d'),(SELECT date_format(input_dt,'%H:%m:%s') FROM board WHERE B_NO=B.B_NO AND B_TYPE=#{B_TYPE}),(SELECT date_format(input_dt,'%Y-%m-%d') FROM board WHERE B_NO=B.B_NO AND B_TYPE=#{B_TYPE})) input_dt
 		FROM board B,(SELECT @rownum:=0) R
-		where B.B_NO>0
+		where B.B_NO>0 AND B.B_TYPE=#{B_TYPE}
 		<include refid="searchOption"/>
 		ORDER BY B.B_NO DESC
 	<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
@@ -60,14 +44,14 @@
 			,B.input_dt
 		
 		FROM board B
-		WHERE B.B_NO>0
+		where B.B_NO>0 AND B.B_TYPE=#{B_TYPE}
 		<include refid="searchOption"/>
 		) B
 	</select>
 	
 	<select id="selectBoardMaxNo" parameterType="map"
 		resultType="Integer">
-			SELECT max(B_NO) FROM board
+			SELECT max(B_NO) FROM board WHERE B_TYPE=#{B_TYPE}
 	</select>
 	
 	<select id="selectBoardDetail" parameterType="map"
@@ -85,19 +69,19 @@
 		from board B
 		inner join MP_FILE MF
 		on B.B_NO=MF.BNO
-		where B.B_NO=#{no,jdbcType=VARCHAR}
-
+		where B.B_NO={no,jdbcType=VARCHAR}
 	</select>
 	
 	<update id="updateCnt" parameterType="map">
 		update board
 		set cnt = cnt+1
-		where B_NO=#{no,jdbcType=VARCHAR}
+		where B_NO=#{no,jdbcType=VARCHAR} AND B_TYPE=#{B_TYPE}
 	</update>
 	
 	<insert id="insertBoard" parameterType="map">
 	<selectKey resultType="int" keyProperty="no" order="BEFORE">
 		SELECT COALESCE(MAX(B_NO),0)+1 AS B_NO FROM board
+		WHERE  B_NO=#{no,jdbcType=VARCHAR} AND B_TYPE=#{B_TYPE}
 	</selectKey>
 		insert board(
 		B_NO
@@ -105,12 +89,14 @@
 		,title
 		,content
 		,input_dt
+		,B_TYPE
 		) values(
 		#{B_NO}
 		,#{id,jdbcType=VARCHAR}
 		,#{title,jdbcType=VARCHAR}
 		,#{content,jdbcType=VARCHAR}
 		,NOW()
+		,#{B_TYPE,jdbcType=VARCHAR}
 		)
 	</insert>
 	
@@ -122,12 +108,14 @@
 			,TITLE
 			,content
 			,updt_dt
+			,B_TYPE
 		) VALUES(
 			#{no, jdbcType=VARCHAR}
 			, #{id, jdbcType=VARCHAR}
 			, #{title, jdbcType=VARCHAR}
 			, #{content, jdbcType=VARCHAR}
 			, NOW()
+			, #{B_TYPE}
 		)
 		ON DUPLICATE KEY UPDATE
 		B_NO = #{no, jdbcType=VARCHAR}
@@ -135,6 +123,7 @@
 		, TITLE = #{title, jdbcType=VARCHAR}
 		, content = #{content, jdbcType=VARCHAR}
 		, updt_dt = NOW()
+		, B_TYPE = #{B_TYPE}
 	</update>
 	
 	<update id="deleteBoard" parameterType="map">
@@ -145,7 +134,7 @@
 	<insert id="insertHisBoard" parameterType="map">
 	<selectKey resultType="int" keyProperty="HIS_ID" order="BEFORE">
 		SELECT COALESCE(MAX(HIS_ID),0)+1 AS HIS_ID FROM board_h
-		where B_NO=#{no, jdbcType=VARCHAR}
+		where B_NO=#{no,jdbcType=VARCHAR} AND B_TYPE=#{B_TYPE}
 	</selectKey>
 		insert into board_h(
 		HIS_ID
@@ -156,6 +145,7 @@
 		,input_dt
 		,updt_dt
 		,cnt
+		,B_TYPE
 		)
 		select
 		#{HIS_ID,jdbcType=VARCHAR}
@@ -166,6 +156,7 @@
 		,input_dt
 		,updt_dt
 		,cnt
+		,B_TYPE
 		from board where B_NO=#{no, jdbcType=VARCHAR}
 	</insert>
 	

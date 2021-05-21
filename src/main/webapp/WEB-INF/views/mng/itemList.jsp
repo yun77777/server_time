@@ -111,7 +111,7 @@
 						<c:forEach var="result" items="${list}" varStatus="status">
 							<tr>
 								<th scope="row">${result.B_NO}</th>
-								<td><a href="#" onclick="fn_detail('${result.B_NO}','${member.ID}');">${result.title}</a></td>
+								<td><a href="#" onclick="fn_detail('${result.B_NO}','${result.id}');">${result.title}</a></td>
 <%-- 								<td><a href="#" onclick="fn_detail('${result.B_NO}','${login.ID}');">${result.title}</a></td> --%>
 								<td>${result.id}</td>
 								<td>${result.input_dt}</td>
@@ -167,7 +167,7 @@ function fn_list(no) {
 	$('#currentPageNo').val(no);
 	
 	$('#boardForm').attr({
-		action : '<c:url value="/boardList.do"/>',
+		action : '<c:url value="/itemList.do"/>',
 		target : '_self'
 	}).submit();
 };
@@ -177,7 +177,7 @@ function fn_insert(id){
 		alert("You need to log in first");
 	else{
 		$('#boardForm').attr({
-			action : '<c:url value="/boardInsert.do" />',
+			action : '<c:url value="/itemInsert.do" />',
 			target : '_self'
 		}).submit();
 	}
@@ -194,7 +194,7 @@ function fn_detail(no,id){
 		$('#boardForm #no').val(no);
 		
 		$('#boardForm').attr({
-			action : '<c:url value="/boardDetail.do" />',
+			action : '<c:url value="/itemDetail.do" />',
 			target : '_self'
 		}).submit();
 	}

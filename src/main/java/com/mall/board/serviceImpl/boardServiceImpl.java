@@ -52,6 +52,8 @@ public class boardServiceImpl implements boardService {
 
 	@Override
 	public Map<String, Object> selectBoardDetail(Map<String, Object> paramMap) throws Exception {
+		System.err.println("param:"+paramMap);
+		System.err.println("oardMapper.selectBoardDetail(paramMap:"+boardMapper.selectBoardDetail(paramMap));
 		boardMapper.updateCnt(paramMap);
 		return boardMapper.selectBoardDetail(paramMap);
 	}
