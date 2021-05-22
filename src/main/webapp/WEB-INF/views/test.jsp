@@ -79,8 +79,10 @@ $(document).ready(function() {
  
 });
 
-function fn_detail(){
+function fn_detail(B_NO,B_TYPE){
 	//var  formData= $('#boardForm').serialize();
+	$('#B_NO').val(B_NO);
+	$('#B_TYPE').val(B_TYPE);
 	
 	$('#boardForm').attr({
 		action : '<c:url value="/orderDetail.do" />',

@@ -70,20 +70,10 @@
                     <c:forEach var="result" items="${list}" varStatus="status">
 	                   <div class="col-lg-4 col-sm-6 mb-4">
 	                       <div class="card h-100">
-	                           <a href="#!">
+	                           <a href="#!" onclick="fn_detail('${result.B_NO}','${result.B_TYPE}')">
 	                           <img class="card-img-top" src="<c:url value='/img/${result.file}'/>" alt="no image" /></a>
-<%-- 	                           <a href="#!"><img class="card-img-top" src="/displayImages.do?file_no=${result.file_no}" alt="no image" /></a> --%>
-	                           <div class="card-body">
-	                           <input type="hidden" id="id" name="B_NO" value="${result.B_NO}">
-	                           <input type="hidden" id="B_TYPE" name="B_TYPE" value="${result.B_TYPE}">
-	                           
-	                               <h4 class="card-title"><a href="#!" onclick="fn_detail()">${result.title}</a></h4>
-	                               <p class="card-text">${result.content}</p>
-	                               <p class="card-text">${result.file}</p>
-	                               <p class="card-text">${result.file_src}</p>
-	                               <p class="card-text">${result.file_no}</p>
-	                               <p class="card-text">${result.B_NO}</p>
-	                           </div>
+	                           <input type="hidden" id="B_NO" name="B_NO">
+	                           <input type="hidden" id="B_TYPE" name="B_TYPE">
 	                       </div>
 	                   </div>
                     </c:forEach>
