@@ -1,3 +1,4 @@
+ <%@taglib  prefix="spring" uri="http://www.springframework.org/tags" %>
      <!-- Page Content-->
         <!-- <section class="py-5">
             <div class="container">
@@ -69,7 +70,9 @@
                     <c:forEach var="result" items="${list}" varStatus="status">
 	                   <div class="col-lg-4 col-sm-6 mb-4">
 	                       <div class="card h-100">
-	                           <a href="#!"><img class="card-img-top" src="/displayImages.do?file_no=${result.file_no}" alt="no image" /></a>
+	                           <a href="#!">
+	                           <img class="card-img-top" src="<c:url value='/img/${result.file}'/>" alt="no image" /></a>
+<%-- 	                           <a href="#!"><img class="card-img-top" src="/displayImages.do?file_no=${result.file_no}" alt="no image" /></a> --%>
 	                           <div class="card-body">
 	                               <h4 class="card-title"><a href="#!">${result.title}</a></h4>
 	                               <p class="card-text">${result.content}</p>

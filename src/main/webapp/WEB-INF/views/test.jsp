@@ -52,6 +52,10 @@
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
 	
+	
+</body>
+
+
 <script>
 $(document).ready(function() {
 	// 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
@@ -74,10 +78,6 @@ $(document).ready(function() {
  
 });
 </script>
-	
-</body>
-
-
 
 
 </html>

@@ -168,28 +168,28 @@ public class boardController {
 		return paramMap;
 	}
 	
-	@RequestMapping(value="/displayImages.do")
-	public String displayImages(@RequestParam(value="file_no") String file_no, HttpServletResponse response)throws Exception{
-
-		Map<String, Object> map = new HashMap<String, Object>();
-	    map.put("file_no", file_no);
-		Map<String, Object> result = boardService.selectFile(map);
-		System.err.println("map@:"+map);
-		System.err.println("result@:"+result);
-		response.setContentType("image/jpg");
-	    ServletOutputStream bout = response.getOutputStream();
-	    //파일의 경로
-	    String imgpath = map.get("FILE_PATH").toString();
-	    System.err.println(File.separator);
-//	    String imgpath = map.get("path")+File.separator+result.get("file");
-	    FileInputStream f = new FileInputStream(imgpath);
-	    int length;
-	    byte[] buffer = new byte[10];
-	    while((length=f.read(buffer)) != -1){
-	    	bout.write(buffer,0,length);
-	    }
-	    return null;
-	}
+//	@RequestMapping(value="/displayImages.do")
+//	public String displayImages(@RequestParam(value="file_no") String file_no, HttpServletResponse response)throws Exception{
+//
+//		Map<String, Object> map = new HashMap<String, Object>();
+//	    map.put("file_no", file_no);
+//		Map<String, Object> result = boardService.selectFile(map);
+//		System.err.println("map@:"+map);
+//		System.err.println("result@:"+result);
+//		response.setContentType("image/jpg");
+//	    ServletOutputStream bout = response.getOutputStream();
+//	    //파일의 경로
+//	    String imgpath = map.get("FILE_PATH").toString();
+//	    System.err.println(File.separator);
+////	    String imgpath = map.get("path")+File.separator+result.get("file");
+//	    FileInputStream f = new FileInputStream(imgpath);
+//	    int length;
+//	    byte[] buffer = new byte[10];
+//	    while((length=f.read(buffer)) != -1){
+//	    	bout.write(buffer,0,length);
+//	    }
+//	    return null;
+//	}
 	
 	
 	@ResponseBody
