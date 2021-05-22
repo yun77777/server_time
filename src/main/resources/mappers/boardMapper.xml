@@ -225,6 +225,7 @@
 		,B.id
 		,B.title
 		,B.content
+		,B.B_TYPE
 		
 		<!-- ,(SELECT date_format(input_dt,'%Y-%m-%d') FROM board WHERE no=B.B_NO) input_dt
 		,(SELECT date_format(input_dt,'%H:%m:%s') FROM board WHERE no=B.B_NO) input_h -->

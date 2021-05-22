@@ -17,10 +17,10 @@
                     	<li class="nav-item"><p class="nav-link">Welcome <b>${member.ID}</b>!</p></li>
 <%--                     	<li class="nav-item"><p class="nav-link">Welcome <b>${login.ID}</b>!</p></li> --%>
 				    </c:if>
-                        <li class="nav-item"><a class="nav-link" href="/about.do">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/boardList.do">Board</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/chatting.do">Chat</a></li>
+<!--                         <li class="nav-item"><a class="nav-link" href="/about.do">About</a></li>
+ -->                        <li class="nav-item"><a class="nav-link" href="/boardList.do">Board</a></li>
+<!--                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+ -->                        <li class="nav-item"><a class="nav-link" href="/chatting.do">Chat</a></li>
                         <c:if test="${not empty member.MNG_DIV and member.MNG_DIV eq 'Y'}">
                            <li class="nav-item"><a class="nav-link" href="/boardList.do" style="color:red">Manage</a></li>
                         </c:if>
@@ -44,7 +44,7 @@
                        </li>
 					</c:if>
                         
-                        <li class="nav-item dropdown">
+                        <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Blog</a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
                                 <a class="dropdown-item" href="blog-home-1.html">Blog Home 1</a>
@@ -61,7 +61,7 @@
                                 <a class="dropdown-item" href="404.html">404</a>
                                 <a class="dropdown-item" href="pricing.html">Pricing Table</a>
                             </div>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>

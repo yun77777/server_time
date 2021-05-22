@@ -37,18 +37,19 @@
 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
 	
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<form id="boardForm" method="post">
+		<div id="floatMenu" class="floatMenu" style="position: absolute;
+			width: 200px;
+			height: 200px;
+			right: 50px;
+			top: 550px;
+			background-color: #606060;
+			color: #fff;">
+			<span>최근에 본 상품</span>
+		</div>
+		<%@ include file="/WEB-INF/views/common/content.jsp"%>
+	</form>
 	
-<div id="floatMenu" class="floatMenu" style="position: absolute;
-	width: 200px;
-	height: 200px;
-	right: 50px;
-	top: 550px;
-	background-color: #606060;
-	color: #fff;">
-	<span>최근에 본 상품</span>
-</div>
-
-	<%@ include file="/WEB-INF/views/common/content.jsp"%>
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
 	
@@ -77,6 +78,15 @@ $(document).ready(function() {
 	}).scroll();
  
 });
+
+function fn_detail(){
+	//var  formData= $('#boardForm').serialize();
+	
+	$('#boardForm').attr({
+		action : '<c:url value="/orderDetail.do" />',
+		target : '_self'
+	}).submit();
+}
 </script>
 
 

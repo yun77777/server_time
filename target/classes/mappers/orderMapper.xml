@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.mall.order.serviceImpl.orderMapper">
+	
+	<select id="selectOrderDetail" parameterType="map"
+		resultType="map">
+		select 
+		B.B_NO
+		,B.id
+		,B.title
+		,B.content
+		,B.cnt
+		,B.input_dt
+		,B.updt_dt
+		,MF.ORG_FILE_NAME file
+		,(SELECT ORG_FILE_NAME FROM MP_FILE WHERE B.B_NO=BNO) file
+		,(SELECT FILE_PATH FROM MP_FILE WHERE B.B_NO=BNO) file_src
+		,(SELECT SEQ_MP_FILE_NO FROM MP_FILE WHERE B.B_NO=BNO) file_no
+		from board B
+		left outer join MP_FILE MF
+		on B.B_NO=MF.BNO
+		where B.B_NO=#{B_NO} and B.B_TYPE=#{B_TYPE}
+	</select>
+	
+	
+</mapper>
