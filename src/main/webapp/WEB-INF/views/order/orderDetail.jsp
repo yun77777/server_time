@@ -32,7 +32,7 @@
 
 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
 <!-- Page Content-->
-<section class="py-5 bg-light">
+<%-- <section class="py-5 bg-light">
             <div class="container centeringContainer">
 <!--             <span class="centered"> <span class="item" style="display:block">block item</span> </span>
  -->
@@ -119,7 +119,6 @@
 	                       <div class="card h-100">
 	                           <a href="#!">
 	                           <img class="card-img-top" src="<c:url value='/img/${result.file}'/>" alt="no image" /></a>
-<%-- 	                           <a href="#!"><img class="card-img-top" src="/displayImages.do?file_no=${result.file_no}" alt="no image" /></a> --%>
 	                           <div class="card-body">
 	                           <input type="hidden" id="id" name="B_NO" value="${result.B_NO}">
 	                           <input type="hidden" id="B_TYPE" name="B_TYPE" value="${result.B_TYPE}">
@@ -136,7 +135,116 @@
                     </c:forEach>
                 </div>
             </div>
+        </section> --%>
+        
+<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+        <!-- Page Content-->
+        <section class="py-5">
+            <div class="container centeringContainer">
+                <!-- Page Heading/Breadcrumbs-->
+                <h1>
+                    Item
+                    <small>${detail.title}</small>
+                </h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active">Item</li>
+                </ol>
+                <!-- Portfolio Item Row-->
+	                  
+		                
+                <div class="row">
+                    <div class="col-md-8"><img class="card-img-top" src="<c:url value='/img/${detail.file}'/>" alt="no image" /></div>
+                    <div class="col-md-4">
+                        <h3 class="my-3">${detail.title}</h3>
+                       
+                         <div class="col-lg-8 mb-4">
+								 <table class="table table-sm">
+									<thead>
+									</thead>
+									<tbody>
+										<tr>
+											<th scope="row">Price</th>
+											<td>${detail.input_dt}</td>
+										</tr>
+										<tr>
+											<th scope="row">Color</th>
+											<td>${detail.cnt}</td>
+										</tr>
+										<tr>
+											<th scope="row">Total Price</th>
+											<td>${detail.id}</td>
+										</tr>
+									</tbody>
+								</table>
+		                    </div>
+		                    <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
+	                        <h3 class="my-3">Project Details</h3>
+	                        <ul>
+	                            <li>Lorem Ipsum</li>
+	                            <li>Dolor Sit Amet</li>
+	                            <li>Consectetur</li>
+	                            <li>Adipiscing Elit</li>
+	                        </ul> -->
+		                    <div class="row">
+								<button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="button">Order</button>
+								<button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="button">Cart</button>
+								<button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="button">Wish List</button>
+							</div>
+                    </div>
+                    <div class="centered">
+<!-- <span class="centered"> <span class="item" style="display:block">block item</span> </span> -->
+                    <h3 class="my-3">Project Details</h3>
+	                        <ul>
+	                            <li><img class="card-img-top" src="<c:url value='/img/${detail.file}'/>" alt="no image" /></li>
+	                            <li><img class="card-img-top" src="<c:url value='/img/${detail.file}'/>" alt="no image" /></li>
+	                            <li><img class="card-img-top" src="<c:url value='/img/${detail.file}'/>" alt="no image" /></li>
+	                            <li><img class="card-img-top" src="<c:url value='/img/${detail.file}'/>" alt="no image" /></li>
+	                            <li><img class="card-img-top" src="<c:url value='/img/${detail.file}'/>" alt="no image" /></li>
+	                            <li><img class="card-img-top" src="<c:url value='/img/${detail.file}'/>" alt="no image" /></li>
+	                            <li><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p></li>
+	                            <li><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p></li>
+	                            <li><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p></li>
+	                            <li><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p></li>
+	                            <li><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p></li>
+	                            <li><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p></li>
+	                        </ul>
+                    </div>
+                </div>
+            </div>
         </section>
+        <hr class="my-0" />
+        <!-- Related Projects Section-->
+        <section class="py-5 bg-light">
+            <div class="container">
+                <h2 class="mb-4">Related Projects</h2>
+                
+                <div class="row">
+                	<c:forEach var="result" items="${list}" varStatus="status">
+	                   
+	                <div class="col-md-3 col-sm-6 mb-4">
+                        <a href="#!"><img class="card-img-top" src="<c:url value='/img/${result.file}'/>" alt="no image" /></a>
+                    </div>
+                	</c:forEach>
+                </div>
+                
+                <!-- <div class="row">
+                    <div class="col-md-3 col-sm-6 mb-4">
+                        <a href="#!"><img class="img-fluid" src="https://via.placeholder.com/500x300" alt="..." /></a>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mb-4">
+                        <a href="#!"><img class="img-fluid" src="https://via.placeholder.com/500x300" alt="..." /></a>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mb-4">
+                        <a href="#!"><img class="img-fluid" src="https://via.placeholder.com/500x300" alt="..." /></a>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mb-4">
+                        <a href="#!"><img class="img-fluid" src="https://via.placeholder.com/500x300" alt="..." /></a>
+                    </div>
+                </div> -->
+            </div>
+        </section>
+        
 
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
