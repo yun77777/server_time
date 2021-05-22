@@ -178,19 +178,26 @@
 									</tbody>
 								</table>
 		                    </div>
-		                    <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
+		                    
+		                   
+	                        
+		                    <div class="row">
+								<button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="button">Order</button>
+								<button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="button">Cart</button>
+								<button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="button">Wish List</button>
+							</div>
+							<br>
+							<br>
 	                        <h3 class="my-3">Project Details</h3>
 	                        <ul>
 	                            <li>Lorem Ipsum</li>
 	                            <li>Dolor Sit Amet</li>
 	                            <li>Consectetur</li>
 	                            <li>Adipiscing Elit</li>
-	                        </ul> -->
-		                    <div class="row">
-								<button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="button">Order</button>
-								<button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="button">Cart</button>
-								<button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="button">Wish List</button>
-							</div>
+	                        </ul>
+	                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
+	                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
+	                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
                     </div>
                     <div class="centered">
 <!-- <span class="centered"> <span class="item" style="display:block">block item</span> </span> -->
