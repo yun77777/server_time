@@ -14,7 +14,6 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Modern Business - Start Bootstrap Template</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Font Awesome icons (free version)-->
@@ -29,7 +28,7 @@
 <body>
 
 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
-	<!-- Page Content-->
+	<!-- Page content-->
 	<section class="py-5">
 		<div class="container">
 			<form id="boardForm" method="post" enctype="multipart/form-data">
@@ -44,18 +43,18 @@
 		<div id="container_box">
 			<h2>상품 등록</h2>
 			
-			<form role="form" method="post" autocomplete="off" enctype="multipart/form-data">
-			
+<%-- 			<form role="form" method="post" autocomplete="off" enctype="multipart/form-data">
+ --%>			
 			<div class="inputArea">	
 				<label>1차 분류</label>
-				<select class="category1">
+				<select class="category1 form-control">
 					<option value="">전체</option>
 					<option value="1">1</option>
 					<option value="2">2</option>
 				</select>
 			
 				<label>2차 분류</label>
-				<select class="category2" name="cateCode">
+				<select class="category2 form-control" name="cateCode">
 					<option value="">전체</option>
 					<option value="top">top</option>
 					<option value="bottom">bottom</option>
@@ -64,24 +63,24 @@
 			
 			<div class="inputArea">
 				<label for="gdsName">상품명</label>
-				<input type="text" id="gdsName" name="gdsName" />
+				<input type="text" id="gdsName" name="gdsName" class="form-control"/>
 			</div>
 			
 			<div class="inputArea">
 				<label for="gdsPrice">상품가격</label>
-				<input type="text" id="gdsPrice" name="gdsPrice" />
+				<input type="text" id="gdsPrice" name="gdsPrice" class="form-control"/>
 			</div>
 			
 			<div class="inputArea">
 				<label for="gdsStock">상품수량</label>
-				<input type="text" id="gdsStock" name="gdsStock" />
+				<input type="text" id="gdsStock" name="gdsStock" class="form-control"/>
 			</div>
 			
 			<div class="inputArea">
 				<label for="gdsDes">상품소개</label>
-				<textarea rows="5" cols="50" id="gdsDes" name="gdsDes"></textarea>
+				<textarea rows="5" cols="50" id="gdsDes" name="gdsDes" class="form-control"></textarea>
 				
-				<script>
+				<!-- <script>
 					var ckeditor_config = {
 							resize_enaleb : false,
 							enterMode : CKEDITOR.ENTER_BR,
@@ -91,12 +90,13 @@
 					
 					CKEDITOR.replace("gdsDes", ckeditor_config);
 				</script>
+				 -->
 				
 			</div>
 			
 			<div class="inputArea">
 				<label for="gdsImg">이미지</label>
-				<input type="file" id="gdsImg" name="file" />
+				<input type="file" id="gdsImg" name="file" class="form-control"/>
 				<div class="select_img"><img src="" /></div>
 				
 				<script>
@@ -110,17 +110,19 @@
 						}
 					});
 				</script>
-				
 				<%=request.getRealPath("/") %> 
-				
+<%-- 				<%=request.getRealPath("/") %> 
+ --%>				
+<%--  <%=request.getSession().getServletContext().getRealPath("/") %>
+ --%>
 			</div>
 			
 			<div class="inputArea">
 				<button type="submit" id="register_Btn" class="btn btn-primary">등록</button>			
 			</div>
 			
-			</form>
-			
+<%-- 			</form>
+ --%>			
 		</div>
 	</section>
 	<!-- //@@@ -->
@@ -160,7 +162,7 @@ function fn_insert() {
 	$('#boardForm #no').attr('disabled',false);
 	$('#boardForm #id').attr('disabled',false);
 	var formData = new FormData($("#boardForm")[0]);
-	alert($("#file").val());
+	alert('insert');
 	$.ajax({
 		url : "${pageContext.request.contextPath}/insertItem.do",
 		type : "post",
@@ -182,7 +184,7 @@ function fn_insert() {
 var oEditors = [];
 nhn.husky.EZCreator.createInIFrame({
 	oAppRef : oEditors,
-	elPlaceHolder : "content", //저는 textarea의 id와 똑같이 적어줬습니다.
+	elPlaceHolder : "gdsDes", //저는 textarea의 id와 똑같이 적어줬습니다.
 	sSkinURI : "se2/SmartEditor2Skin.html", //경로를 꼭 맞춰주세요!
 	fCreator : "createSEditor2",
 	htParams : {
@@ -198,29 +200,46 @@ nhn.husky.EZCreator.createInIFrame({
 });
 
 $(function() {
-	$("").click(function() {
-/* 	$("#register_Btn").click(function() { */
+	$("#register_Btn").click(function() { 
 /* 	$("#submit").click(function() { */
-		oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []); 
+		oEditors.getById["gdsDes"].exec("UPDATE_CONTENTS_FIELD", []); 
+
 		//textarea의 id를 적어줍니다.
 
-		var selcatd = $("#selcatd > option:selected").val();
-		var title = $("#title").val();
-		var content = document.getElementById("content").value;
-		
-		if (selcatd == "") {
+		/* var selcatd1 = $(".category1").val();
+		var selcatd2 = $(".category2").val(); */
+/* 		var selcatd = $("#selcatd > option:selected").val(); */
+		//var gdsDes = document.getElementById("gdsDes").value;
+		var gdsPrice = $("#gdsPrice").val();
+		var gdsStock = $("#gdsStock").val();
+		var gdsName = $("#gdsName").val();
+		var gdsDes = $("#gdsDes").val();
+
+		/* if (selcatd1 == "") {
 			alert("카테고리를 선택해주세요.");
+			$(".category1").focus();
+			alert('ff');
+			return;
+		} */
+		if (gdsPrice == null || gdsPrice == "") {
+			alert("상품가격을 입력해주세요.");
+			$("#gdsPrice").focus();
 			return;
 		}
-		if (title == null || title == "") {
-			alert("제목을 입력해주세요.");
-			$("#title").focus();
+		if (gdsStock == null || gdsStock == "") {
+			alert("상품가격을 입력해주세요.");
+			$("#gdsStock").focus();
 			return;
 		}
-		if(content == "" || content == null || content == '&nbsp;' || 
-				content == '<br>' || content == '<br/>' || content == '<p>&nbsp;</p>'){
+		if (gdsName == null || gdsName == "") {
+			alert("상품명을 입력해주세요.");
+			$("#gdsName").focus();
+			return;
+		}
+		if(gdsDes == "" || gdsDes == null || gdsDes == '&nbsp;' || 
+				gdsDes == '<br>' || gdsDes == '<br/>' || gdsDes == '<p>&nbsp;</p>'){
 			alert("본문을 작성해주세요.");
-			oEditors.getById["content"].exec("FOCUS"); //포커싱
+			oEditors.getById["gdsDes"].exec("FOCUS"); //포커싱
 			return;
 		} //이 부분은 스마트에디터 유효성 검사 부분이니 참고하시길 바랍니다.
 		
@@ -321,7 +340,7 @@ $(document).on("change", "select.category1", function(){
 });
 </script>
 
-<script>
+<!-- <script>
 var regExp = /[^0-9]/gi;
 $("#gdsPrice").keyup(function(){ numCheck($(this)); });
 $("#gdsStock").keyup(function(){ numCheck($(this)); });
@@ -329,7 +348,7 @@ function numCheck(selector) {
 	var tempVal = selector.val();
 	selector.val(tempVal.replace(regExp, ""));
 }
-</script>
+</script> -->
 
 </html>
 

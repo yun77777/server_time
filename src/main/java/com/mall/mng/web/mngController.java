@@ -108,9 +108,6 @@ public class mngController {
 			
 			paramMap.put("no",boardService.selectBoardMaxNo(paramMap)+1);
 			Map<String,Object> view=boardService.selectBoardDetail(paramMap);
-			System.err.println("detailP");
-			System.err.println(view);
-			System.err.println(paramMap);
 			List<Map<String,Object>> list=boardService.selectBoardHisList(paramMap);
 			
 			model.addAttribute("detail",view);
