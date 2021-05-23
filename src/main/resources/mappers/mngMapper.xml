@@ -3,5 +3,20 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
 <mapper namespace="com.mall.mng.serviceImpl.mngMapper">
-	
+	<select id="category" resultType="com.mall.vo.CategoryVO">
+		select
+			cateName, cateCode, cateCodeRef
+		from goods_category
+<!-- 	    	start with cateCodeRef is null connect by prior cateCode = cateCodeRef
+ -->	</select>
+
+	<insert id="register">
+	<selectKey resultType="int" keyProperty="HIS_ID" order="BEFORE">
+		SELECT COALESCE(MAX(tbl_goods_seq),0)+1 AS tbl_goods_seq FROM tbl_goods
+	</selectKey>
+		insert into tbl_goods (gdsNum, gdsName, cateCode, gdsPrice, gdsStock, gdsDes, 
+								gdsImg, gdsThumbImg)
+	   		values (tbl_goods_seq, #{gdsName}, #{cateCode}, #{gdsPrice}, #{gdsStock}, #{gdsDes},
+	   		 		#{gdsImg}, #{gdsThumbImg})
+	</insert>
 </mapper>

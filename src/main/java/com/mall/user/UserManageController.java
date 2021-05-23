@@ -20,7 +20,8 @@ public class UserManageController {
 			HttpSession httpSession, Model model) throws Exception {
 		System.err.println("login@@:" + httpSession.getAttribute("login"));
 		model.addAttribute("login", httpSession.getAttribute("login"));
-
+		model.addAttribute("member",httpSession.getAttribute("member"));
+		
 		Map<String, Object> login = (Map<String, Object>) httpSession.getAttribute("login");
 		paramMap.put("ID",login.get("ID"));
 		

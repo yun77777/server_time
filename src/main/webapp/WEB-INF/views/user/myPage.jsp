@@ -43,7 +43,8 @@
 						<label>id:</label>
 						<label>
 							<c:if test="${not empty login}">
-		                    	<li class="nav-item"><p class="nav-link">Welcome <b>${login.ID}</b>!</p></li>
+		                    	<li class="nav-item"><p class="nav-link">Welcome <b>${member.ID}</b>!</p></li>
+<%-- 		                    	<li class="nav-item"><p class="nav-link">Welcome <b>${login.ID}</b>!</p></li> --%>
 						    </c:if>
 						</label>
 					</div>
@@ -57,7 +58,8 @@
 						<div class="control-group form-group">
 							<div class="controls">
 								<label>id:</label> <input class="form-control" id="id"
-									name="ID" type="text" value="${login.ID}" disabled/>
+									name="ID" type="text" value="${member.ID}" disabled/>
+<%-- 									name="ID" type="text" value="${login.ID}" disabled/> --%>
 							</div>
 						</div>
 						

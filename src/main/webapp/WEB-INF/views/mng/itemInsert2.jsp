@@ -38,8 +38,67 @@
 				<h1>
 					Board <small>insert</small>
 				</h1>
-
-<!-- @@@ -->
+				<!-- Content Row-->
+				<!-- Contact Form-->
+				<!-- In order to set the email address and subject line for the contact form go to the assets/mail/contact_me.php file.-->
+				<div class="row">
+					<div class="col-lg-8 mb-4">
+						<div class="control-group form-group">
+							<div class="controls">
+								<label>no:</label> <input class="form-control" id="no"
+									name="no" type="text" value="${paramMap.no}" disabled
+									data-validation-required-message="Please enter your name." />
+								<p class="help-block"></p>
+							</div>
+						</div>
+						<div class="control-group form-group">
+							<div class="controls">
+								<label>id:</label> <input class="form-control" id="id"
+									name="id" type="text" value="${login}" disabled
+<%-- 									name="id" type="text" value="${login.ID}" required --%>
+									data-validation-required-message="Please enter your phone number." />
+							</div>
+						</div>
+						<div class="control-group form-group">
+							<div class="controls">
+								<label>title:</label> <input class="form-control" id="title"
+									name="title" type="text" value="${detail.title}" required
+									data-validation-required-message="Please enter your email address." />
+							</div>
+						</div>
+						<div class="control-group form-group">
+							<div class="controls">
+								<label>files:</label> <input class="form-control" id="file"
+									name="file" type="file" required
+									data-validation-required-message="Please enter your email address." />
+							</div>
+						</div>
+						<%-- <div class="control-group form-group">
+							<div class="controls">
+								<label>content:</label>
+								<textarea class="form-control" name="content" id="content" rows="10" cols="100"
+									required
+									data-validation-required-message="Please enter your message"
+									maxlength="999" style="resize: none">${detail.content}</textarea>
+							</div>
+						</div> --%>
+						
+						<!-- SmartEditor2  -->
+						<%@ include file="/WEB-INF/views/common/smartEditor.jsp"%>
+						
+						<div id="success"></div>
+						<!-- For success/fail messages-->
+                        <button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="button">Go to the list</button>
+						<button class="btn btn-primary" onclick="" id="submit" type="button">submit</button>
+<!-- 						<button class="btn btn-primary" onclick="fn_insert()" id="submit" type="button">submit</button> -->
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+	
+	
+	<!-- @@@ -->
 	<section id="container">
 		<div id="container_box">
 			<h2>상품 등록</h2>
@@ -125,15 +184,6 @@
 	</section>
 	<!-- //@@@ -->
 
-
-
-			</form>
-		</div>
-	</section>
-	
-	
-	
-
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
 	<!-- Bootstrap core JS-->
@@ -198,8 +248,7 @@ nhn.husky.EZCreator.createInIFrame({
 });
 
 $(function() {
-	$("").click(function() {
-/* 	$("#register_Btn").click(function() { */
+	$("#register_Btn").click(function() {
 /* 	$("#submit").click(function() { */
 		oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []); 
 		//textarea의 id를 적어줍니다.

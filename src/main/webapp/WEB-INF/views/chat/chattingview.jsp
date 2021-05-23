@@ -5,8 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Simple Chat</title>
-<link href="<c:url value='/resources/css/styles.css'/>" rel="stylesheet" />
-
+<%-- <link href="<c:url value='/resources/css/styles.css'/>" rel="stylesheet" />
+ --%>
 </head>
 <body>
 	<%-- 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
@@ -18,15 +18,14 @@
 			value="${ID}" style="display: none;">
 		<%--         <input type="text" id="sender" value="${sessionScope.id}" style="display: none;"> --%>
 		<input type="text" id="messageinput">
-		<button type="button" onclick="send();">메세지 전송${ID}</button>
+		<button type="button" onclick="send();">메세지 전송${member.ID}</button>
+<%-- 		<button type="button" onclick="send();">메세지 전송${ID}</button> --%>
 		<button type="button" onclick="javascript:clearText();">대화내용
 			지우기</button>
 	</div>
 	<!-- Server responses get written here -->
 	<div id="messages"></div>
-	<div class="sideBanner">
-		<span class="txt-label"> Banner Data... </span>
-	</div>
+
 	<!-- websocket javascript -->
 	<%-- <%@ include file="/WEB-INF/views/common/footer.jsp"%>
 	<%@ include file="/WEB-INF/views/common/floatingContent.jsp"%>

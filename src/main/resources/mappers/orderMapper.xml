@@ -24,5 +24,105 @@
 		where B.B_NO=#{B_NO} and B.B_TYPE=#{B_TYPE}
 	</select>
 	
+	<!-- 주문 정보 -->
+<insert id="orderInfo">
+ insert into tbl_order(orderId, userId, orderRec, userAddr1, userAddr2, userAddr3, orderPhon, amount)
+     values(#{orderId}, #{userId}, #{orderRec}, #{userAddr1}, #{userAddr2}, #{userAddr3}, #{orderPhon}, #{amount})
+</insert>
+   
+<!-- 주문 상세 정보 --> 
+<insert id="orderInfo_Details">
+<selectKey resultType="int" keyProperty="HIS_ID" order="BEFORE">
+		SELECT COALESCE(MAX(tbl_order_details_seq),0)+1 AS tbl_order_details_seq FROM tbl_order_details
+		where orderId=#{orderId,jdbcType=VARCHAR}
+	</selectKey>
+ insert into tbl_order_details(orderDetailsNum, orderId, gdsNum, cartStock)
+     select tbl_order_details_seq, #{orderId}, gdsNum, cartStock
+<!--      select tbl_order_details_seq.nextval, #{orderId}, gdsNum, cartStock -->
+         from tbl_cart   
+</insert> 
+
+	    
+	<!-- 카트 비우기 -->
+	<delete id="cartAllDelete">
+		delete tbl_cart
+		    where userId = #{userId}
+	</delete>
+	
+	<!-- 특정 유저의 주문 목록 -->
+	<select id="orderList" resultType="com.mall.vo.OrderVO">
+		select 
+		    orderId, userId, orderRec,
+		    userAddr1, userAddr2, userAddr3,
+		    orderPhon, amount, orderDate, delivery
+		from tbl_order  
+		    where userId = #{userId}
+	</select>
+	
+	<!-- 특정 주문 목록 -->
+	<select id="orderView" resultType="com.mall.vo.OrderListVO">
+		select 
+		    o.orderId, o.userId, o.orderRec,
+		    o.userAddr1, o.userAddr2, o.userAddr3,
+		    o.orderPhon, o.amount, o.orderDate, o.delivery,
+		    d.orderDetailsNum, d.gdsNum, d.cartStock,
+		    g.gdsName, g.gdsThumbImg, g.gdsPrice
+		from tbl_order o
+		        inner join tbl_order_details d
+		            on o.orderId = d.orderId
+		        inner join tbl_goods g
+		            on d.gdsNum = g.gdsNum
+		    where o.userId = #{userId}
+		        and o.orderId = #{orderId}
+	</select>
+	
+	
+	<!-- 카테고리별 상품 리스트 : 1차 분류 -->
+	<select id="list_1" resultType="com.mall.vo.GoodsViewVO">
+	select
+	    g.gdsNum, g.gdsName, g.cateCode, c.cateCodeRef, c.cateName,
+	    gdsPrice, gdsStock, gdsDes, gdsDate, g.gdsImg, g.gdsThumbImg
+	        from tbl_goods g
+	            inner join goods_category c
+	                on g.cateCode = c.cateCode            
+	            where g.cateCode = #{cateCode}
+	            	or c.cateCodeRef = #{cateCodeRef}
+	</select>
+	
+	<!-- 카테고리별 상품 리스트 : 2차 분류 -->
+	<select id="list_2" resultType="com.mall.vo.GoodsViewVO">
+	select
+	    g.gdsNum, g.gdsName, g.cateCode, c.cateCodeRef, c.cateName,
+	    gdsPrice, gdsStock, gdsDes, gdsDate, g.gdsImg, g.gdsThumbImg
+	        from tbl_goods g
+	            inner join goods_category c
+	                on g.cateCode = c.cateCode            
+	            where g.cateCode = #{cateCode}
+	</select>
+	
+	<!-- 카트 담기 -->
+	<insert id="addCart">
+		insert into tbl_cart (cartNum, userId, gdsNum, cartStock)
+	   		values (tbl_cart_seq.nextval, #{userId}, #{gdsNum}, #{cartStock})
+	</insert>
+	
+	<!-- 카트 리스트 -->
+	<select id="cartList" resultType="com.mall.vo.CartListVO">
+		select
+		    row_number() over(order by c.cartNum desc) as num,
+		    c.cartNum, c.userId, c.gdsNum, c.cartStock, c.addDate,
+		    g.gdsName, g.gdsPrice, g.gdsThumbImg
+		from tbl_cart c
+		    inner join tbl_goods g
+		        on c.gdsNum = g.gdsNum    
+		    where c.userId = #{userId}
+	</select>
+	
+	<!-- 카트 삭제 -->
+	<delete id="deleteCart">
+		delete tbl_cart
+		    where cartNum = #{cartNum}
+		        and userId = #{userId}
+	</delete>
 	
 </mapper>

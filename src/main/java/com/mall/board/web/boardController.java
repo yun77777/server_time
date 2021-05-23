@@ -210,9 +210,11 @@ public class boardController {
 	
 	
 	@RequestMapping(value = "/chatting.do", method = RequestMethod.GET)
-	public String loginProcess(@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request) {
+	public String loginProcess(@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) {
 //		public String loginProcess(@RequestParam String id, HttpServletRequest request) {
 		Map<String, Object> login=(Map<String, Object>) httpSession.getAttribute("login");
+		model.addAttribute("member",httpSession.getAttribute("member"));
+
     	String id = request.getSession().getId();
 		System.err.println("xxx");
 		logger.info("Welcome "+id);
