@@ -17,11 +17,25 @@ public class CartListVO {
 	private Date addDate;
 	
 	private int num;
+	private int tbl_cart_seq;
+	
 	private String gdsName;
 	private int gdsPrice;
 	private String gdsThumbImg;
 	
 	
+	@Override
+	public String toString() {
+		return "CartListVO [cartNum=" + cartNum + ", userId=" + userId + ", gdsNum=" + gdsNum + ", cartStock="
+				+ cartStock + ", addDate=" + addDate + ", num=" + num + ", tbl_cart_seq=" + tbl_cart_seq + ", gdsName="
+				+ gdsName + ", gdsPrice=" + gdsPrice + ", gdsThumbImg=" + gdsThumbImg + "]";
+	}
+	public int getTbl_cart_seq() {
+		return tbl_cart_seq;
+	}
+	public void setTbl_cart_seq(int tbl_cart_seq) {
+		this.tbl_cart_seq = tbl_cart_seq;
+	}
 	public int getCartNum() {
 		return cartNum;
 	}

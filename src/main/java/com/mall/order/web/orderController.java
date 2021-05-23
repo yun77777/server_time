@@ -40,7 +40,7 @@ public class orderController {
 	private boardService boardService;
 
 	@RequestMapping(value = "/orderDetail.do")
-	public String boardDetail(@RequestParam("n") int gdsNum, @RequestParam Map<String, Object> paramMap, HttpSession httpSession,
+	public String boardDetail(@RequestParam Map<String, Object> paramMap, HttpSession httpSession,
 			HttpServletRequest request, Model model) throws Exception {
 
 		try {
@@ -58,7 +58,7 @@ public class orderController {
 			model.addAttribute("detail", detail);
 			
 			
-			GoodsViewVO view = orderService.goodsView(gdsNum);
+//			GoodsViewVO view = orderService.goodsView(gdsNum);
 //			model.addAttribute("view", view);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -99,11 +99,13 @@ public class orderController {
 	public int addCart(CartListVO cart, HttpSession session) throws Exception {
 
 		int result = 0;
+		System.err.println("sessionL"+session.getAttribute("login"));
 
-		UserVO member = (UserVO) session.getAttribute("ID");
-
+		String member = String.valueOf(session.getAttribute("login"));
+//		UserVO member = (UserVO) session.getAttribute("login");
 		if (member != null) {
-			cart.setUserId(member.getID());
+			cart.setUserId(member);
+//			cart.setUserId(member.getID());
 			orderService.addCart(cart);
 			result = 1;
 		}

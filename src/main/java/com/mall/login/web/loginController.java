@@ -31,9 +31,6 @@ public class loginController {
 	
 	@RequestMapping(value = "/signIn.do")
 	public String signIn( @RequestParam Map<String, Object> paramMap, HttpSession session, HttpServletRequest request, Model model) throws Exception {
-		System.err.println("searchList@@@");
-		System.err.println(paramMap);
-		
 		try {
 			
 		} catch (Exception e) {
