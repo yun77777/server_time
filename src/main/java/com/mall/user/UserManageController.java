@@ -22,8 +22,9 @@ public class UserManageController {
 		model.addAttribute("login", httpSession.getAttribute("login"));
 		model.addAttribute("member",httpSession.getAttribute("member"));
 		
-		Map<String, Object> login = (Map<String, Object>) httpSession.getAttribute("login");
-		paramMap.put("ID",login.get("ID"));
+//		Map<String, Object> login = (Map<String, Object>) httpSession.getAttribute("login");
+//		paramMap.put("ID",login.get("ID"));
+		String login = String.valueOf(httpSession.getAttribute("login"));
 		
 		Map<String, Object> info = userService.memberInfo(paramMap);
 		System.err.println("info@:"+info);

@@ -457,6 +457,7 @@ $(".modal_cancel").click(function(){
 				if(result == 1) {
 					alert("카트 담기 성공");
 					$(".numBox").val("1");
+
 				} else {
 					alert("회원만 사용할 수 있습니다.")
 					$(".numBox").val("1");

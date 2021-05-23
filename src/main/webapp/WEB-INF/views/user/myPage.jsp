@@ -40,7 +40,6 @@
 				
 				<div class="control-group form-group">
 					<div class="controls">
-						<label>id:</label>
 						<label>
 							<c:if test="${not empty login}">
 		                    	<li class="nav-item"><p class="nav-link">Welcome <b>${member.ID}</b>!</p></li>

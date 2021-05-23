@@ -114,17 +114,20 @@ public class orderController {
 	}
 
 	// 카트 목록
-	@RequestMapping(value = "/cartList.do", method = RequestMethod.GET)
-	public void getCartList(HttpSession session, Model model) throws Exception {
-		logger.info("get cart list");
-
-		UserVO member = (UserVO) session.getAttribute("ID");
-		String userId = member.getID();
-
-		List<CartListVO> cartList = orderService.cartList(userId);
-
-		model.addAttribute("cartList", cartList);
-	}
+//	@RequestMapping(value = "/cartList.do", method = RequestMethod.GET)
+//	public void getCartList(HttpSession session, Model model) throws Exception {
+//		logger.info("get cart list");
+//
+//		String member = String.valueOf(session.getAttribute("login"));
+//		String userId = member;
+//		
+////		UserVO member = (UserVO) session.getAttribute("ID");
+////		String userId = member.getID();
+//
+//		List<CartListVO> cartList = orderService.cartList(userId);
+//
+//		model.addAttribute("cartList", cartList);
+//	}
 
 	// 카트 삭제
 	@ResponseBody
@@ -154,12 +157,19 @@ public class orderController {
 	}
 
 	// 주문
-	@RequestMapping(value = "/cartList.do", method = RequestMethod.POST)
-	public String order(HttpSession session, OrderVO order, OrderDetailVO orderDetail) throws Exception {
+	@RequestMapping(value = "/cartList.do")
+//	@RequestMapping(value = "/cartList.do", method = RequestMethod.POST)
+	public String order(Model model, HttpSession session, OrderVO order, OrderDetailVO orderDetail) throws Exception {
 		logger.info("order");
+		model.addAttribute("login", session.getAttribute("login"));
+		model.addAttribute("member", session.getAttribute("member"));
 
-		UserVO member = (UserVO) session.getAttribute("ID");
-		String userId = member.getID();
+		System.err.println("ff"+session.getAttribute("login"));
+		String member = String.valueOf(session.getAttribute("login"));
+		String userId = member;
+		
+//		UserVO member = (UserVO) session.getAttribute("ID");
+//		String userId = member.getID();
 
 		// 캘린더 호출
 		Calendar cal = Calendar.getInstance();
@@ -177,15 +187,19 @@ public class orderController {
 		order.setOrderId(orderId);
 		order.setUserId(userId);
 
-		orderService.orderInfo(order);
+//		orderService.orderInfo(order);
 
 		orderDetail.setOrderId(orderId);
-		orderService.orderInfo_Details(orderDetail);
+//		orderService.orderInfo_Details(orderDetail);
 
 		// 주문 테이블, 주문 상세 테이블에 데이터를 전송하고, 카트 비우기
-		orderService.cartAllDelete(userId);
+//		orderService.cartAllDelete(userId);
+		List<CartListVO> cartList = orderService.cartList(userId);
 
-		return "redirect:/order/orderList";
+		model.addAttribute("cartList", cartList);
+
+//		return "redirect:/order/cartList";
+		return "order/cartList";
 	}
 
 	// 주문 목록

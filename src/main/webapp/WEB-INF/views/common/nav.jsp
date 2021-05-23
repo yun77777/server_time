@@ -21,22 +21,30 @@
  -->                        <li class="nav-item"><a class="nav-link" href="/boardList.do">Board</a></li>
 <!--                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
  -->                        <li class="nav-item"><a class="nav-link" href="/chatting.do">Chat</a></li>
-                        <c:if test="${not empty member.MNG_DIV and member.MNG_DIV eq 'Y'}">
-                           <li class="nav-item"><a class="nav-link" href="/boardList.do" style="color:red">Manage</a></li>
-                        </c:if>
+                        
                     <c:if test="${not empty member}">
                        <li class="nav-item"><a class="nav-link" href="/user/myPage.do">My Page</a></li>
                        <li class="nav-item"><a class="nav-link" href="/user/logout.do">Log Out</a></li>
+                       <li class="nav-item dropdown">
+                           <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:blue">${member.ID}</a>
+                           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                               <a class="dropdown-item" href="/user/myPage.do">My Page</a>
+                               <a class="dropdown-item" href="/cartList.do">Cart</a>
+                           </div>
+                       </li>
 				    </c:if>
                      <c:if test="${empty member}">
                         <li class="nav-item"><a class="nav-link" href="/user/login.do">sign In</a></li>
                         <li class="nav-item"><a class="nav-link" href="/signUp.do">Sign Up</a></li>
-				    </c:if>    
+				    </c:if>
+				    
+				    <!-- manage -->
                     <c:if test="${not empty member.MNG_DIV and member.MNG_DIV eq 'Y'}">
 						<li class="nav-item dropdown">
                            <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:red">Manage</a>
                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
                                <a class="dropdown-item" href="/itemList.do">Manage items</a>
+                               <a class="dropdown-item" href="/boardList.do">Manage board</a>
                                <a class="dropdown-item" href="portfolio-2-col.html">Item list</a>
                                <a class="dropdown-item" href="portfolio-3-col.html">Check the reviews</a>
                                <a class="dropdown-item" href="portfolio-4-col.html">User list</a>

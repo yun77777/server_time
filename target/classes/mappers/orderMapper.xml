@@ -33,9 +33,9 @@
 <!-- 주문 상세 정보 --> 
 <insert id="orderInfo_Details">
 <selectKey resultType="int" keyProperty="tbl_order_details_seq" order="BEFORE">
-		SELECT COALESCE(MAX(tbl_order_details_seq),0)+1 AS tbl_order_details_seq FROM tbl_order_details
-		where orderId=#{orderId,jdbcType=VARCHAR}
-	</selectKey>
+	SELECT COALESCE(MAX(tbl_order_details_seq),0)+1 AS tbl_order_details_seq FROM tbl_order_details
+	where orderId=#{orderId,jdbcType=VARCHAR}
+</selectKey>
  insert into tbl_order_details(orderDetailsNum, orderId, gdsNum, cartStock)
      select tbl_order_details_seq, #{orderId}, gdsNum, cartStock
 <!--      select tbl_order_details_seq.nextval, #{orderId}, gdsNum, cartStock -->
@@ -115,13 +115,21 @@
 	<!-- 카트 리스트 -->
 	<select id="cartList" resultType="com.mall.vo.CartListVO">
 		select
-		    row_number() over(order by c.cartNum desc) as num,
+		   
 		    c.cartNum, c.userId, c.gdsNum, c.cartStock, c.addDate,
 		    g.gdsName, g.gdsPrice, g.gdsThumbImg
 		from tbl_cart c
 		    inner join tbl_goods g
 		        on c.gdsNum = g.gdsNum    
 		    where c.userId = #{userId}
+<!-- 		select
+		    row_number() over(order by c.cartNum desc) as num,
+		    c.cartNum, c.userId, c.gdsNum, c.cartStock, c.addDate,
+		    g.gdsName, g.gdsPrice, g.gdsThumbImg
+		from tbl_cart c
+		    inner join tbl_goods g
+		        on c.gdsNum = g.gdsNum    
+		    where c.userId = #{userId} -->
 	</select>
 	
 	<!-- 카트 삭제 -->
