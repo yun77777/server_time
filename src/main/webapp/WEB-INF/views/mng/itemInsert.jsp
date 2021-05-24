@@ -35,7 +35,7 @@
 
 				<!-- Page Heading/Breadcrumbs-->
 				<h1>
-					Board <small>insert</small>
+					Item <small>insert</small>
 				</h1>
 
 <!-- @@@ -->
@@ -61,6 +61,10 @@
 				</select>
 			</div>
 			
+			<div class="inputArea">
+				<label for="gdsName">gdsNum</label>
+				<input type="text" id="gdsNum" name="gdsNum" value="${paramMap.gdsNum}" disabled class="form-control"/>
+			</div>
 			<div class="inputArea">
 				<label for="gdsName">상품명</label>
 				<input type="text" id="gdsName" name="gdsName" class="form-control"/>
@@ -160,8 +164,7 @@ function fn_list(no) {
 
 function fn_insert() {
 	//var formData = $('#boardForm').serialize();
-	$('#boardForm #no').attr('disabled',false);
-	$('#boardForm #id').attr('disabled',false);
+	$('#boardForm #gdsNum').attr('disabled',false);
 	var formData = new FormData($("#boardForm")[0]);
 	alert('insert');
 	$.ajax({

@@ -53,6 +53,11 @@
 			</div>
 			
 			<div class="inputArea">
+				<label for="gdsName">gdsNum</label>
+				<input type="text" id="gdsNum" name="gdsNum" value="${detail.gdsNum}" class="form-control"/>
+			</div>
+			
+			<div class="inputArea">
 				<label for="gdsName">상품명</label>
 				<input type="text" id="gdsName" name="gdsName" value="${detail.gdsName}" class="form-control"/>
 			</div>
@@ -86,6 +91,7 @@
 				
 			</div>
 			
+			
 			<div class="inputArea">
 				<label for="gdsImg">이미지</label>
 				<input type="file" id="gdsImg" name="file" class="form-control"/>
@@ -102,7 +108,6 @@
 						}
 					});
 				</script>
-				<%=request.getRealPath("/") %> 
 <%-- 				<%=request.getRealPath("/") %> 
  --%>				
 <%--  <%=request.getSession().getServletContext().getRealPath("/") %>
@@ -111,7 +116,6 @@
 			<div class="inputArea">
 				<div class="col-lg-4 col-sm-6 mb-4">
                     <div class="card h-100">
-		            	<img class="card-img-top" src="<c:url value='/img/${detail.gdsImg}'/>" alt="no image" /></a>
 		            	<img class="card-img-top" src="<c:url value='/img/${detail.file}'/>" alt="no image" /></a>
                     </div>
                 </div>
@@ -133,6 +137,11 @@
 					});
 				</script>
 			</div>
+			<div class="inputArea">
+			    <button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="button">Go to the list</button>
+				<button class="btn btn-primary" id="submit" onclick="" type="button">Save</button>
+                <button class="btn btn-primary" id="sendMessageButton" onclick="fn_delete()" type="button">Delete</button>
+			</div>
 		</div>
 	</section>
         
@@ -142,7 +151,7 @@
         
         
         
-            <div class="container">
+            <%-- <div class="container">
                 <!-- Page Heading/Breadcrumbs-->
                 <h1>
                     Item
@@ -206,13 +215,13 @@
 								 -->
 								
 							</div>
-                            <%-- <div class="control-group form-group">
+                            <div class="control-group form-group">
                                 <div class="controls">
                       				<%@ include file="/WEB-INF/views/common/smartEditor.jsp"%>
                                 </div>
                                 
                                 
-                            </div> --%>
+                            </div>
                             <div id="success"></div>
                             
                             <!-- For success/fail messages-->
@@ -234,7 +243,7 @@
                         </form>
                     </div>
                 </div>
-            </div>
+            </div> --%>
         </section>
 
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
@@ -260,8 +269,10 @@ function fn_list(no) {
 
 function fn_detail(no){
 	//var  formData= $('#boardForm').serialize();
-	$('#boardForm #no').attr('disabled',false);
-	$('#boardForm #no').val(no);
+	$('#boardForm #gdsNum').attr('disabled',false);
+	$('#boardForm #gdsNum').val(no);
+/* 	$('#boardForm #no').attr('disabled',false);
+	$('#boardForm #no').val(no); */
 	
 	$('#boardForm').attr({
 		action : '<c:url value="/itemDetail.do" />',
@@ -289,7 +300,8 @@ function fn_btn(no){
 
 function fn_insert() {
 	//var formData = $('#boardForm').serialize();
-	$('#boardForm #no').attr('disabled',false);
+	$('#boardForm #gdsNum').attr('disabled',false);
+/* 	$('#boardForm #no').attr('disabled',false); */
 	var formData = new FormData($("#boardForm")[0]);
 	$.ajax({
 		url : "${pageContext.request.contextPath}/insertItem.do",
@@ -311,7 +323,8 @@ function fn_insert() {
 
 function fn_delete() {
 	//var formData = $('#boardForm').serialize();
-	$('#boardForm #no').attr('disabled',false);
+	$('#boardForm #gdsNum').attr('disabled',false);
+/* 	$('#boardForm #no').attr('disabled',false); */
 	var formData = new FormData($("#boardForm")[0]);
 	$.ajax({
 		url : "${pageContext.request.contextPath}/deleteItem.do",

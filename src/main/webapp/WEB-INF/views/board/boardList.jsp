@@ -18,7 +18,7 @@
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Font Awesome icons (free version)-->
 <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"
-	crossorigin="anonymous"></script>\
+	crossorigin="anonymous"></script>
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="<c:url value='/resources/css/styles.css'/>" rel="stylesheet" />
 <!-- CSS -->

@@ -11,9 +11,9 @@
  -->	</select>
 
 	<insert id="register">
-	<selectKey resultType="int" keyProperty="gdsNum" order="BEFORE">
+	<!-- <selectKey resultType="int" keyProperty="gdsNum" order="BEFORE">
 		SELECT COALESCE(MAX(gdsNum),0)+1 AS gdsNum FROM tbl_goods
-	</selectKey>
+	</selectKey> -->
 		insert into tbl_goods (
 				gdsNum
 				, gdsName
@@ -37,7 +37,9 @@
 	</insert>
 	<select id="selectItemList" parameterType="java.util.HashMap"
 		resultType="java.util.HashMap">
-	<include refid="com.mall.common.commonMapper.pagingHeaderSql"/>
+	<if test="PAGE_TYPE!='main'">
+		<include refid="com.mall.common.commonMapper.pagingHeaderSql"/>
+	</if>
  	SELECT @rownum:=@rownum+1 ROWNUM
 	 	, B.gdsNum
 	 	, B.gdsName
@@ -47,11 +49,16 @@
 	 	, B.gdsDes
 	 	, B.gdsImg
 	 	, B.gdsThumbImg
+	 	,(SELECT ORG_FILE_NAME FROM MP_FILE WHERE BNO=B.gdsNum) file
+		,(SELECT FILE_PATH FROM MP_FILE WHERE BNO=B.gdsNum) file_src
+		,(SELECT SEQ_MP_FILE_NO FROM MP_FILE WHERE BNO=B.gdsNum) file_no
 		FROM tbl_goods B,(SELECT @rownum:=0) R
 		where B.gdsNum>=0
 <!-- 		<include refid="searchOption"/>
  -->		ORDER BY B.gdsNum DESC
-	<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
+ 	<if test="PAGE_TYPE!='main'">
+		<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
+	</if>
 	</select>
 	
 	<select id="selectItemDetail" parameterType="map"
@@ -72,6 +79,11 @@
 		left outer join MP_FILE MF
 		on MF.BNO=#{gdsNum}
 		where B.gdsNum=#{gdsNum}
+	</select>
+	
+	<select id="selectItemListMaxNo" parameterType="map"
+		resultType="Integer">
+			SELECT max(gdsNum) FROM tbl_goods
 	</select>
 	
 </mapper>

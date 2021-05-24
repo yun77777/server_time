@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mall.board.service.boardService;
+import com.mall.mng.service.mngService;
 
 
 
@@ -36,6 +37,9 @@ public class boardController {
 	
 	@Resource(name = "boardService")
 	private boardService boardService;
+	
+	@Resource(name = "mngService")
+	private mngService mngService;
 	
 //	@RequestMapping(value = "/test.do")
 //	public String test(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="20") int recordCountPerPage,
@@ -53,7 +57,11 @@ public class boardController {
 		
 		try {
 			paramMap.put("B_TYPE",4);
-			List<Map<String, Object>> list=boardService.selectItemList(paramMap);
+			paramMap.put("PAGE_TYPE","main");
+			List<Map<String, Object>> list=mngService.selectItemList(paramMap);
+//			List<Map<String, Object>> list=boardService.selectItemList(paramMap);
+			System.err.println("li:"+list);
+			
 			model.addAttribute("list",list);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

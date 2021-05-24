@@ -107,8 +107,7 @@ public class mngController {
 			model.addAttribute("member",httpSession.getAttribute("member"));
 			
 			paramMap.put("B_TYPE",4);
-			
-			paramMap.put("no",boardService.selectBoardMaxNo(paramMap)+1);
+			paramMap.put("gdsNum",mngService.selectItemListMaxNo(paramMap)+1);
 			Map<String,Object> view=boardService.selectBoardDetail(paramMap);
 			List<Map<String,Object>> list=boardService.selectBoardHisList(paramMap);
 			
@@ -160,6 +159,8 @@ public class mngController {
 		model.addAttribute("login",httpSession.getAttribute("login"));
 		model.addAttribute("member",httpSession.getAttribute("member"));
 		paramMap.put("B_TYPE",4);
+//gdsNum
+		paramMap.put("gdsNum",mngService.selectItemListMaxNo(paramMap)+1);
 
 		System.err.println("insert:"+paramMap);
 		System.err.println("file:"+multi);

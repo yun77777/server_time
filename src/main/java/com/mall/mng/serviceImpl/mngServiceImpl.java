@@ -56,4 +56,14 @@ public class mngServiceImpl implements mngService{
 	public Map<String, Object> selectItemDetail(Map<String, Object> paramMap) throws Exception {
 		return mngMapper.selectItemDetail(paramMap);
 	}
+	
+	public Integer selectItemListMaxNo(Map<String, Object> paramMap) throws Exception {
+		int maxNo;
+
+		if (mngMapper.selectItemListMaxNo(paramMap) == null)
+			maxNo = 0;
+		else
+			maxNo = mngMapper.selectItemListMaxNo(paramMap);
+		return maxNo;
+	}
 }

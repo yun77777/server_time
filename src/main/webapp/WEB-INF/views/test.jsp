@@ -81,7 +81,8 @@ $(document).ready(function() {
 
 function fn_detail(B_NO,B_TYPE){
 	//var  formData= $('#boardForm').serialize();
-	$('#B_NO').val(B_NO);
+	$('#gdsNum').val(B_NO);
+/* 	$('#B_NO').val(B_NO); */
 	$('#B_TYPE').val(B_TYPE);
 	
 	$('#boardForm').attr({

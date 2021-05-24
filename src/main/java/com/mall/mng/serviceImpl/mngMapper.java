@@ -15,4 +15,6 @@ public interface mngMapper {
 
 	public Map<String, Object> selectItemDetail(Map<String, Object> paramMap) throws Exception;
 
+	public Integer selectItemListMaxNo(Map<String, Object> paramMap) throws Exception;
+
 }
