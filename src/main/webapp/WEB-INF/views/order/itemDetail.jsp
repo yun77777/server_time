@@ -21,8 +21,10 @@
 <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"
 	crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script type="text/javascript" src="<c:url value='/se2/js/HuskyEZCreator.js'/>" charset="utf-8"></script>
-
+<!-- <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script> -->
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="<c:url value='/resources/css/styles.css'/>" rel="stylesheet" />
 <style> .centeringContainer { text-align: center; } .centered { display: table; margin-left: auto; margin-right: auto; display: inline-block; } </style>
@@ -178,54 +180,8 @@
 									</tbody>
 								</table>
 		                    </div>
-		                    <!-- @@@@@@@@@@ -->
-		                    <section id="container">
-		<div id="container_box">
-		
-			<section id="content">
-			
-				<div class="orderInfo">
-					<c:forEach items="${orderView}" var="orderView" varStatus="status">
-						
-						<%-- 첫번째 요소만 출력. 주문 상세 페이지에서 중복되는 부분이므로 모두 출력할 필요 없음 --%>
-						<c:if test="${status.first}">
-							<p><span>수령인</span>${orderView.orderRec}</p>
-							<p><span>주소</span>(${orderView.userAddr1}) ${orderView.userAddr2} ${orderView.userAddr3}</p>
-							<p><span>가격</span><fmt:formatNumber pattern="###,###,###" value="${orderView.amount}" /> 원</p>
-							<p><span>상태</span>${orderView.delivery}</p>
-						</c:if>
-						
-					</c:forEach>
-				</div>
-				
-				<ul class="orderView">
-					<c:forEach items="${orderView}" var="orderView">					
-					<li>
-						<div class="thumb">
-							<img src="${orderView.gdsThumbImg}" />
-						</div>
-						<div class="gdsInfo">
-							<p>
-								<span>상품명</span>${orderView.gdsName}<br />
-								<span>개당 가격</span><fmt:formatNumber pattern="###,###,###" value="${orderView.gdsPrice}" /> 원<br />
-								<span>구입 수량</span>${orderView.cartStock} 개<br />
-								<span>최종 가격</span><fmt:formatNumber pattern="###,###,###" value="${orderView.gdsPrice * orderView.cartStock}" /> 원                   
-							</p>
-						</div>
-					</li>					
-					</c:forEach>
-				</ul>
-			</section>
-			
-			
-		</div>
-	</section>
-	<section id="container">
-		<div id="container_box">
-		
-			<section id="content">
-				
-				<form role="form" method="post">
+                         <div class="col-lg-8 mb-4">
+                         <form role="form" method="post">
 					<input type="hidden" name="gdsNum" value="${view.gdsNum}" />
 				</form>
 				
@@ -235,16 +191,16 @@
 					</div>
 					
 					<div class="goodsInfo">
-						<p class="gdsName"><span>상품명</span>${detail.id}</p>
+						<p class="gdsName"><span>상품명</span>${detail.gdsName}</p>
 						
 <%-- 						<p class="cateName"><span>카테고리</span>${view.cateName}</p>
  --%>						
 						<p class="gdsPrice">
-							<span>가격 </span><fmt:formatNumber pattern="###,###,###" value="${detail.cnt}" /> 원
+							<span>가격 </span><fmt:formatNumber pattern="###,###,###" value="${detail.gdsPrice}" /> 원
 						</p>
 						
 						<p class="gdsStock">
-							<span>재고 </span><fmt:formatNumber pattern="###,###,###" value="${detail.cnt}" /> EA
+							<span>재고 </span><fmt:formatNumber pattern="###,###,###" value="${detail.gdsStock}" /> EA
 						</p>
 						
 						<c:if test="${view.gdsStock != 0}">
@@ -257,44 +213,13 @@
 							
 							<input type="hidden" value="${view.gdsStock}" class="gdsStock_hidden" />
 							
-							<script src="/resources/js/user/shop/stockBtn.js"></script>
 													
 							
 						</p>
 						
 						<p class="addToCart">
 							<button type="button" class="addCart_btn">카트에 담기</button>
-							<script>
-								$(".addCart_btn").click(function(){
-									
-									var gdsNum = $("#gdsNum").val();
-									var cartStock = $(".numBox").val();
-									
-									var data = {
-											gdsNum : gdsNum,
-											cartStock : cartStock
-											};
-									
-									$.ajax({
-										url : "/shop/view/addCart",
-										type : "post",
-										data : data,
-										success : function(result){
-											
-											if(result == 1) {
-												alert("카트 담기 성공");
-												$(".numBox").val("1");
-											} else {
-												alert("회원만 사용할 수 있습니다.")
-												$(".numBox").val("1");
-											}
-										},
-										error : function(){
-											alert("카트 담기 실패");
-										}
-									});
-								});
-							</script>
+							
 						</p>
 						
 						</c:if>
@@ -306,152 +231,8 @@
 					
 					<div class="gdsDes">${view.gdsDes}</div>
 				</div>
-				
-				
-				<div id="reply">
-				
-					<c:if test="${member == null }">
-						<p>소감을 남기시려면 <a href="/member/signin">로그인</a>해주세요</p>
-					</c:if>
-					
-					<c:if test="${member != null}">
-					<section class="replyForm">
-						<form role="form" method="post" autocomplete="off">
-						
-							<input type="hidden" name="gdsNum" id="gdsNum" value="${view.gdsNum}">
-						
-							<div class="input_area">
-								<textarea name="repCon" id="repCon"></textarea>
-							</div>
-							
-							<div class="input_area">
-								<button type="button" id="reply_btn">소감 남기기</button>
-								
-								<script>
-									$("#reply_btn").click(function(){
-										
-										var formObj = $(".replyForm form[role='form']");
-										var gdsNum = $("#gdsNum").val();
-										var repCon = $("#repCon").val();
-										
-										// ReplyVO 형태로 데이터 생성
-										var data = {
-												gdsNum : gdsNum,
-												repCon : repCon
-												};
-										
-										$.ajax({
-											url : "/shop/view/registReply",
-											type : "post",
-											data : data,
-											success : function(){
-												replyList();  // 리스트 새로고침
-												$("#repCon").val("");  // 텍스트에어리어를 초기화
-											}
-										});
-									});
-								</script>
-								
-							</div>
-							
-						</form>
-					</section>
-					</c:if>
-					
-					<section class="replyList">
-
-						<ol>
-						<%--
-						<c:forEach items="${reply}" var="reply">
-							<li>
-					   			<div class="userInfo">
-					    			<span class="userName">${reply.userName}</span>
-					    			<span class="date"><fmt:formatDate value="${reply.repDate}" pattern="yyyy-MM-dd" /></span>
-					   			</div>
-					   			<div class="replyContent">${reply.repCon}</div>
-					  		</li>
-					  	</c:forEach>
-					  	 --%>
-					 	</ol>     
-					 	
-					 	<script>
-							replyList();
-						</script>
-						
-						<script>
-						
-							$(document).on("click", ".modify", function(){
-								//$(".replyModal").attr("style", "display:block;");
-								$(".replyModal").fadeIn(200);
-								
-								var repNum = $(this).attr("data-repNum");
-								var repCon = $(this).parent().parent().children(".replyContent").text();
-								
-								$(".modal_repCon").val(repCon);
-								$(".modal_modify_btn").attr("data-repNum", repNum);
-								
-							});
-													
-							// 스크립트로 인해 생성된 HTML의 이벤트는 .click() 메서드를 사용할 수 없음
-							$(document).on("click", ".delete", function(){
-								
-								// 사용자에게 삭제 여부를 확인
-								var deletConfirm = confirm("정말로 삭제하시겠습니까?"); 
-								
-								if(deletConfirm) {
-								
-									var data = {repNum : $(this).attr("data-repNum")};  // ReplyVO 형태로 데이터 생성
-									
-									$.ajax({
-										url : "/shop/view/deleteReply",
-										type : "post",
-										data : data,
-										success : function(result){
-											
-											// result의 값에 따라 동작
-											if(result == 1) {
-												replyList();  // 리스트 새로고침
-											} else {
-												alert("작성자 본인만 할 수 있습니다.")  // 본인이 아닌 경우										
-											}
-										},
-										error : function(){
-											// 로그인하지 않아서 에러가 발생한 경우
-											alert("로그인하셔야합니다.")
-										}
-									});
-								}
-							});
-						
-						</script>
-
-					</section>
-				
-				
-				</div>
-			</section>
-			
-			
-		</div>
-	</section>
-	<div class="replyModal">
-
-	<div class="modalContent">
-		
-		<div>
-			<textarea class="modal_repCon" name="modal_repCon"></textarea>
-		</div>
-		
-		<div>
-			<button type="button" class="modal_modify_btn">수정</button>
-			<button type="button" class="modal_cancel">취소</button>
-		</div>
-		
-	</div>
-
-	<div class="modalBackground"></div>
-	
-</div>
+	                    </div>
+		                    <!-- @@@@@@@@@@ -->
 		                    <!-- @@@@@@@@@@ -->
 		                   
 	                        
@@ -620,107 +401,8 @@ function fn_delete() {
 		}
 	});
 }
-var oEditors = [];
-nhn.husky.EZCreator.createInIFrame({
-	oAppRef : oEditors,
-	elPlaceHolder : "content", //저는 textarea의 id와 똑같이 적어줬습니다.
-	sSkinURI : "se2/SmartEditor2Skin.html", //경로를 꼭 맞춰주세요!
-	fCreator : "createSEditor2",
-	htParams : {
-		// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-		bUseToolbar : true,
 
-		// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-		bUseVerticalResizer : false,
 
-		// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-		bUseModeChanger : false
-	}
-});
-
-$(function() {
-	$("#submit").click(function() {
-		oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []); 
-		//textarea의 id를 적어줍니다.
-
-		var selcatd = $("#selcatd > option:selected").val();
-		var title = $("#title").val();
-		var content = document.getElementById("content").value;
-		alert(content);
-		if (selcatd == "") {
-			alert("카테고리를 선택해주세요.");
-			return;
-		}
-		if (title == null || title == "") {
-			alert("제목을 입력해주세요.");
-			$("#title").focus();
-			return;
-		}
-		if(content == "" || content == null || content == '&nbsp;' || 
-				content == '<br>' || content == '<br/>' || content == '<p>&nbsp;</p>'){
-			alert("본문을 작성해주세요.");
-			oEditors.getById["content"].exec("FOCUS"); //포커싱
-			return;
-		} //이 부분은 스마트에디터 유효성 검사 부분이니 참고하시길 바랍니다.
-		
-		var result = confirm("작성하시겠습니까?");
-		
-		if(result){
-			alert("작성 완료!");
-/* 			$("#boardForm").submit();
- */			fn_insert();
-		}else{
-			return;
-		}
-	});
-})
-
-</script>
-<script>
-function replyList() {
-	
-	var gdsNum = ${view.gdsNum};
-	
-	// 비동기식 데이터 요청
-	$.getJSON("/shop/view/replyList" + "?n=" + gdsNum, function(data){
-		var str = "";
-		
-		$(data).each(function(){
-			
-			console.log(data);
-			
-			// 날짜 데이터를 보기 쉽게 변환
-			var repDate = new Date(this.repDate);
-			repDate = repDate.toLocaleDateString("ko-US")
-							
-			// HTML코드 조립
-			str += "<li data-repNum='" + this.repNum + "'>" //"<li data-gdsNum='" + this.gdsNum + "'>"
-				 + "<div class='userInfo'>"
-				 + "<span class='userName'>" + this.userName + "</span>"
-				 + "<span class='date'>" + repDate + "</span>"
-				 + "</div>"
-				 + "<div class='replyContent'>" + this.repCon + "</div>"
-				 
-				 + "<c:if test='${member != null}'>"
-				 
-				 + "<div class='replyFooter'>"
-				 + "<button type='button' class='modify' data-repNum='" + this.repNum + "'>M</button>"
-				 + "<button type='button' class='delete' data-repNum='" + this.repNum + "'>D</button>"
-				 + "</div>"
-				 
-				 + "</c:if>"
-				 
-				 + "</li>";											
-		});
-		
-		// 조립한 HTML코드를 추가
-		$("section.replyList ol").html(str);
-	});
-	
-}
-</script>
-
-<script>
 $(".modal_modify_btn").click(function(){
 	var modifyConfirm = confirm("정말로 수정하시겠습니까?");
 	
@@ -750,10 +432,71 @@ $(".modal_modify_btn").click(function(){
 	}
 	
 });
+
 $(".modal_cancel").click(function(){
 	//$(".replyModal").attr("style", "display:none;");
 	$(".replyModal").fadeOut(200);
 });
+
+	$(".addCart_btn").click(function(){
+		
+		var gdsNum = $("#gdsNum").val();
+		var cartStock = $(".numBox").val();
+		
+		var data = {
+				gdsNum : gdsNum,
+				cartStock : cartStock
+				};
+		
+		$.ajax({
+			url : "/view/addCart.do",
+			type : "post",
+			data : data,
+			success : function(result){
+				
+				if(result == 1) {
+					alert("카트 담기 성공");
+					$(".numBox").val("1");
+
+				} else {
+					alert("회원만 사용할 수 있습니다.")
+					$(".numBox").val("1");
+					window.location='<c:url value="/user/login.do"/>';
+
+				}
+			},
+			error : function(){
+				alert("카트 담기 실패");
+			}
+		});
+	});
+	
+	// + 버튼을 누르면 수량이 증가하되, 상품의 전체 수량보다 커지지 않음
+	$(".plus").click(function(){
+		var num = $(".numBox").val();
+		var plusNum = Number(num) + 1;
+		//var stock = ${view.gdsStock};
+		var stock = $(".gdsStock_hidden");
+		
+		if(plusNum >= stock) {
+			$(".numBox").val(num);
+		} else {
+			$(".numBox").val(plusNum);										
+		}
+	});
+
+
+	// - 버튼을 누르면 수량이 감소하되, 1보다 밑으로 감소하지 않음
+	$(".minus").click(function(){
+		var num = $(".numBox").val();
+		var minusNum = Number(num) - 1; 
+		
+		if(minusNum <= 0) {
+			$(".numBox").val(num);
+		} else {
+			$(".numBox").val(minusNum);										
+		}
+	});
 </script>
 </html>
 

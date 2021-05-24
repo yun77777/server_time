@@ -313,7 +313,10 @@
 						$(".cancel_btn").click(function(){
 							$(".orderInfo").slideUp();  // $(".orderInfo")를 숨기고
 							$(".orderOpne_bnt").slideDown();  // $(".orderOpne_bnt")를 나타냄
-						});						
+							
+								
+						
+							});						
 						</script>
 						
 					</div>

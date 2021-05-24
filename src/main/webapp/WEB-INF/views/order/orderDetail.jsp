@@ -181,10 +181,14 @@
 								</table>
 		                    </div>
                          <div class="col-lg-8 mb-4">
-                         <form role="form" method="post">
-					<input type="hidden" name="gdsNum" value="${view.gdsNum}" />
-				</form>
-				
+                    <form role="form" method="post">
+						<input type="hidden" name="gdsNum" value="${view.gdsNum}" />
+					
+					</form>
+					<form id="boardForm" method="post" enctype="multipart/form-data">
+						<input type="hidden" name="orderId" value="${member.ID}" />
+						<input type="hidden" name="userId" value="${member.ID}" />
+					</form>
 				<div class="goods">
 					<div class="goodsImg">
 						<img src="${view.gdsImg}">
@@ -237,9 +241,9 @@
 		                   
 	                        
 		                    <div class="row">
-								<button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="button">Order</button>
-								<button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="button">Cart</button>
-								<button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="button">Wish List</button>
+								<button class="btn btn-primary" id="sendMessageButton" onclick="fn_insert()" type="submit">Order</button>
+								<button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="submit">Cart</button>
+								<button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="submit">Wish List</button>
 							</div>
 							<br>
 							<br>
@@ -359,25 +363,11 @@ function fn_btn(no){
 }
 
 function fn_insert() {
-	//var formData = $('#boardForm').serialize();
-	$('#boardForm #no').attr('disabled',false);
-	var formData = new FormData($("#boardForm")[0]);
-	$.ajax({
-		url : "${pageContext.request.contextPath}/insertBoard.do",
-		type : "post",
-		enctype: 'multipart/form-data',
-		data : formData,
-		processData : false,
-		contentType : false,
-		success : function(result) {
-			alert('success');
-			fn_list();
-		}, // success 
 
-		error : function(xhr, status) {
-			alert(xhr + " : " + status);
-		}
-	});
+	$('#boardForm').attr({
+		action : '<c:url value="/orderView.do"/>',
+		target : '_self'
+	}).submit(); 
 }
 
 function fn_delete() {

@@ -137,11 +137,6 @@
 					});
 				</script>
 			</div>
-			<div class="inputArea">
-			    <button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="button">Go to the list</button>
-				<button class="btn btn-primary" id="submit" onclick="" type="button">Save</button>
-                <button class="btn btn-primary" id="sendMessageButton" onclick="fn_delete()" type="button">Delete</button>
-			</div>
 		</div>
 	</section>
         

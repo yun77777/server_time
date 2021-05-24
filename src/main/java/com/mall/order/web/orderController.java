@@ -209,34 +209,53 @@ public class orderController {
 
 	// 주문 목록
 	@RequestMapping(value = "/orderList.do", method = RequestMethod.GET)
-	public void getOrderList(HttpSession session, OrderVO order, Model model) throws Exception {
+	public String getOrderList(Map<String, Object> paramMap, HttpSession session, OrderVO order, Model model) throws Exception {
+//		public void getOrderList(Map<String, Object> paramMap, HttpSession session, OrderVO order, Model model) throws Exception {
 		logger.info("get order list");
-
+		model.addAttribute("login",session.getAttribute("login"));
+		model.addAttribute("member",session.getAttribute("member"));
+		
 		UserVO member = (UserVO) session.getAttribute("ID");
 		String userId = member.getID();
 
 		order.setUserId(userId);
-
+		paramMap.put("userId",userId);
 		List<OrderVO> orderList = orderService.orderList(order);
 
 		model.addAttribute("orderList", orderList);
+		
+		return "order/orderList";
+
 	}
 
 	// 주문 상세 목록
-	@RequestMapping(value = "/orderView.do", method = RequestMethod.GET)
-	public void getOrderList(HttpSession session, @RequestParam("n") String orderId, OrderVO order, Model model)
+	@RequestMapping(value = "/orderView.do")
+//	@RequestMapping(value = "/orderView.do", method = RequestMethod.GET)
+	public String getOrderList(Map<String, Object> paramMap, HttpSession session, @RequestParam(value="orderId", required=false) String orderId, OrderVO order, Model model)
+//	public void getOrderList(Map<String, Object> paramMap, HttpSession session, @RequestParam("n") String orderId, OrderVO order, Model model)
 			throws Exception {
 		logger.info("get order view");
+		model.addAttribute("login",session.getAttribute("login"));
+		model.addAttribute("member",session.getAttribute("member"));
+		
+//		UserVO member = (UserVO) session.getAttribute("ID");
+//		String userId = member.getID();
 
-		UserVO member = (UserVO) session.getAttribute("ID");
-		String userId = member.getID();
+//		order.setUserId(paramMap.get("userId").toString());
+//		order.setOrderId(paramMap.get("orderId").toString());
+		
+//		order.setUserId(userId);
+		System.err.println("param:"+paramMap);
+//		order.setOrderId(orderId);
+//		paramMap.put("userId",session.getAttribute("login"));
+//		paramMap.put("orderId",session.getAttribute("login"));
+//
+//		List<OrderListVO> orderView = orderService.orderView(order);
+//
+//		model.addAttribute("orderView", orderView);
+		
+		return "order/orderView";
 
-		order.setUserId(userId);
-		order.setOrderId(orderId);
-
-		List<OrderListVO> orderView = orderService.orderView(order);
-
-		model.addAttribute("orderView", orderView);
 	}
 
 }
