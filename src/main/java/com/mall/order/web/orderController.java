@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mall.board.service.boardService;
+import com.mall.mng.service.mngService;
 
 @Controller
 public class orderController {
@@ -38,6 +39,9 @@ public class orderController {
 
 	@Resource(name = "boardService")
 	private boardService boardService;
+	
+	@Resource(name = "mngService")
+	private mngService mngService;
 
 	@RequestMapping(value = "/orderDetail.do")
 	public String boardDetail(@RequestParam Map<String, Object> paramMap, HttpSession httpSession,
@@ -49,7 +53,8 @@ public class orderController {
 
 			paramMap.put("B_TYPE", 4);
 
-			Map<String, Object> detail = orderService.selectOrderDetail(paramMap);
+			Map<String, Object> detail = mngService.selectItemDetail(paramMap);
+//			Map<String, Object> detail = orderService.selectOrderDetail(paramMap);
 			List<Map<String, Object>> list = boardService.selectItemList(paramMap);
 			model.addAttribute("list", list);
 			System.err.println("detailP");

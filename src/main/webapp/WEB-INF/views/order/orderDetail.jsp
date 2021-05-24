@@ -191,16 +191,16 @@
 					</div>
 					
 					<div class="goodsInfo">
-						<p class="gdsName"><span>상품명</span>${detail.id}</p>
+						<p class="gdsName"><span>상품명</span>${detail.gdsName}</p>
 						
 <%-- 						<p class="cateName"><span>카테고리</span>${view.cateName}</p>
  --%>						
 						<p class="gdsPrice">
-							<span>가격 </span><fmt:formatNumber pattern="###,###,###" value="${detail.cnt}" /> 원
+							<span>가격 </span><fmt:formatNumber pattern="###,###,###" value="${detail.gdsPrice}" /> 원
 						</p>
 						
 						<p class="gdsStock">
-							<span>재고 </span><fmt:formatNumber pattern="###,###,###" value="${detail.cnt}" /> EA
+							<span>재고 </span><fmt:formatNumber pattern="###,###,###" value="${detail.gdsStock}" /> EA
 						</p>
 						
 						<c:if test="${view.gdsStock != 0}">
