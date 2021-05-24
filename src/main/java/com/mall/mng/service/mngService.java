@@ -11,8 +11,14 @@ import com.mall.vo.CategoryVO;
 import com.mall.vo.GoodsVO;
 
 public interface mngService {
-	
+
 	public List<CategoryVO> category() throws Exception;
 
-	public void register(GoodsVO vo) throws Exception;
+	public void register(GoodsVO vo, Map<String, Object> paramMap, MultipartHttpServletRequest multi,
+			HttpServletRequest request) throws Exception;
+
+	List<Map<String, Object>> selectItemList(Map<String, Object> paramMap) throws Exception;
+
+	public Map<String, Object> selectItemDetail(Map<String, Object> paramMap) throws Exception;
+
 }

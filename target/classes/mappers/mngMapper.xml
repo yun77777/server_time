@@ -11,13 +11,67 @@
  -->	</select>
 
 	<insert id="register">
-	<selectKey resultType="int" keyProperty="HIS_ID" order="BEFORE">
+	<selectKey resultType="int" keyProperty="gdsNum" order="BEFORE">
 		SELECT COALESCE(MAX(gdsNum),0)+1 AS gdsNum FROM tbl_goods
 	</selectKey>
-		insert into tbl_goods (gdsNum, gdsName, cateCode, gdsPrice, gdsStock, gdsDes, 
-								gdsImg, gdsThumbImg)
-	   		values (gdsNum, #{gdsName}, #{cateCode}, #{gdsPrice}, #{gdsStock}, #{gdsDes},
-	   		 		#{gdsImg}, #{gdsThumbImg})
+		insert into tbl_goods (
+				gdsNum
+				, gdsName
+				, cateCode
+				, gdsPrice
+				, gdsStock
+				, gdsDes
+				, gdsImg
+				, gdsThumbImg
+			)
+	   		values (
+		   		#{gdsNum}
+		   		, #{gdsName}
+		   		, #{cateCode} 
+		   		, #{gdsPrice}
+		   		, #{gdsStock}
+		   		, #{gdsDes}
+		   		, #{gdsImg}
+		   		, #{gdsThumbImg}
+	   		)
 	</insert>
+	<select id="selectItemList" parameterType="java.util.HashMap"
+		resultType="java.util.HashMap">
+	<include refid="com.mall.common.commonMapper.pagingHeaderSql"/>
+ 	SELECT @rownum:=@rownum+1 ROWNUM
+	 	, B.gdsNum
+	 	, B.gdsName
+	 	, B.cateCode
+	 	, B.gdsPrice
+	 	, B.gdsStock
+	 	, B.gdsDes
+	 	, B.gdsImg
+	 	, B.gdsThumbImg
+		FROM tbl_goods B,(SELECT @rownum:=0) R
+		where B.gdsNum>=0
+<!-- 		<include refid="searchOption"/>
+ -->		ORDER BY B.gdsNum DESC
+	<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
+	</select>
+	
+	<select id="selectItemDetail" parameterType="map"
+		resultType="map">
+		SELECT @rownum:=@rownum+1 ROWNUM
+	 	, B.gdsNum
+	 	, B.gdsName
+	 	, B.cateCode
+	 	, B.gdsPrice
+	 	, B.gdsStock
+	 	, B.gdsDes
+	 	, B.gdsImg
+	 	, B.gdsThumbImg
+	 	, MF.ORG_FILE_NAME file
+	 	, MF.FILE_PATH file_src
+	 	, MF.SEQ_MP_FILE_NO file_no
+		FROM tbl_goods B,(SELECT @rownum:=0) R
+		left outer join MP_FILE MF
+		on MF.BNO=#{gdsNum}
+		where B.gdsNum=#{gdsNum}
+	</select>
 	
 </mapper>

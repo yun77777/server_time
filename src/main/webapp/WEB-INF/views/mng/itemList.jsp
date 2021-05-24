@@ -14,12 +14,11 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Modern Business - Start Bootstrap Template</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Font Awesome icons (free version)-->
 <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"
-	crossorigin="anonymous"></script>\
+	crossorigin="anonymous"></script>
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="<c:url value='/resources/css/styles.css'/>" rel="stylesheet" />
 <!-- CSS -->
@@ -36,7 +35,7 @@
 	<section class="py-5">
 		<div class="container">
 			<form id="boardForm" method="post">
-			<input type="hidden" id="no" name="no">
+			<input type="hidden" id="gdsNum" name="gdsNum">
 			<input type="hidden" id="currentPageNo" name="currentPageNo" value="${pg.currentPageNo}"/>
 			<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
 				<!-- Page Heading/Breadcrumbs-->
@@ -95,27 +94,24 @@
 <%-- 						<button class="btn btn-primary" onclick="fn_insert('${login.ID}')" type="button">Insert</button> --%>
 					</div>
 				</div>
-          		<span>총 <em>${pg.totalRecordCount}</em>건 </span>
+          		<span>Total: <em>${pg.totalRecordCount}</em> </span>
                 
 				<table class="table table-sm">
 					<thead>
 						<tr>
-							<th scope="col">no</th>
-							<th scope="col">title</th>
-							<th scope="col">id</th>
-							<th scope="col">input_dt</th>
-							<th scope="col">cnt</th>
+							<th scope="col">gdsNum</th>
+							<th scope="col">cateCode</th>
+							<th scope="col">gdsName</th>
+							<th scope="col">gdsStock</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="result" items="${list}" varStatus="status">
 							<tr>
-								<th scope="row">${result.B_NO}</th>
-								<td><a href="#" onclick="fn_detail('${result.B_NO}','${result.id}');">${result.title}</a></td>
-<%-- 								<td><a href="#" onclick="fn_detail('${result.B_NO}','${login.ID}');">${result.title}</a></td> --%>
-								<td>${result.id}</td>
-								<td>${result.input_dt}</td>
-								<td>${result.cnt}</td>
+								<th scope="row">${result.gdsNum}</th>
+								<th scope="row">${result.cateCode}</th>
+								<td><a href="#" onclick="fn_detail('${result.gdsNum}');">${result.gdsName}</a></td>
+								<td>${result.gdsStock}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -185,19 +181,19 @@ function fn_insert(id){
 
 }
 
-function fn_detail(no,id){
+function fn_detail(gdsNum){
 	//var  formData= $('#boardForm').serialize();
 	
-	if(id.length==0)
+	/* if(id.length==0)
 		alert("You need to log in first");
-	else{
-		$('#boardForm #no').val(no);
+	else{ */
+		$('#boardForm #gdsNum').val(gdsNum);
 		
 		$('#boardForm').attr({
 			action : '<c:url value="/itemDetail.do" />',
 			target : '_self'
 		}).submit();
-	}
+	/* } */
 }
 
 $(function () {

@@ -14,6 +14,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
+<title>Modern Business - Start Bootstrap Template</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Font Awesome icons (free version)-->
@@ -30,122 +31,10 @@
 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
 <!-- Page Content-->
         <section class="py-5">
-        <section id="container">
-		<div id="container_box">
-			<h2>상품 등록</h2>
-			
-<%-- 			<form role="form" method="post" autocomplete="off" enctype="multipart/form-data">
- --%>			
-			<div class="inputArea">	
-				<label>1차 분류</label>
-				<select class="category1 form-control" value="${detail.category}">
-					<option value="">전체</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-				</select>
-			
-				<label>2차 분류</label>
-				<select class="category2 form-control" value="${detail.category}" name="cateCode">
-					<option value="">전체</option>
-					<option value="top">top</option>
-					<option value="bottom">bottom</option>
-				</select>
-			</div>
-			
-			<div class="inputArea">
-				<label for="gdsName">상품명</label>
-				<input type="text" id="gdsName" name="gdsName" value="${detail.gdsName}" class="form-control"/>
-			</div>
-			
-			<div class="inputArea">
-				<label for="gdsPrice">상품가격</label>
-				<input type="text" id="gdsPrice" name="gdsPrice" value="${detail.gdsPrice}" class="form-control"/>
-			</div>
-			
-			<div class="inputArea">
-				<label for="gdsStock">상품수량</label>
-				<input type="text" id="gdsStock" name="gdsStock" value="${detail.gdsStock}" class="form-control"/>
-			</div>
-			<div class="inputArea">
-				<label for="gdsDes">상품소개</label>
-				<div class="jsx-2303464893 editor">
-					<textarea rows="5" cols="50" id="gdsDes" name="gdsDes" class="form-control">${detail.gdsDes}</textarea>
-				</div>
-				
-				<!-- <script>
-					var ckeditor_config = {
-							resize_enaleb : false,
-							enterMode : CKEDITOR.ENTER_BR,
-							shiftEnterMode : CKEDITOR.ENTER_P,
-							filebrowserUploadUrl : "/admin/goods/ckUpload"
-					};
-					
-					CKEDITOR.replace("gdsDes", ckeditor_config);
-				</script>
-				 -->
-				
-			</div>
-			
-			<div class="inputArea">
-				<label for="gdsImg">이미지</label>
-				<input type="file" id="gdsImg" name="file" class="form-control"/>
-				<div class="select_img"><img src="" /></div>
-				
-				<script>
-					$("#gdsImg").change(function(){
-						if(this.files && this.files[0]) {
-							var reader = new FileReader;
-							reader.onload = function(data) {
-								$(".select_img img").attr("src", data.target.result).width(500);								
-							}
-							reader.readAsDataURL(this.files[0]);
-						}
-					});
-				</script>
-				<%=request.getRealPath("/") %> 
-<%-- 				<%=request.getRealPath("/") %> 
- --%>				
-<%--  <%=request.getSession().getServletContext().getRealPath("/") %>
- --%>
-			</div>
-			<div class="inputArea">
-				<div class="col-lg-4 col-sm-6 mb-4">
-                    <div class="card h-100">
-		            	<img class="card-img-top" src="<c:url value='/img/${detail.gdsImg}'/>" alt="no image" /></a>
-		            	<img class="card-img-top" src="<c:url value='/img/${detail.file}'/>" alt="no image" /></a>
-                    </div>
-                </div>
-	                    
-	                    
-				<label for="gdsImg">이미지</label>
-				<input type="file" id="gdsImg" name="file" class="form-control"/>
-				<div class="select_img"><img src="" /></div>
-				
-				<script>
-					$("#gdsImg").change(function(){
-						if(this.files && this.files[0]) {
-							var reader = new FileReader;
-							reader.onload = function(data) {
-								$(".select_img img").attr("src", data.target.result).width(500);								
-							}
-							reader.readAsDataURL(this.files[0]);
-						}
-					});
-				</script>
-			</div>
-		</div>
-	</section>
-        
-        
-        
-        
-        
-        
-        
             <div class="container">
                 <!-- Page Heading/Breadcrumbs-->
                 <h1>
-                    Item
+                    Board
                     <small>detail</small>
                 </h1>
                 <!-- Content Row-->
@@ -159,60 +48,35 @@
                             <div class="control-group form-group">
                                 <div class="controls">
                                     <label>no:</label>
-                                    <input class="form-control" id="gdsNum" name="gdsNum" type="text" value="${detail.gdsNum}" disabled data-validation-required-message="Please enter your name." />
+                                    <input class="form-control" id="no" name="no" type="text" value="${detail.B_NO}" disabled data-validation-required-message="Please enter your name." />
                                     <p class="help-block"></p>
                                 </div>
                             </div>
                             <div class="control-group form-group">
                                 <div class="controls">
-                                    <label>title:</label>
-                                    <input class="form-control" id="cateCode" name="cateCode" type="text"  value="${detail.cateCode}" required data-validation-required-message="Please enter your email address." />
-                                </div>
-                            </div>
-                            <div class="control-group form-group">
-                                <div class="controls">
                                     <label>id:</label>
-                                    <input class="form-control" id="gdsName" name="gdsName" type="text"  value="${detail.gdsName}" required data-validation-required-message="Please enter your phone number." />
+                                    <input class="form-control" id="id" name="id" type="text"  value="${detail.id}" required data-validation-required-message="Please enter your phone number." />
                                 </div>
                             </div>
-                            
+                            <div class="control-group form-group">
+                                <div class="controls">
+                                    <label>title:</label>
+                                    <input class="form-control" id="title" name="title" type="text"  value="${detail.title}" required data-validation-required-message="Please enter your email address." />
+                                </div>
+                            </div>
                             <div class="control-group form-group">
                                 <div class="controls">
                                     <label>files:</label>
-                                     <input class="form-control" id="gdsPrice" name="gdsPrice" type="text"  value="${detail.gdsPrice}" required data-validation-required-message="Please enter your email address." />
+                                     <input class="form-control" id="file" name="file" type="text"  value="${detail.file}" required data-validation-required-message="Please enter your email address." />
                                 </div>
                             </div>
-                            
                             <div class="control-group form-group">
-                                <div class="controls">
-                                    <label>files:</label>
-                                     <input class="form-control" id="gdsStock" name="gdsStock" type="text"  value="${detail.gdsStock}" required data-validation-required-message="Please enter your email address." />
-                                </div>
-                            </div>
-                           <div class="inputArea">
-								<label for="gdsDes">상품소개</label>
-								<textarea rows="5" cols="50" id="gdsDes" name="gdsDes" class="form-control">${detail.gdsDes}</textarea>
-				
-								<!-- <script>
-									var ckeditor_config = {
-											resize_enaleb : false,
-											enterMode : CKEDITOR.ENTER_BR,
-											shiftEnterMode : CKEDITOR.ENTER_P,
-											filebrowserUploadUrl : "/admin/goods/ckUpload"
-									};
-									
-									CKEDITOR.replace("gdsDes", ckeditor_config);
-								</script>
-								 -->
-								
-							</div>
-                            <%-- <div class="control-group form-group">
                                 <div class="controls">
                       				<%@ include file="/WEB-INF/views/common/smartEditor.jsp"%>
                                 </div>
                                 
                                 
-                            </div> --%>
+                            </div>
                             <div id="success"></div>
                             
                             <!-- For success/fail messages-->
@@ -333,7 +197,7 @@ function fn_delete() {
 var oEditors = [];
 nhn.husky.EZCreator.createInIFrame({
 	oAppRef : oEditors,
-	elPlaceHolder : "gdsDes", //저는 textarea의 id와 똑같이 적어줬습니다.
+	elPlaceHolder : "content", //저는 textarea의 id와 똑같이 적어줬습니다.
 	sSkinURI : "se2/SmartEditor2Skin.html", //경로를 꼭 맞춰주세요!
 	fCreator : "createSEditor2",
 	htParams : {
@@ -385,6 +249,7 @@ $(function() {
 	});
 })
 
+</script>
 </script>
 
 </html>

@@ -61,7 +61,8 @@ public class mngController {
 			paramMap.put("length",recordCountPerPage);
 			paramMap.put("start",pg.getFirstRecordIndex()-1);
 			
-			List<Map<String,Object>> list=boardService.selectBoardList(paramMap);
+			List<Map<String,Object>> list=mngService.selectItemList(paramMap);
+//			List<Map<String,Object>> list=boardService.selectBoardList(paramMap);
 			
 			model.addAttribute("list",list);
 			model.addAttribute("paramMap",paramMap);
@@ -81,16 +82,17 @@ public class mngController {
 			model.addAttribute("login",httpSession.getAttribute("login"));
 			model.addAttribute("member",httpSession.getAttribute("member"));
 			
-			paramMap.put("B_TYPE",4);
+//			paramMap.put("B_TYPE",4);
 			
-			Map<String,Object> detail=boardService.selectBoardDetail(paramMap);
+			Map<String,Object> detail=mngService.selectItemDetail(paramMap);
+//			Map<String,Object> detail=boardService.selectBoardDetail(paramMap);
 			System.err.println("detailP");
 			System.err.println(detail);
 			System.err.println(paramMap);
-			List<Map<String,Object>> list=boardService.selectBoardHisList(paramMap);
+//			List<Map<String,Object>> list=boardService.selectBoardHisList(paramMap);
 			
 			model.addAttribute("detail",detail);
-			model.addAttribute("list",list);
+//			model.addAttribute("list",list);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
@@ -163,9 +165,7 @@ public class mngController {
 		System.err.println("file:"+multi);
 		
 		try {
-			if(paramMap.get("no").toString()!=null||!paramMap.get("no").toString().trim().equals(""))
-				paramMap.put("no",paramMap.get("no"));
-			boardService.insertBoard(paramMap, multi, request);
+//			boardService.insertBoard(paramMap, multi, request);
 			model.addAttribute("paramMap", paramMap);
 			
 			//@@@@@@@@@@
@@ -200,7 +200,7 @@ public class mngController {
 			System.out.println("1 = " + vo.getGdsImg());
 			System.out.println("=================");
 								
-			mngService.register(vo);
+			mngService.register(vo, paramMap, multi, request);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		

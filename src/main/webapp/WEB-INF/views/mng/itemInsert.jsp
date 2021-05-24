@@ -117,9 +117,7 @@
  --%>
 			</div>
 			
-			<div class="inputArea">
-				<button type="submit" id="register_Btn" class="btn btn-primary">등록</button>			
-			</div>
+			
 			
 <%-- 			</form>
  --%>			
@@ -130,6 +128,9 @@
 
 
 			</form>
+			<div class="inputArea">
+				<button type="submit" id="register_Btn" class="btn btn-primary">등록</button>			
+			</div>
 		</div>
 	</section>
 	
@@ -206,8 +207,8 @@ $(function() {
 
 		//textarea의 id를 적어줍니다.
 
-		/* var selcatd1 = $(".category1").val();
-		var selcatd2 = $(".category2").val(); */
+		var selcatd1 = $(".category1").val();
+		var selcatd2 = $(".category2").val(); 
 /* 		var selcatd = $("#selcatd > option:selected").val(); */
 		//var gdsDes = document.getElementById("gdsDes").value;
 		var gdsPrice = $("#gdsPrice").val();
@@ -215,27 +216,34 @@ $(function() {
 		var gdsName = $("#gdsName").val();
 		var gdsDes = $("#gdsDes").val();
 
-		/* if (selcatd1 == "") {
+		if (selcatd1 == "") {
 			alert("카테고리를 선택해주세요.");
 			$(".category1").focus();
-			alert('ff');
 			return;
-		} */
-		if (gdsPrice == null || gdsPrice == "") {
-			alert("상품가격을 입력해주세요.");
-			$("#gdsPrice").focus();
+		} 
+		if (selcatd2 == "") {
+			alert("카테고리를 선택해주세요.");
+			$(".category2").focus();
 			return;
-		}
-		if (gdsStock == null || gdsStock == "") {
-			alert("상품가격을 입력해주세요.");
-			$("#gdsStock").focus();
-			return;
-		}
+		} 
 		if (gdsName == null || gdsName == "") {
 			alert("상품명을 입력해주세요.");
 			$("#gdsName").focus();
 			return;
 		}
+		
+		if (gdsPrice == null || gdsPrice == "") {
+			alert("상품가격을 입력해주세요.");
+			$("#gdsPrice").focus();
+			return;
+		}
+		
+		if (gdsStock == null || gdsStock == "") {
+			alert("상품수량을 입력해주세요.");
+			$("#gdsStock").focus();
+			return;
+		}
+		
 		if(gdsDes == "" || gdsDes == null || gdsDes == '&nbsp;' || 
 				gdsDes == '<br>' || gdsDes == '<br/>' || gdsDes == '<p>&nbsp;</p>'){
 			alert("본문을 작성해주세요.");
