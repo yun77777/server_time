@@ -30,6 +30,7 @@
                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
                                <a class="dropdown-item" href="/user/myPage.do">My Page</a>
                                <a class="dropdown-item" href="/cartList.do">Cart</a>
+                               <a class="dropdown-item" href="/orderList2.do">Order List</a>
                            </div>
                        </li>
 				    </c:if>
