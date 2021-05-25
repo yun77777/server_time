@@ -53,26 +53,28 @@
 						</div>
 						
 						<div class="delBtn">
-							<button type="submit" class="selectDelete_btn">선택 삭제</button>
+							<button type="submit" onclick="fn_delete()" class="selectDelete_btn">선택 삭제</button>
 							
 							<script>
-								$(".selectDelete_btn").click(function(){
+								/* $(".selectDelete_btn").click(function(){
 									var confirm_val = confirm("정말 삭제하시겠습니까?");
 									
 									if(confirm_val) {
 										var checkArr = new Array();
-										var formData = new FormData($("#deleteForm")[0]);
+										//var formData = new FormData($("#deleteForm")[0]);
+										var userId=$('#userId').val();
 
 										// 체크된 체크박스의 갯수만큼 반복
 										$("input[class='chBox']:checked").each(function(){
 											checkArr.push($(this).attr("data-cartNum"));  // 배열에 데이터 삽입
 										});
+										
+										alert(checkArr);
 											
 										$.ajax({
 											url : "/deleteCart.do",
 											type : "post",
-											enctype: 'multipart/form-data',
-											data : { chbox : checkArr },
+											data : { chbox : checkArr , userId : userId },
 											success : function(result){
 												
 												if(result == 1) {												
@@ -83,7 +85,7 @@
 											}
 										});
 									}	
-								});
+								}); */
 							</script>
 							
 						</div>
@@ -409,24 +411,36 @@ function fn_insert() {
 
 function fn_delete() {
 	//var formData = $('#boardForm').serialize();
-	$('#boardForm #no').attr('disabled',false);
-	var formData = new FormData($("#boardForm")[0]);
-	$.ajax({
-		url : "${pageContext.request.contextPath}/deleteBoard.do",
-		type : "post",
-		enctype: 'multipart/form-data',
-		data : formData,
-		processData : false,
-		contentType : false,
-		success : function(result) {
-			alert('success');
-			fn_list();
-		}, // success 
+	/* $('#boardForm #no').attr('disabled',false);
+	var formData = new FormData($("#boardForm")[0]); */
+	var confirm_val = confirm("정말 삭제하시겠습니까?");
+	
+	if(confirm_val) {
+		var checkArr = new Array();
+		//var formData = new FormData($("#deleteForm")[0]);
+		var userId=$('#userId').val();
 
-		error : function(xhr, status) {
-			alert(xhr + " : " + status);
-		}
-	});
+		// 체크된 체크박스의 갯수만큼 반복
+		$("input[class='chBox']:checked").each(function(){
+			checkArr.push($(this).attr("data-cartNum"));  // 배열에 데이터 삽입
+		});
+		
+		alert(checkArr);
+			
+		$.ajax({
+			url : "/deleteCart.do",
+			type : "post",
+			data : { chbox : checkArr , userId : userId },
+			success : function(result){
+				
+				if(result == 1) {												
+					location.href = "/cartList.do";
+				} else {
+					alert("삭제 실패");
+				}
+			}
+		});
+	}
 }
 
 

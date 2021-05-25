@@ -42,7 +42,8 @@ public interface orderMapper {
 	public List<CartListVO> cartList(String userId) throws Exception;
 
 	// 카트 삭제
-	public void deleteCart(CartVO cart) throws Exception;
+	public void deleteCart(Map<String, Object> paramMapt) throws Exception;
+//	public void deleteCart(CartVO cart) throws Exception;
 
 	// 주문 정보
 	public void orderInfo(Map<String, Object> paramMap) throws Exception;

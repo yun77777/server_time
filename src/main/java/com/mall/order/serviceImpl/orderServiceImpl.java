@@ -89,8 +89,8 @@ public class orderServiceImpl implements orderService {
 		
 		// 카트 삭제
 		@Override
-		public void deleteCart(CartVO cart) throws Exception {
-			orderMapper.deleteCart(cart);
+		public void deleteCart(Map<String, Object> paramMap) throws Exception {
+			orderMapper.deleteCart(paramMap);
 		}
 		
 		// 주문 정보
