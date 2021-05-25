@@ -176,7 +176,7 @@
 	</select>
 	
 	<!-- 카트 삭제 -->
-	<delete id="deleteCart">
+	<delete id="deleteCart" parameterType="map">
 		delete tbl_cart
 		    where cartNum = #{cartNum}
 		        and userId = #{userId}

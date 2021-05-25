@@ -430,6 +430,7 @@ function fn_delete() {
 		$.ajax({
 			url : "/deleteCart.do",
 			type : "post",
+			//processData : false,
 			data : { chbox : checkArr , userId : userId },
 			success : function(result){
 				
