@@ -95,8 +95,8 @@ public class orderServiceImpl implements orderService {
 		
 		// 주문 정보
 		@Override
-		public void orderInfo(OrderVO order) throws Exception {
-			orderMapper.orderInfo(order);
+		public void orderInfo(Map<String, Object> paramMap) throws Exception {
+			orderMapper.orderInfo(paramMap);
 		}
 
 		// 주문 상세 정보
@@ -113,8 +113,9 @@ public class orderServiceImpl implements orderService {
 
 		// 주문 목록
 		@Override
-		public List<OrderVO> orderList(OrderVO order) throws Exception {
-			return orderMapper.orderList(order);
+		public List<Map<String, Object>> orderList(Map<String, Object> paramMap) throws Exception {
+			//			public List<OrderVO> orderList(OrderVO order) throws Exception {
+			return orderMapper.orderList(paramMap);
 		}
 
 		// 특정 주문

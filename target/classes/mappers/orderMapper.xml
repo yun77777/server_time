@@ -41,9 +41,32 @@
 	</select>
 	
 	<!-- 주문 정보 -->
-<insert id="orderInfo">
- insert into tbl_order(orderId, userId, orderRec, userAddr1, userAddr2, userAddr3, orderPhon, amount)
-     values(#{orderId}, #{userId}, #{orderRec}, #{userAddr1}, #{userAddr2}, #{userAddr3}, #{orderPhon}, #{amount})
+<insert id="orderInfo" parameterType="map">
+<!-- <insert id="orderInfo" parameterType="com.mall.vo.OrderVO"> -->
+	<selectKey resultType="int" keyProperty="orderId" order="BEFORE">
+		SELECT COALESCE(MAX(orderId),0)+1 AS orderId FROM tbl_order
+		WHERE  userId=#{userId,jdbcType=VARCHAR}
+	</selectKey>
+ 	insert into tbl_order(
+		 orderId
+		 , userId
+		 , orderRec
+		 , userAddr1
+		 , userAddr2
+		 , userAddr3
+		 , orderPhon
+		 , amount
+	 )
+     values(
+	    #{orderId}
+	    , #{userId}
+	    , #{orderRec}
+	    , #{userAddr1}
+	    , #{userAddr2}
+	    , #{userAddr3}
+	    , #{orderPhon}
+	    , #{amount}
+     )
 </insert>
    
 <!-- 주문 상세 정보 --> 
@@ -66,8 +89,11 @@
 	</delete>
 	
 	<!-- 특정 유저의 주문 목록 -->
-	<select id="orderList" resultType="com.mall.vo.OrderVO">
-		select 
+    <select id="orderList" parameterType="java.util.HashMap"
+		resultType="java.util.HashMap">
+<!-- 	<select id="orderList" resultType="map">
+ --><!-- 	<select id="orderList" resultType="com.mall.vo.OrderVO">
+ -->		select 
 		    orderId, userId, orderRec,
 		    userAddr1, userAddr2, userAddr3,
 		    orderPhon, amount, orderDate, delivery

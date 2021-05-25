@@ -14,7 +14,6 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Modern Business - Start Bootstrap Template</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Font Awesome icons (free version)-->
@@ -69,13 +68,13 @@
 										});
 											
 										$.ajax({
-											url : "/shop/deleteCart",
+											url : "/deleteCart.do",
 											type : "post",
 											data : { chbox : checkArr },
 											success : function(result){
 												
 												if(result == 1) {												
-													location.href = "/shop/cartList";
+													location.href = "/cartList.do";
 												} else {
 													alert("삭제 실패");
 												}
@@ -155,7 +154,7 @@
 				<div class="sum">
 					총 합계 : <fmt:formatNumber pattern="###,###,###" value="${sum}" />원
 				</div>
-				<div class="orderOpne">
+				<div class="rorderOpne">
 					<button type="button" class="orderOpne_bnt">주문 정보 입력</button>
 					
 					<script>
@@ -169,9 +168,11 @@
 			</div>
 			
 			<div class="orderInfo">
-				<form role="form" method="post" autocomplete="off">
-							
+<%-- 				<form role="form" method="post" autocomplete="off">
+ --%>										
+			<form id="boardForm" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="amount" value="${sum}" />
+					<input type="hidden" name="userId" value="${member.ID}" />
 							
 					<div class="inputArea">
 						<label for="">수령인</label>
@@ -304,24 +305,22 @@
 						    }
 						</script>
 					</div>
-					
+					</form>	
 					<div class="inputArea">
-						<button type="submit" class="order_btn">주문</button>
+						<button type="submit" onclick="fn_order()" class="order_btn">주문</button>
 						<button type="button" class="cancel_btn">취소</button>
 						
 						<script>
 						$(".cancel_btn").click(function(){
 							$(".orderInfo").slideUp();  // $(".orderInfo")를 숨기고
 							$(".orderOpne_bnt").slideDown();  // $(".orderOpne_bnt")를 나타냄
-							
-								
 						
 							});						
 						</script>
 						
 					</div>
 					
-				</form>	
+				
 			</div>
 			
 				
@@ -426,6 +425,39 @@ function fn_delete() {
 }
 
 
+/* 	$(".order_btn").click(function(){
+		alert($('#boardForm #orderRec').val());
+			$('#boardForm').attr({
+				action : '<c:url value="/orderList.do"/>',
+				target : '_self'
+			}).submit(); 
+	
+		});	 */
+		
+function fn_order(){
+	alert($('#boardForm #orderRec').val());
+	
+	var formData = new FormData($("#boardForm")[0]);
+	$.ajax({
+		url : "${pageContext.request.contextPath}/orderList.do",
+		type : "post",
+		enctype: 'multipart/form-data',
+		data : formData,
+		processData : false,
+		contentType : false,
+		success : function(result) {
+			$('#boardForm').attr({
+				action : '<c:url value="/orderList2.do"/>',
+				target : '_self'
+			}).submit(); 
+		}, // success 
+
+		error : function(xhr, status) {
+			alert(xhr + " : " + status);
+		}
+	});
+	
+}
 </script>
 
 </html>

@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mall.board.service.boardService;
 import com.mall.mng.service.mngService;
@@ -206,23 +207,81 @@ public class orderController {
 //		return "redirect:/order/cartList";
 		return "order/cartList";
 	}
+	
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	@ResponseBody
+	@RequestMapping(value = "/orderList.do")
+	public Map<String,Object> orderList(
+			MultipartHttpServletRequest multi, @RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+		model.addAttribute("login",httpSession.getAttribute("login"));
+		model.addAttribute("member",httpSession.getAttribute("member"));
+
+		System.err.println("insert:"+paramMap);
+		System.err.println("$$$$$$$$$$");
+		orderService.orderInfo(paramMap);
+		
+		logger.info("get order list");
+		
+		System.err.println("paramMap@:"+paramMap);
+	//				System.err.println("order@:"+session.getAttribute("login"));
+	//
+	//				UserVO member = (UserVO)session.getAttribute("login");
+	//				String userId = member.getID();
+	//				System.err.println("order@:"+order);
+	//				
+	//				order.setUserId(session.getAttribute("login").toString());
+	//				order.setOrderId(session.getAttribute("login").toString());
+	
+		List<Map<String, Object>> orderList = orderService.orderList(paramMap);
+		
+		model.addAttribute("orderList", orderList);
+		model.addAttribute("paramMap", paramMap);
+
+		return paramMap;
+	}
+	
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 	// 주문 목록
-	@RequestMapping(value = "/orderList.do", method = RequestMethod.GET)
-	public String getOrderList(Map<String, Object> paramMap, HttpSession session, OrderVO order, Model model) throws Exception {
+	@RequestMapping(value = "/orderList2.do")
+//	@RequestMapping(value = "/orderList.do", method = RequestMethod.GET)
+	public String getOrderList(HttpServletRequest request, Map<String, Object> paramMap, HttpSession session, Model model) throws Exception {
 //		public void getOrderList(Map<String, Object> paramMap, HttpSession session, OrderVO order, Model model) throws Exception {
 		logger.info("get order list");
 		model.addAttribute("login",session.getAttribute("login"));
 		model.addAttribute("member",session.getAttribute("member"));
 		
-		UserVO member = (UserVO) session.getAttribute("ID");
-		String userId = member.getID();
+		System.err.println("paramMap@:"+paramMap);
+		System.err.println("orderRec@:"+request.getAttribute("orderRec"));
+//		System.err.println("order@:"+session.getAttribute("login"));
+//
+//		UserVO member = (UserVO)session.getAttribute("login");
+//		String userId = member.getID();
+//		System.err.println("order@:"+order);
+//		
+//		order.setUserId(session.getAttribute("login").toString());
+//		order.setOrderId(session.getAttribute("login").toString());
+		paramMap.put("userId",session.getAttribute("login"));
 
-		order.setUserId(userId);
-		paramMap.put("userId",userId);
-		List<OrderVO> orderList = orderService.orderList(order);
-
+		List<Map<String, Object>> orderList = orderService.orderList(paramMap);
+		System.err.println("orderList@@:"+orderList);
 		model.addAttribute("orderList", orderList);
+		model.addAttribute("paramMap", paramMap);
+		
+		//@@@
+//		model.addAttribute("login",session.getAttribute("login"));
+//		model.addAttribute("member",session .getAttribute("member"));
+//		System.err.println("login@:"+session.getAttribute("login"));
+//		System.err.println("member@:"+session.getAttribute("member"));
+//		UserVO member = (UserVO) session.getAttribute("login");
+//		System.err.println("UserVO:"+member.getID());
+//		String userId = member.getID();
+//
+//		order.setUserId(userId);
+//		paramMap.put("userId",userId);
+//		List<OrderVO> orderList = orderService.orderList(order);
+//
+//		model.addAttribute("orderList", orderList);
 		
 		return "order/orderList";
 
