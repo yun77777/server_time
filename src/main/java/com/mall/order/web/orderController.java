@@ -138,18 +138,23 @@ public class orderController {
 	// 카트 삭제
 	@ResponseBody
 	@RequestMapping(value = "/deleteCart.do", method = RequestMethod.POST)
-	public int deleteCart(HttpSession session, @RequestParam(value = "chbox[]") List<String> chArr, CartVO cart)
+	public int deleteCart(Map<String, Object> paramMap, HttpSession session, Model model, @RequestParam(value = "chbox[]") List<String> chArr, CartVO cart)
 			throws Exception {
 		logger.info("delete cart");
+//	model.addAttribute("login", httpSession.getAttribute("login"));
+		model.addAttribute("login", session.getAttribute("login"));
 
-		UserVO member = (UserVO) session.getAttribute("ID");
-		String userId = member.getID();
-
+		System.err.println("zxzxcczzcxc:"+paramMap);
+		
+//		UserVO member = (UserVO) session.getAttribute("ID");
+//		String userId = member.getID();
+		String userId =  session.getAttribute("member").toString();
+		
 		int result = 0;
 		int cartNum = 0;
 
 		// 로그인 여부 구분
-		if (member != null) {
+		if (userId != null) {
 			cart.setUserId(userId);
 
 			for (String i : chArr) { // 에이젝스에서 받은 chArr의 갯수만큼 반복

@@ -53,7 +53,7 @@
 						</div>
 						
 						<div class="delBtn">
-							<button type="button" class="selectDelete_btn">선택 삭제</button>
+							<button type="submit" class="selectDelete_btn">선택 삭제</button>
 							
 							<script>
 								$(".selectDelete_btn").click(function(){
@@ -61,7 +61,8 @@
 									
 									if(confirm_val) {
 										var checkArr = new Array();
-										
+										var formData = new FormData($("#deleteForm")[0]);
+
 										// 체크된 체크박스의 갯수만큼 반복
 										$("input[class='chBox']:checked").each(function(){
 											checkArr.push($(this).attr("data-cartNum"));  // 배열에 데이터 삽입
@@ -70,6 +71,7 @@
 										$.ajax({
 											url : "/deleteCart.do",
 											type : "post",
+											enctype: 'multipart/form-data',
 											data : { chbox : checkArr },
 											success : function(result){
 												
@@ -90,6 +92,7 @@
 				
 					<%-- jsp상의 변수 선언 --%>
 					<c:set var="sum" value="0" />
+				<form id="deleteForm" method="post" enctype="multipart/form-data">
 				
 					<c:forEach items="${cartList}" var="cartList">
 					<li>
@@ -119,19 +122,20 @@
 								<script>
 									$(".delete_${cartList.cartNum}_btn").click(function(){
 										var confirm_val = confirm("정말 삭제하시겠습니까?");
-										
+										var userId=$('#userId').val();
+										alert(userId);
 										if(confirm_val) {
 											var checkArr = new Array();
 											
 											checkArr.push($(this).attr("data-cartNum"));
 																						
 											$.ajax({
-												url : "/shop/deleteCart",
+												url : "/deleteCart.do",
 												type : "post",
-												data : { chbox : checkArr },
+												data : { chbox : checkArr , userId : userId},
 												success : function(result){
 													if(result == 1) {												
-														location.href = "/shop/cartList";
+														location.href = "/cartList.do";
 													} else {
 														alert("삭제 실패");
 													}
@@ -148,6 +152,7 @@
 					<c:set var="sum" value="${sum + (cartList.gdsPrice * cartList.cartStock)}" />
 					
 					</c:forEach>
+				</form>
 				</ul>
 			
 			<div class="listResult">
@@ -172,7 +177,7 @@
  --%>										
 			<form id="boardForm" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="amount" value="${sum}" />
-					<input type="hidden" name="userId" value="${member.ID}" />
+					<input type="hidden" id="userId" name="userId" value="${member.ID}" />
 							
 					<div class="inputArea">
 						<label for="">수령인</label>
