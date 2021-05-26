@@ -49,9 +49,9 @@
 	 	, B.gdsDes
 	 	, B.gdsImg
 	 	, B.gdsThumbImg
-	 	,(SELECT ORG_FILE_NAME FROM MP_FILE WHERE BNO=B.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE)) file
-	 	,(SELECT FILE_PATH FROM MP_FILE WHERE BNO=B.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE)) file_src
-	 	,(SELECT SEQ_MP_FILE_NO FROM MP_FILE WHERE BNO=B.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE)) file_no
+	 	,(SELECT ORG_FILE_NAME FROM MP_FILE WHERE BNO=B.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE WHERE BNO=B.gdsNum)) representative_file
+	 	,(SELECT FILE_PATH FROM MP_FILE WHERE BNO=B.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE WHERE BNO=B.gdsNum)) file_src
+	 	,(SELECT SEQ_MP_FILE_NO FROM MP_FILE WHERE BNO=B.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE WHERE BNO=B.gdsNum)) file_no
 		FROM tbl_goods B,(SELECT @rownum:=0) R
 		where B.gdsNum>=0
 <!-- 		<include refid="searchOption"/>
@@ -85,6 +85,7 @@
 	 	, B.gdsDes
 	 	, B.gdsImg
 	 	, B.gdsThumbImg
+	 	,(SELECT ORG_FILE_NAME FROM MP_FILE WHERE BNO=B.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE WHERE BNO=B.gdsNum)) representative_file
 	 	<!-- , MF.ORG_FILE_NAME file
 	 	, MF.FILE_PATH file_src
 	 	, MF.SEQ_MP_FILE_NO file_no -->
@@ -107,7 +108,7 @@
 	 	, B.gdsThumbImg
 	 	, MF.ORG_FILE_NAME file
 	 	, MF.FILE_PATH file_src
-	 	, MF.SEQ_MP_FILE_NO file_no
+	 	, MF.SEQ_MP_FILE_NO file_no1
 		FROM tbl_goods B,(SELECT @rownum:=0) R
 		left outer join MP_FILE MF
 		on MF.BNO=#{gdsNum}

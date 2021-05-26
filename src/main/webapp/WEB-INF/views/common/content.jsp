@@ -73,7 +73,7 @@
 		                       <div class="card h-100">
 		                           <a href="#!" onclick="fn_detail('${result.gdsNum}','${result.B_TYPE}')">
 <%-- 		                           <a href="#!" onclick="fn_detail('${result.B_NO}','${result.B_TYPE}')"> --%>
-		                           <img class="card-img-top" src="<c:url value='/img/${result.file}'/>" alt="no image" /></a>
+		                           <img class="card-img-top" src="<c:url value='/img/${result.representative_file}'/>" alt="no image" /></a>
 		                           <div class="card-body">
 		                                <h4 class="card-title"><a href="#!">${result.gdsName}</a></h4>
 		                                <!-- <p class="card-text"></p> -->

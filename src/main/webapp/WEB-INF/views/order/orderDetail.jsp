@@ -156,7 +156,7 @@
 	                  
 		                
                 <div class="row">
-                    <div class="col-md-8"><img class="card-img-top" src="<c:url value='/img/${detail.file}'/>" alt="no image" /></div>
+                    <div class="col-md-8"><img class="card-img-top" src="<c:url value='/img/${detail.representative_file}'/>" alt="no image" /></div>
                     <div class="col-md-4">
                         <h3 class="my-3">${detail.title}</h3>
                        
@@ -264,12 +264,9 @@
 <!-- <span class="centered"> <span class="item" style="display:block">block item</span> </span> -->
                     <h3 class="my-3">Project Details</h3>
 	                        <ul>
-	                            <li><img class="card-img-top" src="<c:url value='/img/${detail.file}'/>" alt="no image" /></li>
-	                            <li><img class="card-img-top" src="<c:url value='/img/${detail.file}'/>" alt="no image" /></li>
-	                            <li><img class="card-img-top" src="<c:url value='/img/${detail.file}'/>" alt="no image" /></li>
-	                            <li><img class="card-img-top" src="<c:url value='/img/${detail.file}'/>" alt="no image" /></li>
-	                            <li><img class="card-img-top" src="<c:url value='/img/${detail.file}'/>" alt="no image" /></li>
-	                            <li><img class="card-img-top" src="<c:url value='/img/${detail.file}'/>" alt="no image" /></li>
+	                        <c:forEach var="result" items="${imgList}" varStatus="status">
+					            	<li><img class="card-img-top" src="<c:url value='/img/${result.file}'/>" alt="no image" /></li>
+							</c:forEach>
 	                            <li><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p></li>
 	                            <li><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p></li>
 	                            <li><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p></li>

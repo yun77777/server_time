@@ -56,17 +56,11 @@ public class orderController {
 			paramMap.put("B_TYPE", 4);
 
 			Map<String, Object> detail = mngService.selectItemDetail(paramMap);
-//			Map<String, Object> detail = orderService.selectOrderDetail(paramMap);
-//			List<Map<String, Object>> list = boardService.selectItemList(paramMap);
-//			model.addAttribute("list", list);
-			System.err.println("detailP");
-			System.err.println(paramMap);
-			System.err.println(detail);
+			List<Map<String,Object>> imgList=mngService.selectItemImgList(paramMap);
+
 			model.addAttribute("detail", detail);
+			model.addAttribute("imgList", imgList);
 			
-			
-//			GoodsViewVO view = orderService.goodsView(gdsNum);
-//			model.addAttribute("view", view);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
