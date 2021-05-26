@@ -37,9 +37,7 @@
 	</insert>
 	<select id="selectItemList" parameterType="java.util.HashMap"
 		resultType="java.util.HashMap">
-	<if test="PAGE_TYPE!='main'">
 		<include refid="com.mall.common.commonMapper.pagingHeaderSql"/>
-	</if>
  	SELECT @rownum:=@rownum+1 ROWNUM
 	 	, B.gdsNum
 	 	, B.gdsName
@@ -56,9 +54,20 @@
 		where B.gdsNum>=0
 <!-- 		<include refid="searchOption"/>
  -->		ORDER BY B.gdsNum DESC
- 	<if test="PAGE_TYPE!='main'">
 		<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
-	</if>
+	</select>
+	
+	<select id="selectItemListCnt" parameterType="map"
+		resultType="Integer">
+			SELECT COUNT(1) CNT
+		FROM (
+			SELECT B.gdsNum
+		
+		FROM tbl_goods B
+		where B.gdsNum>=0
+		ORDER BY B.gdsNum DESC
+		<!-- <include refid="searchOption"/> -->
+		) B
 	</select>
 	
 	<select id="selectItemDetail" parameterType="map"
@@ -85,5 +94,7 @@
 		resultType="Integer">
 			SELECT max(gdsNum) FROM tbl_goods
 	</select>
+	
+	
 	
 </mapper>

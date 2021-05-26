@@ -77,6 +77,8 @@
 		                           <input type="hidden" id="gdsNum" name="gdsNum">
 <!-- 		                           <input type="hidden" id="B_NO" name="B_NO"> -->
 		                           <input type="hidden" id="B_TYPE" name="B_TYPE">
+		                           <input type="hidden" id="currentPageNo" name="currentPageNo" value="${pg.currentPageNo}"/>
+								<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
 		                       </div>
 		                   </div>
 	                    </c:forEach>
@@ -101,6 +103,7 @@
 	                    </div> -->
 	                </div>
 	            </div>
+	            <%@ include file="/WEB-INF/views/common/paging.jsp"%>
            </article>
         </section>
         <aside style="float:left;width:20%">

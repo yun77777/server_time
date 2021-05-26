@@ -49,7 +49,6 @@
 		</div> -->
 		<%@ include file="/WEB-INF/views/common/content.jsp"%>
 	</form>
-	
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
 	

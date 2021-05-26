@@ -258,7 +258,8 @@ public class orderController {
 		System.err.println("insert:"+paramMap);
 		System.err.println("$$$$$$$$$$");
 		orderService.orderInfo(paramMap);
-		
+//		orderService.cartAllDelete(userId);
+
 		logger.info("get order list");
 		
 		System.err.println("paramMap@:"+paramMap);

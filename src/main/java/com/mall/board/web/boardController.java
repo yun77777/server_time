@@ -48,7 +48,7 @@ public class boardController {
 //		return "test";
 //	}
 	@RequestMapping(value = "/test.do", method = RequestMethod.GET)
-	public String test(Map<String, Object> paramMap, @ModelAttribute("loginDTO") LoginDTO loginDTO, HttpSession httpSession, Model model) {
+	public String test(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="5") int recordCountPerPage ,Map<String, Object> paramMap, @ModelAttribute("loginDTO") LoginDTO loginDTO, HttpSession httpSession, Model model) {
 		System.err.println("test@@@:"+httpSession.getAttribute("login"));
 		
 		System.err.println("member@@@:"+httpSession.getAttribute("member"));
@@ -58,6 +58,14 @@ public class boardController {
 		try {
 			paramMap.put("B_TYPE",4);
 			paramMap.put("PAGE_TYPE","main");
+			
+			
+			PaginationVO pg = new PaginationVO(currentPageNo, recordCountPerPage, 3, 
+					mngService.selectItemListCnt(paramMap));
+			
+			paramMap.put("length",recordCountPerPage);
+			paramMap.put("start",pg.getFirstRecordIndex()-1);
+			
 			List<Map<String, Object>> list=mngService.selectItemList(paramMap);
 //			List<Map<String, Object>> list=boardService.selectItemList(paramMap);
 			System.err.println("li:"+list);

@@ -217,9 +217,11 @@
 			#{B_TYPE}
 		)
     </insert>
-    
+
     <select id="selectItemList" parameterType="java.util.HashMap"
 		resultType="java.util.HashMap">
+			<include refid="com.mall.common.commonMapper.pagingHeaderSql"/>
+		
  	SELECT @rownum:=@rownum+1 ROWNUM
  	,B.B_NO
 		,B.id
@@ -238,6 +240,7 @@
 		where B.B_NO>0 AND B.B_TYPE=#{B_TYPE}
 		<include refid="searchOption"/>
 		ORDER BY B.B_NO DESC
+		<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
 	</select>
 	
 	

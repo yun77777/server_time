@@ -13,6 +13,8 @@ public interface mngMapper {
 
 	public List<Map<String, Object>> selectItemList(Map<String, Object> paramMap) throws Exception;
 
+	public Integer selectItemListCnt(Map<String, Object> paramMap) throws Exception;
+
 	public Map<String, Object> selectItemDetail(Map<String, Object> paramMap) throws Exception;
 
 	public Integer selectItemListMaxNo(Map<String, Object> paramMap) throws Exception;
