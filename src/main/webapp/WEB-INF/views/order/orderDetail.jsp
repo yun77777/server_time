@@ -181,14 +181,16 @@
 								</table>
 		                    </div>
                          <div class="col-lg-8 mb-4">
-                    <form role="form" method="post">
+                   <%--  <form role="form" method="post">
 						<input type="hidden" name="gdsNum" value="${view.gdsNum}" />
 					
-					</form>
-					<form id="boardForm" method="post" enctype="multipart/form-data">
-						<input type="hidden" name="orderId" value="${member.ID}" />
+					</form> --%>
+					<form id="orderForm" method="post" enctype="multipart/form-data">
 						<input type="hidden" name="userId" value="${member.ID}" />
-					</form>
+						<input type="hidden" id="gdsNum" name="gdsNum" value="${detail.gdsNum}" />
+						<input type="hidden" name="gdsPrice" value="${detail.gdsPrice}" />
+						<input type="hidden" id="gdsStock" name="gdsStock" />
+					
 				<div class="goods">
 					<div class="goodsImg">
 						<img src="${view.gdsImg}">
@@ -212,10 +214,9 @@
 						<p class="cartStock">
 							<span>구입 수량</span>
 							<button type="button" class="plus">+</button>
-							<input type="number" class="numBox" min="1" max="${view.gdsStock}" value="1" readonly="readonly"/>
+							<input type="number" id="stock" class="numBox" min="1" max="${view.gdsStock}" value="1" readonly="readonly"/>
 							<button type="button" class="minus">-</button>
-							
-							<input type="hidden" value="${view.gdsStock}" class="gdsStock_hidden" />
+							<input type="hidden" value="${view.gdsStock}" class="gdsStock_hidden" /> 
 							
 													
 							
@@ -235,13 +236,14 @@
 					
 					<div class="gdsDes">${view.gdsDes}</div>
 				</div>
+			</form>
 	                    </div>
 		                    <!-- @@@@@@@@@@ -->
 		                    <!-- @@@@@@@@@@ -->
 		                   
 	                        
 		                    <div class="row">
-								<button class="btn btn-primary" id="sendMessageButton" onclick="fn_insert()" type="submit">Order</button>
+								<button class="btn btn-primary" id="orderBtn" type="button">Order</button>
 								<button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="submit">Cart</button>
 								<button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="submit">Wish List</button>
 							</div>
@@ -323,6 +325,10 @@
 </body>
 
 <script>
+$(document).ready(function(){              
+	$('#gdsStock').val($(".numBox").val());
+});
+
 function fn_list(no) {
 	//$('#currentPageNo').val(no);
 	window.location='<c:url value="/boardList.do"/>';
@@ -486,6 +492,47 @@ $(".modal_cancel").click(function(){
 		} else {
 			$(".numBox").val(minusNum);										
 		}
+	});
+	
+	
+
+
+	
+$("#orderBtn").click(function(){
+		
+		var gdsNum = $("#gdsNum").val();
+		var gdsStock = $(".numBox").val();
+		alert(gdsStock);
+		var data = {
+				gdsNum : gdsNum,
+				gdsStock : gdsStock
+				};
+		
+		$.ajax({
+			url : "/orderItem.do",
+			type : "post",
+			data : data,
+			success : function(result){
+				
+				if(result == 1) {
+					
+					$('#orderForm').attr({
+						action : '<c:url value="/orderProcess.do"/>',
+						target : '_self'
+					}).submit(); 
+					
+					//$(".numBox").val("1");
+				} else {
+					alert("회원만 사용할 수 있습니다.")
+					$(".numBox").val("1");
+					window.location='<c:url value="/user/login.do"/>';
+
+				}
+			},
+			error : function(){
+				alert("실패");
+			}
+		});
 	});
 </script>
 </html>

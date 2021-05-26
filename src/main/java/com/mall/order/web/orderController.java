@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -218,6 +219,44 @@ public class orderController {
 //		return "redirect:/order/cartList";
 		return "order/cartList";
 	}
+	
+	@RequestMapping(value = "/orderProcess.do")
+//	@RequestMapping(value = "/cartList.do", method = RequestMethod.POST)
+	public String orderProcess(@RequestParam Map<String, Object> paramMap, Model model, HttpSession session) throws Exception {
+		logger.info("order");
+//		model.addAttribute("login", session.getAttribute("login"));
+//		model.addAttribute("member", session.getAttribute("member"));
+
+		
+		Map<String, Object> detail = orderService.selectOrderDetail(paramMap);
+
+		model.addAttribute("detail", detail);
+		model.addAttribute("paramMap",paramMap);
+		return "order/orderProcess";
+	}
+	
+	// 주
+		@ResponseBody
+		@RequestMapping(value = "/orderItem.do", method = RequestMethod.POST)
+		public int orderItem(@RequestParam Map<String, Object> paramMap, HttpSession session, Model model) throws Exception {
+			System.err.println(("orderItem:"+paramMap));
+			Map<String, Object> detail = mngService.selectItemDetail(paramMap);
+			model.addAttribute("detail",detail);
+			model.addAttribute("paramMap",paramMap);
+			System.err.println("orderD:"+detail);
+			int result = 0;
+
+			String member = String.valueOf(session.getAttribute("login"));
+//			UserVO member = (UserVO) session.getAttribute("login");
+			if (member != null) {
+//				cart.setUserId(member);
+//				cart.setUserId(member.getID());
+//				orderService.addCart(cart);
+				result = 1;
+			}
+
+			return result;
+		}
 	
 	//@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	@ResponseBody

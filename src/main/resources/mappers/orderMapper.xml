@@ -182,4 +182,24 @@
 		        and userId = #{userId}
 	</delete>
 	
+	
+	<!-- <select id="orderProcess" parameterType="map"
+		resultType="map">
+		SELECT @rownum:=@rownum+1 ROWNUM
+	 	, B.gdsNum
+	 	, B.gdsName
+	 	, B.cateCode
+	 	, B.gdsPrice
+	 	, B.gdsStock
+	 	, B.gdsDes
+	 	, B.gdsImg
+	 	, B.gdsThumbImg
+	 	, MF.ORG_FILE_NAME file
+	 	, MF.FILE_PATH file_src
+	 	, MF.SEQ_MP_FILE_NO file_no
+		FROM tbl_goods B,(SELECT @rownum:=0) R
+		left outer join MP_FILE MF
+		on MF.BNO=#{gdsNum}
+		where B.gdsNum=#{gdsNum}
+	</select> -->
 </mapper>

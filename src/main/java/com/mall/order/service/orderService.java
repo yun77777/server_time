@@ -14,6 +14,8 @@ public interface orderService {
 
 	public Map<String, Object> selectOrderDetail(Map<String, Object> paramMap) throws Exception;
 
+	public Map<String, Object> orderProcess(Map<String, Object> paramMap) throws Exception;
+
 	// 카테고리별 상품 리스트
 	public List<GoodsViewVO> list(int cateCode, int level) throws Exception;
 

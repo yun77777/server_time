@@ -14,6 +14,8 @@ public interface orderMapper {
 
 	public Map<String, Object> selectOrderDetail(Map<String, Object> paramMap) throws Exception;
 
+	public Map<String, Object> orderProcess(Map<String, Object> paramMap) throws Exception;
+
 	// 카테고리별 상품 리스트
 	public List<GoodsViewVO> list(int cateCode, int level) throws Exception;
 
@@ -58,7 +60,7 @@ public interface orderMapper {
 	// 주문 목록
 	public List<Map<String, Object>> orderList(Map<String, Object> paramMap) throws Exception;
 //	public List<OrderVO> orderList(Map<String, Object> paramMap) throws Exception;
-	//	public List<OrderVO> orderList(OrderVO order) throws Exception;
+	// public List<OrderVO> orderList(OrderVO order) throws Exception;
 
 	// 특정 주문 목록
 	public List<OrderListVO> orderView(OrderVO order) throws Exception;

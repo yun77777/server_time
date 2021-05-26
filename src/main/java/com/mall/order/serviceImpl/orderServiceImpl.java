@@ -24,6 +24,10 @@ public class orderServiceImpl implements orderService {
 		System.err.println("oardMapper.selectBoardDetail(paramMap:" + orderMapper.selectOrderDetail(paramMap));
 		return orderMapper.selectOrderDetail(paramMap);
 	}
+	@Override
+	public Map<String, Object> orderProcess(Map<String, Object> paramMap) throws Exception {
+		return orderMapper.orderProcess(paramMap);
+	}
 	
 	// 카테고리별 상품 리스트
 		@Override
