@@ -87,7 +87,7 @@
 			<div class="orderInfo">
 <%-- 				<form role="form" method="post" autocomplete="off">
  --%>										
-			<form id="boardForm" method="post" enctype="multipart/form-data">
+			<form id="orderForm" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="amount" value="${sum}" />
 					<input type="hidden" id="userId" name="userId" value="${member.ID}" />
 							
@@ -262,7 +262,7 @@ function fn_list(no) {
 	//$('#currentPageNo').val(no);
 	window.location='<c:url value="/boardList.do"/>';
 	
-	/* $('#boardForm').attr({
+	/* $('#orderForm').attr({
 		action : '<c:url value="/boardList.do"/>',
 		target : '_self'
 	}).submit(); */
@@ -271,9 +271,9 @@ function fn_list(no) {
 
 
 function fn_order(){
-	alert($('#boardForm #orderRec').val());
+	alert($('#orderForm #orderRec').val());
 	
-	var formData = new FormData($("#boardForm")[0]);
+	var formData = new FormData($("#orderForm")[0]);
 	$.ajax({
 		url : "${pageContext.request.contextPath}/orderList.do",
 		type : "post",
@@ -282,7 +282,7 @@ function fn_order(){
 		processData : false,
 		contentType : false,
 		success : function(result) {
-			$('#boardForm').attr({
+			$('#orderForm').attr({
 				action : '<c:url value="/orderList2.do"/>',
 				target : '_self'
 			}).submit(); 

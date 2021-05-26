@@ -434,7 +434,8 @@ function fn_delete() {
 			data : { chbox : checkArr , userId : userId },
 			success : function(result){
 				
-				if(result == 1) {												
+				if(result == 1) {						
+					alert("삭제 완료");
 					location.href = "/cartList.do";
 				} else {
 					alert("삭제 실패");

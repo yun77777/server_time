@@ -177,9 +177,9 @@
 	
 	<!-- 카트 삭제 -->
 	<delete id="deleteCart" parameterType="map">
-		delete tbl_cart
-		    where cartNum = #{cartNum}
-		        and userId = #{userId}
+<!-- 	<delete id="deleteCart" parameterType="com.mall.vo.CartVO"> -->
+		delete from tbl_cart
+		    where cartNum = #{cartNum} and userId = #{userId}
 	</delete>
 	
 	

@@ -138,39 +138,28 @@ public class orderController {
 
 	// 카트 삭제
 	@ResponseBody
-	@RequestMapping(value = "/deleteCart.do", method = RequestMethod.POST)
-//	public int deleteCart(Map<String, Object> paramMap, HttpServletRequest request, HttpSession session, Model model)
-	public int deleteCart(Map<String, Object> paramMap, HttpSession session, Model model, @RequestParam(value = "chbox[]") List<String> chArr,@RequestParam(value = "userId") String userId, CartVO cart)
-			throws Exception {
+	@RequestMapping(value = "/deleteCart")
+//	@RequestMapping(value = "/deleteCart", method = RequestMethod.POST)
+	public int deleteCart( @RequestParam(value="userId") String userId, @RequestParam(value = "chbox[]") List<String> chArr, @RequestParam Map<String, Object> paramMap, Model model, HttpSession session) throws Exception {
 		logger.info("delete cart");
-//	model.addAttribute("login", httpSession.getAttribute("login"));
 		model.addAttribute("login", session.getAttribute("login"));
-
-		System.err.println("zxzxcczzcxc:"+paramMap);
-		System.err.println("chArr:"+chArr);
-		System.err.println("userId:"+userId);
-		
-//		UserVO member = (UserVO) session.getAttribute("ID");
-//		String userId = member.getID();
-//		String userId =  session.getAttribute("member").toString();
-//		String userId =  paramMap.get("login").toString();
-		paramMap.put("userId",userId);
+		System.err.println("paramMap@"+paramMap);
+		System.err.println("chArr@"+chArr);
+		System.err.println("userId@"+userId);
 		int result = 0;
 		int cartNum = 0;
-
+		paramMap.put("userId",userId);
 		// 로그인 여부 구분
-		if (userId != null) {
-			cart.setUserId(userId);
-
-			for (String i : chArr) { // 에이젝스에서 받은 chArr의 갯수만큼 반복
-				cartNum = Integer.parseInt(i); // i번째 데이터를 cartNum에 저장
-				cart.setCartNum(cartNum);
+		if(userId != null) {
+			
+			for(String i : chArr) {  // 에이젝스에서 받은 chArr의 갯수만큼 반복
+				cartNum = Integer.parseInt(i);  // i번째 데이터를 cartNum에 저장
+				
 				paramMap.put("cartNum",cartNum);
 				orderService.deleteCart(paramMap);
-//				orderService.deleteCart(userId);
 			}
 			result = 1;
-		}
+		}		
 		return result;
 	}
 
