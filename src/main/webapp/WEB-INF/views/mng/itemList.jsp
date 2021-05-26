@@ -100,6 +100,7 @@
 					<thead>
 						<tr>
 							<th scope="col">gdsNum</th>
+							<th scope="col">img</th>
 							<th scope="col">cateCode</th>
 							<th scope="col">gdsName</th>
 							<th scope="col">gdsStock</th>
@@ -109,9 +110,13 @@
 						<c:forEach var="result" items="${list}" varStatus="status">
 							<tr>
 								<th scope="row">${result.gdsNum}</th>
+								<td style="height:200px">
+		                           <img class="card-img-top" src="<c:url value='/img/${result.representative_file}'/>" style="width:100px" alt="no image" />
+								</td>
 								<th scope="row">${result.cateCode}</th>
 								<td><a href="#" onclick="fn_detail('${result.gdsNum}');">${result.gdsName}</a></td>
 								<td>${result.gdsStock}</td>
+								
 							</tr>
 						</c:forEach>
 					</tbody>

@@ -161,26 +161,6 @@
                         <h3 class="my-3">${detail.title}</h3>
                        
                          <div class="col-lg-8 mb-4">
-								 <table class="table table-sm">
-									<thead>
-									</thead>
-									<tbody>
-										<tr>
-											<th scope="row">Price</th>
-											<td>${detail.input_dt}</td>
-										</tr>
-										<tr>
-											<th scope="row">Color</th>
-											<td>${detail.cnt}</td>
-										</tr>
-										<tr>
-											<th scope="row">Total Price</th>
-											<td>${detail.id}</td>
-										</tr>
-									</tbody>
-								</table>
-		                    </div>
-                         <div class="col-lg-8 mb-4">
                    <%--  <form role="form" method="post">
 						<input type="hidden" name="gdsNum" value="${view.gdsNum}" />
 					
@@ -197,10 +177,51 @@
 					</div>
 					
 					<div class="goodsInfo">
+						<table class="table table-sm">
+							<thead>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row">상품명</th>
+									<td>${detail.gdsName}</td>
+								</tr>
+								<tr>
+									<th scope="row">가격</th>
+									<td><fmt:formatNumber pattern="###,###,###" value="${detail.gdsPrice}" /> 원</td>
+								</tr>
+								<tr>
+									<th scope="row">재고</th>
+									<td></span><fmt:formatNumber pattern="###,###,###" value="${detail.gdsStock}" /> EA</td>
+								</tr>
+								<tr>
+									<th scope="row">Total Price</th>
+									<td></span><fmt:formatNumber pattern="###,###,###" value="${detail.gdsStock}" /> EA</td>
+								</tr>
+								<tr>
+									<th scope="row">구입 수량</th>
+									<td>
+										<c:if test="${view.gdsStock != 0}">
+											<p class="cartStock">
+												<button type="button" class="plus">+</button>
+												<input type="number" id="stock" class="numBox" min="1" max="${view.gdsStock}" value="1" readonly="readonly"/>
+												<button type="button" class="minus">-</button>
+												<input type="hidden" value="${view.gdsStock}" class="gdsStock_hidden" /> 
+											</p>
+											<p class="addToCart">
+												<button type="button" class="addCart_btn">카트에 담기</button>
+											</p>
+										</c:if>
+										<c:if test="${view.gdsStock == 0}">
+											<p>상품 수량이 부족합니다.</p>						
+										</c:if>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					<!-- @@@@@@@@@ -->
+					
 						<p class="gdsName"><span>상품명</span>${detail.gdsName}</p>
 						
-<%-- 						<p class="cateName"><span>카테고리</span>${view.cateName}</p>
- --%>						
 						<p class="gdsPrice">
 							<span>가격 </span><fmt:formatNumber pattern="###,###,###" value="${detail.gdsPrice}" /> 원
 						</p>
