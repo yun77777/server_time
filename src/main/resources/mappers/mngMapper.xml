@@ -37,7 +37,9 @@
 	</insert>
 	<select id="selectItemList" parameterType="java.util.HashMap"
 		resultType="java.util.HashMap">
+	<if test="PAGE_TYPE!='main'">
 		<include refid="com.mall.common.commonMapper.pagingHeaderSql"/>
+	</if>
  	SELECT @rownum:=@rownum+1 ROWNUM
 	 	, B.gdsNum
 	 	, B.gdsName
@@ -47,14 +49,16 @@
 	 	, B.gdsDes
 	 	, B.gdsImg
 	 	, B.gdsThumbImg
-	 	,(SELECT ORG_FILE_NAME FROM MP_FILE WHERE BNO=B.gdsNum) file
-		,(SELECT FILE_PATH FROM MP_FILE WHERE BNO=B.gdsNum) file_src
-		,(SELECT SEQ_MP_FILE_NO FROM MP_FILE WHERE BNO=B.gdsNum) file_no
+	 	,(SELECT ORG_FILE_NAME FROM MP_FILE WHERE BNO=B.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE)) file
+	 	,(SELECT FILE_PATH FROM MP_FILE WHERE BNO=B.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE)) file_src
+	 	,(SELECT SEQ_MP_FILE_NO FROM MP_FILE WHERE BNO=B.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE)) file_no
 		FROM tbl_goods B,(SELECT @rownum:=0) R
 		where B.gdsNum>=0
 <!-- 		<include refid="searchOption"/>
  -->		ORDER BY B.gdsNum DESC
+ 	<if test="PAGE_TYPE!='main'">
 		<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
+	</if>
 	</select>
 	
 	<select id="selectItemListCnt" parameterType="map"
@@ -73,6 +77,26 @@
 	<select id="selectItemDetail" parameterType="map"
 		resultType="map">
 		SELECT @rownum:=@rownum+1 ROWNUM
+	 	, B.gdsNum
+	 	, B.gdsName
+	 	, B.cateCode
+	 	, B.gdsPrice
+	 	, B.gdsStock
+	 	, B.gdsDes
+	 	, B.gdsImg
+	 	, B.gdsThumbImg
+	 	<!-- , MF.ORG_FILE_NAME file
+	 	, MF.FILE_PATH file_src
+	 	, MF.SEQ_MP_FILE_NO file_no -->
+		FROM tbl_goods B,(SELECT @rownum:=0) R
+		<!-- left outer join MP_FILE MF
+		on MF.BNO=#{gdsNum} -->
+		where B.gdsNum=#{gdsNum}
+	</select>
+	
+	<select id="selectItemImgList" parameterType="java.util.HashMap"
+		resultType="java.util.HashMap">
+ 	SELECT @rownum:=@rownum+1 ROWNUM
 	 	, B.gdsNum
 	 	, B.gdsName
 	 	, B.cateCode

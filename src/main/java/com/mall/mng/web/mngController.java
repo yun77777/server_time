@@ -85,13 +85,15 @@ public class mngController {
 //			paramMap.put("B_TYPE",4);
 			
 			Map<String,Object> detail=mngService.selectItemDetail(paramMap);
-//			Map<String,Object> detail=boardService.selectBoardDetail(paramMap);
+			List<Map<String,Object>> imgList=mngService.selectItemImgList(paramMap);
+
 			System.err.println("detailP");
 			System.err.println(detail);
 			System.err.println(paramMap);
 //			List<Map<String,Object>> list=boardService.selectBoardHisList(paramMap);
 			
 			model.addAttribute("detail",detail);
+			model.addAttribute("imgList",imgList);
 //			model.addAttribute("list",list);
 		} catch (Exception e) {
 			e.printStackTrace();

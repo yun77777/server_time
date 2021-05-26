@@ -97,6 +97,7 @@
 				<input type="file" id="gdsImg" name="file" class="form-control"/>
 				<div class="select_img"><img src="" /></div>
 				
+				
 				<script>
 					$("#gdsImg").change(function(){
 						if(this.files && this.files[0]) {
@@ -116,7 +117,12 @@
 			<div class="inputArea">
 				<div class="col-lg-4 col-sm-6 mb-4">
                     <div class="card h-100">
-		            	<img class="card-img-top" src="<c:url value='/img/${detail.file}'/>" alt="no image" /></a>
+<%-- 		            	<img class="card-img-top" src="<c:url value='/img/${detail.file}'/>" alt="no image" /></a>
+ --%>                    
+				<c:forEach var="result" items="${imgList}" varStatus="status">
+		            	<img class="card-img-top" src="<c:url value='/img/${result.file}'/>" alt="no image" /></a>
+				</c:forEach>
+                    
                     </div>
                 </div>
 	                    

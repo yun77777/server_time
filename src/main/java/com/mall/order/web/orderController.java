@@ -57,8 +57,8 @@ public class orderController {
 
 			Map<String, Object> detail = mngService.selectItemDetail(paramMap);
 //			Map<String, Object> detail = orderService.selectOrderDetail(paramMap);
-			List<Map<String, Object>> list = boardService.selectItemList(paramMap);
-			model.addAttribute("list", list);
+//			List<Map<String, Object>> list = boardService.selectItemList(paramMap);
+//			model.addAttribute("list", list);
 			System.err.println("detailP");
 			System.err.println(paramMap);
 			System.err.println(detail);

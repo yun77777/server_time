@@ -100,7 +100,8 @@
 			
 			<div class="inputArea">
 				<label for="gdsImg">이미지</label>
-				<input type="file" id="gdsImg" name="file" class="form-control"/>
+				<input type="file" id="gdsImg" name="file_0" class="form-control"/>
+<!-- 				<input type="file" id="gdsImg" name="file" class="form-control"/> -->
 				<div class="select_img"><img src="" /></div>
 				
 				<script>
@@ -129,6 +130,16 @@
 	</section>
 	<!-- //@@@ -->
 
+ 		 <div id="fileDiv">
+            <p>
+                <!-- <input type="file" id="file" name="file_0"> -->
+                <a href="#this" class="btn" id="delete" name="delete">삭제</a>
+            </p>
+        </div>
+         
+        <br/><br/>
+        <a href="#this" class="btn" id="addFile">파일 추가</a>
+
 
 
 			</form>
@@ -152,6 +163,34 @@
 </body>
 
 <script>
+var gfv_count = 1;
+$(document).ready(function(){
+    $("#addFile").on("click", function(e){ //파일 추가 버튼
+        e.preventDefault();
+        fn_addFile();
+    });
+     
+    $("a[name='delete']").on("click", function(e){ //삭제 버튼
+        e.preventDefault();
+        fn_deleteFile($(this));
+    });
+});
+
+function fn_addFile(){
+    var str = "<p><input type='file' name='file_"+(gfv_count++)+"'><a href='#this' class='btn' name='delete'>삭제</a></p>";
+    $("#fileDiv").append(str);
+    $("a[name='delete']").on("click", function(e){ //삭제 버튼
+        e.preventDefault();
+        fn_deleteFile($(this));
+    });
+}
+ 
+function fn_deleteFile(obj){
+    obj.parent().remove();
+}
+
+
+
 function fn_list(no) {
 	//$('#currentPageNo').val(no);
 	window.location='<c:url value="/itemList.do"/>';
