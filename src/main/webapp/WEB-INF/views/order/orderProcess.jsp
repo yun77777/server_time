@@ -36,59 +36,7 @@
 					
 				<ul>
 					<li>
-						<div class="allCheck">
-							<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck">모두 선택</label>
-							
-							<script>
-							$("#allCheck").click(function(){
-								var chk = $("#allCheck").prop("checked");
-								if(chk) {
-									$(".chBox").prop("checked", true);
-								} else {
-									$(".chBox").prop("checked", false);
-								}
-							});
-							</script>
-							
-						</div>
 						
-						<div class="delBtn">
-							<button type="submit" onclick="fn_delete()" class="selectDelete_btn">선택 삭제</button>
-							
-							<script>
-								/* $(".selectDelete_btn").click(function(){
-									var confirm_val = confirm("정말 삭제하시겠습니까?");
-									
-									if(confirm_val) {
-										var checkArr = new Array();
-										//var formData = new FormData($("#deleteForm")[0]);
-										var userId=$('#userId').val();
-
-										// 체크된 체크박스의 갯수만큼 반복
-										$("input[class='chBox']:checked").each(function(){
-											checkArr.push($(this).attr("data-cartNum"));  // 배열에 데이터 삽입
-										});
-										
-										alert(checkArr);
-											
-										$.ajax({
-											url : "/deleteCart.do",
-											type : "post",
-											data : { chbox : checkArr , userId : userId },
-											success : function(result){
-												
-												if(result == 1) {												
-													location.href = "/cartList.do";
-												} else {
-													alert("삭제 실패");
-												}
-											}
-										});
-									}	
-								}); */
-							</script>
-							
-						</div>
 						
 					</li>
 				
@@ -99,7 +47,8 @@
 					<li>
 					
 						<div class="thumb">
-							<img src="${detail.gdsThumbImg}" />
+							<img src="<c:url value='/img/${detail.file}'/>" style="width:250px" />
+<%-- 							<img src="${detail.gdsThumbImg}" /> --%>
 						</div>
 						<div class="gdsInfo">
 							<p>
@@ -109,35 +58,6 @@
 								<span>최종 가격</span><fmt:formatNumber pattern="###,###,###" value="${detail.gdsPrice * paramMap.gdsStock}" /> 원
 							</p>
 							
-							<div class="delete">
-								<button type="button" class="delete_${detail.gdsNum}_btn" data-cartNum="${detail.gdsNum}">삭제</button>
-								
-								<script>
-									$(".delete_${detail.gdsNum}_btn").click(function(){
-										var confirm_val = confirm("정말 삭제하시겠습니까?");
-										var userId=$('#userId').val();
-										alert(userId);
-										if(confirm_val) {
-											var checkArr = new Array();
-											
-											checkArr.push($(this).attr("data-cartNum"));
-																						
-											$.ajax({
-												url : "/deleteCart.do",
-												type : "post",
-												data : { chbox : checkArr , userId : userId},
-												success : function(result){
-													if(result == 1) {												
-														location.href = "/cartList.do";
-													} else {
-														alert("삭제 실패");
-													}
-												}
-											});
-										}	
-									});
-								</script>
-							</div>
 						</div>			
 					</li>
 					
@@ -348,102 +268,8 @@ function fn_list(no) {
 	}).submit(); */
 };
 
-function fn_detail(no){
-	//var  formData= $('#boardForm').serialize();
-	$('#boardForm #no').attr('disabled',false);
-	$('#boardForm #no').val(no);
-	
-	$('#boardForm').attr({
-		action : '<c:url value="/boardDetail.do" />',
-		target : '_self'
-	}).submit();
-
-}
-
-function fn_btn(no){
-	var  formData= $('#boardForm').serialize();
-    $.ajax({
-        cache : false,
-        url : "${pageContext.request.contextPath}/boardDetail.do",
-        type : 'POST', 
-        data : formData, 
-        success : function(data) {
-        }, // success 
-
-        error : function(xhr, status) {
-            alert(xhr + " : " + status);
-        }
-    }); // $.ajax */
-
-}
-
-function fn_insert() {
-	//var formData = $('#boardForm').serialize();
-	$('#boardForm #no').attr('disabled',false);
-	var formData = new FormData($("#boardForm")[0]);
-	$.ajax({
-		url : "${pageContext.request.contextPath}/insertBoard.do",
-		type : "post",
-		enctype: 'multipart/form-data',
-		data : formData,
-		processData : false,
-		contentType : false,
-		success : function(result) {
-			alert('success');
-			fn_list();
-		}, // success 
-
-		error : function(xhr, status) {
-			alert(xhr + " : " + status);
-		}
-	});
-}
-
-function fn_delete() {
-	//var formData = $('#boardForm').serialize();
-	/* $('#boardForm #no').attr('disabled',false);
-	var formData = new FormData($("#boardForm")[0]); */
-	var confirm_val = confirm("정말 삭제하시겠습니까?");
-	
-	if(confirm_val) {
-		var checkArr = new Array();
-		//var formData = new FormData($("#deleteForm")[0]);
-		var userId=$('#userId').val();
-
-		// 체크된 체크박스의 갯수만큼 반복
-		$("input[class='chBox']:checked").each(function(){
-			checkArr.push($(this).attr("data-cartNum"));  // 배열에 데이터 삽입
-		});
-		
-		alert(checkArr);
-			
-		$.ajax({
-			url : "/deleteCart.do",
-			type : "post",
-			//processData : false,
-			data : { chbox : checkArr , userId : userId },
-			success : function(result){
-				
-				if(result == 1) {												
-					location.href = "/cartList.do";
-				} else {
-					alert("삭제 실패");
-				}
-			}
-		});
-	}
-}
 
 
-/* 	$(".order_btn").click(function(){
-		alert($('#boardForm #orderRec').val());
-			$('#boardForm').attr({
-				action : '<c:url value="/orderList.do"/>',
-				target : '_self'
-			}).submit(); 
-	
-		});	 */
-		
 function fn_order(){
 	alert($('#boardForm #orderRec').val());
 	

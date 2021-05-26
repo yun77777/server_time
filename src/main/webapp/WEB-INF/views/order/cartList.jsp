@@ -125,7 +125,7 @@
 									$(".delete_${cartList.cartNum}_btn").click(function(){
 										var confirm_val = confirm("정말 삭제하시겠습니까?");
 										var userId=$('#userId').val();
-										alert(userId);
+										
 										if(confirm_val) {
 											var checkArr = new Array();
 											
@@ -455,7 +455,6 @@ function fn_delete() {
 		});	 */
 		
 function fn_order(){
-	alert($('#boardForm #orderRec').val());
 	
 	var formData = new FormData($("#boardForm")[0]);
 	$.ajax({

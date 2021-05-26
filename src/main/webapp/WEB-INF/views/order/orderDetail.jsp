@@ -326,7 +326,7 @@
 
 <script>
 $(document).ready(function(){              
-	$('#gdsStock').val($(".numBox").val());
+	//$('#gdsStock').val($(".numBox").val());
 });
 
 function fn_list(no) {
@@ -502,7 +502,7 @@ $("#orderBtn").click(function(){
 		
 		var gdsNum = $("#gdsNum").val();
 		var gdsStock = $(".numBox").val();
-		alert(gdsStock);
+		$('#gdsStock').val(gdsStock);
 		var data = {
 				gdsNum : gdsNum,
 				gdsStock : gdsStock
@@ -515,7 +515,6 @@ $("#orderBtn").click(function(){
 			success : function(result){
 				
 				if(result == 1) {
-					
 					$('#orderForm').attr({
 						action : '<c:url value="/orderProcess.do"/>',
 						target : '_self'

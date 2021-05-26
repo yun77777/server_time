@@ -224,8 +224,8 @@ public class orderController {
 //	@RequestMapping(value = "/cartList.do", method = RequestMethod.POST)
 	public String orderProcess(@RequestParam Map<String, Object> paramMap, Model model, HttpSession session) throws Exception {
 		logger.info("order");
-//		model.addAttribute("login", session.getAttribute("login"));
-//		model.addAttribute("member", session.getAttribute("member"));
+		model.addAttribute("login", session.getAttribute("login"));
+		model.addAttribute("member", session.getAttribute("member"));
 
 		
 		Map<String, Object> detail = orderService.selectOrderDetail(paramMap);
