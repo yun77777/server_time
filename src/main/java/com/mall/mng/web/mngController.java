@@ -91,7 +91,13 @@ public class mngController {
 			System.err.println(detail);
 			System.err.println(paramMap);
 //			List<Map<String,Object>> list=boardService.selectBoardHisList(paramMap);
-			
+			paramMap.put("L_CATEGORY",1);
+			List<Map<String, Object>> category1=mngService.selectCategoryCode(paramMap);
+			paramMap.put("L_CATEGORY",2);
+			List<Map<String, Object>> category2=mngService.selectCategoryCode(paramMap);
+			model.addAttribute("category1",category1);
+			model.addAttribute("category2",category2);
+		
 			model.addAttribute("detail",detail);
 			model.addAttribute("imgList",imgList);
 //			model.addAttribute("list",list);
@@ -117,41 +123,26 @@ public class mngController {
 			model.addAttribute("list",list);
 			model.addAttribute("paramMap",paramMap);
 			
-			List<CategoryVO> category = null;  // CatagoryVO 형태의 List형 변수 category 선언
-			category = mngService.category();  // DB에 저장된 카테고리를 가져와서 category에 저장
-			model.addAttribute("category", new Gson().toJson(category));  // 변수 category를 제이슨(json)타입으로 변환하여 category 세션에 부여
-//			model.addAttribute("category", JSONArray.fromObject(category));  // 변수 category를 제이슨(json)타입으로 변환하여 category 세션에 부여
+//			List<CategoryVO> category = null;  // CatagoryVO 형태의 List형 변수 category 선언
+//			category = mngService.category();  // DB에 저장된 카테고리를 가져와서 category에 저장
+//			model.addAttribute("category", new Gson().toJson(category));  // 변수 category를 제이슨(json)타입으로 변환하여 category 세션에 부여
+////			model.addAttribute("category", JSONArray.fromObject(category));  // 변수 category를 제이슨(json)타입으로 변환하여 category 세션에 부여
 
+			paramMap.put("L_CATEGORY",1);
+			List<Map<String, Object>> category1=mngService.selectCategoryCode(paramMap);
+			paramMap.put("L_CATEGORY",2);
+			List<Map<String, Object>> category2=mngService.selectCategoryCode(paramMap);
+			System.err.println("@@@cate1:"+category1);
+			model.addAttribute("category1",category1);
+			model.addAttribute("category2",category2);
+
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
 		return "mng/itemInsert";
 	}
 	
-//	@RequestMapping(value = "/itemInsert.do")
-//	public String boardInsert(
-//			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
-//		try {
-//			model.addAttribute("login",httpSession.getAttribute("login"));
-//			model.addAttribute("member",httpSession.getAttribute("member"));
-//			
-//			paramMap.put("B_TYPE",4);
-//			
-//			paramMap.put("no",boardService.selectBoardMaxNo(paramMap)+1);
-//			Map<String,Object> view=boardService.selectBoardDetail(paramMap);
-//			System.err.println("detailP");
-//			System.err.println(view);
-//			System.err.println(paramMap);
-//			List<Map<String,Object>> list=boardService.selectBoardHisList(paramMap);
-//			
-//			model.addAttribute("detail",view);
-//			model.addAttribute("list",list);
-//			model.addAttribute("paramMap",paramMap);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}		
-//		return "mng/itemInsert";
-//	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/insertItem.do")
@@ -209,27 +200,29 @@ public class mngController {
 		}		
 		return paramMap;
 	}
-//	@ResponseBody
-//	@RequestMapping(value = "/insertItem.do")
-//	public Map<String,Object> insertBoard(
-//			MultipartHttpServletRequest multi, @RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
-//		model.addAttribute("login",httpSession.getAttribute("login"));
-//		model.addAttribute("member",httpSession.getAttribute("member"));
-//		paramMap.put("B_TYPE",4);
-//		
-//		System.err.println("insert:"+paramMap);
-//		System.err.println("file:"+multi);
-//		
-//		try {
-//			if(paramMap.get("no").toString()!=null||!paramMap.get("no").toString().trim().equals(""))
-//				paramMap.put("no",paramMap.get("no"));
-//			boardService.insertBoard(paramMap, multi, request);
-//			model.addAttribute("paramMap", paramMap);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}		
-//		return paramMap;
-//	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/updateItem.do")
+	public Map<String,Object> saveItem(
+			 MultipartFile file,
+//			GoodsVO vo, MultipartFile file,
+			MultipartHttpServletRequest multi, @RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+		model.addAttribute("login",httpSession.getAttribute("login"));
+		model.addAttribute("member",httpSession.getAttribute("member"));
+		paramMap.put("B_TYPE",4);
+		paramMap.put("no",paramMap.get("gdsNum"));
+		System.err.println("insert:"+paramMap);
+		System.err.println("file:"+multi);
+		
+		try {
+			model.addAttribute("paramMap", paramMap);
+			mngService.updateItem( paramMap, multi, request);
+//			mngService.updateItem(vo, paramMap, multi, request);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return paramMap;
+	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/deleteItem.do")
@@ -247,5 +240,31 @@ public class mngController {
 		return paramMap;
 	}
 	
-	
+	@RequestMapping(value = "/mngCommonCodes.do")
+	public String mngCommonCodes(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="5") int recordCountPerPage,
+			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+		
+		try {
+			PaginationVO pg = new PaginationVO(currentPageNo, recordCountPerPage, 3, 
+					mngService.selectItemListCnt(paramMap));
+			
+			paramMap.put("length",recordCountPerPage);
+			paramMap.put("start",pg.getFirstRecordIndex()-1);
+			
+			model.addAttribute("login",httpSession.getAttribute("login"));
+			model.addAttribute("member",httpSession.getAttribute("member"));
+			
+			paramMap.put("B_TYPE",4);
+			paramMap.put("gdsNum",mngService.selectItemListMaxNo(paramMap)+1);
+
+			model.addAttribute("paramMap",paramMap);
+			List<Map<String,Object>> list=mngService.selectCommonCodes(paramMap);
+			model.addAttribute("list",list);
+			model.addAttribute("pg",pg);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return "mng/mngCommonCodes";
+	}
 }

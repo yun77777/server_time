@@ -259,4 +259,9 @@
 		FROM MP_FILE
 		WHERE FILE_NO=#{file_no}
 	</select>
+	
+	<update id="deleteFile" parameterType="map">
+   	  delete from MP_FILE where BNO=#{no, jdbcType=VARCHAR}
+	</update>
+	
 </mapper>

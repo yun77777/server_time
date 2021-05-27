@@ -49,6 +49,28 @@ public class mngServiceImpl implements mngService {
 
 		mngMapper.register(vo);
 	}
+	@Override
+	public void updateItem( Map<String, Object> paramMap, MultipartHttpServletRequest multi,
+//			public void updateItem(GoodsVO vo, Map<String, Object> paramMap, MultipartHttpServletRequest multi,
+			HttpServletRequest request) throws Exception {
+		
+		//paramMap.put("gdsNum", vo.getGdsNum());
+		
+		
+		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(paramMap, multi);
+		int size = list.size();
+		System.err.println("multi list:" + list);
+		//파일지우기
+		boardMapper.deleteFile(paramMap);
+
+		if (size > 0) {
+			for (int i = 0; i < size; i++) {
+				boardMapper.insertFile(list.get(i));
+			}
+		}
+		
+		mngMapper.updateItem(paramMap);
+	}
 
 	@Override
 	public List<Map<String, Object>> selectItemList(Map<String, Object> paramMap) throws Exception {
@@ -58,6 +80,16 @@ public class mngServiceImpl implements mngService {
 	@Override
 	public List<Map<String, Object>> selectItemImgList(Map<String, Object> paramMap) throws Exception {
 		return mngMapper.selectItemImgList(paramMap);
+	}
+	
+	@Override
+	public List<Map<String, Object>> selectCommonCodes(Map<String, Object> paramMap) throws Exception {
+		return mngMapper.selectCommonCodes(paramMap);
+	}
+	
+	@Override
+	public List<Map<String, Object>> selectCategoryCode(Map<String, Object> paramMap) throws Exception {
+		return mngMapper.selectCategoryCode(paramMap);
 	}
 
 	@Override

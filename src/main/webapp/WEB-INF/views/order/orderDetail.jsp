@@ -272,6 +272,7 @@
 							<br>
 	                        <h3 class="my-3">Project Details</h3>
 	                        <ul>
+	                            <li>${detail.gdsDes}</li>
 	                            <li>Lorem Ipsum</li>
 	                            <li>Dolor Sit Amet</li>
 	                            <li>Consectetur</li>

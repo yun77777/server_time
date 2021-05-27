@@ -80,6 +80,8 @@
 	 	, B.gdsNum
 	 	, B.gdsName
 	 	, B.cateCode
+	 	<!-- , CT.DESCRPT
+	 	, CT.S_CATEGORY -->
 	 	, B.gdsPrice
 	 	, B.gdsStock
 	 	, B.gdsDes
@@ -90,6 +92,8 @@
 	 	, MF.FILE_PATH file_src
 	 	, MF.SEQ_MP_FILE_NO file_no -->
 		FROM tbl_goods B,(SELECT @rownum:=0) R
+		<!-- LEFT OUTER JOIN COMMN_TBL CT
+		ON CT.L_CATEGORY=B.cateCode -->
 		<!-- left outer join MP_FILE MF
 		on MF.BNO=#{gdsNum} -->
 		where B.gdsNum=#{gdsNum}
@@ -120,6 +124,42 @@
 			SELECT max(gdsNum) FROM tbl_goods
 	</select>
 	
+	<insert id="updateItem">
+		update tbl_goods 
+		set 
+			gdsNum=#{gdsNum}
+			, gdsName=#{gdsName}
+			, cateCode=#{cateCode}
+			, gdsPrice=#{gdsPrice}
+			, gdsStock=#{gdsStock}
+			, gdsDes=#{gdsDes}
+			, gdsImg=#{gdsImg}
+			, gdsThumbImg=#{gdsThumbImg}
+		where gdsNum=#{gdsNum}
+	</insert>
 	
+	<select id="selectCommonCodes" parameterType="java.util.HashMap"
+		resultType="java.util.HashMap">
+		<include refid="com.mall.common.commonMapper.pagingHeaderSql"/>
+ 	SELECT
+ 		CID
+ 		, NAME
+ 		, DESCRPT
+ 		, L_CATEGORY
+ 		, S_CATEGORY
+		FROM COMMON_TBL
+		<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
+	</select>
 	
+	<select id="selectCategoryCode" parameterType="java.util.HashMap"
+		resultType="java.util.HashMap">
+ 	SELECT
+ 		CID
+ 		, NAME
+ 		, DESCRPT
+ 		, L_CATEGORY
+ 		, S_CATEGORY
+	FROM COMMON_TBL
+	WHERE L_CATEGORY=#{L_CATEGORY}	
+	</select>
 </mapper>

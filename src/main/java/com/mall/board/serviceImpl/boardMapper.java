@@ -42,4 +42,7 @@ public interface boardMapper {
 	public void insertMemberHis(Map<String, Object> paramMap) throws Exception;
 
 	public void insertFile(Map<String, Object> paramMap) throws Exception;
+	
+	public void deleteFile(Map<String, Object> paramMap) throws Exception;
+
 }

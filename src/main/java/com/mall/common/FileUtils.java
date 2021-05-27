@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 public class FileUtils {
 	private static final String filePath = "/Users/won-yungyeong/Downloads/"; // 파일이 저장될 위치
 	
-	public List<Map<String, Object>> parseInsertFileInfo(Map<String, Object> boardVO, 
+	public List<Map<String, Object>> parseInsertFileInfo(Map<String, Object> paramMap, 
 //			public List<Map<String, Object>> parseInsertFileInfo(BoardVO boardVO, 
 			MultipartHttpServletRequest mpRequest) throws Exception{
 		
@@ -37,15 +37,14 @@ public class FileUtils {
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		Map<String, Object> listMap = null;
 		
-		int no = Integer.parseInt(boardVO.get("no").toString());
-		int B_TYPE = Integer.parseInt(boardVO.get("B_TYPE").toString());
+		int no = Integer.parseInt(paramMap.get("no").toString());
+		int B_TYPE = Integer.parseInt(paramMap.get("B_TYPE").toString());
 //		int bno = boardVO.getB_NO();
 		
 		File file = new File(filePath);
 		if(file.exists() == false) {
 			file.mkdirs();
 		}
-		System.err.println("aa:"+boardVO);
 		while(iterator.hasNext()) {
 			multipartFile = mpRequest.getFile(iterator.next());
 			if(multipartFile.isEmpty() == false) {

@@ -46,6 +46,8 @@
                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
                                <a class="dropdown-item" href="/itemList.do">Manage items</a>
                                <a class="dropdown-item" href="/boardList.do">Manage board</a>
+                               <a class="dropdown-item" href="/mngCommonCodes.do">Manage common codes</a>
+                               
                                <a class="dropdown-item" href="portfolio-2-col.html">Item list</a>
                                <a class="dropdown-item" href="portfolio-3-col.html">Check the reviews</a>
                                <a class="dropdown-item" href="portfolio-4-col.html">User list</a>

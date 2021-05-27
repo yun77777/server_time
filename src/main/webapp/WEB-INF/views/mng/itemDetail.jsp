@@ -29,32 +29,39 @@
 
 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
 <!-- Page Content-->
-        <section class="py-5">
         <section id="container">
+        <form id="itemForm" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="userId" value="${member.ID}" />
+					
+        
+        
 		<div id="container_box">
 			<h2>상품 등록</h2>
 			
 <%-- 			<form role="form" method="post" autocomplete="off" enctype="multipart/form-data">
  --%>			
 			<div class="inputArea">	
-				<label>1차 분류</label>
-				<select class="category1 form-control" value="${detail.category}">
-					<option value="">전체</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
+				<label>1차 분류${category1}</label>
+				<select name="cateCode" class="category1 form-control">
+					<!-- <option value="">전체</option> -->
+				<c:forEach var="result" items="${category1}">
+					<option value="${result.S_CATEGORY}" <c:if test="${detail.cateCode eq result.L_CATEGORY}"> selected</c:if> >${result.S_CATEGORY}</option>
+				</c:forEach>
 				</select>
 			
-				<label>2차 분류</label>
+				<label>2차 분류${category2}</label>
 				<select class="category2 form-control" value="${detail.category}" name="cateCode">
+					<option value="2">2</option>
 					<option value="">전체</option>
-					<option value="top">top</option>
-					<option value="bottom">bottom</option>
+					<c:forEach var="result" items="${category2}">
+						<option value="${result.S_CATEGORY}">${result.S_CATEGORY}</option>
+					</c:forEach>
 				</select>
 			</div>
 			
 			<div class="inputArea">
 				<label for="gdsName">gdsNum</label>
-				<input type="text" id="gdsNum" name="gdsNum" value="${detail.gdsNum}" class="form-control"/>
+				<input type="text" id="gdsNum" name="gdsNum" value="${detail.gdsNum}" disabled class="form-control"/>
 			</div>
 			
 			<div class="inputArea">
@@ -92,23 +99,7 @@
 			</div>
 			
 			
-			<div class="inputArea">
-				<label for="gdsImg">이미지</label>
-				<input type="file" id="gdsImg" name="file" class="form-control"/>
-				<div class="select_img"><img src="" /></div>
-				
-				
-				<script>
-					$("#gdsImg").change(function(){
-						if(this.files && this.files[0]) {
-							var reader = new FileReader;
-							reader.onload = function(data) {
-								$(".select_img img").attr("src", data.target.result).width(500);								
-							}
-							reader.readAsDataURL(this.files[0]);
-						}
-					});
-				</script>
+		
 <%-- 				<%=request.getRealPath("/") %> 
  --%>				
 <%--  <%=request.getSession().getServletContext().getRealPath("/") %>
@@ -119,134 +110,57 @@
                     <div class="card h-100">
 <%-- 		            	<img class="card-img-top" src="<c:url value='/img/${detail.file}'/>" alt="no image" /></a>
  --%>                    
+ 				<label for="gdsImg">이미지</label>
 				<c:forEach var="result" items="${imgList}" varStatus="status">
-		            	<img class="card-img-top" src="<c:url value='/img/${result.file}'/>" alt="no image" /></a>
+					<input type="hidden" id="idx" value="${status.index}">s
+					<label for="gdsImg${status.index}"><h3>${result.file}</h3></label>
+			        <img class="card-img-top" name="itemImg${status.index}" id="itemImg${status.index}" src="<c:url value='/img/${result.file}'/>" alt="no image" />
+					<input type="file" id="gdsImg${status.index}" name="file_${status.index}" value="${result.file}" class="form-control"/>
+<!-- 				<div class="select_img"><img src="" /></div>
+ -->				
 				</c:forEach>
-                    
+				<div class="select_img"><img src="" /></div>
+                <div id="fileDiv">
+		            <p>
+		                <!-- <input type="file" id="file" name="file_0"> -->
+		                <a href="#this" class="btn" id="delete" name="delete">삭제</a>
+		            </p>
+		        </div>
+		         
+		        <br/><br/>
+		        <a href="#this" class="btn" id="addFile">파일 추가</a>
+			                    
                     </div>
                 </div>
 	                    
-	                    
-				<label for="gdsImg">이미지</label>
-				<input type="file" id="gdsImg" name="file" class="form-control"/>
-				<div class="select_img"><img src="" /></div>
+	                  
 				
 				<script>
-					$("#gdsImg").change(function(){
+				
+					$("input[type=file]").change(function(){
+						var gdsImg="#"+$(this).attr("id");
+						var itemImg="#"+$(this).prev().attr("id");
+
 						if(this.files && this.files[0]) {
 							var reader = new FileReader;
 							reader.onload = function(data) {
-								$(".select_img img").attr("src", data.target.result).width(500);								
+								$(itemImg).attr("src", data.target.result).width(500);
+								
+/* 								$(".select_img img").attr("src", data.target.result).width(500);								 */
 							}
 							reader.readAsDataURL(this.files[0]);
 						}
 					});
 				</script>
 			</div>
+			</form>
+			
+		<div>
+				<button class="btn btn-primary" id="saveBtn" type="button">Save</button>
+                <button class="btn btn-primary" id="deleteBtn" onclick="fn_delete()" type="submit">Delete</button>
 		</div>
 	</section>
         
-        
-        
-        
-        
-        
-        
-            <%-- <div class="container">
-                <!-- Page Heading/Breadcrumbs-->
-                <h1>
-                    Item
-                    <small>detail</small>
-                </h1>
-                <!-- Content Row-->
-                <!-- Contact Form-->
-                <!-- In order to set the email address and subject line for the contact form go to the assets/mail/contact_me.php file.-->
-                <div class="row">
-                	<button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="button">Go to the list</button>
-                    <div class="col-lg-8 mb-4">
-                        <form id="boardForm" name="sentMessage" novalidate>
-                        	<input type="hidden" id="currentPageNo" name="currentPageNo" value="1"/>
-                            <div class="control-group form-group">
-                                <div class="controls">
-                                    <label>no:</label>
-                                    <input class="form-control" id="gdsNum" name="gdsNum" type="text" value="${detail.gdsNum}" disabled data-validation-required-message="Please enter your name." />
-                                    <p class="help-block"></p>
-                                </div>
-                            </div>
-                            <div class="control-group form-group">
-                                <div class="controls">
-                                    <label>title:</label>
-                                    <input class="form-control" id="cateCode" name="cateCode" type="text"  value="${detail.cateCode}" required data-validation-required-message="Please enter your email address." />
-                                </div>
-                            </div>
-                            <div class="control-group form-group">
-                                <div class="controls">
-                                    <label>id:</label>
-                                    <input class="form-control" id="gdsName" name="gdsName" type="text"  value="${detail.gdsName}" required data-validation-required-message="Please enter your phone number." />
-                                </div>
-                            </div>
-                            
-                            <div class="control-group form-group">
-                                <div class="controls">
-                                    <label>files:</label>
-                                     <input class="form-control" id="gdsPrice" name="gdsPrice" type="text"  value="${detail.gdsPrice}" required data-validation-required-message="Please enter your email address." />
-                                </div>
-                            </div>
-                            
-                            <div class="control-group form-group">
-                                <div class="controls">
-                                    <label>files:</label>
-                                     <input class="form-control" id="gdsStock" name="gdsStock" type="text"  value="${detail.gdsStock}" required data-validation-required-message="Please enter your email address." />
-                                </div>
-                            </div>
-                           <div class="inputArea">
-								<label for="gdsDes">상품소개</label>
-								<textarea rows="5" cols="50" id="gdsDes" name="gdsDes" class="form-control">${detail.gdsDes}</textarea>
-				
-								<!-- <script>
-									var ckeditor_config = {
-											resize_enaleb : false,
-											enterMode : CKEDITOR.ENTER_BR,
-											shiftEnterMode : CKEDITOR.ENTER_P,
-											filebrowserUploadUrl : "/admin/goods/ckUpload"
-									};
-									
-									CKEDITOR.replace("gdsDes", ckeditor_config);
-								</script>
-								 -->
-								
-							</div>
-                            <div class="control-group form-group">
-                                <div class="controls">
-                      				<%@ include file="/WEB-INF/views/common/smartEditor.jsp"%>
-                                </div>
-                                
-                                
-                            </div>
-                            <div id="success"></div>
-                            
-                            <!-- For success/fail messages-->
-                        	<button class="btn btn-primary" id="submit" onclick="" type="button">Save</button>
-			                <button class="btn btn-primary" id="sendMessageButton" onclick="fn_delete()" type="button">Delete</button>
-			                
-			                <table class="table table-sm">
-								<tbody>
-									<tr>
-										<th scope="row">before</th>
-										<td><a href="#" onclick="fn_detail('${list[0].B_NO}');">${list[0].TITLE}</a></td>
-									</tr>
-									<tr>
-										<th scope="row">after</th>
-										<td><a href="#" onclick="fn_detail('${list[1].B_NO}';">${list[1].TITLE}</a></td>
-									</tr>
-								</tbody>
-							</table>
-                        </form>
-                    </div>
-                </div>
-            </div> --%>
-        </section>
-
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
 	<!-- Bootstrap core JS-->
@@ -258,24 +172,81 @@
 </body>
 
 <script>
+var gfv_count = Number($("#idx").val());
+alert(gfv_count);
+$(document).ready(function(){
+	var gdsImg="#"+$(this).attr("id");
+	var itemImg="#"+$(this).prev().attr("id");
+
+    $("#addFile").on("click", function(e){ //파일 추가 버튼
+        e.preventDefault();
+        fn_addFile(++gfv_count);
+    });
+     
+    $("a[name='delete']").on("click", function(e){ //삭제 버튼
+        e.preventDefault();
+        fn_deleteFile($(this));
+    });
+});
+
+function fn_addFile(gfv_count){
+	alert(gfv_count);
+	
+	
+	
+    
+	
+	
+    var str = "<img class='card-img-top' name='itemImg"+gfv_count+"' id='itemImg"+gfv_count+"' src='' alt='no image' /><p><input type='file' id='gdsImg"+gfv_count+"' name='file_"+gfv_count+"'><a href='#this' class='btn' name='delete'>삭제</a></p>";
+    $("#fileDiv").append(str);
+    $("a[name='delete']").on("click", function(e){ //삭제 버튼
+        e.preventDefault();
+        fn_deleteFile($(this));
+    });
+    
+    $("input[type=file]").change(function(){
+		var gdsImg="#gdsImg"+gfv_count
+		var itemImg="#itemImg"+gfv_count;
+		alert(gdsImg);
+		alert(itemImg);
+		if(this.files && this.files[0]) {
+			var reader = new FileReader;
+			reader.onload = function(data) {
+				$(itemImg).attr("src", data.target.result).width(500);
+				
+/* 								$(".select_img img").attr("src", data.target.result).width(500);								 */
+			}
+			reader.readAsDataURL(this.files[0]);
+		}
+	});
+}
+ 
+function fn_deleteFile(obj){
+    obj.parent().remove();
+}
+
+
+
+
+
 function fn_list(no) {
 	//$('#currentPageNo').val(no);
 	window.location='<c:url value="/itemList.do"/>';
 	
-	/* $('#boardForm').attr({
+	/* $('#itemForm').attr({
 		action : '<c:url value="/boardList.do"/>',
 		target : '_self'
 	}).submit(); */
 };
 
 function fn_detail(no){
-	//var  formData= $('#boardForm').serialize();
-	$('#boardForm #gdsNum').attr('disabled',false);
-	$('#boardForm #gdsNum').val(no);
-/* 	$('#boardForm #no').attr('disabled',false);
-	$('#boardForm #no').val(no); */
+	//var  formData= $('#itemForm').serialize();
+	$('#itemForm #gdsNum').attr('disabled',false);
+	$('#itemForm #gdsNum').val(no);
+/* 	$('#itemForm #no').attr('disabled',false);
+	$('#itemForm #no').val(no); */
 	
-	$('#boardForm').attr({
+	$('#itemForm').attr({
 		action : '<c:url value="/itemDetail.do" />',
 		target : '_self'
 	}).submit();
@@ -283,7 +254,7 @@ function fn_detail(no){
 }
 
 function fn_btn(no){
-	var  formData= $('#boardForm').serialize();
+	var  formData= $('#itemForm').serialize();
     $.ajax({
         cache : false,
         url : "${pageContext.request.contextPath}/itemDetail.do",
@@ -299,13 +270,12 @@ function fn_btn(no){
 
 }
 
-function fn_insert() {
-	//var formData = $('#boardForm').serialize();
-	$('#boardForm #gdsNum').attr('disabled',false);
-/* 	$('#boardForm #no').attr('disabled',false); */
-	var formData = new FormData($("#boardForm")[0]);
+function fn_save() {
+	$('#itemForm #gdsNum').attr('disabled',false);
+	
+	var formData = new FormData($("#itemForm")[0]);
 	$.ajax({
-		url : "${pageContext.request.contextPath}/insertItem.do",
+		url : "${pageContext.request.contextPath}/updateItem.do",
 		type : "post",
 		enctype: 'multipart/form-data',
 		data : formData,
@@ -323,10 +293,10 @@ function fn_insert() {
 }
 
 function fn_delete() {
-	//var formData = $('#boardForm').serialize();
-	$('#boardForm #gdsNum').attr('disabled',false);
-/* 	$('#boardForm #no').attr('disabled',false); */
-	var formData = new FormData($("#boardForm")[0]);
+	//var formData = $('#itemForm').serialize();
+	$('#itemForm #gdsNum').attr('disabled',false);
+/* 	$('#itemForm #no').attr('disabled',false); */
+	var formData = new FormData($("#itemForm")[0]);
 	$.ajax({
 		url : "${pageContext.request.contextPath}/deleteItem.do",
 		type : "post",
@@ -363,27 +333,53 @@ nhn.husky.EZCreator.createInIFrame({
 });
 
 $(function() {
-	$("#submit").click(function() {
-		oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []); 
+	$("#saveBtn").click(function() { 
+/* 	$("#submit").click(function() { */
+		oEditors.getById["gdsDes"].exec("UPDATE_CONTENTS_FIELD", []); 
+
 		//textarea의 id를 적어줍니다.
 
-		var selcatd = $("#selcatd > option:selected").val();
-		var title = $("#title").val();
-		var content = document.getElementById("content").value;
-		alert(content);
-		if (selcatd == "") {
+		var selcatd1 = $(".category1").val();
+		var selcatd2 = $(".category2").val(); 
+/* 		var selcatd = $("#selcatd > option:selected").val(); */
+		//var gdsDes = document.getElementById("gdsDes").value;
+		var gdsPrice = $("#gdsPrice").val();
+		var gdsStock = $("#gdsStock").val();
+		var gdsName = $("#gdsName").val();
+		var gdsDes = $("#gdsDes").val();
+
+		if (selcatd1 == "") {
 			alert("카테고리를 선택해주세요.");
+			$(".category1").focus();
+			return;
+		} 
+		if (selcatd2 == "") {
+			alert("카테고리를 선택해주세요.");
+			$(".category2").focus();
+			return;
+		} 
+		if (gdsName == null || gdsName == "") {
+			alert("상품명을 입력해주세요.");
+			$("#gdsName").focus();
 			return;
 		}
-		if (title == null || title == "") {
-			alert("제목을 입력해주세요.");
-			$("#title").focus();
+		
+		if (gdsPrice == null || gdsPrice == "") {
+			alert("상품가격을 입력해주세요.");
+			$("#gdsPrice").focus();
 			return;
 		}
-		if(content == "" || content == null || content == '&nbsp;' || 
-				content == '<br>' || content == '<br/>' || content == '<p>&nbsp;</p>'){
+		
+		if (gdsStock == null || gdsStock == "") {
+			alert("상품수량을 입력해주세요.");
+			$("#gdsStock").focus();
+			return;
+		}
+		
+		if(gdsDes == "" || gdsDes == null || gdsDes == '&nbsp;' || 
+				gdsDes == '<br>' || gdsDes == '<br/>' || gdsDes == '<p>&nbsp;</p>'){
 			alert("본문을 작성해주세요.");
-			oEditors.getById["content"].exec("FOCUS"); //포커싱
+			oEditors.getById["gdsDes"].exec("FOCUS"); //포커싱
 			return;
 		} //이 부분은 스마트에디터 유효성 검사 부분이니 참고하시길 바랍니다.
 		
@@ -391,8 +387,8 @@ $(function() {
 		
 		if(result){
 			alert("작성 완료!");
-/* 			$("#boardForm").submit();
- */			fn_insert();
+/* 			$("#itemForm").submit();
+ */			fn_save();
 		}else{
 			return;
 		}

@@ -46,18 +46,20 @@
 <%-- 			<form role="form" method="post" autocomplete="off" enctype="multipart/form-data">
  --%>			
 			<div class="inputArea">	
-				<label>1차 분류</label>
-				<select class="category1 form-control">
+				<label>1차 분류${category1}</label>
+				<select name="cateCode" class="category1 form-control">
 					<option value="">전체</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
+					<c:forEach var="result" items="${category1}">
+						<option value="${result.S_CATEGORY}">${result.S_CATEGORY}</option>
+					</c:forEach>
 				</select>
 			
-				<label>2차 분류</label>
-				<select class="category2 form-control" name="cateCode">
+				<label>2차 분류${category2}</label>
+				<select class="category2 form-control" name="">
 					<option value="">전체</option>
-					<option value="top">top</option>
-					<option value="bottom">bottom</option>
+					<c:forEach var="result" items="${category2}">
+						<option value="${result.S_CATEGORY}">${result.S_CATEGORY}</option>
+					</c:forEach>
 				</select>
 			</div>
 			
