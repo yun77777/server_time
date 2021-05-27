@@ -73,12 +73,12 @@
 <insert id="orderInfo_Details">
 <selectKey resultType="int" keyProperty="orderDetailsNum" order="BEFORE">
 	SELECT COALESCE(MAX(orderDetailsNum),0)+1 AS orderDetailsNum FROM tbl_order_details
-	where userId=#{userId,jdbcType=VARCHAR}
 </selectKey>
  insert into tbl_order_details(orderDetailsNum, orderId, gdsNum, cartStock)
-     select orderDetailsNum, #{orderId}, gdsNum, cartStock
+     select ${orderDetailsNum}, #{orderId}, gdsNum, cartStock
 <!--      select tbl_order_details_seq.nextval, #{orderId}, gdsNum, cartStock -->
          from tbl_cart
+         where userId=#{userId}
 </insert> 
 
 	    
@@ -94,10 +94,15 @@
 <!-- 	<select id="orderList" resultType="map">
  --><!-- 	<select id="orderList" resultType="com.mall.vo.OrderVO">
  -->		select 
-		    orderId, userId, orderRec,
-		    userAddr1, userAddr2, userAddr3,
-		    orderPhon, amount, orderDate, delivery
-		from tbl_order  
+		    o.orderId, o.userId, o.orderRec,
+		    o.userAddr1, o.userAddr2, o.userAddr3,
+		    o.orderPhon, o.amount, o.orderDate, o.delivery
+		    ,od.gdsNum
+    	 	,(SELECT ORG_FILE_NAME FROM MP_FILE WHERE BNO=od.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE WHERE BNO=od.gdsNum)) representative_file
+		    
+		from tbl_order o
+		left outer join tbl_order_details od
+		on od.orderId=o.orderId
 		    where userId = #{userId}
 	</select>
 	
@@ -161,6 +166,8 @@
 		   
 		    c.cartNum, c.userId, c.gdsNum, c.cartStock, c.addDate,
 		    g.gdsName, g.gdsPrice, g.gdsThumbImg
+		    ,(SELECT ORG_FILE_NAME FROM MP_FILE WHERE BNO=g.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE WHERE BNO=g.gdsNum)) representative_file
+		    
 		from tbl_cart c
 		    inner join tbl_goods g
 		        on c.gdsNum = g.gdsNum    

@@ -106,8 +106,8 @@ public class orderServiceImpl implements orderService {
 
 		// 주문 상세 정보
 		@Override
-		public void orderInfo_Details(OrderDetailVO orderDetail) throws Exception {
-			orderMapper.orderInfo_Details(orderDetail);
+		public void orderInfo_Details(Map<String, Object> paramMap) throws Exception {
+			orderMapper.orderInfo_Details(paramMap);
 		}
 
 		// 카트 비우기 

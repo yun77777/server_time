@@ -22,13 +22,21 @@ public class CartListVO {
 	private String gdsName;
 	private int gdsPrice;
 	private String gdsThumbImg;
+	private String representative_file;
 	
 	
+	public String getRepresentative_file() {
+		return representative_file;
+	}
+	public void setRepresentative_file(String representative_file) {
+		this.representative_file = representative_file;
+	}
 	@Override
 	public String toString() {
 		return "CartListVO [cartNum=" + cartNum + ", userId=" + userId + ", gdsNum=" + gdsNum + ", cartStock="
 				+ cartStock + ", addDate=" + addDate + ", num=" + num + ", tbl_cart_seq=" + tbl_cart_seq + ", gdsName="
-				+ gdsName + ", gdsPrice=" + gdsPrice + ", gdsThumbImg=" + gdsThumbImg + "]";
+				+ gdsName + ", gdsPrice=" + gdsPrice + ", gdsThumbImg=" + gdsThumbImg + ", representative_file="
+				+ representative_file + "]";
 	}
 	public int getTbl_cart_seq() {
 		return tbl_cart_seq;

@@ -96,6 +96,8 @@
 					<c:set var="sum" value="0" />
 				<form id="deleteForm" method="post" enctype="multipart/form-data">
 				
+				
+				
 					<c:forEach items="${cartList}" var="cartList">
 					<li>
 						<div class="checkBox">
@@ -112,6 +114,7 @@
 						</div>
 						<div class="gdsInfo">
 							<p>
+                           		<img class="card-img-top" src="<c:url value='/img/${cartList.representative_file}'/>" style="width:100px" alt="no image" /><br />
 								<span>상품명</span>${cartList.gdsName}<br />
 								<span>개당 가격</span><fmt:formatNumber pattern="###,###,###" value="${cartList.gdsPrice}" /> 원<br />
 								<span>구입 수량</span>${cartList.cartStock} 개<br />

@@ -267,10 +267,12 @@ public class orderController {
 	//				order.setUserId(session.getAttribute("login").toString());
 	//				order.setOrderId(session.getAttribute("login").toString());
 		// 로그인 여부 구분
-		orderService.deleteCart(paramMap);
 
-		List<Map<String, Object>> orderList = orderService.orderList(paramMap);
+		orderService.deleteCart(paramMap);
 		
+		List<Map<String, Object>> orderList = orderService.orderList(paramMap);
+		orderService.orderInfo_Details(paramMap);
+
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("paramMap", paramMap);
 

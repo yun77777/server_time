@@ -39,6 +39,7 @@
 					<c:forEach items="${orderList}" var="orderList">
 					<li>
 					<div>
+					    <img class="card-img-top" src="<c:url value='/img/${orderList.representative_file}'/>" style="width:100px" alt="no image" /><br />
 						<p><span>주문번호</span><a href="/shop/orderView?n=${orderList.orderId}">${orderList.orderId}</a></p>
 						<p><span>수령인</span>${orderList.orderRec}</p>
 						<p><span>주소</span>(${orderList.userAddr1}) ${orderList.userAddr2} ${orderList.userAddr3}</p>
