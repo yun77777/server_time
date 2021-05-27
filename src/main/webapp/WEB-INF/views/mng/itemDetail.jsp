@@ -114,14 +114,17 @@
  --%>                    
  				<label for="gdsImg">이미지</label>
 				<c:forEach var="result" items="${imgList}" varStatus="status">
-					<input type="hidden" id="idx" value="${status.index}">
 					<label for="gdsImg${status.index}"><h3>${result.file}</h3></label>
 			        <img class="card-img-top" name="itemImg${status.index}" id="itemImg${status.index}" src="<c:url value='/img/${result.file}'/>" alt="no image" />
 					<input type="file" id="gdsImg${status.index}" name="file_${status.index}" value="${result.file}" class="form-control"/>
+					<input type="hidden" id="idx" value="${status.index}">
+
+
 <!-- 				<div class="select_img"><img src="" /></div>
  -->				
+ 
+ 
 				</c:forEach>
-				
 				
 				<input type="hidden" id="len" value="${len}">
 				<div class="select_img"><img src="" /></div>
@@ -185,13 +188,13 @@ $(document).ready(function(){
 	var gdsImg="#"+$(this).attr("id");
 	var itemImg="#"+$(this).prev().attr("id");
 	
-	alert("len:"+gfv_count);
+	//alert("len:"+gfv_count);
 	
     $("#addFile").on("click", function(e){ //파일 추가 버튼
     	var gfv_count =Number($("#len").val());
         e.preventDefault();
         fn_addFile(gfv_count);
-    	alert("gfv_count:+++"+gfv_count);
+    	//alert("gfv_count:+++"+gfv_count);
     	$("#len").val(++gfv_count);
 
     });
@@ -200,11 +203,19 @@ $(document).ready(function(){
         e.preventDefault();
         fn_deleteFile($(this));
     });
+    
+    $("input[type=file]").change(function () {
+        var x = $(this).val();
+        var idx = $(this).next().val();
+        alert("idx:"+idx);
+        
+    });
+    
 });
 
 function fn_addFile(gfv_count){
-	alert("gfv_count:"+gfv_count);
-
+	//alert("gfv_count:"+gfv_count);
+	
 	
     var str = "<img class='card-img-top' name='itemImg"+gfv_count+"' id='itemImg"+gfv_count+"' src='' alt='no image' /><p><input type='file' id='gdsImg"+gfv_count+"' name='file_"+gfv_count+"' class='form-control'/><a href='#this' class='btn' name='delete'>삭제</a></p>";
     $("#fileDiv").append(str);
@@ -213,19 +224,21 @@ function fn_addFile(gfv_count){
         fn_deleteFile($(this));
     });
     
-    
     var gdsImg="#gdsImg"+gfv_count
 	var itemImg="#itemImg"+gfv_count;
+   
+    
     $(gdsImg).change(function(){
+    	
 		
-		alert("gdsImg:"+gdsImg);
-		alert("v:"+$(gdsImg).val());
-		alert(itemImg);
+		//alert("gdsImg:"+gdsImg);
+		//alert("v:"+$(gdsImg).val());
+		//alert(itemImg);
 		if(this.files && this.files[0]) {
 			var reader = new FileReader;
 			reader.onload = function(data) {
 				$(itemImg).attr("src", data.target.result).width(500);
-				alert($(itemImg).attr("str"));
+				//alert($(itemImg).attr("str"));
 /* 								$(".select_img img").attr("src", data.target.result).width(500);								 */
 			}
 			reader.readAsDataURL(this.files[0]);

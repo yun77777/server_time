@@ -216,6 +216,7 @@ public class mngController {
 		System.err.println("file:"+multi);
 		
 		try {
+			paramMap.put("update","Y");
 			model.addAttribute("paramMap", paramMap);
 			mngService.updateItem( paramMap, multi, request);
 //			mngService.updateItem(vo, paramMap, multi, request);

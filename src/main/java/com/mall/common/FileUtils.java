@@ -47,6 +47,12 @@ public class FileUtils {
 		}
 		while(iterator.hasNext()) {
 			multipartFile = mpRequest.getFile(iterator.next());
+			//기존파일
+			if(multipartFile.isEmpty() == false) {
+			}
+			System.err.println("multipartFile:"+multipartFile);
+
+			//새로운파일
 			if(multipartFile.isEmpty() == false) {
 				originalFileName = multipartFile.getOriginalFilename();
 				originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
