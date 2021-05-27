@@ -47,8 +47,8 @@ public class boardController {
 //		
 //		return "test";
 //	}
-	@RequestMapping(value = "/test.do", method = RequestMethod.GET)
-	public String test(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="5") int recordCountPerPage ,Map<String, Object> paramMap, @ModelAttribute("loginDTO") LoginDTO loginDTO, HttpSession httpSession, Model model) {
+	@RequestMapping(value = "/test.do")
+	public String test(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="6") int recordCountPerPage ,Map<String, Object> paramMap, @ModelAttribute("loginDTO") LoginDTO loginDTO, HttpSession httpSession, Model model) {
 		System.err.println("test@@@:"+httpSession.getAttribute("login"));
 		
 		System.err.println("member@@@:"+httpSession.getAttribute("member"));
@@ -59,6 +59,7 @@ public class boardController {
 			paramMap.put("B_TYPE",4);
 			paramMap.put("PAGE_TYPE","main");
 			
+			//카테고리별 페이징기능 추가@
 			
 			PaginationVO pg = new PaginationVO(currentPageNo, recordCountPerPage, 3, 
 					mngService.selectItemListCnt(paramMap));
@@ -71,6 +72,7 @@ public class boardController {
 			System.err.println("li:"+list);
 			
 			model.addAttribute("list",list);
+			model.addAttribute("pg",pg);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -78,6 +80,40 @@ public class boardController {
 		
 		
 		return "/test";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/testPg.do")
+	public Map<String,Object> testPg(Map<String, Object> paramMap, HttpSession httpSession, Model model) {
+		System.err.println("test@@@:"+httpSession.getAttribute("login"));
+		
+		System.err.println("member@@@:"+httpSession.getAttribute("member"));
+		model.addAttribute("login",httpSession.getAttribute("login"));
+		model.addAttribute("member",httpSession.getAttribute("member"));
+		System.err.println("param:"+paramMap);
+		try {
+			paramMap.put("B_TYPE",4);
+			paramMap.put("PAGE_TYPE","main");
+			
+			//카테고리별 페이징기능 추가@
+			
+			PaginationVO pg = new PaginationVO(Integer.parseInt(paramMap.get("currentPageNo").toString()), Integer.parseInt(paramMap.get("recordCountPerPage").toString()), 3, 
+					mngService.selectItemListCnt(paramMap));
+			
+			paramMap.put("length",paramMap.get("recordCountPerPage"));
+			paramMap.put("start",pg.getFirstRecordIndex()-1);
+			
+			List<Map<String, Object>> list=mngService.selectItemList(paramMap);
+//			List<Map<String, Object>> list=boardService.selectItemList(paramMap);
+			System.err.println("li:"+list);
+			
+			model.addAttribute("list",list);
+			model.addAttribute("pg",pg);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return paramMap;
 	}
 	
 	@RequestMapping(value = "/about.do")

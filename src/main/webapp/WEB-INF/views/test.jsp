@@ -49,6 +49,13 @@
 		</div> -->
 		<%@ include file="/WEB-INF/views/common/content.jsp"%>
 	</form>
+	
+	<form id="pgForm" method="post">
+	 <input type="hidden" id="currentPageNo" name="currentPageNo" value="${pg.currentPageNo}"/>
+									<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
+		                       
+		<%@ include file="/WEB-INF/views/common/paging.jsp"%>
+	</form>
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
 	
@@ -88,6 +95,32 @@ function fn_detail(B_NO,B_TYPE){
 		action : '<c:url value="/orderDetail.do" />',
 		target : '_self'
 	}).submit();
+}
+
+function fn_list(no) {
+	$('#currentPageNo').val(no);
+	
+	$('#boardForm').attr({
+		action : '<c:url value="/test.do"/>',
+		target : '_self'
+	}).submit();
+	
+	var formData = new FormData($("#pgForm")[0]);
+
+	/* $.ajax({
+		url : "${pageContext.request.contextPath}/testPg.do",
+		type : "post",
+		enctype: 'multipart/form-data',
+		data : formData,
+		processData : false,
+		contentType : false,
+		success : function(result) {
+		}, // success 
+
+		error : function(xhr, status) {
+			alert(xhr + " : " + status);
+		}
+	}); */
 }
 </script>
 

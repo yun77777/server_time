@@ -37,10 +37,10 @@
 	</insert>
 	<select id="selectItemList" parameterType="java.util.HashMap"
 		resultType="java.util.HashMap">
-	<if test="PAGE_TYPE!='main'">
-		<include refid="com.mall.common.commonMapper.pagingHeaderSql"/>
-	</if>
- 	SELECT @rownum:=@rownum+1 ROWNUM
+<!-- 	<if test="PAGE_TYPE!='main'">
+ -->		<include refid="com.mall.common.commonMapper.pagingHeaderSql"/>
+<!-- 	</if>
+ --> 	SELECT @rownum:=@rownum+1 ROWNUM
 	 	, B.gdsNum
 	 	, B.gdsName
 	 	, B.cateCode
@@ -56,9 +56,7 @@
 		where B.gdsNum>=0
 <!-- 		<include refid="searchOption"/>
  -->		ORDER BY B.gdsNum DESC
- 	<if test="PAGE_TYPE!='main'">
 		<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
-	</if>
 	</select>
 	
 	<select id="selectItemListCnt" parameterType="map"
