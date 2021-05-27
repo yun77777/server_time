@@ -85,6 +85,7 @@ public class boardController {
 	@ResponseBody
 	@RequestMapping(value = "/testPg.do")
 	public Map<String,Object> testPg(Map<String, Object> paramMap, HttpSession httpSession, Model model) {
+
 		System.err.println("test@@@:"+httpSession.getAttribute("login"));
 		
 		System.err.println("member@@@:"+httpSession.getAttribute("member"));
@@ -97,10 +98,10 @@ public class boardController {
 			
 			//카테고리별 페이징기능 추가@
 			
-			PaginationVO pg = new PaginationVO(Integer.parseInt(paramMap.get("currentPageNo").toString()), Integer.parseInt(paramMap.get("recordCountPerPage").toString()), 3, 
+			PaginationVO pg = new PaginationVO(Integer.parseInt(paramMap.get("currentPageNo").toString()), 6, 3, 
 					mngService.selectItemListCnt(paramMap));
 			
-			paramMap.put("length",paramMap.get("recordCountPerPage"));
+			paramMap.put("length",Integer.parseInt(paramMap.get("currentPageNo").toString()));
 			paramMap.put("start",pg.getFirstRecordIndex()-1);
 			
 			List<Map<String, Object>> list=mngService.selectItemList(paramMap);

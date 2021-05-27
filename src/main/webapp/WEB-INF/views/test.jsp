@@ -50,12 +50,13 @@
 		<%@ include file="/WEB-INF/views/common/content.jsp"%>
 	</form>
 	
-	<form id="pgForm" method="post">
+	<%-- <form id="pgForm" method="post">
 	 <input type="hidden" id="currentPageNo" name="currentPageNo" value="${pg.currentPageNo}"/>
 									<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
 		                       
 		<%@ include file="/WEB-INF/views/common/paging.jsp"%>
-	</form>
+	</form> 
+	--%>
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
 	
@@ -99,19 +100,19 @@ function fn_detail(B_NO,B_TYPE){
 
 function fn_list(no) {
 	$('#currentPageNo').val(no);
-	
+	var currentPageNo=no;
 	$('#boardForm').attr({
 		action : '<c:url value="/test.do"/>',
 		target : '_self'
 	}).submit();
 	
-	var formData = new FormData($("#pgForm")[0]);
+/* 	var formData = new FormData($("#pgForm")[0]); */
 
-	/* $.ajax({
+/* 	$.ajax({
 		url : "${pageContext.request.contextPath}/testPg.do",
 		type : "post",
 		enctype: 'multipart/form-data',
-		data : formData,
+ 		/data : formData,
 		processData : false,
 		contentType : false,
 		success : function(result) {

@@ -157,6 +157,19 @@
 				</form>
 				</ul>
 			
+			<div class="rorderOpne">
+			<button type="button" class="orderBtn" onclick="fn_order_check()">주문확인</button>
+				<script>
+					$(".orderBtn").click(function(){
+						$(".orderChk").slideDown();  // $(".orderInfo")를 나타내고
+						//$(".orderOpne_bnt").slideUp();  // $(".orderOpne_bnt")를 숨김
+					});						
+				</script>
+				
+			</div>
+			
+			<div class="orderChk"></div>
+			
 			<div class="listResult">
 				<div class="sum">
 					총 합계 : <fmt:formatNumber pattern="###,###,###" value="${sum}" />원
@@ -387,7 +400,61 @@ function fn_btn(no){
     }); // $.ajax */
 
 }
+//orderChkBtn
+function fn_order_check() {
+	$(".orderChk *").remove();
+	var checkArr = new Array();
+	//var formData = new FormData($("#deleteForm")[0]);
+	var userId=$('#userId').val();
 
+	// 체크된 체크박스의 갯수만큼 반복
+	$("input[class='chBox']:checked").each(function(){
+		checkArr.push($(this).attr("data-cartNum"));  // 배열에 데이터 삽입
+	});
+	
+	alert(checkArr);
+	//orderChk
+	var str = "<p>"+checkArr+"</p>";
+    $(".orderChk").append(str);
+	
+	
+    var formData = new FormData($("#boardForm")[0]);
+	$.ajax({
+		url : "${pageContext.request.contextPath}/orderList.do",
+		type : "post",
+		enctype: 'multipart/form-data',
+		data : formData,
+		processData : false,
+		contentType : false,
+		success : function(result) {
+			$('#boardForm').attr({
+				action : '<c:url value="/orderList2.do"/>',
+				target : '_self'
+			}).submit(); 
+		}, // success 
+
+		error : function(xhr, status) {
+			alert(xhr + " : " + status);
+		}
+	});
+	
+	/* $.ajax({
+		url : "/deleteCart.do",
+		type : "post",
+		//processData : false,
+		data : { chbox : checkArr , userId : userId },
+		success : function(result){
+			
+			if(result == 1) {						
+				alert("삭제 완료");
+				location.href = "/cartList.do";
+			} else {
+				alert("삭제 실패");
+			}
+		}
+	}); */
+
+}
 function fn_insert() {
 	//var formData = $('#boardForm').serialize();
 	$('#boardForm #no').attr('disabled',false);
@@ -409,6 +476,8 @@ function fn_insert() {
 		}
 	});
 }
+
+
 
 function fn_delete() {
 	//var formData = $('#boardForm').serialize();

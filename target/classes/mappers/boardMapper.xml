@@ -212,7 +212,7 @@
 			#{ORG_FILE_NAME},
 			#{STORED_FILE_NAME},
 			#{FILE_SIZE},
-<!-- 			#{SEQ_MP_FILE_NO},  
+<!-- 			#{SEQ_MP_FILE_NO},
  -->			#{FILE_PATH},
 			#{B_TYPE}
 		)
