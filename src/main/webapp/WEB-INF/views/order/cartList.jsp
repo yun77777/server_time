@@ -421,16 +421,20 @@ function fn_order_check() {
     var formData = new FormData($("#boardForm")[0]);
 	$.ajax({
 		url : "${pageContext.request.contextPath}/orderList.do",
+/* 		url : "${pageContext.request.contextPath}/orderChk.do", */
 		type : "post",
 		enctype: 'multipart/form-data',
+		//data : { chbox : checkArr , userId : userId },
 		data : formData,
 		processData : false,
 		contentType : false,
 		success : function(result) {
-			$('#boardForm').attr({
-				action : '<c:url value="/orderList2.do"/>',
-				target : '_self'
-			}).submit(); 
+			if(result==1){
+				$('#boardForm').attr({
+					action : '<c:url value="/orderList2.do"/>',
+					target : '_self'
+				}).submit();
+			}
 		}, // success 
 
 		error : function(xhr, status) {

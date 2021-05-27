@@ -257,6 +257,7 @@ public class orderController {
 		logger.info("get order list");
 		
 		System.err.println("paramMap@:"+paramMap);
+		//service.orderInfo_Details(orderDetail);
 	//				System.err.println("order@:"+session.getAttribute("login"));
 	//
 	//				UserVO member = (UserVO)session.getAttribute("login");
@@ -265,13 +266,49 @@ public class orderController {
 	//				
 	//				order.setUserId(session.getAttribute("login").toString());
 	//				order.setOrderId(session.getAttribute("login").toString());
-	
+		// 로그인 여부 구분
+		orderService.deleteCart(paramMap);
+
 		List<Map<String, Object>> orderList = orderService.orderList(paramMap);
 		
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("paramMap", paramMap);
 
 		return paramMap;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/orderChk")
+//	@RequestMapping(value = "/deleteCart", method = RequestMethod.POST)
+	public int orderChk( @RequestParam(value="userId") String userId, @RequestParam(value = "chbox[]") List<String> chArr, @RequestParam Map<String, Object> paramMap, Model model, HttpSession session) throws Exception {
+		logger.info("orderChk cart");
+		model.addAttribute("login", session.getAttribute("login"));
+		System.err.println("paramMap@"+paramMap);
+		System.err.println("chArr@"+chArr);
+		System.err.println("userId@"+userId);
+		OrderDetailVO orderDetail=new OrderDetailVO();
+		int result = 0;
+		int cartNum = 0;
+		paramMap.put("userId",userId);
+		// 로그인 여부 구분
+		if(userId != null) {
+			//cartList
+			for(String i : chArr) {  // 에이젝스에서 받은 chArr의 갯수만큼 반복
+				cartNum = Integer.parseInt(i);  // i번째 데이터를 cartNum에 저장
+				
+				paramMap.put("cartNum",cartNum);
+				
+				orderService.deleteCart(paramMap);
+				//orderService.orderInfo(paramMap);			
+				}
+			result = 1;
+		}		
+		List<Map<String, Object>> orderList = orderService.orderList(paramMap);
+		
+		model.addAttribute("orderList", orderList);
+		model.addAttribute("paramMap", paramMap);
+		return result;
 	}
 	
 	//@@@@@@@@@@@@@@@@@@@@@@@@@@@

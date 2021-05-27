@@ -71,14 +71,14 @@
    
 <!-- 주문 상세 정보 --> 
 <insert id="orderInfo_Details">
-<selectKey resultType="int" keyProperty="tbl_order_details_seq" order="BEFORE">
-	SELECT COALESCE(MAX(tbl_order_details_seq),0)+1 AS tbl_order_details_seq FROM tbl_order_details
-	where orderId=#{orderId,jdbcType=VARCHAR}
+<selectKey resultType="int" keyProperty="orderDetailsNum" order="BEFORE">
+	SELECT COALESCE(MAX(orderDetailsNum),0)+1 AS orderDetailsNum FROM tbl_order_details
+	where userId=#{userId,jdbcType=VARCHAR}
 </selectKey>
  insert into tbl_order_details(orderDetailsNum, orderId, gdsNum, cartStock)
-     select tbl_order_details_seq, #{orderId}, gdsNum, cartStock
+     select orderDetailsNum, #{orderId}, gdsNum, cartStock
 <!--      select tbl_order_details_seq.nextval, #{orderId}, gdsNum, cartStock -->
-         from tbl_cart   
+         from tbl_cart
 </insert> 
 
 	    
