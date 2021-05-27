@@ -56,12 +56,11 @@ public class mngServiceImpl implements mngService {
 		
 		//paramMap.put("gdsNum", vo.getGdsNum());
 		
-		
 		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(paramMap, multi);
 		int size = list.size();
 		System.err.println("multi list:" + list);
 		//파일지우기
-		boardMapper.deleteFile(paramMap);
+		//boardMapper.deleteFile(paramMap);
 
 		if (size > 0) {
 			for (int i = 0; i < size; i++) {

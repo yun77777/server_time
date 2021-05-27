@@ -100,6 +100,7 @@ public class mngController {
 		
 			model.addAttribute("detail",detail);
 			model.addAttribute("imgList",imgList);
+			model.addAttribute("len",imgList.size());
 //			model.addAttribute("list",list);
 		} catch (Exception e) {
 			e.printStackTrace();

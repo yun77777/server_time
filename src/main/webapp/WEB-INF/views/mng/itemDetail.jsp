@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+
 
 <%@ page session="false"%>
 <!DOCTYPE html>
@@ -112,13 +114,16 @@
  --%>                    
  				<label for="gdsImg">이미지</label>
 				<c:forEach var="result" items="${imgList}" varStatus="status">
-					<input type="hidden" id="idx" value="${status.index}">s
+					<input type="hidden" id="idx" value="${status.index}">
 					<label for="gdsImg${status.index}"><h3>${result.file}</h3></label>
 			        <img class="card-img-top" name="itemImg${status.index}" id="itemImg${status.index}" src="<c:url value='/img/${result.file}'/>" alt="no image" />
 					<input type="file" id="gdsImg${status.index}" name="file_${status.index}" value="${result.file}" class="form-control"/>
 <!-- 				<div class="select_img"><img src="" /></div>
  -->				
 				</c:forEach>
+				
+				
+				<input type="hidden" id="len" value="${len}">
 				<div class="select_img"><img src="" /></div>
                 <div id="fileDiv">
 		            <p>
@@ -172,15 +177,23 @@
 </body>
 
 <script>
-var gfv_count = Number($("#idx").val());
-alert(gfv_count);
+ 
+/*  var gfv_count = Number($("#idx").val());  */
+ 
 $(document).ready(function(){
+	var gfv_count =Number($("#len").val());
 	var gdsImg="#"+$(this).attr("id");
 	var itemImg="#"+$(this).prev().attr("id");
-
+	
+	alert("len:"+gfv_count);
+	
     $("#addFile").on("click", function(e){ //파일 추가 버튼
+    	var gfv_count =Number($("#len").val());
         e.preventDefault();
-        fn_addFile(++gfv_count);
+        fn_addFile(gfv_count);
+    	alert("gfv_count:+++"+gfv_count);
+    	$("#len").val(++gfv_count);
+
     });
      
     $("a[name='delete']").on("click", function(e){ //삭제 버튼
@@ -190,30 +203,29 @@ $(document).ready(function(){
 });
 
 function fn_addFile(gfv_count){
-	alert(gfv_count);
+	alert("gfv_count:"+gfv_count);
+
 	
-	
-	
-    
-	
-	
-    var str = "<img class='card-img-top' name='itemImg"+gfv_count+"' id='itemImg"+gfv_count+"' src='' alt='no image' /><p><input type='file' id='gdsImg"+gfv_count+"' name='file_"+gfv_count+"'><a href='#this' class='btn' name='delete'>삭제</a></p>";
+    var str = "<img class='card-img-top' name='itemImg"+gfv_count+"' id='itemImg"+gfv_count+"' src='' alt='no image' /><p><input type='file' id='gdsImg"+gfv_count+"' name='file_"+gfv_count+"' class='form-control'/><a href='#this' class='btn' name='delete'>삭제</a></p>";
     $("#fileDiv").append(str);
     $("a[name='delete']").on("click", function(e){ //삭제 버튼
         e.preventDefault();
         fn_deleteFile($(this));
     });
     
-    $("input[type=file]").change(function(){
-		var gdsImg="#gdsImg"+gfv_count
-		var itemImg="#itemImg"+gfv_count;
-		alert(gdsImg);
+    
+    var gdsImg="#gdsImg"+gfv_count
+	var itemImg="#itemImg"+gfv_count;
+    $(gdsImg).change(function(){
+		
+		alert("gdsImg:"+gdsImg);
+		alert("v:"+$(gdsImg).val());
 		alert(itemImg);
 		if(this.files && this.files[0]) {
 			var reader = new FileReader;
 			reader.onload = function(data) {
 				$(itemImg).attr("src", data.target.result).width(500);
-				
+				alert($(itemImg).attr("str"));
 /* 								$(".select_img img").attr("src", data.target.result).width(500);								 */
 			}
 			reader.readAsDataURL(this.files[0]);
@@ -333,8 +345,7 @@ nhn.husky.EZCreator.createInIFrame({
 });
 
 $(function() {
-	$("#saveBtn").click(function() { 
-/* 	$("#submit").click(function() { */
+	$("#saveBtn").click(function() {
 		oEditors.getById["gdsDes"].exec("UPDATE_CONTENTS_FIELD", []); 
 
 		//textarea의 id를 적어줍니다.
@@ -393,7 +404,7 @@ $(function() {
 			return;
 		}
 	});
-})
+});
 
 </script>
 
