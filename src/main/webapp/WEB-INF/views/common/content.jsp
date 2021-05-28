@@ -71,6 +71,8 @@
 	                    <c:forEach var="result" items="${list}" varStatus="status">
 		                   <div class="col-lg-4 col-sm-6 mb-4">
 		                       <div class="card h-100">
+		                       <button type="button" onclick="fn_detail_pop('${result.gdsNum}','${result.B_TYPE}')" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+${result.gdsName}</button> 
 		                           <a href="#!" onclick="fn_detail('${result.gdsNum}','${result.B_TYPE}')">
 <%-- 		                           <a href="#!" onclick="fn_detail('${result.B_NO}','${result.B_TYPE}')"> --%>
 		                           <img class="card-img-top" src="<c:url value='/img/${result.representative_file}'/>" alt="no image" /></a>
@@ -87,24 +89,35 @@
 		                   </div>
 	                    </c:forEach>
 	                    
-	                    <!-- <div class="col-lg-4 col-sm-6 mb-4">
-	                        <div class="card h-100">
-	                            <a href="#!"><img class="card-img-top" src="https://via.placeholder.com/700x400" alt="..." /></a>
-	                            <div class="card-body">
-	                                <h4 class="card-title"><a href="#!">Project Five</a></h4>
-	                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-	                            </div>
-	                        </div>
-	                    </div>
-	                    <div class="col-lg-4 col-sm-6 mb-4">
-	                        <div class="card h-100">
-	                            <a href="#!"><img class="card-img-top" src="https://via.placeholder.com/700x400" alt="..." /></a>
-	                            <div class="card-body">
-	                                <h4 class="card-title"><a href="#!">Project Six</a></h4>
-	                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque earum nostrum suscipit ducimus nihil provident, perferendis rem illo, voluptate atque, sit eius in voluptates, nemo repellat fugiat excepturi! Nemo, esse.</p>
-	                            </div>
-	                        </div>
-	                    </div> -->
+	                    
+	                    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+  Launch demo modal
+</button>
+<%@ include file="/WEB-INF/views/common/popup/itemDetailPopup.jsp" %>
+<!-- Modal -->
+<!-- <div class="modal fade bd-example-modal-lg" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+	                    
+	                    
+	                    
 	                </div>
 	            </div>
 	            <%@ include file="/WEB-INF/views/common/paging.jsp"%>

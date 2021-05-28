@@ -66,6 +66,8 @@
 
 <script>
 $(document).ready(function() {
+	//var w = window.open("about:blank","_blank");
+	
 	// 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
 	var floatPosition = parseInt($(".floatMenu").css('top'));
 	// 250px 이런식으로 가져오므로 여기서 숫자만 가져온다. parseInt( 값 );
@@ -97,6 +99,49 @@ function fn_detail(B_NO,B_TYPE){
 		target : '_self'
 	}).submit();
 }
+
+function fn_detail_pop(B_NO,B_TYPE){
+	$('#gdsNum').val(B_NO);
+	$('#B_TYPE').val(B_TYPE);
+	//itemDetailPopup
+	var  formData= $('#boardForm').serialize();
+	
+	//alert(B_NO);
+	$('.modal-body').append("afkjzxczxc"+$('#gdsNum').val());
+	$.ajax({
+		url : "${pageContext.request.contextPath}/itemDetailPopup.do",
+		type : "post",
+		enctype: 'multipart/form-data',
+		data : formData,
+		processData : false,
+		contentType : false,
+		success : function(result) {
+			//window.location='<c:url value="/test.do"/>';
+		}, // success 
+
+		error : function(xhr, status) {
+			alert(xhr + " : " + status);
+		}
+	});
+	
+	/* $.ajax({
+		url: '<c:url value="/test.do" />',
+		method:"POST",
+		data:formData,
+		dataType:"html",
+		success: eventSuccess,
+		error: function(xhr, status, error) {alert(error);}
+	}); */
+}
+
+function eventSuccess(data)
+{
+	//여기서 팝업된 창의 주소를 변경하자.
+	window.location.href = "/itemDetailPopup.do";
+/* 	w.location.href = "/itemDetailPopup.do"; */
+}
+
+
 
 function fn_list(no) {
 	$('#currentPageNo').val(no);

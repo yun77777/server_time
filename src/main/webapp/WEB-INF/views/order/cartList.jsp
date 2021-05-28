@@ -441,42 +441,30 @@ function fn_order_check() {
 	
 	
 	alert(checkArr);
-	//orderChk
-	var str = "<p>"+checkArr+"</p>";
-    $(".orderChk").append(str);
-	
-	
-	$.ajax({
-		url : "/orderChk.do",
-		type : "post",
-		//processData : false,
-		data : { chbox : checkArr , userId : userId , cartStockArr : cartStockArr},
-		success : function(result){
-			
-			if(result == 1) {						
-				alert("chk 완료");
-				location.href = "/orderList2.do";
-			} else {
-				alert("chk 실패");
+	if(checkArr.length==0){
+		alert('상품 선택 후 주문하세요');
+	} else{
+		//orderChk
+		var str = "<p>"+checkArr+"</p>";
+	    $(".orderChk").append(str);
+		
+		
+		$.ajax({
+			url : "/orderChk.do",
+			type : "post",
+			//processData : false,
+			data : { chbox : checkArr , userId : userId , cartStockArr : cartStockArr},
+			success : function(result){
+				
+				if(result == 1) {						
+					alert("chk 완료");
+					location.href = "/orderList2.do";
+				} else {
+					alert("chk 실패");
+				}
 			}
-		}
-	});
-	
-	/* $.ajax({
-		url : "/deleteCart.do",
-		type : "post",
-		//processData : false,
-		data : { chbox : checkArr , userId : userId },
-		success : function(result){
-			
-			if(result == 1) {						
-				alert("삭제 완료");
-				location.href = "/cartList.do";
-			} else {
-				alert("삭제 실패");
-			}
-		}
-	}); */
+		});
+	}
 
 }
 function fn_insert() {

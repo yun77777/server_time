@@ -68,6 +68,30 @@ public class orderController {
 		return "order/orderDetail";
 	}
 	
+	@RequestMapping(value = "/itemDetailPopup.do")
+	public String itemDetailPopup(@RequestParam Map<String, Object> paramMap, HttpSession httpSession,
+			HttpServletRequest request, Model model) throws Exception {
+System.err.println("팝@@");
+		try {
+			model.addAttribute("login", httpSession.getAttribute("login"));
+			model.addAttribute("member", httpSession.getAttribute("member"));
+
+			paramMap.put("B_TYPE", 4);
+
+			Map<String, Object> detail = mngService.selectItemDetail(paramMap);
+			List<Map<String,Object>> imgList=mngService.selectItemImgList(paramMap);
+
+			model.addAttribute("detail2", detail);
+			model.addAttribute("imgList", imgList);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "common/popup/itemDetailPopup";
+	}
+	
+	
+	
 	// 카테고리별 상품 리스트
 //	@RequestMapping(value = "/list", method = RequestMethod.GET)
 //	public void getList(@RequestParam("c") int cateCode,
