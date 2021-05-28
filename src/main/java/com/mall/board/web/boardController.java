@@ -132,6 +132,7 @@ public class boardController {
 		model.addAttribute("login",httpSession.getAttribute("login"));
 		model.addAttribute("member",httpSession.getAttribute("member"));
 
+
 		paramMap.put("recordCountPerPage", recordCountPerPage);
 		paramMap.put("currentPageNo", currentPageNo);
 		

@@ -91,11 +91,12 @@
 				<c:forEach var="result" items="${list}" varStatus="status">
 					<div class="col-lg-4 col-sm-6 mb-4">
 						<div class="card h-100">
-							<button type="button" onclick="fn_detail_pop('${result.gdsNum}')"
+							<%-- <button type="button" onclick="fn_detail_pop('${result.gdsNum}')"
 								class="btn btn-primary" data-toggle="modal"
-								data-target="#exampleModalLong">${result.gdsName}</button>
+								data-target="#exampleModalLong">${result.gdsName}</button> --%>
 							<a href="#!"
-								onclick="fn_detail('${result.gdsNum}','${result.B_TYPE}')">
+								onclick="fn_detail_pop('${result.gdsNum}')" data-toggle="modal"
+								data-target="#exampleModalLong">
 								<%-- 		                           <a href="#!" onclick="fn_detail('${result.B_NO}','${result.B_TYPE}')"> --%>
 								<img class="card-img-top"
 								src="<c:url value='/img/${result.representative_file}'/>"
@@ -103,7 +104,9 @@
 							</a>
 							<div class="card-body">
 								<h4 class="card-title">
-									<a href="#!">${result.gdsName}</a>
+									<a onclick="fn_detail('${result.gdsNum}','${result.B_TYPE}')"
+								data-toggle="modal"
+								data-target="#exampleModalLong">${result.gdsName}</a>
 								</h4>
 								<!-- <p class="card-text"></p> -->
 							</div>
@@ -118,10 +121,6 @@
 					</div>
 				</c:forEach>
 
-
-				<!-- Button trigger modal -->
-				<button type="button" class="btn btn-primary" data-toggle="modal"
-					data-target="#exampleModalLong">Launch demo modal</button>
 
 
 				<%-- <%@ include file="/WEB-INF/views/common/popup/itemDetailPopup.jsp" %>
@@ -142,13 +141,15 @@
 							</div>
 							<div class="modal-body">
 								<form id="orderForm" method="post" enctype="multipart/form-data">
+									<input type="hidden" name="gdsNum" value="${detail.gdsNum}" />
 									<input type="hidden" name="userId" value="${member.ID}" />
 									<%-- <input type="hidden" id="gdsNum" name="gdsNum" value="${detail.gdsNum}" />
 				<input type="hidden" name="gdsPrice" value="${detail.gdsPrice}" />
 				<input type="hidden" id="gdsStock" name="gdsStock" /> --%>
+								
 								</form>
 
-
+					
 								<table class="table">
 									<thead>
 									</thead>
@@ -157,30 +158,30 @@
 											<th>상품명</th>
 											<td>
 												<div class="col-md-8">
-													<img id="rpsnImg" class="card-img-top" src=""
+													<img id="rpsnImg" class="card-img-top scale" src=""
 														alt="no image" />
 												</div>
 											</td>
 										</tr>
 										<tr>
 											<th>상품명</th>
-											<td><input id="gdsName"></td>
+											<td><input type="hidden" id="gdsName"></td>
 										</tr>
 										<tr>
 											<th>가격</th>
-											<td><input id="gdsPrice"></td>
+											<td><input type="hidden" id="gdsPrice"></td>
 										</tr>
 										<tr>
 											<th>재고</th>
-											<td><input id="gdsStock"></td>
+											<td><input type="hidden" id="gdsStock"></td>
 										</tr>
 										<tr>
 											<th>Total Price</th>
-											<td><input id="totalPrice"></td>
+											<td><input type="hidden" id="totalPrice"></td>
 										</tr>
 										<tr>
 											<th>gdsDes</th>
-											<td><input id="gdsDes"></td>
+											<td><input type="hidden" id="gdsDes"></textArea>
 										</tr>
 									</tbody>
 								</table>
@@ -188,7 +189,8 @@
 
 							<div id="pp"></div>
 							
-							<button type="button" id="create">new</button>
+							<button type="submit" id="create">new</button>
+							<button type="submit" id="create2">new2</button>
 <!-- 							<button type="button" id="create">new</button> -->
 							 <div></div>
 

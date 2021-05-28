@@ -60,36 +60,7 @@
 	</form> 
 	--%>
 	
-	<button type="button" onclick="sampleModalPopup()">zxc</button>
-	<div class="modal fade" id="sampleModalPopup" role="dialog" tabindex="-1">
-    <div class="modal-dialog modal-dialog-width1000 modal-dialog-height800">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        </div>
-        <div class="modal-body">
-        ${imgList}
-        
-        </div>
-        <div class="modal-footer">
-            <button type="button" name="button" class="btn btn-color2" data-dismiss="modal" >닫기</button>
-        </div>
-    </div>
-</div>
 
-
-
-
-<a data-toggle="modal" href="/testForm.do" data-target="#modal-testNew" role="button" data-backdrop="static">
- <span class="btn btn-xs btn-success">테스트 등록</span>
-</a>
- 
- 
-<div id="modal-testNew" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="" aria-describedby="">
-    <div class="modal-dialog" style="width:1200px;height:700px">
-        <div class="modal-content">
-        </div>
-    </div>
-</div>
 
 
 
@@ -103,6 +74,7 @@
 
 <script>
 $(document).ready(function() {
+	
 	$(".saveBtn2").click(function(){
 		alert("saveBtn");
 	/* 	var num = $(".numBox").val();
@@ -154,7 +126,7 @@ function fn_detail(B_NO,B_TYPE){
 function sampleModalPopup(){
     // 팝업 호출 url
     var url = "/WEB-INF/common/popup/itemDetailPopup.jsp";
-	$('#gdsNum').val(1);
+	
 
     $.ajax({
 		url : "${pageContext.request.contextPath}/itemDetailPopup.do",
@@ -197,62 +169,120 @@ function fn_detail_pop(B_NO,B_TYPE){
 		var imgList = obj.imgList ; //java에서 정의한 ArrayList명을 적어준다.
         $.each(detail, function( index, value ) {
    			$("#"+index+"").val(value);
-   			$("#pp").append(index+','+value+'<br>');
+   			//$("#pp").append(index+','+value+'<br>');
             console.log('element' ,index, value ); //Book.java 의 변수명을 써주면 된다.
             //console.log( index + " : " + value ); //Book.java 의 변수명을 써주면 된다.
          });
-		console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
-$("#totalPrice").val(Number($("gdsPrice").val())*Number($("gdsStock").val()));
-		console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
-		
 		
 		 for (var i = 0; i <imgList.length; i++) {
 			  console.log('element', i, imgList[i]);
 			  console.log(imgList[i].gdsPrice);
-			  $("#pp").append(i+','+imgList[i]+'<br>');
-			  $("#pp").append(i+','+imgList[i].gdsPrice+'<br>');
+			  //$("#pp").append(i+','+imgList[i]+'<br>');
+			  //$("#pp").append(i+','+imgList[i].gdsPrice+'<br>');
+			  
+			 
 			  $("#pp").append(i+','+imgList[i].file+'<br>');
-			  var img=imgList[i].file;
-			  $("#pp").append(i+','+imgList[i].gdsDes+'<br>');
+			  
+			var img=imgList[i].file;
+			var image="<c:url value='/img/"+img+"'/>"; //상품 상세 이미지
+			  $("#pp").append(i+"<img class='card-img-top scale' src="+image+"><br>");
+			 
+			  //$("#pp").append(i+','+imgList[i].gdsDes+'<br>');
 			};
 			
 			
 		//var representativ_file=detail.representative_file;
 		//alert(representative_file);
+		
+		
+		
+		//상품상세설명
+		$("#gdsName").parent().parent().find('td').append(detail.gdsName);
+		//상품상세설명
+		$("#gdsPrice").parent().parent().find('td').append(detail.gdsPrice);
+		//상품상세설명
+		$("#gdsStock").parent().parent().find('td').append(detail.gdsStock);
+		//상품상세설명
+		$("#totalPrice").parent().parent().find('td').append(detail.totalPrice);
+		//상품상세설명
+		$("#gdsDes").parent().parent().find('td').append(detail.gdsDes);
+		
+		//$("#gdsDes").val("새로운 값을 지정합니다.");  //텍스트 에어리어에 새로 값을 지정.
+		
 		$("#rpsnImg").attr("src","<c:url value='/img/"+img+"'/>");
 		console.log('================================');
 		
-		
-		var btn="<button type='button' id='saveBtn2' class='btn btn-primary'>Save changes</button>";
-		$("#pp").append(btn);
-		
-		
-		$("#create").on("click",function(){ 
+		//new2
+		$("#create2").on("click",function(){ 
 			alert($("#gdsPrice").val());
-		   /*  window.opener.location.href='<c:url value="/boardList.do"/>';
-		    window.location.href='<c:url value="/boardList.do"/>';
-		    window.location='<c:url value="/boardList.do"/>';
-		    opener.parent.location.replace("<c:url value='/boardList.do'/>");
-		       self.close();
-		       opener.parent.location="<c:url value='/boardList.do'/>"; 
-		       opener.parent.location='/boardList.do'; 
-		       opener.document.location.reload();
-
-		       if ( window.location == "<c:url value='/tes.do'/>" ) {
-		    	   window.location.href='http://www.codingfactory.net/';
-		    	 }
-		   	window.close();  */
-		   	location.replace("boardList.do");
-		   	alert("no");
+			var gdsNum=$('#gdsNum').val();
 
 			//$(this).next().html("<button type='button' id='newButton'>ok</button>"); 
 			
-			/* $('#orderForm').attr({
-				action : '<c:url value="/boardList.do" />',
-				target : '_self'
-			}).submit(); */
+			fn_detail(gdsNum);
+			
+		   	alert("no");
+			});
+		
+		
+		//new
+		$("#create").on("click",function(){ 
+			
+			var gdsNum = $("#gdsNum").val();
+			var cartStock = 5
+/* 			var cartStock = $(".numBox").val(); */
+			
+			var data = {
+					gdsNum : gdsNum,
+					cartStock : cartStock
+					};
+			
+			var gdsNum = $("#gdsNum").val();
+			var userId = $("#userId").val();
+			var gdsStock = $(".numBox").val();
+			$('#gdsStock').val(gdsStock);
+			var data = {
+					gdsNum : gdsNum,
+					gdsStock : gdsStock,
+					userId : userId
+					};
+			
+			$.ajax({
+				url : "/orderItem.do",
+				type : "post",
+				data : data,
+				success : function(result){
+					
+					if(result == 1) {
+					   	location.replace("cartList.do");
+
+					/* 	$('#orderForm').attr({
+							action : '<c:url value="/orderProcess.do"/>',
+							target : '_self'
+						}).submit(); 
+						 */
+						//$(".numBox").val("1");
+					} else {
+						alert("회원만 사용할 수 있습니다.")
+						$(".numBox").val("1");
+						window.location='<c:url value="/user/login.do"/>';
+
+					}
+				},
+				error : function(){
+					alert("실패");
+				}
+			});
+			
+			alert('finished');
+			
+			
+			
+			
+		   	//location.replace("boardList.do");
 			
 			});
+		
 		
 	/* 	$("#create").on("click", function(event){ 
 			console.log("click");
@@ -262,7 +292,7 @@ $("#totalPrice").val(Number($("gdsPrice").val())*Number($("gdsStock").val()));
 
 		
 			//$('.modal-body').append(result+'ㅋㅌㅊㅋㅌㅊㅋㅌㅊㅋㅌㅊ'+result.detail.gdsPrice);
-			$('.modal-body').append(obj+result+JSON.parse(result).detail.gdsPrice);
+			//$('.modal-body').append(obj+result+JSON.parse(result).detail.gdsPrice);
 			//alert(result.detail);
 			var gdsNum=JSON.parse(result).detail.gdsNum;
 			var gdsPrice=JSON.parse(result).detail.gdsPrice;
@@ -324,5 +354,22 @@ function fn_list(no) {
 }
 </script>
 
-
+<style>
+.scale {
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transition: all 0.3s ease-in-out;   /* 부드러운 모션을 위해 추가*/
+}
+.scale:hover {
+  transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  -o-transform: scale(1.2);
+}
+.img {width:325px; height:280px; overflow:hidden }   /* 부모를 벗어나지 않고 내부 이미지만 확대 */
+</style>
 </html>

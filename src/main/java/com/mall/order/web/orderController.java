@@ -55,7 +55,9 @@ public class orderController {
 		try {
 			model.addAttribute("login", httpSession.getAttribute("login"));
 			model.addAttribute("member", httpSession.getAttribute("member"));
-
+			System.err.println("zxclmzxlcmzxclzxczmxcmzxcm");
+			System.err.println(paramMap);
+			System.err.println("zxclmzxlcmzxclzxczmxcmzxcm");
 			paramMap.put("B_TYPE", 4);
 
 			Map<String, Object> detail = mngService.selectItemDetail(paramMap);
@@ -150,7 +152,7 @@ Map<String, Object> result = new HashMap<String, Object>();
 	@ResponseBody
 	@RequestMapping(value = "/view/addCart.do", method = RequestMethod.POST)
 	public int addCart(CartListVO cart, HttpSession session) throws Exception {
-
+		System.err.println("cart:"+cart);
 		int result = 0;
 		System.err.println("sessionL"+session.getAttribute("login"));
 
