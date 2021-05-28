@@ -65,6 +65,9 @@
 
 
 
+
+
+
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
 	
@@ -494,5 +497,11 @@ figure.snip1384.hover i {
   transform: translate(0px, 0px);
   opacity: 1;
 }
+
+
+/* @@@@@@@@@@@@ */
+
+/* @@@@@@@@@@@@ */
+
 </style>
 </html>

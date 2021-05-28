@@ -289,8 +289,29 @@
 			</div>
 		</div>
 		<%@ include file="/WEB-INF/views/common/paging.jsp"%>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		<%@ include file="/WEB-INF/views/common/slideImgs.jsp"%>
+
 	</article>
 </section>
+
+
+
+
+
+
+
+
 <aside style="float: left; width: 20%">
 	<h3>최근글</h3>
 	<ul>
