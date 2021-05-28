@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
+import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.google.gson.JsonObject;
 import com.mall.board.service.boardService;
 import com.mall.mng.service.mngService;
 
@@ -68,26 +70,40 @@ public class orderController {
 		return "order/orderDetail";
 	}
 	
+	@ResponseBody
 	@RequestMapping(value = "/itemDetailPopup.do")
-	public String itemDetailPopup(@RequestParam Map<String, Object> paramMap, HttpSession httpSession,
+	//@RequestParam(value="gdsNum") String gdsNum
+	public Map<String, Object> itemDetailPopup(@RequestParam(value="gdsNum") String gdsNum, @RequestParam Map<String, Object> paramMap, HttpSession httpSession,
+//			public String itemDetailPopup(@RequestParam(value="gdsNum") String gdsNum, @RequestParam Map<String, Object> paramMap, HttpSession httpSession,
 			HttpServletRequest request, Model model) throws Exception {
 System.err.println("팝@@");
+System.err.println(paramMap);
+Map<String, Object> result = new HashMap<String, Object>();
+//HashMap<String, Object> result = new HashMap<String, Object>();
+
 		try {
 			model.addAttribute("login", httpSession.getAttribute("login"));
 			model.addAttribute("member", httpSession.getAttribute("member"));
 
+			paramMap.put("gdsNum", gdsNum);
 			paramMap.put("B_TYPE", 4);
 
 			Map<String, Object> detail = mngService.selectItemDetail(paramMap);
 			List<Map<String,Object>> imgList=mngService.selectItemImgList(paramMap);
 
-			model.addAttribute("detail2", detail);
+			model.addAttribute("detail", detail);
 			model.addAttribute("imgList", imgList);
+			result.put("detail",detail);
+			result.put("imgList",imgList);
+			System.err.println("detail"+detail);
+			System.err.println("imgList"+imgList);
+//			System.err.println(" JSONObject.fromObject(result).toString()"+ JSONObject.fromObject(result).toString());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "common/popup/itemDetailPopup";
+		return result;
+//		return JSONObject.fromObject(result).toString();
 	}
 	
 	

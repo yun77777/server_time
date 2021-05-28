@@ -21,7 +21,9 @@
       </div>
       <div class="modal-body">
         ...${detail}${imgList}
+        ${result}
         
+        ${result.detail.gdsPrice}
         
       </div>
       <div class="modal-footer">

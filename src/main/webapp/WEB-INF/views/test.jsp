@@ -108,14 +108,28 @@ function fn_detail_pop(B_NO,B_TYPE){
 	
 	//alert(B_NO);
 	$('.modal-body').append("afkjzxczxc"+$('#gdsNum').val());
+	
 	$.ajax({
 		url : "${pageContext.request.contextPath}/itemDetailPopup.do",
 		type : "post",
-		enctype: 'multipart/form-data',
-		data : formData,
-		processData : false,
-		contentType : false,
+		data : { gdsNum : B_NO },
 		success : function(result) {
+			$('.modal-body').append('ㅋㅌㅊㅋㅌㅊㅋㅌㅊㅋㅌㅊ'+result.detail.gdsPrice);
+			//$('.modal-body').append(JSON.parse(result).detail.gdsPrice);
+			
+			/* var gdsPrice=JSON.parse(result).detail.gdsPrice;
+			var gdsDes=JSON.parse(result).detail.gdsDes;
+			var gdsNum=JSON.parse(result).detail.gdsNum;
+			var representativ_file=JSON.parse(result).detail.representativ_file;
+			var gdsStock=JSON.parse(result).detail.gdsStock;
+			var gdsName=JSON.parse(result).detail.gdsName;
+			var cateCode=JSON.parse(result).detail.cateCode; */
+			
+			alert("result:"+result.detail.gdsPrice);
+			
+			//alert("result:"+JSON.parse(result).detail.gdsPrice);
+			//alert("result:"+JSON.parse(result).imgList);
+			
 			//window.location='<c:url value="/test.do"/>';
 		}, // success 
 
