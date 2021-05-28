@@ -24,7 +24,7 @@
 
 <body>
   <h1 class="logo">@@@reference</h1>
-
+${list }
   <div class="container">
     <button type="button" id="moveLeft" class="btn-nav">
       ᐊ

@@ -77,6 +77,27 @@
 
 <script>
 $(document).ready(function() {
+	movies.push({src:"zxc"});
+	
+	
+	
+	var list = '${list}' ; 
+	alert(list);
+	for (var i = 0; i <list.length; i++) {
+		  console.log('element', i, list[i].file);
+		 
+		};
+		
+		
+		
+		
+	
+	/* for (var i = 0; i <list.length; i++) {
+		  console.log('element', i, imgList[i]);
+		  console.log(imgList[i].gdsPrice);
+	} */
+		
+	
 	/* Demo purposes only */
 	$(".hover").mouseleave(
 	  function () {
