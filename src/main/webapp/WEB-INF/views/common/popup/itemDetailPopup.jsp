@@ -10,26 +10,54 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
 <!-- Modal -->
-<div class="modal fade bd-example-modal-lg" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...${detail}${imgList}
-        ${result}
-        
-        ${result.detail.gdsPrice}
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
+<div class="modal fade bd-example-modal-lg" id="exampleModalLong"
+	tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+			<form id="orderForm" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="userId" value="${member.ID}" />
+				<input type="hidden" id="gdsNum" name="gdsNum" value="${detail.gdsNum}" />
+				<input type="hidden" name="gdsPrice" value="${detail.gdsPrice}" />
+				<input type="hidden" id="gdsStock" name="gdsStock" />
+			</form>
+
+
+				<table class="table">
+					<thead>
+					</thead>
+					<tbody>
+						<tr>
+							<th>상품명</th>
+							<td></td>
+						</tr>
+						<tr>
+							<th>가격</th>
+							<td>원</td>
+						</tr>
+						<tr>
+							<th>재고</th>
+							<td></td>
+						</tr>
+						<tr>
+							<th>Total Price</th>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
 </div>

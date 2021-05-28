@@ -73,11 +73,11 @@ public class orderController {
 	@ResponseBody
 	@RequestMapping(value = "/itemDetailPopup.do")
 	//@RequestParam(value="gdsNum") String gdsNum
-	public Map<String, Object> itemDetailPopup(@RequestParam(value="gdsNum") String gdsNum, @RequestParam Map<String, Object> paramMap, HttpSession httpSession,
-//			public String itemDetailPopup(@RequestParam(value="gdsNum") String gdsNum, @RequestParam Map<String, Object> paramMap, HttpSession httpSession,
+	//public Map<String, Object> itemDetailPopup(@RequestParam(value="gdsNum") String gdsNum, @RequestParam Map<String, Object> paramMap, HttpSession httpSession,
+			public String itemDetailPopup(@RequestParam(value="gdsNum") String gdsNum, @RequestParam Map<String, Object> paramMap, HttpSession httpSession,
 			HttpServletRequest request, Model model) throws Exception {
-System.err.println("팝@@");
-System.err.println(paramMap);
+	System.err.println("팝@@");
+	System.err.println(paramMap);
 Map<String, Object> result = new HashMap<String, Object>();
 //HashMap<String, Object> result = new HashMap<String, Object>();
 
@@ -97,13 +97,13 @@ Map<String, Object> result = new HashMap<String, Object>();
 			result.put("imgList",imgList);
 			System.err.println("detail"+detail);
 			System.err.println("imgList"+imgList);
-//			System.err.println(" JSONObject.fromObject(result).toString()"+ JSONObject.fromObject(result).toString());
+			System.err.println(" JSONObject.fromObject(result).toString()"+ JSONObject.fromObject(result).toString());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return result;
-//		return JSONObject.fromObject(result).toString();
+		//return result;
+		return JSONObject.fromObject(result).toString();
 	}
 	
 	

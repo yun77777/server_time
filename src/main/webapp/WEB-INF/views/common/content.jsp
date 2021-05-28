@@ -1,4 +1,6 @@
  <%@taglib  prefix="spring" uri="http://www.springframework.org/tags" %>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ 
      <!-- Page Content-->
         <!-- <section class="py-5">
             <div class="container">
@@ -71,7 +73,7 @@
 	                    <c:forEach var="result" items="${list}" varStatus="status">
 		                   <div class="col-lg-4 col-sm-6 mb-4">
 		                       <div class="card h-100">
-		                       <button type="button" onclick="fn_detail_pop('${result.gdsNum}','${result.B_TYPE}')" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+		                       <button type="button" onclick="fn_detail_pop('${result.gdsNum}')" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
 ${result.gdsName}</button> 
 		                           <a href="#!" onclick="fn_detail('${result.gdsNum}','${result.B_TYPE}')">
 <%-- 		                           <a href="#!" onclick="fn_detail('${result.B_NO}','${result.B_TYPE}')"> --%>
@@ -94,8 +96,70 @@ ${result.gdsName}</button>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
   Launch demo modal
 </button>
-<%@ include file="/WEB-INF/views/common/popup/itemDetailPopup.jsp" %>
-<!-- Modal -->
+
+
+<%-- <%@ include file="/WEB-INF/views/common/popup/itemDetailPopup.jsp" %>
+ --%>
+ <!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="exampleModalLong"
+	tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+			<form id="orderForm" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="userId" value="${member.ID}" />
+				<%-- <input type="hidden" id="gdsNum" name="gdsNum" value="${detail.gdsNum}" />
+				<input type="hidden" name="gdsPrice" value="${detail.gdsPrice}" />
+				<input type="hidden" id="gdsStock" name="gdsStock" /> --%>
+			</form>
+
+
+				<table class="table">
+					<thead>
+					</thead>
+					<tbody>
+						<tr>
+							<th>상품명</th>
+							<td>
+								 <div class="col-md-8"><img id="rpsnImg" class="card-img-top" src="" alt="no image" /></div>
+							</td>
+						</tr>
+						<tr>
+							<th>상품명</th>
+							<td><input id="gdsName"></td>
+						</tr>
+						<tr>
+							<th>가격</th>
+							<td><input id="gdsPrice"></td>
+						</tr>
+						<tr>
+							<th>재고</th>
+							<td><input id="gdsStock"></td>
+						</tr>
+						<tr>
+							<th>Total Price</th>
+							<td><input id="gdsName"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+ 
+ <!-- Modal -->
 <!-- <div class="modal fade bd-example-modal-lg" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">

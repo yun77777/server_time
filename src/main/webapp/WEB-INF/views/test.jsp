@@ -6,6 +6,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <%@ page session="false"%>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -105,27 +107,44 @@ function fn_detail_pop(B_NO,B_TYPE){
 	$('#B_TYPE').val(B_TYPE);
 	//itemDetailPopup
 	var  formData= $('#boardForm').serialize();
-	
 	//alert(B_NO);
-	$('.modal-body').append("afkjzxczxc"+$('#gdsNum').val());
+	//$('.modal-body').append("afkjzxczxc"+$('#gdsNum').val());
+	
 	
 	$.ajax({
 		url : "${pageContext.request.contextPath}/itemDetailPopup.do",
 		type : "post",
 		data : { gdsNum : B_NO },
 		success : function(result) {
-			$('.modal-body').append('ㅋㅌㅊㅋㅌㅊㅋㅌㅊㅋㅌㅊ'+result.detail.gdsPrice);
-			//$('.modal-body').append(JSON.parse(result).detail.gdsPrice);
-			
-			/* var gdsPrice=JSON.parse(result).detail.gdsPrice;
+						
+		var obj=JSON.parse(result);
+		
+		values = obj ; //java에서 정의한 ArrayList명을 적어준다.
+		var detail = obj.detail ; //java에서 정의한 ArrayList명을 적어준다.
+		var imgList = obj.imgList ; //java에서 정의한 ArrayList명을 적어준다.
+         $.each(detail, function( index, value ) {
+   			$("#"+index+"").val(value);
+            console.log( index + " : " + value ); //Book.java 의 변수명을 써주면 된다.
+         });
+		var representativ_file=obj.detail.representativ_file;
+
+		$("#rpsnImg").attr("src","<c:url value='/img/"+representativ_file+"'/>");
+		console.log('================================');
+		
+		
+			//$('.modal-body').append(result+'ㅋㅌㅊㅋㅌㅊㅋㅌㅊㅋㅌㅊ'+result.detail.gdsPrice);
+			$('.modal-body').append(JSON.parse(result).detail.gdsPrice);
+			//alert(result.detail);
+			var gdsNum=JSON.parse(result).detail.gdsNum;
+			var gdsPrice=JSON.parse(result).detail.gdsPrice;
 			var gdsDes=JSON.parse(result).detail.gdsDes;
 			var gdsNum=JSON.parse(result).detail.gdsNum;
-			var representativ_file=JSON.parse(result).detail.representativ_file;
 			var gdsStock=JSON.parse(result).detail.gdsStock;
 			var gdsName=JSON.parse(result).detail.gdsName;
-			var cateCode=JSON.parse(result).detail.cateCode; */
-			
-			alert("result:"+result.detail.gdsPrice);
+			var cateCode=JSON.parse(result).detail.cateCode; 
+			var representativ_file=JSON.parse(result).detail.representativ_file;
+
+			//alert("result:"+result.detail.gdsPrice);
 			
 			//alert("result:"+JSON.parse(result).detail.gdsPrice);
 			//alert("result:"+JSON.parse(result).imgList);
@@ -147,14 +166,6 @@ function fn_detail_pop(B_NO,B_TYPE){
 		error: function(xhr, status, error) {alert(error);}
 	}); */
 }
-
-function eventSuccess(data)
-{
-	//여기서 팝업된 창의 주소를 변경하자.
-	window.location.href = "/itemDetailPopup.do";
-/* 	w.location.href = "/itemDetailPopup.do"; */
-}
-
 
 
 function fn_list(no) {
