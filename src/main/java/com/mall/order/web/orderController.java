@@ -106,7 +106,18 @@ Map<String, Object> result = new HashMap<String, Object>();
 		return JSONObject.fromObject(result).toString();
 	}
 	
-	
+	@RequestMapping(value="/testForm.do", method=RequestMethod.GET)
+	public String testForm(HttpServletRequest request, @RequestParam Map<String, Object> param, Model model) throws Exception {
+	   
+		Map<String, Object> detail = mngService.selectItemDetail(param);
+		List<Map<String,Object>> imgList=mngService.selectItemImgList(param);
+		System.err.println("@@@@테스트");
+		model.addAttribute("detail", detail);
+		model.addAttribute("imgList", imgList);
+        return "/common/popup/testPopup";
+	}
+
+
 	
 	// 카테고리별 상품 리스트
 //	@RequestMapping(value = "/list", method = RequestMethod.GET)

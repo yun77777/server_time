@@ -59,6 +59,41 @@
 		<%@ include file="/WEB-INF/views/common/paging.jsp"%>
 	</form> 
 	--%>
+	
+	<button type="button" onclick="sampleModalPopup()">zxc</button>
+	<div class="modal fade" id="sampleModalPopup" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-dialog-width1000 modal-dialog-height800">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        </div>
+        <div class="modal-body">
+        ${imgList}
+        
+        </div>
+        <div class="modal-footer">
+            <button type="button" name="button" class="btn btn-color2" data-dismiss="modal" >닫기</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+<a data-toggle="modal" href="/testForm.do" data-target="#modal-testNew" role="button" data-backdrop="static">
+ <span class="btn btn-xs btn-success">테스트 등록</span>
+</a>
+ 
+ 
+<div id="modal-testNew" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="" aria-describedby="">
+    <div class="modal-dialog" style="width:1200px;height:700px">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
+
+
+
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
 	
@@ -68,6 +103,21 @@
 
 <script>
 $(document).ready(function() {
+	$(".saveBtn2").click(function(){
+		alert("saveBtn");
+	/* 	var num = $(".numBox").val();
+		var plusNum = Number(num) + 1;
+		//var stock = ${view.gdsStock};
+		var stock = $(".gdsStock_hidden");
+		
+		if(plusNum >= stock) {
+			$(".numBox").val(num);
+		} else {
+			$(".numBox").val(plusNum);										
+		} */
+	});
+	
+	
 	//var w = window.open("about:blank","_blank");
 	
 	// 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
@@ -101,6 +151,31 @@ function fn_detail(B_NO,B_TYPE){
 		target : '_self'
 	}).submit();
 }
+function sampleModalPopup(){
+    // 팝업 호출 url
+    var url = "/WEB-INF/common/popup/itemDetailPopup.jsp";
+	$('#gdsNum').val(1);
+
+    $.ajax({
+		url : "${pageContext.request.contextPath}/itemDetailPopup.do",
+		type : "post",
+		enctype: 'multipart/form-data',
+		data : { gdsNum : 1 },
+		success : function(result) {
+			alert('success');
+		}, // success 
+
+		error : function(xhr, status) {
+			alert(xhr + " : " + status);
+		}
+	});
+    
+    // 팝업 호출
+    $("#sampleModalPopup > .modal-dialog").load(url, function() { 
+        $("#sampleModalPopup").modal("show"); 
+    });
+}
+
 
 function fn_detail_pop(B_NO,B_TYPE){
 	$('#gdsNum').val(B_NO);
@@ -127,7 +202,7 @@ function fn_detail_pop(B_NO,B_TYPE){
             //console.log( index + " : " + value ); //Book.java 의 변수명을 써주면 된다.
          });
 		console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
-
+$("#totalPrice").val(Number($("gdsPrice").val())*Number($("gdsStock").val()));
 		console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
 		
 		
@@ -147,6 +222,44 @@ function fn_detail_pop(B_NO,B_TYPE){
 		$("#rpsnImg").attr("src","<c:url value='/img/"+img+"'/>");
 		console.log('================================');
 		
+		
+		var btn="<button type='button' id='saveBtn2' class='btn btn-primary'>Save changes</button>";
+		$("#pp").append(btn);
+		
+		
+		$("#create").on("click",function(){ 
+			alert($("#gdsPrice").val());
+		   /*  window.opener.location.href='<c:url value="/boardList.do"/>';
+		    window.location.href='<c:url value="/boardList.do"/>';
+		    window.location='<c:url value="/boardList.do"/>';
+		    opener.parent.location.replace("<c:url value='/boardList.do'/>");
+		       self.close();
+		       opener.parent.location="<c:url value='/boardList.do'/>"; 
+		       opener.parent.location='/boardList.do'; 
+		       opener.document.location.reload();
+
+		       if ( window.location == "<c:url value='/tes.do'/>" ) {
+		    	   window.location.href='http://www.codingfactory.net/';
+		    	 }
+		   	window.close();  */
+		   	location.replace("boardList.do");
+		   	alert("no");
+
+			//$(this).next().html("<button type='button' id='newButton'>ok</button>"); 
+			
+			/* $('#orderForm').attr({
+				action : '<c:url value="/boardList.do" />',
+				target : '_self'
+			}).submit(); */
+			
+			});
+		
+	/* 	$("#create").on("click", function(event){ 
+			console.log("click");
+			alert('x');
+			});
+ */
+
 		
 			//$('.modal-body').append(result+'ㅋㅌㅊㅋㅌㅊㅋㅌㅊㅋㅌㅊ'+result.detail.gdsPrice);
 			$('.modal-body').append(obj+result+JSON.parse(result).detail.gdsPrice);
