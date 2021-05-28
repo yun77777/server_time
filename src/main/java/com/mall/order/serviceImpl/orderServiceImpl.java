@@ -115,6 +115,16 @@ public class orderServiceImpl implements orderService {
 		public void cartAllDelete(String userId) throws Exception {
 			orderMapper.cartAllDelete(userId);
 		}
+		
+		@Override
+		public void updateCart(Map<String, Object> paramMap) throws Exception {
+			orderMapper.updateCart(paramMap);
+		}
+		
+		@Override
+		public int maxOrderId() throws Exception {
+			return orderMapper.maxOrderId();
+		}
 
 		// 주문 목록
 		@Override

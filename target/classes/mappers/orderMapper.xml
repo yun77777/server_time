@@ -6,22 +6,6 @@
 	
 	<select id="selectOrderDetail" parameterType="map"
 		resultType="map">
-		<!-- select 
-		B.B_NO
-		,B.id
-		,B.title
-		,B.content
-		,B.cnt
-		,B.input_dt
-		,B.updt_dt
-		,MF.ORG_FILE_NAME file
-		,(SELECT ORG_FILE_NAME FROM MP_FILE WHERE B.B_NO=BNO) file
-		,(SELECT FILE_PATH FROM MP_FILE WHERE B.B_NO=BNO) file_src
-		,(SELECT SEQ_MP_FILE_NO FROM MP_FILE WHERE B.B_NO=BNO) file_no
-		from board B
-		left outer join MP_FILE MF
-		on B.B_NO=MF.BNO
-		where B.B_NO=#{B_NO} and B.B_TYPE=#{B_TYPE} -->
 		SELECT @rownum:=@rownum+1 ROWNUM
 	 	, B.gdsNum
 	 	, B.gdsName
@@ -98,12 +82,14 @@
 		    o.orderId, o.userId, o.orderRec,
 		    o.userAddr1, o.userAddr2, o.userAddr3,
 		    o.orderPhon, o.amount, o.orderDate, o.delivery
-		    ,od.gdsNum
+		    , od.cartStock
+		    , g.gdsName
     	 	,(SELECT ORG_FILE_NAME FROM MP_FILE WHERE BNO=od.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE WHERE BNO=od.gdsNum)) representative_file
-		    
 		from tbl_order o
 		left outer join tbl_order_details od
 		on od.orderId=o.orderId
+		left outer join tbl_goods g
+		on od.gdsNum=g.gdsNum
 		    where userId = #{userId}
 	</select>
 	
@@ -191,23 +177,13 @@
 	</delete>
 	
 	
-	<!-- <select id="orderProcess" parameterType="map"
-		resultType="map">
-		SELECT @rownum:=@rownum+1 ROWNUM
-	 	, B.gdsNum
-	 	, B.gdsName
-	 	, B.cateCode
-	 	, B.gdsPrice
-	 	, B.gdsStock
-	 	, B.gdsDes
-	 	, B.gdsImg
-	 	, B.gdsThumbImg
-	 	, MF.ORG_FILE_NAME file
-	 	, MF.FILE_PATH file_src
-	 	, MF.SEQ_MP_FILE_NO file_no
-		FROM tbl_goods B,(SELECT @rownum:=0) R
-		left outer join MP_FILE MF
-		on MF.BNO=#{gdsNum}
-		where B.gdsNum=#{gdsNum}
-	</select> -->
+	<delete id="updateCart" parameterType="map">
+		update tbl_cart
+		set cartStock = #{cartStock}
+		where userId = #{userId} and cartNum = #{cartNum}
+	</delete>
+	
+	<select id="maxOrderId" resultType="int">
+		SELECT MAX(orderId) FROM tbl_order
+	</select>
 </mapper>

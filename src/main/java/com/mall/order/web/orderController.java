@@ -2,6 +2,7 @@ package com.mall.order.web;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.mall.order.service.orderService;
@@ -195,6 +196,7 @@ public class orderController {
 
 		// 주문 테이블, 주문 상세 테이블에 데이터를 전송하고, 카트 비우기
 //		orderService.cartAllDelete(userId);
+		
 		List<CartListVO> cartList = orderService.cartList(userId);
 
 		model.addAttribute("cartList", cartList);
@@ -283,7 +285,7 @@ public class orderController {
 	@ResponseBody
 	@RequestMapping(value = "/orderChk")
 //	@RequestMapping(value = "/deleteCart", method = RequestMethod.POST)
-	public int orderChk( @RequestParam(value="userId") String userId, @RequestParam(value = "chbox[]") List<String> chArr, @RequestParam Map<String, Object> paramMap, Model model, HttpSession session) throws Exception {
+	public int orderChk( @RequestParam(value="userId") String userId, @RequestParam(value = "cartStockArr[]") List<String> cartStockArr, @RequestParam(value = "chbox[]") List<String> chArr, @RequestParam Map<String, Object> paramMap, Model model, HttpSession session) throws Exception {
 		logger.info("orderChk cart");
 		model.addAttribute("login", session.getAttribute("login"));
 		System.err.println("paramMap@"+paramMap);
@@ -292,26 +294,39 @@ public class orderController {
 		OrderDetailVO orderDetail=new OrderDetailVO();
 		int result = 0;
 		int cartNum = 0;
+		int cartStock = 0;
 		paramMap.put("userId",userId);
 		// 로그인 여부 구분
 		List<Map<String, Object>> orderList = orderService.orderList(paramMap);
-		int len=orderList.size()+1;
-		paramMap.put("orderId",len);
+//		int len=orderList.size()+1;
+//		paramMap.put("orderId",len);
 		
 //		orderService.orderInfo(paramMap);
 		System.err.println("chArr:"+chArr);
-		System.err.println("orderId:"+len);
+		paramMap.put("orderId", orderService.maxOrderId());
+		
 		if(userId != null) {
 			//cartList
-			for(String i : chArr) {  // 에이젝스에서 받은 chArr의 갯수만큼 반복
-				cartNum = Integer.parseInt(i);  // i번째 데이터를 cartNum에 저장
-				
+			for(int i=0 ; i<chArr.size() ; i++) {
+				cartNum = Integer.parseInt(chArr.get(i).toString());
+				cartStock = Integer.parseInt(cartStockArr.get(i).toString());
 				paramMap.put("cartNum",cartNum);
-				
+				paramMap.put("cartStock",cartStock);
+				System.err.println("@@@@@@@@@@@@@@@@@cs:"+cartStock);
+				//cartStockArr
+				orderService.updateCart(paramMap);
 				orderService.orderInfo_Details(paramMap);
 				orderService.deleteCart(paramMap);
-						
-				}
+			}
+//			for(String i : chArr) {  // 에이젝스에서 받은 chArr의 갯수만큼 반복
+//				cartNum = Integer.parseInt(i);  // i번째 데이터를 cartNum에 저장
+//				
+//				paramMap.put("cartNum",cartNum);
+//				//cartStockArr
+//				orderService.orderInfo_Details(paramMap);
+//				orderService.deleteCart(paramMap);
+//						
+//				}
 			result = 1;
 		}		
 			

@@ -121,6 +121,27 @@
 								<span>최종 가격</span><fmt:formatNumber pattern="###,###,###" value="${cartList.gdsPrice * cartList.cartStock}" /> 원
 							</p>
 							
+							<p class="gdsStock">
+								<span>구입 수량 </span><fmt:formatNumber pattern="###,###,###" value="${cartList.cartStock}" /> EA
+							</p>
+						
+							<c:if test="${view.gdsStock != 0}">
+								<p class="cartStock">
+									<button type="button" class="plus">+</button>
+									<input type="number" id="cartStock" name="cartStock" class="numBox" min="1" max="${view.gdsStock}" value="${cartList.cartStock}" readonly="readonly"/>
+									<button type="button" class="minus">-</button>
+									<input type="hidden" value="${view.gdsStock}" class="gdsStock_hidden" /> 
+								</p>
+								<p class="addToCart">
+									<button type="button" class="addCart_btn">카트에 담기</button>
+								</p>
+							</c:if>
+							<c:if test="${view.gdsStock == 0}">
+								<p>상품 수량이 부족합니다.</p>						
+							</c:if>
+							
+							
+							
 							<div class="delete">
 								<button type="button" class="delete_${cartList.cartNum}_btn" data-cartNum="${cartList.cartNum}">삭제</button>
 								
@@ -407,13 +428,17 @@ function fn_btn(no){
 function fn_order_check() {
 	$(".orderChk *").remove();
 	var checkArr = new Array();
+	var cartStockArr = new Array();
 	//var formData = new FormData($("#deleteForm")[0]);
 	var userId=$('#userId').val();
 
 	// 체크된 체크박스의 갯수만큼 반복
 	$("input[class='chBox']:checked").each(function(){
 		checkArr.push($(this).attr("data-cartNum"));  // 배열에 데이터 삽입
+		alert($(this).parent().parent().find('.cartStock').find('#cartStock').val());	
+		cartStockArr.push($(this).parent().parent().find('.cartStock').find('#cartStock').val());  // 배열에 데이터 삽입
 	});
+	
 	
 	alert(checkArr);
 	//orderChk
@@ -425,7 +450,7 @@ function fn_order_check() {
 		url : "/orderChk.do",
 		type : "post",
 		//processData : false,
-		data : { chbox : checkArr , userId : userId },
+		data : { chbox : checkArr , userId : userId , cartStockArr : cartStockArr},
 		success : function(result){
 			
 			if(result == 1) {						
@@ -525,7 +550,7 @@ function fn_delete() {
 		});	 */
 		
 function fn_order(){
-	
+			
 	var formData = new FormData($("#boardForm")[0]);
 	$.ajax({
 		url : "${pageContext.request.contextPath}/orderList.do",
@@ -536,10 +561,6 @@ function fn_order(){
 		contentType : false,
 		success : function(result) {
 			fn_order_check();
-			/* $('#boardForm').attr({
-				action : '<c:url value="/orderList2.do"/>',
-				target : '_self'
-			}).submit();  */
 		}, // success 
 
 		error : function(xhr, status) {
@@ -548,6 +569,34 @@ function fn_order(){
 	});
 	
 }
+		
+		// + 버튼을 누르면 수량이 증가하되, 상품의 전체 수량보다 커지지 않음
+		$(".plus").click(function(){
+			var num = $(".numBox").val();
+			var plusNum = Number(num) + 1;
+			//var stock = ${view.gdsStock};
+			var stock = $(".gdsStock_hidden");
+			
+			if(plusNum >= stock) {
+				$(".numBox").val(num);
+			} else {
+				$(".numBox").val(plusNum);										
+			}
+		});
+
+
+		// - 버튼을 누르면 수량이 감소하되, 1보다 밑으로 감소하지 않음
+		$(".minus").click(function(){
+			var num = $(".numBox").val();
+			var minusNum = Number(num) - 1; 
+			
+			if(minusNum <= 0) {
+				$(".numBox").val(num);
+			} else {
+				$(".numBox").val(minusNum);										
+			}
+		});
+		
 </script>
 
 </html>
