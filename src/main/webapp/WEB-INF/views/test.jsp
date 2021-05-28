@@ -118,22 +118,38 @@ function fn_detail_pop(B_NO,B_TYPE){
 		success : function(result) {
 						
 		var obj=JSON.parse(result);
-		
-		values = obj ; //java에서 정의한 ArrayList명을 적어준다.
 		var detail = obj.detail ; //java에서 정의한 ArrayList명을 적어준다.
 		var imgList = obj.imgList ; //java에서 정의한 ArrayList명을 적어준다.
-         $.each(detail, function( index, value ) {
+        $.each(detail, function( index, value ) {
    			$("#"+index+"").val(value);
-            console.log( index + " : " + value ); //Book.java 의 변수명을 써주면 된다.
+   			$("#pp").append(index+','+value+'<br>');
+            console.log('element' ,index, value ); //Book.java 의 변수명을 써주면 된다.
+            //console.log( index + " : " + value ); //Book.java 의 변수명을 써주면 된다.
          });
-		var representativ_file=obj.detail.representativ_file;
+		console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
 
-		$("#rpsnImg").attr("src","<c:url value='/img/"+representativ_file+"'/>");
+		console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+		
+		
+		 for (var i = 0; i <imgList.length; i++) {
+			  console.log('element', i, imgList[i]);
+			  console.log(imgList[i].gdsPrice);
+			  $("#pp").append(i+','+imgList[i]+'<br>');
+			  $("#pp").append(i+','+imgList[i].gdsPrice+'<br>');
+			  $("#pp").append(i+','+imgList[i].file+'<br>');
+			  var img=imgList[i].file;
+			  $("#pp").append(i+','+imgList[i].gdsDes+'<br>');
+			};
+			
+			
+		//var representativ_file=detail.representative_file;
+		//alert(representative_file);
+		$("#rpsnImg").attr("src","<c:url value='/img/"+img+"'/>");
 		console.log('================================');
 		
 		
 			//$('.modal-body').append(result+'ㅋㅌㅊㅋㅌㅊㅋㅌㅊㅋㅌㅊ'+result.detail.gdsPrice);
-			$('.modal-body').append(JSON.parse(result).detail.gdsPrice);
+			$('.modal-body').append(obj+result+JSON.parse(result).detail.gdsPrice);
 			//alert(result.detail);
 			var gdsNum=JSON.parse(result).detail.gdsNum;
 			var gdsPrice=JSON.parse(result).detail.gdsPrice;
@@ -142,7 +158,7 @@ function fn_detail_pop(B_NO,B_TYPE){
 			var gdsStock=JSON.parse(result).detail.gdsStock;
 			var gdsName=JSON.parse(result).detail.gdsName;
 			var cateCode=JSON.parse(result).detail.cateCode; 
-			var representativ_file=JSON.parse(result).detail.representativ_file;
+			var representativ_file=JSON.parse(result).detail.representative_file;
 
 			//alert("result:"+result.detail.gdsPrice);
 			

@@ -148,9 +148,15 @@ ${result.gdsName}</button>
 							<th>Total Price</th>
 							<td><input id="gdsName"></td>
 						</tr>
+						<tr>
+							<th>gdsDes</th>
+							<td><input id="gdsDes"></td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
+			
+			<div id="pp"></div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 				<button type="button" class="btn btn-primary">Save changes</button>
