@@ -1,5 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ page session="false"%>
 
 <!-- Page Content-->
 <!-- <section class="py-5">
@@ -33,8 +39,6 @@
         </section> -->
 <hr class="my-0" />
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 
 <!-- Portfolio Section-->
 <section class="py-5 bg-light" style="float: left; width: 80%;">
@@ -88,23 +92,77 @@
 					</div>
 				</div>
 
-				<c:forEach var="result" items="${list}" varStatus="status">
+
+
+<%-- <figure class="snip1384">
+  <img src="<c:url value='/img/${result.representative_file}'/>" alt="sample83" />
+  <figcaption>
+    <h3>Fleece Marigold</h3>
+    <p>Which is worse, that everyone has his price, or that the price is always so low.</p><i class="ion-ios-arrow-right"></i>
+  </figcaption>
+  <a href="#"></a>
+</figure> --%>
+
+<c:forEach var="result" items="${list}" varStatus="status">
+<div class="col-lg-4 col-sm-6 mb-4">
+	<div class="card h-100">
+		<figure class="snip1384">
+			 <img src="<c:url value='/img/${result.representative_file}'/>" alt="no image" />
+			 <figcaption>
+			   <h3>${result.gdsName}</h3>
+<%-- <span>개당 가격</span><fmt:formatNumber pattern="###,###,###" value="${result.gdsPrice}" /> 원<br />
+ --%>
+			   <p>${result.gdsPrice} 원</p><i class="ion-ios-arrow-right"></i>
+			 </figcaption>
+			 <a href="#!" onclick="fn_detail_pop('${result.gdsNum}')" data-toggle="modal"
+				data-target="#exampleModalLong"></a>
+		</figure>
+						
+				
+				
+				
+						
+					<!-- //이미지 -->
+							<div class="card-body">
+								<%-- 타이틀 <h4 class="card-title">
+									<a href="#" onclick="fn_detail('${result.gdsNum}','${result.B_TYPE}')"
+								data-toggle="modal"
+								data-target="#exampleModalLong">${result.gdsName}</a>
+								</h4> --%>
+								<!-- <p class="card-text"></p> -->
+							</div>
+							<input type="hidden" id="gdsNum" name="gdsNum">
+							<!-- 		                           <input type="hidden" id="B_NO" name="B_NO"> -->
+							<input type="hidden" id="B_TYPE" name="B_TYPE"> <input
+								type="hidden" id="currentPageNo" name="currentPageNo"
+								value="${pg.currentPageNo}" /> <input type="hidden"
+								id="recordCountPerPage" name="recordCountPerPage"
+								value="${pg.recordCountPerPage}" />
+						</div>
+					</div>
+				</c:forEach>
+
+<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  -->
+
+				<%-- <c:forEach var="result" items="${list}" varStatus="status">
 					<div class="col-lg-4 col-sm-6 mb-4">
 						<div class="card h-100">
-							<%-- <button type="button" onclick="fn_detail_pop('${result.gdsNum}')"
+							<button type="button" onclick="fn_detail_pop('${result.gdsNum}')"
 								class="btn btn-primary" data-toggle="modal"
-								data-target="#exampleModalLong">${result.gdsName}</button> --%>
+								data-target="#exampleModalLong">${result.gdsName}</button>
 							<a href="#!"
 								onclick="fn_detail_pop('${result.gdsNum}')" data-toggle="modal"
 								data-target="#exampleModalLong">
-								<%-- 		                           <a href="#!" onclick="fn_detail('${result.B_NO}','${result.B_TYPE}')"> --%>
+										                           <a href="#!" onclick="fn_detail('${result.B_NO}','${result.B_TYPE}')">
+					<!-- 이미지 -->
 								<img class="card-img-top"
 								src="<c:url value='/img/${result.representative_file}'/>"
 								alt="no image" />
 							</a>
+					<!-- //이미지 -->
 							<div class="card-body">
 								<h4 class="card-title">
-									<a onclick="fn_detail('${result.gdsNum}','${result.B_TYPE}')"
+									<a href="#" onclick="fn_detail('${result.gdsNum}','${result.B_TYPE}')"
 								data-toggle="modal"
 								data-target="#exampleModalLong">${result.gdsName}</a>
 								</h4>
@@ -119,7 +177,7 @@
 								value="${pg.recordCountPerPage}" />
 						</div>
 					</div>
-				</c:forEach>
+				</c:forEach> --%>
 
 
 
