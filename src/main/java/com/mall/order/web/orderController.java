@@ -268,10 +268,10 @@ public class orderController {
 	//				order.setOrderId(session.getAttribute("login").toString());
 		// 로그인 여부 구분
 
-		orderService.deleteCart(paramMap);
+		//orderService.deleteCart(paramMap);
 		
 		List<Map<String, Object>> orderList = orderService.orderList(paramMap);
-		orderService.orderInfo_Details(paramMap);
+		//orderService.orderInfo_Details(paramMap);
 
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("paramMap", paramMap);
@@ -294,6 +294,13 @@ public class orderController {
 		int cartNum = 0;
 		paramMap.put("userId",userId);
 		// 로그인 여부 구분
+		List<Map<String, Object>> orderList = orderService.orderList(paramMap);
+		int len=orderList.size()+1;
+		paramMap.put("orderId",len);
+		
+//		orderService.orderInfo(paramMap);
+		System.err.println("chArr:"+chArr);
+		System.err.println("orderId:"+len);
 		if(userId != null) {
 			//cartList
 			for(String i : chArr) {  // 에이젝스에서 받은 chArr의 갯수만큼 반복
@@ -301,12 +308,14 @@ public class orderController {
 				
 				paramMap.put("cartNum",cartNum);
 				
+				orderService.orderInfo_Details(paramMap);
 				orderService.deleteCart(paramMap);
-				//orderService.orderInfo(paramMap);			
+						
 				}
 			result = 1;
 		}		
-		List<Map<String, Object>> orderList = orderService.orderList(paramMap);
+			
+		
 		
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("paramMap", paramMap);

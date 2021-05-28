@@ -161,7 +161,7 @@
 				</ul>
 			
 			<div class="rorderOpne">
-			<button type="button" class="orderBtn" onclick="fn_order_check()">주문확인</button>
+			<button type="button" class="orderBtn" onclick="fn_order()">주문확인</button>
 				<script>
 					$(".orderBtn").click(function(){
 						$(".orderChk").slideDown();  // $(".orderInfo")를 나타내고
@@ -421,27 +421,19 @@ function fn_order_check() {
     $(".orderChk").append(str);
 	
 	
-    var formData = new FormData($("#boardForm")[0]);
 	$.ajax({
-		url : "${pageContext.request.contextPath}/orderList.do",
-/* 		url : "${pageContext.request.contextPath}/orderChk.do", */
+		url : "/orderChk.do",
 		type : "post",
-		enctype: 'multipart/form-data',
-		//data : { chbox : checkArr , userId : userId },
-		data : formData,
-		processData : false,
-		contentType : false,
-		success : function(result) {
-			if(result==1){
-				$('#boardForm').attr({
-					action : '<c:url value="/orderList2.do"/>',
-					target : '_self'
-				}).submit();
+		//processData : false,
+		data : { chbox : checkArr , userId : userId },
+		success : function(result){
+			
+			if(result == 1) {						
+				alert("chk 완료");
+				location.href = "/orderList2.do";
+			} else {
+				alert("chk 실패");
 			}
-		}, // success 
-
-		error : function(xhr, status) {
-			alert(xhr + " : " + status);
 		}
 	});
 	
@@ -543,10 +535,11 @@ function fn_order(){
 		processData : false,
 		contentType : false,
 		success : function(result) {
-			$('#boardForm').attr({
+			fn_order_check();
+			/* $('#boardForm').attr({
 				action : '<c:url value="/orderList2.do"/>',
 				target : '_self'
-			}).submit(); 
+			}).submit();  */
 		}, // success 
 
 		error : function(xhr, status) {

@@ -43,7 +43,7 @@
 <%-- 			<form role="form" method="post" autocomplete="off" enctype="multipart/form-data">
  --%>			
 			<div class="inputArea">	
-				<label>1차 분류${category1}</label>
+				<label>1차 분류</label>
 				<select name="cateCode" class="category1 form-control">
 					<!-- <option value="">전체</option> -->
 				<c:forEach var="result" items="${category1}">
@@ -51,7 +51,7 @@
 				</c:forEach>
 				</select>
 			
-				<label>2차 분류${category2}</label>
+				<label>2차 분류</label>
 				<select class="category2 form-control" value="${detail.category}" name="cateCode">
 					<option value="2">2</option>
 					<option value="">전체</option>

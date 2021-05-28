@@ -73,12 +73,13 @@
 <insert id="orderInfo_Details">
 <selectKey resultType="int" keyProperty="orderDetailsNum" order="BEFORE">
 	SELECT COALESCE(MAX(orderDetailsNum),0)+1 AS orderDetailsNum FROM tbl_order_details
+
 </selectKey>
  insert into tbl_order_details(orderDetailsNum, orderId, gdsNum, cartStock)
-     select ${orderDetailsNum}, #{orderId}, gdsNum, cartStock
+     select #{orderDetailsNum}, #{orderId}, gdsNum, cartStock
 <!--      select tbl_order_details_seq.nextval, #{orderId}, gdsNum, cartStock -->
          from tbl_cart
-         where userId=#{userId}
+         where cartNum=#{cartNum} and userId=#{userId}
 </insert> 
 
 	    
