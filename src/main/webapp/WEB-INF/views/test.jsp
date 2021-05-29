@@ -40,30 +40,19 @@
 	
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<form id="boardForm" method="post">
-		<!-- <div id="floatMenu" class="floatMenu" style="position: absolute;
-			width: 200px;
-			height: 200px;
-			right: 50px;
-			top: 550px;
-			background-color: #606060;
-			color: #fff;">
-			<span>최근에 본 상품</span>
-		</div> -->
 		<%@ include file="/WEB-INF/views/common/content.jsp"%>
+		
+		
+		
 	</form>
-	
-	<%-- <form id="pgForm" method="post">
-	 <input type="hidden" id="currentPageNo" name="currentPageNo" value="${pg.currentPageNo}"/>
-									<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
-		                       
-		<%@ include file="/WEB-INF/views/common/paging.jsp"%>
-	</form> 
-	--%>
-	
 
 
-
-
+	<c:forEach items="${list}" var="map">
+	    <c:forEach items="${map}" var="entry">
+	        <input type="hidden" class="key" value="${entry.key}">
+	        <input type="hidden" class="value" value="${entry.value}">
+	    </c:forEach>
+	</c:forEach>
 
 
 
@@ -77,26 +66,35 @@
 
 <script>
 $(document).ready(function() {
-	movies.push({src:"zxc"});
+	var list=new Array();
+	var key;
+	var value;
+	var data={};
+	var file='';
+	$('.key').each(function(){
+		console.log($(this).val()+": "+$(this).next().val());
+		key=$(this).val();
+		value=$(this).next().val();
+		data[key]=value;//key값 동적으로 할당
+		
+		if(key=="representative_file"){
+			if(value!="undefined")
+				file=value;
+		}
+		var image="<c:url value='/img/"+file+"'/>"; //상품 상세 이미지
+		
+		movies.push({"src":image});
+	
+	});
+	
+	list.push(data);
+	
+	$.each(list, function(index,value){
+		console.log('element',index,value);
+	});
 	
 	
 	
-	var list = '${list}' ; 
-	alert(list);
-	for (var i = 0; i <list.length; i++) {
-		  console.log('element', i, list[i].file);
-		 
-		};
-		
-		
-		
-		
-	
-	/* for (var i = 0; i <list.length; i++) {
-		  console.log('element', i, imgList[i]);
-		  console.log(imgList[i].gdsPrice);
-	} */
-		
 	
 	/* Demo purposes only */
 	$(".hover").mouseleave(
@@ -108,32 +106,13 @@ $(document).ready(function() {
 	
 	$(".saveBtn2").click(function(){
 		alert("saveBtn");
-	/* 	var num = $(".numBox").val();
-		var plusNum = Number(num) + 1;
-		//var stock = ${view.gdsStock};
-		var stock = $(".gdsStock_hidden");
-		
-		if(plusNum >= stock) {
-			$(".numBox").val(num);
-		} else {
-			$(".numBox").val(plusNum);										
-		} */
 	});
 	
 	
-	//var w = window.open("about:blank","_blank");
-	
-	// 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
 	var floatPosition = parseInt($(".floatMenu").css('top'));
-	// 250px 이런식으로 가져오므로 여기서 숫자만 가져온다. parseInt( 값 );
 	$(window).scroll(function() {
-		// 현재 스크롤 위치를 가져온다.
 		var scrollTop = $(window).scrollTop();
 		var newPosition = scrollTop + floatPosition + "px";
- 
-		/* 애니메이션 없이 바로 따라감
-		 $("#floatMenu").css('top', newPosition);
-		 */
  
 		$(".floatMenu").stop().animate({
 			"top" : newPosition
@@ -196,13 +175,12 @@ function fn_detail_pop(B_NO,B_TYPE){
 		success : function(result) {
 						
 		var obj=JSON.parse(result);
-		var detail = obj.detail ; //java에서 정의한 ArrayList명을 적어준다.
-		var imgList = obj.imgList ; //java에서 정의한 ArrayList명을 적어준다.
+		var detail = obj.detail ;
+		var imgList = obj.imgList ;
         $.each(detail, function( index, value ) {
    			$("#"+index+"").val(value);
    			//$("#pp").append(index+','+value+'<br>');
-            console.log('element' ,index, value ); //Book.java 의 변수명을 써주면 된다.
-            //console.log( index + " : " + value ); //Book.java 의 변수명을 써주면 된다.
+            console.log('element' ,index, value ); 
          });
 		
 		 for (var i = 0; i <imgList.length; i++) {
@@ -222,10 +200,6 @@ function fn_detail_pop(B_NO,B_TYPE){
 			};
 			
 			
-		//var representativ_file=detail.representative_file;
-		//alert(representative_file);
-		
-		
 		
 		//상품상세설명
 		$("#gdsName").parent().parent().find('td').append(detail.gdsName);
