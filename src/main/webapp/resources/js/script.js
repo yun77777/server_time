@@ -3,10 +3,101 @@ const btnLeft = document.getElementById("moveLeft");
 const btnRight = document.getElementById("moveRight");
 const indicators = document.querySelectorAll(".indicator");
 
+
+
+
+
+
+
+
+
+
+	//list.push(data);
+	
+	
+	var preloadImage;
+
+function preload(image) {
+preloadImage  = new Image();
+preloadImage.src=image;
+}
+
+window.onload = function() {
+
+preload();
+
+}
+
+
+
+	var list=new Array();
+	var key='';
+	var value='';
+	var data={};
+	var file='';
+	var image='';
+	let movies = [{src:""}];
+	movies.pop();
+	$('.key').each(function(){
+		console.log($(this).val()+": "+$(this).next().val());
+		key=$(this).val();
+		value=$(this).next().val();
+		data[key]=value;//key값 동적으로 할당
+		
+		if(key=="representative_file"){
+			if(value!="undefined"||value!=""){
+				file=value;
+				image="/img/"+file; //상품 상세 이미지
+/*				image="<c:url value='/img/"+file+"'/>"; //상품 상세 이미지*/
+				preload(image);
+			}
+		}
+		
+		movies.push({"src":image});
+	
+	});
+	
+	list.push(data); 
+	
+	$.each(list, function(index,value){
+		console.log('element',index,value);
+	});
+	
+	
+	
+	$.each(movies, function(index,value){
+		console.log('element',index,value);
+	});
+	
+	
+	/* Demo purposes only */
+	$(".hover").mouseleave(
+	  function () {
+	    $(this).removeClass("hover");
+	  }
+	);
+	
+	
+	$(".saveBtn2").click(function(){
+		alert("saveBtn");
+	});
+	
+	
+	var floatPosition = parseInt($(".floatMenu").css('top'));
+	$(window).scroll(function() {
+		var scrollTop = $(window).scrollTop();
+		var newPosition = scrollTop + floatPosition + "px";
+ 
+		$(".floatMenu").stop().animate({
+			"top" : newPosition
+		}, 500);
+ 
+	}).scroll();
+ 
 let baseSliderWidth = slider.offsetWidth;
 let activeIndex = 0; // the current page on the slider
 var list=new Array();
-	var key;
+	/*var key;
 	var value;
 	var data={};
 	var file='';
@@ -21,7 +112,7 @@ var list=new Array();
 		img="/img/"+value; //상품 상세 이미지
 		movies.push({"src":img});
 		
-	});
+	});*/
 	
 	
 

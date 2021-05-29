@@ -64,26 +64,9 @@
 
 <script>
 $(document).ready(function() {
-	var key;
-	var value;
-	var data={};
-	var file='';
-	var img='';
-	let movies = [];
-	
-	
-	$('.movie').each(function(){
-		key='src';
-		value=$(this).find('img').attr("src");
-		console.log("@@FSDF:"+value);
-		img=value; //상품 상세 이미지
-/* 		img="<c:url value='/img/"+value+"'/>"; //상품 상세 이미지 */
-		//data[key]=value;
-		movies.push({"src":img});
-		
-	});
 	
 	//list.push(data);
+	
 	
 	
 	/* var list=new Array();
@@ -120,7 +103,7 @@ $(document).ready(function() {
 	
 	$.each(movies, function(index,value){
 		console.log('element',index,value);
-	});
+	}); */
 	
 	
 	/* Demo purposes only */
