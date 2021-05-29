@@ -34,11 +34,17 @@ ${list }
       <div class="indicator" data-index=1></div>
       <div class="indicator" data-index=2></div>
     </div>
+
+    
+    
+    
+    
+    
     <div class="slider" id="mySlider">
-      <div class="movie" id="movie0">
-        <img src="<c:url value='/img/1.jpg'/>"  alt="" srcset="">
-<!--           src="https://images.unsplash.com/photo-1585951237318-9ea5e175b891?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" -->
-         
+    
+ <c:forEach var="result" items="${list}" varStatus="status">
+<div class="movie" id="movie0">
+			 <img src="<c:url value='/img/${result.representative_file}'/>" alt="no image" />
         <div class="description">
           <div class="description__buttons-container">
             <div class="description__button"><i class="fas fa-play"></i></div>
@@ -60,6 +66,40 @@ ${list }
           </div>
         </div>
       </div>
+</c:forEach>  
+    
+    
+    
+      <div class="movie" id="movie0">
+        <img src="<c:url value='/img/1.jpg'/>" class="imgs" alt="" srcset="">
+<!--           src="https://images.unsplash.com/photo-1585951237318-9ea5e175b891?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" -->
+        <div class="description">
+          <div class="description__buttons-container">
+            <div class="description__button"><i class="fas fa-play"></i></div>
+            <div class="description__button"><i class="fas fa-plus"></i></div>
+            <div class="description__button"><i class="fas fa-thumbs-up"></i></div>
+            <div class="description__button"><i class="fas fa-thumbs-down"></i></div>
+            <div class="description__button"><i class="fas fa-chevron-down"></i></div>
+          </div>
+          <div class="description__text-container">
+            <span class="description__match">97% Match</span>
+            <span class="description__rating">TV-14</span>
+            <span class="description__length">2h 11m</span>
+            <br><br>
+            <span>Explosive</span>
+            <span>&middot;</span>
+            <span>Exciting</span>
+            <span>&middot;</span>
+            <span>Family</span>
+          </div>
+        </div>
+      </div>
+      
+   
+      
+      
+      
+      
     </div>
     <button type="button" id="moveRight" class="btn-nav">
       ᐅ

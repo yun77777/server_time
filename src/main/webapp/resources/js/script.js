@@ -12,25 +12,17 @@ var list=new Array();
 	var file='';
 	var img='';
 	let movies = [];
-	$('.key').each(function(){
-		console.log($(this).val()+": "+$(this).next().val());
-		key=$(this).val();
-		value=$(this).next().val();
-		data[key]=value;//key값 동적으로 할당
-		
-		if(key=="representative_file"){
-			if(value!="undefined"||value!=""){
-				file=value;
-				img="<c:url value='/img/"+file+"'/>"; //상품 상세 이미지
-			}
-		}
-		
-		
+	
+	
+	$('.movie').each(function(){
+		key='src';
+		value=$(this).find('img').attr("src");
+		console.log("FSDF:"+value);
+		img="/img/"+value; //상품 상세 이미지
 		movies.push({"src":img});
 		
 	});
 	
-	list.push(data);
 	
 
 // Fill the slider with all the movies in the "movies" array
