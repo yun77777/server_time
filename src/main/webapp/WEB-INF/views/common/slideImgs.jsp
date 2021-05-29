@@ -36,9 +36,9 @@ ${list }
     </div>
     <div class="slider" id="mySlider">
       <div class="movie" id="movie0">
-        <img
-          src="https://images.unsplash.com/photo-1585951237318-9ea5e175b891?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-          alt="" srcset="">
+        <img src="<c:url value='/img/1.jpg'/>"  alt="" srcset="">
+<!--           src="https://images.unsplash.com/photo-1585951237318-9ea5e175b891?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" -->
+         
         <div class="description">
           <div class="description__buttons-container">
             <div class="description__button"><i class="fas fa-play"></i></div>

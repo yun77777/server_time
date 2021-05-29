@@ -36,23 +36,21 @@
 </head>
 <body>
 
-	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
-	
-	<%@ include file="/WEB-INF/views/common/header.jsp"%>
-	<form id="boardForm" method="post">
-		<%@ include file="/WEB-INF/views/common/content.jsp"%>
-		
-		
-		
-	</form>
-
-
 	<c:forEach items="${list}" var="map">
 	    <c:forEach items="${map}" var="entry">
 	        <input type="hidden" class="key" value="${entry.key}">
 	        <input type="hidden" class="value" value="${entry.value}">
 	    </c:forEach>
 	</c:forEach>
+
+
+	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
+	
+	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<form id="boardForm" method="post">
+		<%@ include file="/WEB-INF/views/common/content.jsp"%>
+	</form>
+
 
 
 
@@ -66,11 +64,15 @@
 
 <script>
 $(document).ready(function() {
-	var list=new Array();
+	$(".movie").find('img').attr("src","<c:url value='/img/1.jpg'/>");
+	/* var list=new Array();
 	var key;
 	var value;
 	var data={};
 	var file='';
+	
+	let movies = [{src:""}];
+	movies.pop();
 	$('.key').each(function(){
 		console.log($(this).val()+": "+$(this).next().val());
 		key=$(this).val();
@@ -87,13 +89,17 @@ $(document).ready(function() {
 	
 	});
 	
-	list.push(data);
+	list.push(data); 
 	
 	$.each(list, function(index,value){
 		console.log('element',index,value);
 	});
 	
 	
+	
+	$.each(movies, function(index,value){
+		console.log('element',index,value);
+	});
 	
 	
 	/* Demo purposes only */
