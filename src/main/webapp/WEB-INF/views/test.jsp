@@ -36,17 +36,18 @@
 </head>
 <body>
 
-	<c:forEach items="${list}" var="map">
+	<%-- <c:forEach items="${list}" var="map">
 	    <c:forEach items="${map}" var="entry">
 	        <input type="hidden" class="key" value="${entry.key}">
 	        <input type="hidden" class="value" value="${entry.value}">
 	    </c:forEach>
-	</c:forEach>
+	</c:forEach> --%>
 
 
 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
 	
-	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<%-- <%@ include file="/WEB-INF/views/common/header.jsp"%> --%>
+	
 	<form id="boardForm" method="post">
 		<%@ include file="/WEB-INF/views/common/content.jsp"%>
 	</form>
@@ -175,8 +176,8 @@ function fn_detail_pop(B_NO,B_TYPE){
 	//itemDetailPopup
 	var  formData= $('#boardForm').serialize();
 	//alert(B_NO);
-	//$('.modal-body').append("afkjzxczxc"+$('#gdsNum').val());
-	
+/* 	$('.modal-body').append("afkjzxczxc"+$('#gdsNum').val());
+ */	
 	
 	$.ajax({
 		url : "${pageContext.request.contextPath}/itemDetailPopup.do",
@@ -206,7 +207,6 @@ function fn_detail_pop(B_NO,B_TYPE){
 			var image="<c:url value='/img/"+img+"'/>"; //상품 상세 이미지
 			  $("#pp").append(i+"<img class='card-img-top scale' src="+image+"><br>");
 			 
-			  //$("#pp").append(i+','+imgList[i].gdsDes+'<br>');
 			};
 			
 			

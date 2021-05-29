@@ -48,7 +48,7 @@ public class boardController {
 //		return "test";
 //	}
 	@RequestMapping(value = "/test.do")
-	public String test(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="6") int recordCountPerPage ,Map<String, Object> paramMap, @ModelAttribute("loginDTO") LoginDTO loginDTO, HttpSession httpSession, Model model) {
+	public String test(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="20") int recordCountPerPage ,Map<String, Object> paramMap, @ModelAttribute("loginDTO") LoginDTO loginDTO, HttpSession httpSession, Model model) {
 		System.err.println("test@@@:"+httpSession.getAttribute("login"));
 		
 		System.err.println("member@@@:"+httpSession.getAttribute("member"));

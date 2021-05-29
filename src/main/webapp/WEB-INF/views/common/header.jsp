@@ -6,9 +6,9 @@
                     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                     <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                 </ol>
-                <div class="carousel-inner">
+                <div class="main_img carousel-inner">
                     <div class="carousel-item active">
-                        <img class="d-block w-100" src="<c:url value='/resources/assets/img/1.jpg'/>" alt="..." />
+                        <img class="list_main_img d-block w-100" src="<c:url value='/resources/assets/img/1.jpg'/>" alt="..." />
                         <div class="carousel-caption d-none d-md-block">
                             <h3>First Slide</h3>
                             <p>This is a description for the first slide.</p>

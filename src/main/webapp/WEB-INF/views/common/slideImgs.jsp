@@ -8,110 +8,103 @@
 <%@ page session="false"%>
 
 
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+
+
+
+
   <link href="<c:url value='/resources/css/style.css'/>" rel="stylesheet" />
-  <link href="<c:url value='/resources/css/base.css'/>" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@1,200&display=swap" rel="stylesheet">
+
+    <!--PELOCULAS RECOMENDADS-->
+    <div class="peliculas-recomendadas contenedor">
+      <div class="contenedor-titulo-controles">
+        <h3>Peliculas Recomendadas</h3>
+        <div class="indicadores">
+
+        </div>
+      </div>
+
+      <div class="contenedor-principal">
+        <button type="button" role="button" id="flecha-izquierda" class="flecha-izquierda"><img src="img/Icons/Izquierda.png"
+            alt=""></button>
+
+        <div class="contenedor-carrusel">
+          <div class="carrusel">
+<c:forEach var="result" items="${list}" varStatus="status">
+            <%-- <div class="pelicula">
+              <a href="#">
+				<img src="<c:url value='/img/${result.representative_file}'/>" alt="no image" />              </a>
+            </div> --%>
+  <figure class="thumbnail round pelicula snip1384">
+		 <img class="list_img" src="<c:url value='/img/${result.representative_file}'/>" alt="no image" />
+		 <figcaption>
+		   <h3>${result.gdsName}</h3>
+<%-- <span>개당 가격</span><fmt:formatNumber pattern="###,###,###" value="${result.gdsPrice}" /> 원<br />
+ --%>
+		   <p>${result.gdsPrice} 원</p><i class="ion-ios-arrow-right"></i>
+		 </figcaption>
+		 <a href="#!" onclick="fn_detail_pop('${result.gdsNum}')" data-toggle="modal"
+			data-target="#exampleModalLong"></a>
+	</figure>
+</c:forEach>
+          </div>
+        </div>
+
+        <button type="button" role="button" id="flecha-derecha" class="flecha-derecha"><img src="img/Icons/Derecha.png"
+            alt=""></button>
+      </div>
+    </div>
+
+
+    <!--***********************-->
+    <!--SUSPENSO-->
+    <div class="peliculas-recomendadas contenedor">
+      <div class="contenedor-titulo-controles contenedor-titulo-controles2">
+        <h3>Anime</h3>
+        <div class="indicadores">
+
+        </div>
+      </div>
+
+      <div class="contenedor-principal contenedor-principal2">
+        <button type="button" role="button" id="flecha-izquierda2" class="flecha-izquierda"><img src="img/Icons/Izquierda.png"
+            alt=""></button>
+
+        <div class="contenedor-carrusel contenedor-carrusel2">
+          <div class="carrusel">
+<c:forEach var="result" items="${list}" varStatus="status">
+            <%-- <div class="pelicula">
+              <a href="#">
+				<img src="<c:url value='/img/${result.representative_file}'/>" alt="no image" />              </a>
+            </div> --%>
+  <figure class="thumbnail round pelicula snip1384">
+		 <img class="list_img" src="<c:url value='/img/${result.representative_file}'/>" alt="no image" />
+		 <figcaption>
+		   <h3>${result.gdsName}</h3>
+<%-- <span>개당 가격</span><fmt:formatNumber pattern="###,###,###" value="${result.gdsPrice}" /> 원<br />
+ --%>
+		   <p>${result.gdsPrice} 원</p><i class="ion-ios-arrow-right"></i>
+		 </figcaption>
+		 <a href="#!" onclick="fn_detail_pop('${result.gdsNum}')" data-toggle="modal"
+			data-target="#exampleModalLong"></a>
+	</figure>
+</c:forEach>
+          </div>
+        </div>
+
+        <button type="button" role="button" id="flecha-derecha2" class="flecha-derecha"><img src="img/Icons/Derecha.png"
+            alt=""></button>
+      </div>
+    </div>
+
+
+  <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+  <script src="<c:url value='/resources/js/main.js'/>" ></script>
   
-  <script src="https://kit.fontawesome.com/a0043d9bc2.js" crossorigin="anonymous"></script>
-
-</head>
-
-<body>
-  <h1 class="logo">@@@reference</h1>
-${list }
-  <div class="container">
-    <button type="button" id="moveLeft" class="btn-nav">
-      ᐊ
-    </button>
-    <div class="container-indicators">
-      <div class="indicator active" data-index=0></div>
-      <div class="indicator" data-index=1></div>
-      <div class="indicator" data-index=2></div>
-    </div>
-
-    
-    
-    
-    
-    
-    <div class="slider" id="mySlider">
-    
- <c:forEach var="result" items="${list}" varStatus="status">
-<div class="movie" id="movie0">
-			 <img src="<c:url value='/img/${result.representative_file}'/>" alt="no image" />
-        <div class="description">
-          <div class="description__buttons-container">
-            <div class="description__button"><i class="fas fa-play"></i></div>
-            <div class="description__button"><i class="fas fa-plus"></i></div>
-            <div class="description__button"><i class="fas fa-thumbs-up"></i></div>
-            <div class="description__button"><i class="fas fa-thumbs-down"></i></div>
-            <div class="description__button"><i class="fas fa-chevron-down"></i></div>
-          </div>
-          <div class="description__text-container">
-            <span class="description__match">97% Match</span>
-            <span class="description__rating">TV-14</span>
-            <span class="description__length">2h 11m</span>
-            <br><br>
-            <span>Explosive</span>
-            <span>&middot;</span>
-            <span>Exciting</span>
-            <span>&middot;</span>
-            <span>Family</span>
-          </div>
-        </div>
-      </div>
-</c:forEach>  
-    
-    
-    
-      <div class="movie" id="movie0">
-        <img src="<c:url value='/img/1.jpg'/>" class="imgs" alt="" srcset="">
-<!--           src="https://images.unsplash.com/photo-1585951237318-9ea5e175b891?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" -->
-        <div class="description">
-          <div class="description__buttons-container">
-            <div class="description__button"><i class="fas fa-play"></i></div>
-            <div class="description__button"><i class="fas fa-plus"></i></div>
-            <div class="description__button"><i class="fas fa-thumbs-up"></i></div>
-            <div class="description__button"><i class="fas fa-thumbs-down"></i></div>
-            <div class="description__button"><i class="fas fa-chevron-down"></i></div>
-          </div>
-          <div class="description__text-container">
-            <span class="description__match">97% Match</span>
-            <span class="description__rating">TV-14</span>
-            <span class="description__length">2h 11m</span>
-            <br><br>
-            <span>Explosive</span>
-            <span>&middot;</span>
-            <span>Exciting</span>
-            <span>&middot;</span>
-            <span>Family</span>
-          </div>
-        </div>
-      </div>
-      
-   
-      
-      
-      
-      
-    </div>
-    <button type="button" id="moveRight" class="btn-nav">
-      ᐅ
-    </button>
-  </div>
-
-
-<script src="<c:url value='/resources/js/script.js'/>"></script>
-
-</body>
-
-</html>
-
-
-

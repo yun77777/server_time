@@ -55,24 +55,6 @@
                        </li>
 					</c:if>
                         
-                        <!-- <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Blog</a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
-                                <a class="dropdown-item" href="blog-home-1.html">Blog Home 1</a>
-                                <a class="dropdown-item" href="blog-home-2.html">Blog Home 2</a>
-                                <a class="dropdown-item" href="blog-post.html">Blog Post</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdownPages" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Other Pages</a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPages">
-                                <a class="dropdown-item" href="full-width.html">Full Width Page</a>
-                                <a class="dropdown-item" href="sidebar.html">Sidebar Page</a>
-                                <a class="dropdown-item" href="faq.html">FAQ</a>
-                                <a class="dropdown-item" href="404.html">404</a>
-                                <a class="dropdown-item" href="pricing.html">Pricing Table</a>
-                            </div>
-                        </li> -->
                     </ul>
                 </div>
             </div>
