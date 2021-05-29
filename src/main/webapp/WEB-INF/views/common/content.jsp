@@ -112,7 +112,7 @@
 
 
 
-<aside style="float: left; width: 20%">
+<!-- <aside style="float: left; width: 20%">
 	<h3>최근글</h3>
 	<ul>
 		<li>목록1</li>
@@ -123,7 +123,7 @@
 		style="position: absolute; width: 200px; height: 200px; right: 50px; top: 550px; background-color: #606060; color: #fff;">
 		<span>최근에 본 상품</span>
 	</div>
-</aside>
+</aside> -->
 
 
 <hr class="my-0" />

@@ -200,7 +200,7 @@ header nav a:hover, header nav a.activo {
       background-position: center center;
     }
     .thumbnail.round{
-      border-radius: 10%;
+     /*  border-radius: 10%; */
     }
     
     
@@ -210,8 +210,8 @@ header nav a:hover, header nav a.activo {
     height: 100%;
     overflow: hidden;
     object-fit: cover;
-    border-radius: 5px;
-}
+/*     border-radius: 5px;
+ */}
 
 .main_img{
       background-color:gray;
@@ -228,8 +228,8 @@ header nav a:hover, header nav a.activo {
     height: 100%;
     overflow: hidden;
     object-fit: cover;
-    border-radius: 5px;
-}
+/*     border-radius: 5px;
+ */}
     
 /*  */
 
@@ -242,8 +242,8 @@ header nav a:hover, header nav a.activo {
 .peliculas-recomendadas .contenedor-carrusel .carrusel .pelicula {
 	min-width: 25%;
 	transition: .3s ease all;
-	box-shadow: 5px 5px 10px rgba(0, 0, 0, .3);
-}
+/* 	box-shadow: 5px 5px 10px rgba(0, 0, 0, .3);
+ */}
 
 .peliculas-recomendadas .contenedor-carrusel .carrusel .pelicula.hover {
 	transform: scale(1.2);

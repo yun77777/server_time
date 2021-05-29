@@ -401,10 +401,10 @@ figure.snip1384 {
   min-width: 230px;
   max-width: 315px;
   width: 100%;
-  color: #ffffff;
+  color: #6495ED; /* color */
   text-align: left;
   font-size: 16px;
-  background-color: #000000;
+  background-color: #1fe0;
 }
 figure.snip1384 * {
   -webkit-box-sizing: border-box;
@@ -427,10 +427,13 @@ figure.snip1384 figcaption {
 }
 figure.snip1384:after {
   content: '';
-  background-color: rgba(0, 0, 0, 0.65);
+  background-color: #ffffff;
+  background-color: rgba( 255, 255, 255, 0.5 );
+  /*   background-color: rgba(0, 0, 0, 0.65); */
   -webkit-transition: all 0.35s ease;
   transition: all 0.35s ease;
   opacity: 0;
+/*   opacity: 0; */
 }
 figure.snip1384 figcaption {
   z-index: 1;

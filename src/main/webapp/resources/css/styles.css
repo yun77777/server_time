@@ -6179,6 +6179,10 @@ button.bg-light:focus {
 .bg-dark {
   background-color: #343a40 !important;
 }
+/* added 21/05/29 */
+.bg-cornflowerblue {
+  background-color: #4682B4 !important; /* SlateBlue */
+}
 
 a.bg-dark:hover, a.bg-dark:focus,
 button.bg-dark:hover,

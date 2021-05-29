@@ -23,7 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@1,200&display=swap" rel="stylesheet">
 
     <!--PELOCULAS RECOMENDADS-->
-    <div class="peliculas-recomendadas contenedor">
+<div class="peliculas-recomendadas contenedor">
       <div class="contenedor-titulo-controles">
         <h3>Peliculas Recomendadas</h3>
         <div class="indicadores">
@@ -31,7 +31,7 @@
         </div>
       </div>
 
-      <div class="contenedor-principal">
+<div class="contenedor-principal">
         <button type="button" role="button" id="flecha-izquierda" class="flecha-izquierda"><img src="img/Icons/Izquierda.png"
             alt=""></button>
 
@@ -60,12 +60,12 @@
         <button type="button" role="button" id="flecha-derecha" class="flecha-derecha"><img src="img/Icons/Derecha.png"
             alt=""></button>
       </div>
-    </div>
+</div>
 
 
     <!--***********************-->
     <!--SUSPENSO-->
-    <div class="peliculas-recomendadas contenedor">
+<div class="peliculas-recomendadas contenedor">
       <div class="contenedor-titulo-controles contenedor-titulo-controles2">
         <h3>Anime</h3>
         <div class="indicadores">
@@ -73,7 +73,7 @@
         </div>
       </div>
 
-      <div class="contenedor-principal contenedor-principal2">
+<div class="contenedor-principal contenedor-principal2">
         <button type="button" role="button" id="flecha-izquierda2" class="flecha-izquierda"><img src="img/Icons/Izquierda.png"
             alt=""></button>
 
@@ -101,10 +101,8 @@
 
         <button type="button" role="button" id="flecha-derecha2" class="flecha-derecha"><img src="img/Icons/Derecha.png"
             alt=""></button>
-      </div>
-    </div>
-
-
+  </div>
+</div>
   <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
   <script src="<c:url value='/resources/js/main.js'/>" ></script>
   
