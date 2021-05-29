@@ -84,7 +84,7 @@
               <a href="#">
 				<img src="<c:url value='/img/${result.representative_file}'/>" alt="no image" />              </a>
             </div> --%>
-  <figure class="thumbnail round pelicula snip1384">
+  <figure class="thumbnail pelicula snip1384">
 		 <img class="list_img" src="<c:url value='/img/${result.representative_file}'/>" alt="no image" />
 		 <figcaption>
 		   <h3>${result.gdsName}</h3>

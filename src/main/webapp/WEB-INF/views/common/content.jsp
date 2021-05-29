@@ -11,9 +11,9 @@
 
 
 <!-- Portfolio Section-->
-<section class="py-5 bg-light" style="float: left; width: 80%;">
-	<article>
-		<div class="container" >
+<!-- <section class="py-5 bg-light" style="float: left; width: 80%;">
+	<article> -->
+		<div class="container container-lg" >
 
 			<%@ include file="/WEB-INF/views/common/slideImgs.jsp"%>
 
@@ -21,7 +21,7 @@
 <%-- 		<%@ include file="/WEB-INF/views/common/paging.jsp"%>
  --%>	
 	
-	<!-- goods in detail -->
+	<!-- popup in detail -->
 		
 		<div class="modal fade bd-example-modal-lg" id="exampleModalLong"
 					tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
@@ -55,8 +55,10 @@
 											<th>상품명</th>
 											<td>
 												<div class="col-md-8">
-													<img id="rpsnImg" class="card-img-top scale" src=""
+													<img id="rpsnImg" class="card-img-top" src=""
 														alt="no image" />
+<!-- 													<img id="rpsnImg" class="card-img-top scale" src=""
+														alt="no image" /> -->
 												</div>
 											</td>
 										</tr>
@@ -102,8 +104,8 @@
 					</div>
 				</div>
 
-	</article>
-</section>
+	<!-- </article>
+</section> -->
 
 
 
