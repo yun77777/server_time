@@ -20,6 +20,8 @@
 <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"
 	crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<!-- API -->
+<script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
 
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="<c:url value='/resources/css/styles.css'/>" rel="stylesheet" />
@@ -538,7 +540,35 @@ function fn_delete() {
 		});	 */
 		
 function fn_order(){
-			
+			IMP.init('imp46639314');
+		    IMP.request_pay({
+		        pg : 'html5_inicis',
+		        pay_method : 'card',
+		        merchant_uid : 'merchant_' + new Date().getTime(),
+		        name : '주문명:결제테스트',
+		        amount : 0,
+		        buyer_email : 'iamport@siot.do',
+		        buyer_name : '구매자이름',
+		        buyer_tel : '010-1234-5678',
+		        buyer_addr : '서울특별시 강남구 삼성동',
+		        buyer_postcode : '123-456'
+		    }, function(rsp) {
+		        if ( rsp.success ) {
+		            var msg = '결제가 완료되었습니다.';
+		            msg += '고유ID : ' + rsp.imp_uid;
+		            msg += '상점 거래ID : ' + rsp.merchant_uid;
+		            msg += '결제 금액 : ' + rsp.paid_amount;
+		            msg += '카드 승인번호 : ' + rsp.apply_num;
+		        } else {
+		            var msg = '결제에 실패하였습니다.';
+		            msg += '에러내용 : ' + rsp.error_msg;
+		        }
+
+		        alert(msg);
+		    });	
+		    
+		    
+		    
 	var formData = new FormData($("#boardForm")[0]);
 	$.ajax({
 		url : "${pageContext.request.contextPath}/orderList.do",
@@ -554,7 +584,7 @@ function fn_order(){
 		error : function(xhr, status) {
 			alert(xhr + " : " + status);
 		}
-	});
+	}); 
 	
 }
 		

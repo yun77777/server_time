@@ -21,6 +21,9 @@
 <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"
 	crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<!-- LOGIN API -->
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
 
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="<c:url value='/resources/css/styles.css'/>" rel="stylesheet" />
@@ -67,15 +70,38 @@
                 <!-- /.col -->
             </div>
 
-        <div class="social-auth-links text-center">
-            <p>- 또는 -</p>
-            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat">
-                <i class="fa fa-facebook"></i> 페이스북으로 로그인
-            </a>
-            <a href="#" class="btn btn-block btn-social btn-google btn-flat">
-                <i class="fa fa-google-plus"></i> 구글 계정으로 로그인
-            </a>
-        </div>
+        
+        <%-- <div class="social-auth-links text-center">
+			<a href="${naverAuthUrl}">
+				<img height="53" src="<c:url value='/resources/img/btn_naver.png'/>">
+			</a>
+			&nbsp;&nbsp;
+			<a href="${kakaoAuthUrl}">
+				<img height="53" src="<c:url value='/resources/img/btn_kakao.png'/>">
+			</a>
+		</div>  --%>
+
+		
+		
+	
+	<h1>${kakao_url}</h1>
+	<ul>
+	<li onclick="kakaoLogin();">
+      <a href="javascript:void(0)">
+          <span><img height="53" src="<c:url value='/resources/img/btn_kakao.png'/>"></span>
+      </a>
+	</li>
+	<li onclick="kakaoLogout();">
+      <a href="javascript:void(0)">
+          <span>카카오 로그아웃</span>
+      </a>
+	</li>
+</ul> 
+
+
+
+
+
         <!-- /.social-auth-links -->
 
         <a href="#">비밀번호 찾기</a><br>
@@ -100,7 +126,7 @@
 
     var msg = "${msg}";
     if (msg === "REGISTERED") {
-        alert("회원가입이 완료되었습니다. 로그인해주세요~");
+        alert("회원가입이 완료되었습니다. 로그인해주세요");
     } else if (msg == "FAILURE") {
         alert("아이디와 비밀번호를 확인해주세요.");
     }
@@ -122,5 +148,67 @@
     }
 
     
+</script>
+<script>
+Kakao.init('0280f7076bc693fac40abb703230b06b'); //발급받은 키 중 javascript키를 사용해준다.
+console.log(Kakao.isInitialized()); // sdk초기화여부판단
+//카카오로그인
+function kakaoLogin() {
+	window.Kakao.Auth.login({
+        //scope: 'profile, account_email, gender, age_range, birthday', //동의항목 페이지에 있는 개인정보 보호 테이블의 활성화된 ID값을 넣습니다.
+        success: function(response) {
+            console.log(response); // 로그인 성공하면 받아오는 데이터
+            console.log(response.access_token);
+            var code=response.access_token;
+            
+            $.ajax({
+        		url : "${pageContext.request.contextPath}/user/kakaoOauth.do",
+        		type : "post",
+        		data : {code:code},
+        		success : function(result) {
+        			window.location.href= '<c:url value="/user/loginAfter.do"/>'
+        		}, // success 
+
+        		error : function(xhr, status) {
+        			alert(xhr + " : " + status);
+        		}
+        	}); 
+            
+            
+            window.Kakao.API.request({ // 사용자 정보 가져오기 
+                url: '/v2/user/me',
+                success: function(response) {
+                    console.log(response);
+                    
+                    //access_token: "FGb2hkFAEHNVxFJcuice5gSX27zZ595-Jyh-jwo9dVsAAAF5uJQkSQ"
+
+                },
+                fail: function(error) {
+                    console.log(error);
+                }
+            });
+/*            window.location.href= '<c:url value="/user/kakaoOauth.do"/>';
+ */            // window.location.href='/ex/kakao_login.html' //리다이렉트 되는 코드
+        },
+        fail: function(error) {
+            console.log(error);
+        }
+    });
+  }
+//카카오로그아웃  
+function kakaoLogout() {
+    if (Kakao.Auth.getAccessToken()) {
+      Kakao.API.request({
+        url: '/v1/user/unlink',
+        success: function (response) {
+        	console.log(response)
+        },
+        fail: function (error) {
+          console.log(error)
+        },
+      })
+      Kakao.Auth.setAccessToken(undefined)
+    }
+  }  
 </script>
 </html>
