@@ -15,6 +15,19 @@
 		)
 	</insert>
 
+	<insert id="updateUser">
+		update member
+		set
+			ID = #{ID}
+			, PW = #{PW}
+			, NAME = #{NAME}
+			, ADDRESS = #{ADDRESS}
+			, CONTACT = #{CONTACT}
+			, PHONE = #{PHONE}
+			, EMAIL = #{EMAIL}
+		where ID=#{ID}
+	</insert>
+
 	<select id="login" parameterType="map" resultType="java.util.Map">
 		SELECT
 		*

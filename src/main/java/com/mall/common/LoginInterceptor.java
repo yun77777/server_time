@@ -30,11 +30,14 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	    HttpSession httpSession = request.getSession();
 	    ModelMap modelMap = modelAndView.getModelMap();
 	    Object userVO =  modelMap.get("ID");
+	    Object k_userInfo =  modelMap.get("k_userInfo");
+	    
 	    System.err.println("userVOOOOOOO:"+userVO);
 	    System.err.println("k_userInfo:"+modelMap.get("k_userInfo"));
 	    if (userVO != null) {
 	        logger.info("new login success");
 	        httpSession.setAttribute(LOGIN, userVO);
+	        httpSession.setAttribute("k_userInfo", k_userInfo);
 	        System.err.println("session:"+userVO);
 	        Map<String, Object> member=loginMapper.selectMember(userVO.toString());
 	        System.err.println("member:"+member);

@@ -7,6 +7,8 @@ public interface UserMapper {
 
 	public void register(Map<String, Object> paramMap) throws Exception;
 
+	public void updateUser(Map<String, Object> paramMap) throws Exception;
+
 	Map<String, Object> login(LoginDTO loginDTO) throws Exception;
 
 	Map<String, Object> memberInfo(Map<String, Object> paramMap) throws Exception;

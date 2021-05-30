@@ -116,6 +116,7 @@ System.err.println("userInfo:"+userInfo);//@@@v2@@@
 
 		// 세션 삭제
 		session.invalidate();
+		//카카오 로그아웃
 
 		return "redirect:/test.do";
 	}

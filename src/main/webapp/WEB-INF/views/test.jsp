@@ -56,6 +56,7 @@
 	 <%@ include file="/WEB-INF/views/common/header.jsp"%> 
 	
 	<form id="boardForm" method="post">
+	
 		<%@ include file="/WEB-INF/views/common/content.jsp"%>
 	</form>
 

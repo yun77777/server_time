@@ -39,8 +39,9 @@
 							<div class="modal-body">
 								<form id="orderForm" method="post" enctype="multipart/form-data">
 									<input type="hidden" name="gdsNum" value="${detail.gdsNum}" />
+									<input type="hidden" name="ID" value="${member.ID}" />
 									<input type="hidden" name="userId" value="${member.ID}" />
-									<%-- <input type="hidden" id="gdsNum" name="gdsNum" value="${detail.gdsNum}" />
+					<%-- <input type="hidden" id="gdsNum" name="gdsNum" value="${detail.gdsNum}" />
 				<input type="hidden" name="gdsPrice" value="${detail.gdsPrice}" />
 				<input type="hidden" id="gdsStock" name="gdsStock" /> --%>
 								

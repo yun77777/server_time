@@ -33,10 +33,13 @@ public class UserServiceImpl implements UserService {
 	// 회원 가입 처리
 	@Override
 	public void register(Map<String, Object> paramMap, UserVO userVO) throws Exception {
-
-		System.err.println("sdasdss");
 		System.err.println(paramMap);
 		userMapper.register(paramMap);
+	}
+	@Override
+	public void updateUser(Map<String, Object> paramMap) throws Exception {		
+		System.err.println(paramMap);
+		userMapper.updateUser(paramMap);
 	}
 
 	@Override

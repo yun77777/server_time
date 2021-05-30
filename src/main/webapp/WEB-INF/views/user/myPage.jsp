@@ -35,13 +35,14 @@
 
 				<!-- Page Heading/Breadcrumbs-->
 				<h1>
-					Member <small>My Page</small>
+					Member <small>My Page${k_userInfo}</small>
 				</h1>
 				
 				<div class="control-group form-group">
 					<div class="controls">
 						<label>
-							<c:if test="${not empty login}">
+							<c:if test="${not empty member}">
+<%-- 							<c:if test="${not empty login}"> --%>
 		                    	<li class="nav-item"><p class="nav-link">Welcome <b>${member.ID}</b>!</p></li>
 <%-- 		                    	<li class="nav-item"><p class="nav-link">Welcome <b>${login.ID}</b>!</p></li> --%>
 						    </c:if>
@@ -62,8 +63,8 @@
 							</div>
 						</div>
 						
-						
 						<div class="control-group form-group">
+		<c:if test="${empty k_userInfo}">	
 							<div class="controls">
 								<label>password:</label> <input class="form-control" id="pw"
 									name="PW" type="text" value="${info.PW}" required
@@ -74,6 +75,7 @@
 									name="pwChk" type="text" required
 									data-validation-required-message="Please enter your email address." />
 							</div>
+		</c:if>
 						</div>
 						<div class="control-group form-group">
 							<div class="controls">
@@ -121,16 +123,13 @@
 							</div>
 						</div>
 						<div id="success"></div>
-						<!-- For success/fail messages-->
-                        <button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="button">Go to the list</button>
-<!-- 						<button class="btn btn-primary" id="sendMessageButton" onclick="fn_sign_up()" type="button">SignUp</button>
- -->						<button class="btn btn-primary" onclick="fn_sign_up2()" id="signIn" type="submit">Update</button>
-							<button class="btn btn-primary" onclick="" id="" type="submit">Delete</button>
-						
-<!-- 						<button class="btn btn-primary" onclick="fn_insert()" id="submit" type="button">submit</button> -->
+                        
 					</div>
 				</div>
 			</form>
+			<button class="btn btn-primary" onclick="fn_list()" type="button">Go to the list</button>
+			<button class="btn btn-primary" onclick="fn_update()" type="submit">Update</button>
+			<button class="btn btn-primary" onclick="" type="submit">Delete</button>
 		</div>
 	</section>
 
@@ -157,6 +156,7 @@ function fn_list(no) {
 
 function fn_sign_up() {
 	//var formData = $('#boardForm').serialize();
+	
 	var wholeAddress=$("#postalCode").val()+', '+$("#address").val()+', '+$("#addressDetail").val();
 	$("#wholeAddress").val(wholeAddress);
 	var formData = new FormData($("#boardForm")[0]);
@@ -183,17 +183,37 @@ function fn_sign_up() {
 
 
 
-function fn_sign_up2() {
+function fn_update() {
 	//var formData = $('#boardForm').serialize();
 	var wholeAddress=$("#postalCode").val()+', '+$("#address").val()+', '+$("#addressDetail").val();
 	$("#wholeAddress").val(wholeAddress);
-	
+	alert('update');
 	$('#boardForm #id').attr('disabled',false);
+alert($('#id').val());
+var formData = new FormData($("#boardForm")[0]);
 
-	$('#boardForm').attr({
-		action : '<c:url value="/user/register.do"/>',
+$.ajax({
+	url : "${pageContext.request.contextPath}/user/updateUser.do",
+	type : "post",
+	enctype: 'multipart/form-data',
+	data : formData,
+	processData : false,
+	contentType : false,
+	success : function(result) {
+		alert('회원정보가 수정되었습니다.');
+	}, // success 
+
+	error : function(xhr, status) {
+		alert(xhr + " : " + status);
+	}
+});
+
+
+
+	/* $('#boardForm').attr({
+		action : '<c:url value="/user/updateUser.do"/>',
 		target : '_self'
-	}).submit();
+	}).submit(); */
 }
 
 </script>

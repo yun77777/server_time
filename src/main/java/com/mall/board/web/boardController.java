@@ -53,7 +53,9 @@ public class boardController {
 		System.err.println("member@@@:"+httpSession.getAttribute("member"));
 		model.addAttribute("login",httpSession.getAttribute("login"));
 		model.addAttribute("member",httpSession.getAttribute("member"));
-		
+		model.addAttribute("k_userInfo", httpSession.getAttribute("k_userInfo"));
+		System.err.println("kxx:"+httpSession.getAttribute("k_userInfo"));
+
 		try {
 			paramMap.put("B_TYPE",4);
 			paramMap.put("PAGE_TYPE","main");

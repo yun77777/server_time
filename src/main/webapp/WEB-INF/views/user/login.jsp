@@ -70,79 +70,34 @@
                 <!-- /.col -->
             </div>
 
-        
-        <%-- <div class="social-auth-links text-center">
-			<a href="${naverAuthUrl}">
-				<img height="53" src="<c:url value='/resources/img/btn_naver.png'/>">
-			</a>
-			&nbsp;&nbsp;
-			<a href="${kakaoAuthUrl}">
-				<img height="53" src="<c:url value='/resources/img/btn_kakao.png'/>">
-			</a>
-		</div>  --%>
-
-  <!--  <li class="nav-item">
-   <a class="nav-link" href="https://kauth.kakao.com/oauth/authorize?client_id=8ec4c5e4b41aba30453d25fa8512e604&redirect_uri=http://localhost:8080/user/kakaoOauth.do&response_type=code">Kakao</a>
-   </li> -->
-		
-		
-	<c:if test="${userId eq null}">
-		<a href="${kakao_url}">${kakao_url}</a><br>
-		<ul>
-			<li>
+	<c:if test="${id eq null}">
+<%-- 	<c:if test="${userId eq null}"> --%>
 		      <a class="nav-link" href="https://kauth.kakao.com/oauth/authorize?client_id=8ec4c5e4b41aba30453d25fa8512e604&redirect_uri=http://localhost:8080/user/kakaoOauth.do&response_type=code">
 		          <span><img height="53" src="<c:url value='/resources/img/btn_kakao.png'/>"></span>
 		      </a>
-			</li>
-			
-			<li onclick="kakaoLogin();">
+			<%-- <li onclick="kakaoLogin();">
 		      <a href="javascript:void(0)">
 		          <span><img height="53" src="<c:url value='/resources/img/btn_kakao.png'/>"></span>
 		      </a>
-			</li>
-			<li onclick="kakaoLogout();">
-		      <a href="javascript:void(0)">
+			</li> --%>
+		      <a href="javascript:void(0)" onclick="kakaoLogout();">
 		          <span>카카오 로그아웃</span>
 		      </a>
-			</li>
 		</ul> 
 	</c:if>
-	
-<c:if test="${userId ne null}">
-        <h1>로그인 성공입니다</h1>
-        <input type="button" value="로그아웃" onclick="location.href='/logout'">
-    </c:if>
-    
-    
-<a onclick="f()">adsasd</a>
-<input type="text" id="code" name="code">
-<input type="hidden" id="kakao_url" name="kakao_url">
+
 
 <div id="chk"></div>
         <!-- /.social-auth-links -->
 
-        <a href="#">비밀번호 찾기</a><br>
-        <a href="${path}/user/register" class="text-center">회원가입</a>
+        <!-- <a href="#">비밀번호 찾기</a><br> -->
+        <a href="<c:url value='/signUp.do'/>" class="text-center">회원가입</a>
 	</form>
     </div>
     <!-- /.login-box-body -->
 </div>
 
 
-<hr>
-
-<body>
-    <c:if test="${userId eq null}">
-    	<a href="${kakao_url}">${kakao_url}</a><br>
-    </c:if>
-    <c:if test="${userId ne null}">
-        <h1>로그인 성공입니다</h1>
-        <input type="button" value="로그아웃" onclick="location.href='/logout'">
-    </c:if>
-</body>
-
-
-<hr>
 <!-- /.login-box -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
@@ -212,6 +167,7 @@ function kakaoLogin() {
         }
     });
   }
+  
 //카카오로그아웃  
 function kakaoLogout() {
     if (Kakao.Auth.getAccessToken()) {

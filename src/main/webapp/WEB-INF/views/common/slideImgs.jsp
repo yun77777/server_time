@@ -14,7 +14,7 @@
     <!--PELOCULAS RECOMENDADS-->
 <div class="peliculas-recomendadas contenedor">
       <div class="contenedor-titulo-controles">
-        <h3>Peliculas Recomendadas</h3>
+        <h3>TYPE 1</h3>
         <div class="indicadores">
 
         </div>
@@ -55,7 +55,7 @@
     <!--SUSPENSO-->
 <div class="peliculas-recomendadas contenedor">
       <div class="contenedor-titulo-controles contenedor-titulo-controles2">
-        <h3>Anime</h3>
+        <h3>TYPE 2</h3>
         <div class="indicadores">
 
         </div>
