@@ -40,6 +40,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	        httpSession.setAttribute("k_userInfo", k_userInfo);
 	        System.err.println("session:"+userVO);
 	        Map<String, Object> member=loginMapper.selectMember(userVO.toString());
+	        member.put("k_userInfo", k_userInfo);
 	        System.err.println("member:"+member);
 	        httpSession.setAttribute("member", member);
 

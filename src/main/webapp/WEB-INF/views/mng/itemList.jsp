@@ -15,17 +15,18 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <!-- Favicon-->
-<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-<!-- Font Awesome icons (free version)-->
 <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"
 	crossorigin="anonymous"></script>
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- Bootstrap core JS-->
+<!-- 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+ -->	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Core theme JS-->
+	<script src="<c:url value='/resources/js/scripts.js'/>"></script>
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="<c:url value='/resources/css/styles.css'/>" rel="stylesheet" />
-<!-- CSS -->
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
-
 </head>
 <body>
 
@@ -145,12 +146,13 @@
 		</div>
 		<!-- //Container -->
 	</section>
+	<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
 
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
 	<!-- Bootstrap core JS-->
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-	<script
+<!-- 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+ -->	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
 	<script src="<c:url value='/resources/js/scripts.js'/>"></script>
@@ -159,8 +161,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <!-- 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
  -->	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/js/bootstrap-datetimepicker.min.js"></script>
-	
+<!-- 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/js/bootstrap-datetimepicker.min.js"></script>
+ -->	
 </body>
 
 <script>

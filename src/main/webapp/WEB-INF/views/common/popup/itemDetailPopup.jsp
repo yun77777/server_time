@@ -31,7 +31,7 @@
 			</form>
 
 
-				<table class="table">
+				<table class="table table-borderless">
 					<thead>
 					</thead>
 					<tbody>

@@ -14,6 +14,12 @@
 <!--         <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> -->
     <div class="container">
         <a class="navbar-brand" href="/test.do">Mall</a>
+        <c:if test="${empty member}">
+        	<a href="#myModal" class="" data-toggle="modal">Login</a>
+        </c:if>
+        <c:if test="${!empty member}">
+        	<a onclick="fn_logout()" class="nav-link" href="/user/logout.do">Log Out</a>
+        </c:if>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
@@ -85,3 +91,5 @@ function fn_logout(){
 }
 
 </script> -->
+
+

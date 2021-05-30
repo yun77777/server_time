@@ -64,7 +64,7 @@
 						</div>
 						
 						<div class="control-group form-group">
-		<c:if test="${empty k_userInfo}">	
+		<c:if test="${empty member.k_userInfo}">	
 							<div class="controls">
 								<label>password:</label> <input class="form-control" id="pw"
 									name="PW" type="text" value="${info.PW}" required
@@ -144,6 +144,15 @@
 </body>
 
 <script>
+$(document).ready(function(){
+	var addressArr=$("#postalCode").val().split(', ');
+
+	$("#postalCode").val(addressArr[0]);
+	$("#address").val(addressArr[1]);
+	$("#addressDetail").val(addressArr[2]);
+
+});
+
 function fn_list(no) {
 	//$('#currentPageNo').val(no);
 	window.location='<c:url value="/signIn.do"/>';
