@@ -83,11 +83,8 @@
 		      <a href="javascript:void(0)" onclick="kakaoLogout();">
 		          <span>카카오 로그아웃</span>
 		      </a>
-		</ul> 
 	</c:if>
 
-
-<div id="chk"></div>
         <!-- /.social-auth-links -->
 
         <!-- <a href="#">비밀번호 찾기</a><br> -->
