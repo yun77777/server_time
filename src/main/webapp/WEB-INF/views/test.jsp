@@ -324,18 +324,24 @@ function fn_list(no) {
 /*  */
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,700);
 @import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
-figure.snip1384 {
+figure.snip1384{
   font-family: 'Raleway', Arial, sans-serif;
   position: relative;
   overflow: hidden;
   margin: 10px;
   min-width: 230px;
-  max-width: 315px;
+  max-width: 315px; 
   width: 100%;
   color: #6495ED; /* color */
   text-align: left;
   font-size: 16px;
   background-color: #1fe0;
+}
+
+/* modified 21/05/30 */
+figure.snip1384.firstRow{
+  min-width: 180px;
+  max-width: 315px; 
 }
 figure.snip1384 * {
   -webkit-box-sizing: border-box;

@@ -21,8 +21,7 @@
       </div>
 
 <div class="contenedor-principal">
-        <button type="button" role="button" id="flecha-izquierda" class="flecha-izquierda"><img src="img/Icons/Izquierda.png"
-            alt=""></button>
+        <button type="button" role="button" id="flecha-izquierda" class="flecha-izquierda"> < </button>
 
         <div class="contenedor-carrusel">
           <div class="carrusel">
@@ -31,7 +30,8 @@
               <a href="#">
 				<img src="<c:url value='/img/${result.representative_file}'/>" alt="no image" />              </a>
             </div> --%>
-  <figure class="thumbnail round pelicula snip1384">
+  <figure class="thumbnail round firstRow snip1384">
+<!--   <figure class="thumbnail round pelicula snip1384"> -->
 		 <img class="list_img" src="<c:url value='/img/${result.representative_file}'/>" alt="no image" />
 		 <figcaption>
 		   <h3>${result.gdsName}</h3>
@@ -46,8 +46,7 @@
           </div>
         </div>
 
-        <button type="button" role="button" id="flecha-derecha" class="flecha-derecha"><img src="img/Icons/Derecha.png"
-            alt=""></button>
+        <button type="button" role="button" id="flecha-derecha" class="flecha-derecha"> ></button>
       </div>
 </div>
 
@@ -63,8 +62,7 @@
       </div>
 
 <div class="contenedor-principal contenedor-principal2">
-        <button type="button" role="button" id="flecha-izquierda2" class="flecha-izquierda"><img src="img/Icons/Izquierda.png"
-            alt=""></button>
+        <button type="button" role="button" id="flecha-izquierda2" class="flecha-izquierda"> < </button>
 
         <div class="contenedor-carrusel contenedor-carrusel2">
           <div class="carrusel">
@@ -73,7 +71,7 @@
               <a href="#">
 				<img src="<c:url value='/img/${result.representative_file}'/>" alt="no image" />              </a>
             </div> --%>
-  <figure class="thumbnail snip1384">
+  <figure class="thumbnail secondRow snip1384">
 <!--   <figure class="thumbnail pelicula snip1384"> -->
 		 <img class="list_img" src="<c:url value='/img/${result.representative_file}'/>" alt="no image" />
 		 <figcaption>
@@ -89,8 +87,7 @@
           </div>
         </div>
 
-        <button type="button" role="button" id="flecha-derecha2" class="flecha-derecha"><img src="img/Icons/Derecha.png"
-            alt=""></button>
+        <button type="button" role="button" id="flecha-derecha2" class="flecha-derecha"> > </button>
   </div>
 </div>
   <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
