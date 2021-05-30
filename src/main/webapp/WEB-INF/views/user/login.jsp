@@ -83,25 +83,33 @@
 
 		
 		
+	<c:if test="${userId eq null}">
+		<a href="${kakao_url}">${kakao_url}</a><br>
+		<ul>
+			<li onclick="kakaoLogin();">
+		      <a href="javascript:void(0)">
+		          <span><img height="53" src="<c:url value='/resources/img/btn_kakao.png'/>"></span>
+		      </a>
+			</li>
+			<li onclick="kakaoLogout();">
+		      <a href="javascript:void(0)">
+		          <span>카카오 로그아웃</span>
+		      </a>
+			</li>
+		</ul> 
+	</c:if>
 	
-	<h1>${kakao_url}</h1>
-	<ul>
-	<li onclick="kakaoLogin();">
-      <a href="javascript:void(0)">
-          <span><img height="53" src="<c:url value='/resources/img/btn_kakao.png'/>"></span>
-      </a>
-	</li>
-	<li onclick="kakaoLogout();">
-      <a href="javascript:void(0)">
-          <span>카카오 로그아웃</span>
-      </a>
-	</li>
-</ul> 
+<c:if test="${userId ne null}">
+        <h1>로그인 성공입니다</h1>
+        <input type="button" value="로그아웃" onclick="location.href='/logout'">
+    </c:if>
+    
+    
+<a onclick="f()">adsasd</a>
+<input type="text" id="code" name="code">
+<input type="hidden" id="kakao_url" name="kakao_url">
 
-
-
-
-
+<div id="chk"></div>
         <!-- /.social-auth-links -->
 
         <a href="#">비밀번호 찾기</a><br>
@@ -110,6 +118,22 @@
     </div>
     <!-- /.login-box-body -->
 </div>
+
+
+<hr>
+
+<body>
+    <c:if test="${userId eq null}">
+    	<a href="${kakao_url}">${kakao_url}</a><br>
+    </c:if>
+    <c:if test="${userId ne null}">
+        <h1>로그인 성공입니다</h1>
+        <input type="button" value="로그아웃" onclick="location.href='/logout'">
+    </c:if>
+</body>
+
+
+<hr>
 <!-- /.login-box -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
@@ -123,7 +147,6 @@
 
 
 <script>
-
     var msg = "${msg}";
     if (msg === "REGISTERED") {
         alert("회원가입이 완료되었습니다. 로그인해주세요");
@@ -155,32 +178,17 @@ console.log(Kakao.isInitialized()); // sdk초기화여부판단
 //카카오로그인
 function kakaoLogin() {
 	window.Kakao.Auth.login({
-        //scope: 'profile, account_email, gender, age_range, birthday', //동의항목 페이지에 있는 개인정보 보호 테이블의 활성화된 ID값을 넣습니다.
+       // scope: 'profile, account_email, gender, age_range, birthday', //동의항목 페이지에 있는 개인정보 보호 테이블의 활성화된 ID값을 넣습니다.
         success: function(response) {
             console.log(response); // 로그인 성공하면 받아오는 데이터
             console.log(response.access_token);
-            var code=response.access_token;
-            
-            $.ajax({
-        		url : "${pageContext.request.contextPath}/user/kakaoOauth.do",
-        		type : "post",
-        		data : {code:code},
-        		success : function(result) {
-        			window.location.href= '<c:url value="/user/loginAfter.do"/>'
-        		}, // success 
-
-        		error : function(xhr, status) {
-        			alert(xhr + " : " + status);
-        		}
-        	}); 
-            
             
             window.Kakao.API.request({ // 사용자 정보 가져오기 
                 url: '/v2/user/me',
                 success: function(response) {
                     console.log(response);
-                    
-                    //access_token: "FGb2hkFAEHNVxFJcuice5gSX27zZ595-Jyh-jwo9dVsAAAF5uJQkSQ"
+                    const kakao_account=response.kakao_account;
+                    console.log(kakao_account);
 
                 },
                 fail: function(error) {

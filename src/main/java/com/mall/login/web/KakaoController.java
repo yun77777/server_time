@@ -24,6 +24,7 @@ public class KakaoController {
 
   private final static String K_CLIENT_ID = "8ec4c5e4b41aba30453d25fa8512e604";
 //  private final static String K_REDIRECT_URI = "/user/loginAfter.do";
+//  private final static String K_REDIRECT_URI = "http://localhost:8080/user/login.do";
   private final static String K_REDIRECT_URI = "http://localhost:8080/user/kakaoOauth.do";
 //  private final static String K_CLIENT_ID = "나의 앱 키 입력";
 //  private final static String K_REDIRECT_URI = "리다이렉트 주소입력";
@@ -56,7 +57,6 @@ public class KakaoController {
       final int responseCode = response.getStatusLine().getStatusCode();
 
       // JSON 형태 반환값 처리
-
       ObjectMapper mapper = new ObjectMapper();
       returnNode = mapper.readTree(response.getEntity().getContent());
 
@@ -80,7 +80,8 @@ public class KakaoController {
 
   public JsonNode getKakaoUserInfo(String autorize_code) {
 
-    final String RequestUrl = "https://kapi.kakao.com/v1/user/me";
+    final String RequestUrl = "https://kapi.kakao.com/v2/user/me";
+//    final String RequestUrl = "https://kapi.kakao.com/v1/user/me"; !!!!!!!!!!!!@@@@!!@@!!!@!@#!#
     //String CLIENT_ID = K_CLIENT_ID; // REST API KEY
     //String REDIRECT_URI = K_REDIRECT_URI; // 리다이렉트 URI
     //String code = autorize_code; // 로그인 과정중 얻은 토큰 값

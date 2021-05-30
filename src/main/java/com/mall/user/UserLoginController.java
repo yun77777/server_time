@@ -1,6 +1,7 @@
 package com.mall.user;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -48,19 +49,39 @@ public class UserLoginController {
 	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 	// 로그인 페이지
-	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
-	public String loginK(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) {
-
+	@RequestMapping(value="/login")
+	public String login( HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) {
 		String kakaoUrl = kakaoLogin.getAuthorizationUrl(session);
-
-		/* 생성한 인증 URL을 View로 전달 */
 		model.addAttribute("kakao_url", kakaoUrl);
-//		if(kakaoUrl!=null)
-//			return kakaoUrl;
-//		return "redirect: /user/kakaoOauth.do";
 
 		return "/user/login";
 	}
+	@RequestMapping(value="/kakaoLogin")
+	public String kakaoLogin( HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) {
+		String kakaoUrl = kakaoLogin.getAuthorizationUrl(session);
+		model.addAttribute("kakao_url", kakaoUrl);
+		
+		return "/user/login";
+	}
+//	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
+//	public String login(@RequestParam("code") String code, HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) {
+//		
+//		String kakaoUrl = kakaoLogin.getAuthorizationUrl(session);
+//		String access_Token = kakaoLogin.getAccessToken(code);
+//		System.out.println("controller access_token : " + access_Token);
+//		JsonNode userInfo = kakaoLogin.getKakaoUserInfo(access_Token);
+//		System.out.println("login Controller : " + userInfo);
+//		
+//		//    클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
+//		if (userInfo.get("email") != null) {
+//			session.setAttribute("userId", userInfo.get("email"));
+//			session.setAttribute("access_Token", access_Token);
+//		}
+//		/* 생성한 인증 URL을 View로 전달 */
+//		model.addAttribute("kakao_url", kakaoUrl);
+//		
+//		return "/user/login";
+//	}
 	
 	@RequestMapping(value = "/loginAfter.do", method = RequestMethod.GET)
 	public String loginAfter(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) {
@@ -75,27 +96,32 @@ public class UserLoginController {
 	 * @return String
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/kakaoOauth.do")
+	
+	
+
+	@RequestMapping(value = "/kakaoOauth.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String getKakaoSignIn(ModelMap model, @RequestParam("code") String code, HttpSession session)
 			throws Exception {
-
+System.err.println("code:"+code);
 		JsonNode userInfo = kakaoLogin.getKakaoUserInfo(code);
-
+System.err.println("userInfo:"+userInfo);//@@@v2@@@
+		
 		System.out.println(userInfo);
 
 		String id = userInfo.get("id").toString();
-		String email = userInfo.get("kaccount_email").toString();
-		String image = userInfo.get("properties").get("profile_image").toString();
+//		String email = userInfo.get("kaccount_email").toString();
+//		String image = userInfo.get("properties").get("profile_image").toString();
 		String nickname = userInfo.get("properties").get("nickname").toString();
 
-		System.out.println(id + email);
+//		System.out.println(id + email);
 
 		model.addAttribute("k_userInfo", userInfo);
 		model.addAttribute("id", id);
-		model.addAttribute("email", email);
+//		model.addAttribute("email", email);
 		model.addAttribute("nickname", nickname);
-		model.addAttribute("image", image);
-
+//		model.addAttribute("image", image);
+		
+//		return "redirect:/";
 		return "/user/afterLogin";
 	}
 

@@ -36,6 +36,7 @@
                        </li>
 				    </c:if>
                      <c:if test="${empty member}">
+                        <li class="nav-item"><a class="nav-link" href="https://kauth.kakao.com/oauth/authorize?client_id=8ec4c5e4b41aba30453d25fa8512e604&redirect_uri=http://localhost:8080/user/kakaoOauth.do&response_type=code">Kakao</a></li>
                         <li class="nav-item"><a class="nav-link" href="/user/login.do">sign In</a></li>
                         <li class="nav-item"><a class="nav-link" href="/signUp.do">Sign Up</a></li>
 				    </c:if>
