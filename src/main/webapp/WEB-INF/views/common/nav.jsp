@@ -44,10 +44,10 @@
                    </div>
                </li>
 </c:if>
-             <c:if test="${empty member}">
-                <li class="nav-item"><a class="nav-link" href="/user/login.do">sign In</a></li>
-                <li class="nav-item"><a class="nav-link" href="/signUp.do">Sign Up</a></li>
-</c:if>
+<%-- <c:if test="${empty member}">
+  <li class="nav-item"><a class="nav-link" href="/user/login.do">sign In</a></li>
+  <li class="nav-item"><a class="nav-link" href="/signUp.do">Sign Up</a></li>
+</c:if> --%>
 
 <!-- manage -->
             <c:if test="${not empty member.MNG_DIV and member.MNG_DIV eq 'Y'}">

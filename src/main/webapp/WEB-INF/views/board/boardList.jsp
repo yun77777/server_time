@@ -15,16 +15,18 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <!-- Font Awesome icons (free version)-->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+
 <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"
 	crossorigin="anonymous"></script>
 	
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<!-- Bootstrap core JS-->
 <!-- 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
- -->	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+ -->	
+<!--  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+ -->	
 	<!-- Core theme JS-->
-	<script src="<c:url value='/resources/js/scripts.js'/>"></script>
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="<c:url value='/resources/css/styles.css'/>" rel="stylesheet" />
 </head>

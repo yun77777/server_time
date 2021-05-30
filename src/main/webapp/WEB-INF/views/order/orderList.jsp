@@ -31,10 +31,10 @@
 
 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
 <!-- Page Content--><section id="container">
-		<div id="container_box">
+		
 		
 			<section id="content">
-				
+				<div id="row">
 				<ul class="orderList">
 					<c:forEach items="${orderList}" var="orderList">
 					<li>
@@ -51,13 +51,18 @@
 					</li>
 					</c:forEach>
 				</ul>
-			
+				</div>
+				<div id="row">
+				<c:if test="${empty orderList}">
+					<p><span>주문내역이 없습니다.</span></p>
+				</c:if>
+				</div>
 			</section>
 			
 			<!-- <aside id="aside">
 			</aside> -->
 			
-		</div>
+		
 	</section>
         
 
