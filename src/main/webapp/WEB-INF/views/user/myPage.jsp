@@ -127,7 +127,6 @@
 					</div>
 				</div>
 			</form>
-			<button class="btn btn-primary" onclick="fn_list()" type="button">Go to the list</button>
 			<button class="btn btn-primary" onclick="fn_update()" type="submit">Update</button>
 			<button class="btn btn-primary" onclick="" type="submit">Delete</button>
 		</div>

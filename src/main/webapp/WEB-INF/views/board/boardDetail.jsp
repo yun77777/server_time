@@ -66,18 +66,23 @@
                             </div>
                             <div class="control-group form-group">
                                 <div class="controls">
-                                    <label>files:</label>
+                                    <label>file:</label>
                                      <input class="form-control" id="file" name="file" type="text"  value="${detail.file}" required data-validation-required-message="Please enter your email address." />
                                 </div>
                             </div>
                             <div class="control-group form-group">
                                 <div class="controls">
-                      				<%@ include file="/WEB-INF/views/common/smartEditor.jsp"%>
-                                </div>
+                                	<textarea rows="5" cols="50" id="content" name="content" class="form-control">${detail.content}</textarea>
+<%--                       				<%@ include file="/WEB-INF/views/common/smartEditor.jsp"%>
+--%>                            </div>
                                 
                                 
                             </div>
                             <div id="success"></div>
+                            
+                            <div class="inputArea">
+ 
+			</div>
                             
                             <!-- For success/fail messages-->
                         	<button class="btn btn-primary" id="submit" onclick="" type="button">Save</button>
@@ -112,6 +117,8 @@
 </body>
 
 <script>
+
+
 function fn_list(no) {
 	//$('#currentPageNo').val(no);
 	window.location='<c:url value="/boardList.do"/>';

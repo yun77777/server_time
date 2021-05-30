@@ -68,9 +68,41 @@
 						</div>
 						<div class="control-group form-group">
 							<div class="controls">
-								<label>files:</label> <input class="form-control" id="file"
+								<label>file:</label> <input class="form-control" id="file"
 									name="file" type="file" required
 									data-validation-required-message="Please enter your email address." />
+				<div class="inputArea">
+					<label for="gdsImg">이미지</label>
+					<input type="file" id="gdsImg" name="file_0" class="form-control"/>
+					<div class="select_img"><img src="" /></div>
+				</div>
+				<div id="fileDiv"></div>
+				<script>
+					$("#gdsImg").change(function(){
+						if(this.files && this.files[0]) {
+							var reader = new FileReader;
+							reader.onload = function(data) {
+								$(".select_img img").attr("src", data.target.result).width(500);								
+							}
+							reader.readAsDataURL(this.files[0]);
+						}
+					});
+				</script>
+			
+			
+		</div>
+	</section>
+	<!-- //@@@ -->
+
+ 		 
+            <p>
+                <!-- <input type="file" id="file" name="file_0"> -->
+                <a href="#this" class="btn" id="delete" name="delete">삭제</a>
+            </p>
+        
+         
+        <br/><br/>
+        <a href="#this" class="btn" id="addFile">파일 추가</a>
 							</div>
 						</div>
 						<%-- <div class="control-group form-group">
@@ -84,8 +116,9 @@
 						</div> --%>
 						
 						<!-- SmartEditor2  -->
-						<%@ include file="/WEB-INF/views/common/smartEditor.jsp"%>
-						
+<%-- 						<%@ include file="/WEB-INF/views/common/smartEditor.jsp"%>
+ --%>						
+                        <textarea rows="5" cols="50" id="content" name="content" class="form-control">${detail.content}</textarea>
 						<div id="success"></div>
 						<!-- For success/fail messages-->
                         <button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="button">Go to the list</button>
@@ -108,6 +141,32 @@
 </body>
 
 <script>
+var gfv_count = 1;
+$(document).ready(function(){
+    $("#addFile").on("click", function(e){ //파일 추가 버튼
+        e.preventDefault();
+        fn_addFile();
+    });
+     
+    $("a[name='delete']").on("click", function(e){ //삭제 버튼
+        e.preventDefault();
+        fn_deleteFile($(this));
+    });
+});
+
+function fn_addFile(){
+    var str = "<p><input type='file' name='file_"+(gfv_count++)+"'><a href='#this' class='btn' name='delete'>삭제</a></p>";
+    $("#fileDiv").append(str);
+    $("a[name='delete']").on("click", function(e){ //삭제 버튼
+        e.preventDefault();
+        fn_deleteFile($(this));
+    });
+}
+ 
+function fn_deleteFile(obj){
+    obj.parent().remove();
+}
+
 function fn_list(no) {
 	//$('#currentPageNo').val(no);
 	window.location='<c:url value="/boardList.do"/>';
