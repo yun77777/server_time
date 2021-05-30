@@ -28,7 +28,7 @@ public class loginServiceImpl implements loginService {
 			HttpServletRequest request) throws Exception {
 		System.err.println("$$$$$$$$$:" + paramMap);
 		loginMapper.insertMember(paramMap);
-		loginMapper.insertMemberHis(paramMap);
+//		loginMapper.insertMemberHis(paramMap);
 	}
 
 	@Override

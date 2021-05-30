@@ -26,19 +26,33 @@
 <link href="<c:url value='/resources/css/styles.css'/>" rel="stylesheet" />
 </head>
 <body class="hold-transition login-page">
+<%@ include file="/WEB-INF/views/common/nav.jsp"%>
+
 <div class="login-box">
-    <div class="login-logo">
+    <%-- <div class="login-logo">
         <a href="${path}/">
-            <b>DoubleS</b>&nbsp MVC-BOARD
+            <b>userInfo</b> ${userInfo}
         </a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
     <c:if test="${not empty login}">
-    	<p class="login-box-msg">member ${login.ID} ${redirect_uri }login successfully</p>
+    	<p class="login-box-msg">member ${login.ID} login successfully</p>
     </c:if>
 		<form id="loginForm" method="post" enctype="multipart/form-data">
 	</form>
+	 --%>
+	
+	
+	
+      <b>userInfo</b> ${userInfo}<br>
+      <b>id</b> ${id}<br>
+      <b>nickname</b> ${nickname}<br>
+	
+	<hr>
+	
+	
+	
     </div>
     <!-- /.login-box-body -->
 </div>
@@ -50,36 +64,13 @@
 	<!-- Core theme JS-->
 	<script src="<c:url value='/resources/js/scripts.js'/>"></script>
 	
+	
+		<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+	
 </body>
 
 
 <script>
 
-    var msg = "${msg}";
-    if (msg === "REGISTERED") {
-        alert("회원가입이 완료되었습니다. 로그인해주세요~");
-    } else if (msg == "FAILURE") {
-        alert("아이디와 비밀번호를 확인해주세요.");
-    }
-
-    $(function () {
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass: 'iradio_square-blue',
-            increaseArea: '20%' // optional
-        });
-    });
-    
-    function fn_sign_in() {
-    	//var formData = $('#boardForm').serialize();
-    	alert('f');
-    	alert($("#id").val());
-    	$('#loginForm').attr({
-    		action : '<c:url value="/user/loginPost.do"/>',
-    		target : '_self'
-    	}).submit();
-    }
-
-    
 </script>
 </html>

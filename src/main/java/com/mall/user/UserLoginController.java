@@ -22,27 +22,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.mall.login.service.loginService;
 import com.mall.login.web.KakaoController;
-import com.mall.login.web.KakaoLoginBO;
-import com.mall.login.web.NaverLoginBO;
 
 @Controller
 @RequestMapping("/user")
 public class UserLoginController {
 	@Resource(name = "UserService")
 	private UserService userService;
-
+	
+	@Resource(name = "loginService")
+	private loginService loginService;
+	
 	@Inject
 	public UserLoginController(UserService userService) {
 		this.userService = userService;
 	}
 
-	@Autowired
-	NaverLoginBO naverLoginBO;
-
-	@Autowired
-	KakaoLoginBO kakaoLoginBO;
 
 	private KakaoController kakaoLogin=new KakaoController();
 
@@ -50,10 +46,12 @@ public class UserLoginController {
 
 	// 로그인 페이지
 	@RequestMapping(value="/login")
-	public String login( HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) {
+	public String login( @RequestParam Map<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) {
 		String kakaoUrl = kakaoLogin.getAuthorizationUrl(session);
 		model.addAttribute("kakao_url", kakaoUrl);
-
+		System.err.println("로그인:"+paramMap.get("userInfo"));
+		if(paramMap.get("userInfo")!=null)
+			return "/test";
 		return "/user/login";
 	}
 	@RequestMapping(value="/kakaoLogin")
@@ -63,40 +61,6 @@ public class UserLoginController {
 		
 		return "/user/login";
 	}
-//	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
-//	public String login(@RequestParam("code") String code, HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) {
-//		
-//		String kakaoUrl = kakaoLogin.getAuthorizationUrl(session);
-//		String access_Token = kakaoLogin.getAccessToken(code);
-//		System.out.println("controller access_token : " + access_Token);
-//		JsonNode userInfo = kakaoLogin.getKakaoUserInfo(access_Token);
-//		System.out.println("login Controller : " + userInfo);
-//		
-//		//    클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
-//		if (userInfo.get("email") != null) {
-//			session.setAttribute("userId", userInfo.get("email"));
-//			session.setAttribute("access_Token", access_Token);
-//		}
-//		/* 생성한 인증 URL을 View로 전달 */
-//		model.addAttribute("kakao_url", kakaoUrl);
-//		
-//		return "/user/login";
-//	}
-	
-	@RequestMapping(value = "/loginAfter.do", method = RequestMethod.GET)
-	public String loginAfter(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) {
-
-
-		return "/user/loginAfter.do";
-//		return "redirect: /user/loginAfter.do";
-	}
-	/**
-	 * 카카오 로그인 콜백
-	 *
-	 * @return String
-	 * @throws Exception
-	 */
-	
 	
 
 	@RequestMapping(value = "/kakaoOauth.do", method = { RequestMethod.GET, RequestMethod.POST })
@@ -121,111 +85,28 @@ System.err.println("userInfo:"+userInfo);//@@@v2@@@
 		model.addAttribute("nickname", nickname);
 //		model.addAttribute("image", image);
 		
-//		return "redirect:/";
-		return "/user/afterLogin";
+//		return "redirect:/"; //x
+		
+		// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+		Map<String, Object> paramMap=new HashMap<String, Object>();
+		paramMap.put("ID",id);
+		
+			
+		
+		//신규회원일 경우 회원가입
+		//아이디 중복 아닐 경우
+		if(loginService.selectMember(id)==null)
+			return "/signUp";
+		//기존회원일 경우 로그인
+		else {
+			model.addAttribute("msg","로그인이 완료되었습니다.");
+			return "/test";
+		}
+//		return "/user/afterLogin";//ooooo
 	}
 
 	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-	// 로그인 페이지
-//	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
-//	public String login(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) {
-//		
-//
-//		String serverUrl = request.getScheme()+"://"+request.getServerName();
-//		if(request.getServerPort() != 80) {
-//			serverUrl = serverUrl + ":" + request.getServerPort();
-//		}
-//		
-//		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session, serverUrl);
-//		model.addAttribute("naverAuthUrl", naverAuthUrl);
-//		System.err.println("fmlaksfml");
-//		String kakaoAuthUrl = kakaoLoginBO.getAuthorizationUrl(session, serverUrl);
-//		model.addAttribute("kakaoAuthUrl", kakaoAuthUrl);
-//
-//
-//
-//		
-//		return "/user/login";
-//	}
-
-	// 네이버 로그인 성공시 callback
-	@RequestMapping(value = "/naverOauth2ClientCallback.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String naverOauth2ClientCallback(HttpServletRequest request, HttpServletResponse response, Model model,
-			@RequestParam String code, @RequestParam String state, HttpSession session) throws Exception {
-
-		String serverUrl = request.getScheme() + "://" + request.getServerName();
-		if (request.getServerPort() != 80) {
-			serverUrl = serverUrl + ":" + request.getServerPort();
-		}
-
-		OAuth2AccessToken oauthToken;
-		oauthToken = naverLoginBO.getAccessToken(session, code, state, serverUrl);
-		if (oauthToken == null) {
-			model.addAttribute("msg", "네이버 로그인 access 토큰 발급 오류 입니다.");
-			model.addAttribute("url", "/");
-			return "/common/redirect";
-		}
-
-		// 로그인 사용자 정보를 읽어온다
-		String apiResult = naverLoginBO.getUserProfile(oauthToken, serverUrl);
-
-		JSONParser jsonParser = new JSONParser();
-		Object obj = jsonParser.parse(apiResult);
-		JSONObject jsonObj = (JSONObject) obj;
-
-		JSONObject response_obj = (JSONObject) jsonObj.get("response");
-
-		// 프로필 조회
-		String id = (String) response_obj.get("id");
-		String gender = (String) response_obj.get("gender");
-
-		// 세션에 사용자 정보 등록
-		session.setAttribute("islogin_r", "Y");
-		session.setAttribute("id", id);
-		session.setAttribute("gender", gender);
-
-		return "redirect:/";
-	}
-
-	// 카카오 로그인 성공시 callback
-	@RequestMapping(value = "/kakaoOauth2ClientCallback.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String kakaoOauth2ClientCallback(HttpServletRequest request, HttpServletResponse response, Model model,
-			@RequestParam String code, @RequestParam String state, HttpSession session) throws Exception {
-
-		String serverUrl = request.getScheme() + "://" + request.getServerName();
-		if (request.getServerPort() != 80) {
-			serverUrl = serverUrl + ":" + request.getServerPort();
-		}
-
-		OAuth2AccessToken oauthToken;
-		oauthToken = kakaoLoginBO.getAccessToken(session, code, state, serverUrl);
-		if (oauthToken == null) {
-			model.addAttribute("msg", "카카오 로그인 access 토큰 발급 오류 입니다.");
-			model.addAttribute("url", "/");
-			return "/common/redirect";
-		}
-
-		// 로그인 사용자 정보를 읽어온다
-		String apiResult = kakaoLoginBO.getUserProfile(oauthToken, serverUrl);
-
-		JSONParser jsonParser = new JSONParser();
-		Object obj = jsonParser.parse(apiResult);
-		JSONObject jsonObj = (JSONObject) obj;
-
-		JSONObject response_obj = (JSONObject) jsonObj.get("kakao_account");
-
-		// 프로필 조회
-		String id = (String) response_obj.get("id");
-		String gender = (String) response_obj.get("gender");
-
-		// 세션에 사용자 정보 등록
-		session.setAttribute("islogin_r", "Y");
-		session.setAttribute("id", id);
-		session.setAttribute("gender", gender);
-
-		return "redirect:/";
-	}
 
 	// 로그아웃
 	@RequestMapping(value = "/logout.do")
@@ -235,7 +116,7 @@ System.err.println("userInfo:"+userInfo);//@@@v2@@@
 		// 세션 삭제
 		session.invalidate();
 
-		return "redirect:/";
+		return "redirect:/test.do";
 	}
 
 	// 로그인 처리

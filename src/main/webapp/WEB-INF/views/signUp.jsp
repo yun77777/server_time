@@ -42,54 +42,68 @@
 				<!-- In order to set the email address and subject line for the contact form go to the assets/mail/contact_me.php file.-->
 				<div class="row">
 					<div class="col-lg-8 mb-4">
-						<div class="control-group form-group">
-							<div class="controls">
-								<label>id:</label> <input class="form-control" id="id"
-									name="ID" type="text" required
-									data-validation-required-message="Please enter your phone number." />
-								<button type="button" onclick="fn_dp_chk()">duplication check</button>
+						<c:if test="${empty k_userInfo}">
+							<div class="control-group form-group">
+								<div class="controls">
+									<label>id:</label> <input class="form-control" id="id"
+										name="ID" type="text" required
+										data-validation-required-message="Please enter your phone number." />
+									<button type="button" onclick="fn_dp_chk()">duplication check</button>
+								</div>
 							</div>
-						</div>
-						<div class="control-group form-group">
-							<div class="controls">
-								<label>password:</label> <input class="form-control" id="pw"
-									name="PW" type="text" required
-									data-validation-required-message="Please enter your email address." />
+							<div class="control-group form-group">
+								<div class="controls">
+									<label>password:</label> <input class="form-control" id="pw"
+										name="PW" type="text" required
+										data-validation-required-message="Please enter your email address." />
+								</div>
+								<div class="controls">
+									<label>password check:</label> <input class="form-control" id="pwChk"
+										name="pwChk" type="text" required
+										data-validation-required-message="Please enter your email address." />
+								</div>
 							</div>
-							<div class="controls">
-								<label>password check:</label> <input class="form-control" id="pwChk"
-									name="pwChk" type="text" required
-									data-validation-required-message="Please enter your email address." />
-							</div>
-						</div>
-						<div class="control-group form-group">
+						<!-- <div class="control-group form-group">
 							<div class="controls">
 								<label>name:</label> <input class="form-control" id="name"
 									name="NAME" type="text" required
 									data-validation-required-message="Please enter your email address." />
 							</div>
-						</div>
-						<div class="control-group form-group">
-							<div class="controls">
-								<label>address:</label> 
-								<input type="hidden" id="wholeAddress" name="ADDRESS">
-								<input class="form-control" id="postalCode"
-									name="postalCode" type="text" required
-									data-validation-required-message="Please enter your email address." />
-									<button type="button" onclick="fn_dp_chk()">postal code check</button>
-								<input class="form-control" id="address"
-									name="address" type="text" required
-									data-validation-required-message="Please enter your email address." />
-								<input class="form-control" id="addressDetail"
-									name="addressDetail" type="text" required
-									data-validation-required-message="Please enter your email address." />
+						</div> -->
+							<div class="control-group form-group">
+								<div class="controls">
+									<label>address:</label> 
+									<input type="hidden" id="wholeAddress" name="ADDRESS">
+									<input class="form-control" id="postalCode"
+										name="postalCode" type="text" required
+										data-validation-required-message="Please enter your email address." />
+										<button type="button" onclick="fn_dp_chk()">postal code check</button>
+									<input class="form-control" id="address"
+										name="address" type="text" required
+										data-validation-required-message="Please enter your email address." />
+									<input class="form-control" id="addressDetail"
+										name="addressDetail" type="text" required
+										data-validation-required-message="Please enter your email address." />
+								</div>
 							</div>
-						</div>
-						<div class="control-group form-group">
+							<div class="control-group form-group">
 							<div class="controls">
 								<label>contact:</label> 
 								<input class="form-control" id="contact"
 									name="CONTACT" type="text" required
+									data-validation-required-message="Please enter your email address." />
+							</div>
+						</div>
+					</c:if>
+<input type="hidden" name="userInfo" value="${k_userInfo}">						
+<input type="hidden" name="id" value="${id}">						
+<input type="hidden" name="nickname" value="${nickname}">	
+
+
+						<div class="control-group form-group">
+							<div class="controls">
+								<label>name:</label> <input class="form-control" id="name"
+									name="NAME" type="text" required
 									data-validation-required-message="Please enter your email address." />
 							</div>
 						</div>
@@ -107,16 +121,19 @@
 									data-validation-required-message="Please enter your email address." />
 							</div>
 						</div>
+						
+						
 						<div id="success"></div>
 						<!-- For success/fail messages-->
-                        <button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="button">Go to the list</button>
-						<button class="btn btn-primary" id="sendMessageButton" onclick="fn_sign_up()" type="button">SignUp</button>
-						<button class="btn btn-primary" onclick="fn_sign_up2()" id="signIn" type="submit">Sign Up2</button>
-						
+  
+<!-- 						<button class="btn btn-primary" onclick="fn_sign_up2()" id="signIn" type="submit">Sign Up2</button>
+ -->						
 <!-- 						<button class="btn btn-primary" onclick="fn_insert()" id="submit" type="button">submit</button> -->
 					</div>
 				</div>
 			</form>
+			                      <button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="button">Go to the list</button>
+						<button class="btn btn-primary" id="sendMessageButton" onclick="fn_sign_up()" type="button">SignUp</button>
 		</div>
 	</section>
 
@@ -147,7 +164,8 @@ function fn_sign_up() {
 	$("#wholeAddress").val(wholeAddress);
 	var formData = new FormData($("#boardForm")[0]);
 
-	alert(wholeAddress);
+	//alert($(input[name='nickname']).val());
+	
 	$.ajax({
 		url : "${pageContext.request.contextPath}/insertMember.do",
 		type : "post",
@@ -156,8 +174,19 @@ function fn_sign_up() {
 		processData : false,
 		contentType : false,
 		success : function(result) {
-			alert('success');
-			fn_list();
+			if(result.msg!=null)
+				alert(result.msg);
+			else{
+				alert('회원가입이 완료되었습니다.');
+				
+				$('#boardForm').attr({
+					action : '<c:url value="/user/login.do"/>',
+					target : '_self'
+				}).submit();
+				
+/* 				window.location='<c:url value="/user/login.do"/>';
+ */
+			}
 		}, // success 
 
 		error : function(xhr, status) {

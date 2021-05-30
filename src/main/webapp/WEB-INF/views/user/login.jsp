@@ -81,11 +81,20 @@
 			</a>
 		</div>  --%>
 
+  <!--  <li class="nav-item">
+   <a class="nav-link" href="https://kauth.kakao.com/oauth/authorize?client_id=8ec4c5e4b41aba30453d25fa8512e604&redirect_uri=http://localhost:8080/user/kakaoOauth.do&response_type=code">Kakao</a>
+   </li> -->
 		
 		
 	<c:if test="${userId eq null}">
 		<a href="${kakao_url}">${kakao_url}</a><br>
 		<ul>
+			<li>
+		      <a class="nav-link" href="https://kauth.kakao.com/oauth/authorize?client_id=8ec4c5e4b41aba30453d25fa8512e604&redirect_uri=http://localhost:8080/user/kakaoOauth.do&response_type=code">
+		          <span><img height="53" src="<c:url value='/resources/img/btn_kakao.png'/>"></span>
+		      </a>
+			</li>
+			
 			<li onclick="kakaoLogin();">
 		      <a href="javascript:void(0)">
 		          <span><img height="53" src="<c:url value='/resources/img/btn_kakao.png'/>"></span>
@@ -216,6 +225,10 @@ function kakaoLogout() {
         },
       })
       Kakao.Auth.setAccessToken(undefined)
+    } else{
+    	//window.location.href= '<c:url value="/user/logout.do"/>';
+
+    	
     }
   }  
 </script>

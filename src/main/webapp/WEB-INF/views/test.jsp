@@ -72,48 +72,6 @@
 
 <script>
 $(document).ready(function() {
-	
-	//list.push(data);
-	
-	
-	
-	/* var list=new Array();
-	var key;
-	var value;
-	var data={};
-	var file='';
-	
-	let movies = [{src:""}];
-	movies.pop();
-	$('.key').each(function(){
-		console.log($(this).val()+": "+$(this).next().val());
-		key=$(this).val();
-		value=$(this).next().val();
-		data[key]=value;//key값 동적으로 할당
-		
-		if(key=="representative_file"){
-			if(value!="undefined")
-				file=value;
-		}
-		var image="<c:url value='/img/"+file+"'/>"; //상품 상세 이미지
-		
-		movies.push({"src":image});
-	
-	});
-	
-	list.push(data); 
-	
-	$.each(list, function(index,value){
-		console.log('element',index,value);
-	});
-	
-	
-	
-	$.each(movies, function(index,value){
-		console.log('element',index,value);
-	}); */
-	
-	
 	/* Demo purposes only */
 	$(".hover").mouseleave(
 	  function () {
@@ -278,12 +236,6 @@ function fn_detail_pop(B_NO,B_TYPE){
 					if(result == 1) {
 					   	location.replace("cartList.do");
 
-					/* 	$('#orderForm').attr({
-							action : '<c:url value="/orderProcess.do"/>',
-							target : '_self'
-						}).submit(); 
-						 */
-						//$(".numBox").val("1");
 					} else {
 						alert("회원만 사용할 수 있습니다.")
 						$(".numBox").val("1");
@@ -299,38 +251,10 @@ function fn_detail_pop(B_NO,B_TYPE){
 			alert('finished');
 			
 			
-			
-			
 		   	//location.replace("boardList.do");
 			
 			});
 		
-		
-	/* 	$("#create").on("click", function(event){ 
-			console.log("click");
-			alert('x');
-			});
- */
-
-		
-			//$('.modal-body').append(result+'ㅋㅌㅊㅋㅌㅊㅋㅌㅊㅋㅌㅊ'+result.detail.gdsPrice);
-			//$('.modal-body').append(obj+result+JSON.parse(result).detail.gdsPrice);
-			//alert(result.detail);
-			var gdsNum=JSON.parse(result).detail.gdsNum;
-			var gdsPrice=JSON.parse(result).detail.gdsPrice;
-			var gdsDes=JSON.parse(result).detail.gdsDes;
-			var gdsNum=JSON.parse(result).detail.gdsNum;
-			var gdsStock=JSON.parse(result).detail.gdsStock;
-			var gdsName=JSON.parse(result).detail.gdsName;
-			var cateCode=JSON.parse(result).detail.cateCode; 
-			var representativ_file=JSON.parse(result).detail.representative_file;
-
-			//alert("result:"+result.detail.gdsPrice);
-			
-			//alert("result:"+JSON.parse(result).detail.gdsPrice);
-			//alert("result:"+JSON.parse(result).imgList);
-			
-			//window.location='<c:url value="/test.do"/>';
 		}, // success 
 
 		error : function(xhr, status) {

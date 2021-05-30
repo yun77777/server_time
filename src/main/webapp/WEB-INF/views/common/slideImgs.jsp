@@ -9,18 +9,7 @@
 
 
 
-
-
-
-
-
-
-
-
   <link href="<c:url value='/resources/css/style.css'/>" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600&display=swap"
-    rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@1,200&display=swap" rel="stylesheet">
 
     <!--PELOCULAS RECOMENDADS-->
 <div class="peliculas-recomendadas contenedor">
@@ -84,7 +73,8 @@
               <a href="#">
 				<img src="<c:url value='/img/${result.representative_file}'/>" alt="no image" />              </a>
             </div> --%>
-  <figure class="thumbnail pelicula snip1384">
+  <figure class="thumbnail snip1384">
+<!--   <figure class="thumbnail pelicula snip1384"> -->
 		 <img class="list_img" src="<c:url value='/img/${result.representative_file}'/>" alt="no image" />
 		 <figcaption>
 		   <h3>${result.gdsName}</h3>

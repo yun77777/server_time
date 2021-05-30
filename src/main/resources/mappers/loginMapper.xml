@@ -14,6 +14,7 @@
 		,PHONE
 		,EMAIL
 		,INPUT_DT
+		,PLATFORM_TYPE
 		)
 		values(
 		#{ID,jdbcType=VARCHAR}
@@ -24,6 +25,7 @@
 		,#{PHONE,jdbcType=VARCHAR}
 		,#{EMAIL,jdbcType=VARCHAR}
 		,NOW()
+		,#{PLATFORM_TYPE,jdbcType=VARCHAR}
 		)
 	</insert>
 	

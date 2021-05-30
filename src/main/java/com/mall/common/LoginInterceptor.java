@@ -24,22 +24,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	private loginMapper loginMapper;
 	
-//	@Override
-//	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-//			ModelAndView modelAndView) throws Exception {
-//
-//		HttpSession httpSession = request.getSession();
-//		ModelMap modelMap = modelAndView.getModelMap();
-//		Object userVO = modelMap.get("user");
-//
-//		if (userVO != null) {
-//			logger.info("new login success");
-//			httpSession.setAttribute(LOGIN, userVO);
-//			// response.sendRedirect("/");
-//			Object destination = httpSession.getAttribute("destination");
-//			response.sendRedirect(destination != null ? (String) destination : "/test.do");
-//		}
-//	}
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 
