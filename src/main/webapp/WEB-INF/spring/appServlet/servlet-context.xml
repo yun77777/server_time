@@ -40,8 +40,8 @@
 
 	<interceptors>
 		<interceptor>
-			<mapping path="/user/kakaoOauth.do" />
 			<mapping path="/user/loginPost.do" />
+			<mapping path="/user/kakaoOauth.do" />
 <!-- 			<mapping path="/*/*.do" /> -->
 <!-- 			        <mvc:mapping path="/user/loginPost"/>
  -->			

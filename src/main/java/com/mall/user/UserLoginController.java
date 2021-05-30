@@ -81,6 +81,7 @@ System.err.println("userInfo:"+userInfo);//@@@v2@@@
 
 		model.addAttribute("k_userInfo", userInfo);
 		model.addAttribute("id", id);
+		model.addAttribute("ID", id);
 //		model.addAttribute("email", email);
 		model.addAttribute("nickname", nickname);
 //		model.addAttribute("image", image);

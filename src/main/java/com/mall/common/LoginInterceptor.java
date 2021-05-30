@@ -30,7 +30,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	    HttpSession httpSession = request.getSession();
 	    ModelMap modelMap = modelAndView.getModelMap();
 	    Object userVO =  modelMap.get("ID");
-
+	    System.err.println("userVOOOOOOO:"+userVO);
+	    System.err.println("k_userInfo:"+modelMap.get("k_userInfo"));
 	    if (userVO != null) {
 	        logger.info("new login success");
 	        httpSession.setAttribute(LOGIN, userVO);
