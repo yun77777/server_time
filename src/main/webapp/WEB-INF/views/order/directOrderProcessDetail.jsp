@@ -36,6 +36,7 @@
 		
 			<section id="content">
 					${paramMap}
+					${cartList}
 				<ul>
 				
 					<%-- jsp상의 변수 선언 --%>

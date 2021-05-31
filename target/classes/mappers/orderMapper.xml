@@ -105,7 +105,7 @@
 <select id="orderView" parameterType="java.util.HashMap"
 		resultType="java.util.HashMap">
 		select 
-		    d.orderId, g.userId, d.gdsNum
+		    *
 		from tbl_order_details d
 		        inner join tbl_cart g
 		            on d.gdsNum = g.gdsNum

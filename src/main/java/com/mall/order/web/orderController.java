@@ -332,9 +332,11 @@ System.err.println("paramamamamammamama:"+userId);
 		
 		paramMap.put("orderId", orderService.maxOrderId());
 		paramMap.put("orderProcess","Y");
-
+		
 		List<Map<String, Object>> cartList = orderService.cartList(paramMap);
+		List<Map<String, Object>> orderView = orderService.orderView(paramMap);
 		model.addAttribute("cartList", cartList);
+		model.addAttribute("orderView", orderView);
 		model.addAttribute("paramMap",paramMap);
 		
 //		return "redirect:/order/cartList";
@@ -398,15 +400,21 @@ System.err.println("paramamamamammamama:"+userId);
 		int cartNum=0;
 		int cartStock=0;
 		
-		
+		CartListVO cart=new CartListVO();
+		cart.setGdsNum(Integer.parseInt(paramMap.get("gdsNum").toString()));
+		cart.setCartStock(Integer.parseInt(paramMap.get("cartStock").toString()));
+		cart.setUserId(paramMap.get("userId").toString());
 		
 		//카트리스트에서 선택된 내역 주문
 		//주문서 작성 후 결제 완료->주문 내역 카트리스트에서 삭제
+		paramMap.put("orderProcess","Y");
+		orderService.addCart(cart);//상세주문에 선택 상품 추가
+		orderService.updateCart(paramMap);//상세주문에 선택 상품 추가
 		orderService.orderInfo_Details(paramMap);//상세주문에 선택 상품 추가
-		
+		orderService.deleteCart(paramMap);
 		// 주문할 상품
-		paramMap.put("orderProcessDetail","Y");
-		model.addAttribute("paramMap", paramMap);
+//		paramMap.put("orderProcessDetail","Y");
+//		model.addAttribute("paramMap", paramMap);
 
 		result = 1;
 		
