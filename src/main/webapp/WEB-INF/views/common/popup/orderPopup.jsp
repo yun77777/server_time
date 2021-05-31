@@ -22,17 +22,7 @@
 								</button>
 							</div>
 							<div class="modal-body">
-								<form id="orderForm" method="post" enctype="multipart/form-data">
-									<input type="hidden" id="gdsNum" name="gdsNum" value="${detail.gdsNum}" />
-									<input type="hidden" name="ID" value="${member.ID}" />
-									<input type="hidden" id="userId" name="userId" value="${member.ID}" />
- 									<input type="hidden" id="orderProcessDetail" name="orderProcessDetail" value="Y" />
- <input type="hidden" id="gdsNum" name="gdsNum" value="${detail.gdsNum}" />
-<input type="hidden" name="gdsPrice" name="gdsPrice" value="${detail.gdsPrice}" />
-<input type="hidden" id="gdsStock" name="gdsStock" />
-<input type="hidden" id="cartStock" name="cartStock" />
 								
-								</form>
 
 					
 								<table class="table table-borderless">
@@ -68,7 +58,7 @@
 										<c:if test="${view.gdsStock != 0}">
 											<p class="cartStock">
 												<button type="button" class="plus">+</button>
-												<input type="number" id="stock" class="numBox" min="1" max="${view.gdsStock}" value="1" readonly="readonly"/>
+												<input type="number" id="stock" name="cartStock" class="numBox" min="1" max="${view.gdsStock}" value="1" readonly="readonly"/>
 												<button type="button" class="minus">-</button>
 												<input type="hidden" value="${view.gdsStock}" class="gdsStock_hidden" /> 
 											</p>

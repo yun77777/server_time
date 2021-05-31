@@ -32,7 +32,17 @@
 
 
 
-
+<form id="orderForm" method="post" enctype="multipart/form-data">
+									<input type="hidden" id="gdsNum" name="gdsNum" value="${detail.gdsNum}" />
+									<input type="hidden" name="ID" value="${member.ID}" />
+									<input type="hidden" id="userId" name="userId" value="${member.ID}" />
+ 									<input type="hidden" id="orderProcessDetail" name="orderProcessDetail" value="Y" />
+<input type="hidden" name="gdsPrice" name="gdsPrice" value="${detail.gdsPrice}" />
+<input type="hidden" id="gdsStock" name="gdsStock" />
+<input type="hidden" id="cartStock" name="cartStock" />
+<input type="hidden" id="gdsName" name="gdsName" />
+								
+								</form>
 
 <!-- <aside style="float: left; width: 20%">
 	<h3>최근글</h3>

@@ -176,11 +176,7 @@ function fn_detail_pop(B_NO,B_TYPE){
 			 
 			};
 			
-		$("#gdsName").val(detail.gdsName);
-		$("#gdsPrice").val(detail.gdsPrice);
-		$("#gdsStock").val(detail.gdsStock);
-		$("#totalPrice").val(detail.totalPrice);
-		$("#gdsDes").val(detail.gdsDes);
+	
 		
 		//상품상세설명
 		$("#gdsName").parent().parent().find('td').append(detail.gdsName);
@@ -192,6 +188,13 @@ function fn_detail_pop(B_NO,B_TYPE){
 		$("#totalPrice").parent().parent().find('td').append(detail.totalPrice);
 		//상품상세설명
 		$("#gdsDes").parent().parent().find('td').append(detail.gdsDes);
+		
+		$("#orderForm #gdsName").val(detail.gdsName);
+		$("#orderForm #gdsPrice").val(detail.gdsPrice);
+		$("#orderForm #gdsStock").val(detail.gdsStock);
+/* 		$("#gdsStock").val(detail.gdsStock); */
+		$("#orderForm #totalPrice").val(detail.totalPrice);
+		$("#orderForm #gdsDes").val(detail.gdsDes);
 		
 		//$("#gdsDes").val("새로운 값을 지정합니다.");  //텍스트 에어리어에 새로 값을 지정.
 		
@@ -221,6 +224,7 @@ function fn_detail_pop(B_NO,B_TYPE){
 			var userId = $("#userId").val();
 			var gdsName = $("#gdsName").val();
 			var gdsPrice = $("#gdsPrice").val();
+			var cartStock = $("#stock").val();
 			var gdsStock = cartStock;
 /* 			var gdsStock = $(".numBox").val(); */
 			$('#gdsStock').val(gdsStock);
@@ -229,7 +233,7 @@ function fn_detail_pop(B_NO,B_TYPE){
 					gdsNum : gdsNum,
 					gdsStock : gdsStock,
 					cartStock : cartStock,
-					gdsPrice : gdsPrice,
+					gdsName : gdsName,
 					gdsPrice : gdsPrice,
 					orderProcessDetail : 'Y',
 					userId : userId
@@ -240,7 +244,8 @@ function fn_detail_pop(B_NO,B_TYPE){
 				type : "post",
 				data : data,
 				success : function(result){
-					$('#boardForm').attr({
+					$('#orderForm').attr({
+/* 					$('#boardForm').attr({ */
 						action : '<c:url value="/directOrderProcessDetail.do"/>',
 						target : '_self'
 					}).submit(); 
