@@ -371,13 +371,15 @@ function fn_order(){
 		contentType : false,
 		success : function(result) {
 			alert('주문이 완료되었습니다.');
+		   	location.replace("/orderList2.do");
 		}, // success 
 
 		error : function(xhr, status) {
 			alert(xhr + " : " + status);
 		}
 	}); 
-			/* IMP.init('imp46639314');
+			/* 
+			IMP.init('imp46639314');
 		    IMP.request_pay({
 		        pg : 'html5_inicis',
 		        pay_method : 'card',
@@ -425,7 +427,8 @@ function fn_order(){
 		        }
 
 		        alert(msg);
-		    });	 */
+		    });	 
+		    */
 		    
 		    
 		    
