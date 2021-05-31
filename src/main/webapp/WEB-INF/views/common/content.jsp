@@ -22,136 +22,11 @@
  --%>	
 	
 	<!--@@@@@@@@@@@@ 제품 상세 팝업 모달 popup in detail -->
-		
-		<div class="modal fade bd-example-modal-lg" id="exampleModalLong"
-					tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-					aria-hidden="true">
-					<div class="modal-dialog modal-lg" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLongTitle">Item Detail</h5>
-								<button type="button" class="close" data-dismiss="modal"
-									aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body">
-								<form id="orderForm" method="post" enctype="multipart/form-data">
-									<input type="hidden" id="gdsNum" name="gdsNum" value="${detail.gdsNum}" />
-									<input type="hidden" name="ID" value="${member.ID}" />
-									<input type="hidden" id="userId" name="userId" value="${member.ID}" />
-					<%-- <input type="hidden" id="gdsNum" name="gdsNum" value="${detail.gdsNum}" />
-				<input type="hidden" name="gdsPrice" value="${detail.gdsPrice}" />
-				<input type="hidden" id="gdsStock" name="gdsStock" /> --%>
-								
-								</form>
-
-					
-								<table class="table table-borderless">
-									<thead>
-									</thead>
-									<tbody>
-										<tr>
-											<th></th>
-											<td>
-												<div class="col-md-8">
-													<img id="rpsnImg" class="card-img-top" src=""
-														alt="no image" />
-<!-- 													<img id="rpsnImg" class="card-img-top scale" src=""
-														alt="no image" /> -->
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<th>상품명</th>
-											<td><input type="hidden" id="gdsName"></td>
-										</tr>
-										<tr>
-											<th>가격</th>
-											<td><input type="hidden" id="gdsPrice"></td>
-										</tr>
-										<tr>
-											<th>재고</th>
-											<td><input type="hidden" id="gdsStock"></td>
-										</tr>
-										<tr>
-											<th>Total Price</th>
-											<td><input type="hidden" id="totalPrice"></td>
-										</tr>
-										<tr>
-											<th>gdsDes</th>
-											<td><input type="hidden" id="gdsDes"></textArea>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-
-							<div id="pp"></div>
-							
-							<button type="submit" id="create">주문</button>
-							<button type="submit" id="create2">상품상세(기존)</button>
-<!-- 							<button type="button" id="create">new</button> -->
-							 <div></div>
-
-
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary"
-									data-dismiss="modal">Close</button>
-								<button type="button" id="saveBtn" class="btn btn-primary">Save
-									changes</button>
-							</div>
-						</div>
-					</div>
-				</div>
+<%@ include file="/WEB-INF/views/common/popup/orderPopup.jsp"%> 
 	<!--// @@@@@@@@@@@@ 제품 상세 팝업 모달 popup in detail -->
 
-	<!-- </article>
-</section> -->
-
-
 	<!--@@@@@@@@@@@@ 로그인 상세 팝업 모달 popup in detail -->
-	
-	
-	<!-- <div class="text-center">
-	Button HTML (to Trigger Modal)
-	<a href="#myModal" class="trigger-btn" data-toggle="modal">Click to Open Login Modal</a>
-</div> -->
-
-<!-- Modal HTML -->
 <%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
-
-<%-- <div id="myModal" class="modal fade">
-	<div class="modal-dialog modal-login">
-		<div class="modal-content">
-			<form action="/examples/actions/confirmation.php" method="post">
-				<div class="modal-header">				
-					<h4 class="modal-title">Login</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">				
-					<div class="form-group">
-						<label>Username</label>
-						<input type="text" class="form-control" required="required">
-					</div>
-					<div class="form-group">
-						<div class="clearfix">
-							<label>Password</label>
-							<a href="#" class="pull-right text-muted"><small>Forgot?</small></a>
-						</div>
-						
-						<input type="password" class="form-control" required="required">
-					</div>
-				</div>
-				<div class="modal-footer">
-					<label class="checkbox-inline pull-left"><input type="checkbox"> Remember me</label>
-					<input type="submit" class="btn btn-primary pull-right" value="Login">
-				</div>
-			</form>
-		</div>
-	</div>
-</div> --%>
-
-	
 	<!--@@@@@@@@@@@@ 로그인 상세 팝업 모달 popup in detail -->
 
 
@@ -174,6 +49,8 @@
 
 
 <hr class="my-0" />
+
+<!-- 메인 이미지 css -->
 <style>
     body {
 		font-family: 'Varela Round', sans-serif;

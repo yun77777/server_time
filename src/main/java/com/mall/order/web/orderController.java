@@ -258,19 +258,93 @@ Map<String, Object> result = new HashMap<String, Object>();
 		return "order/cartList";
 	}
 	
-	@RequestMapping(value = "/orderProcess.do")
+	// 주문
+	@RequestMapping(value = "/orderProcessDetail.do")
 //	@RequestMapping(value = "/cartList.do", method = RequestMethod.POST)
-	public String orderProcess(@RequestParam Map<String, Object> paramMap, Model model, HttpSession session) throws Exception {
+	public String orderProcessDetail(Model model, HttpSession session, OrderVO order, OrderDetailVO orderDetail) throws Exception {
 		logger.info("order");
 		model.addAttribute("login", session.getAttribute("login"));
 		model.addAttribute("member", session.getAttribute("member"));
-
 		
-		Map<String, Object> detail = orderService.selectOrderDetail(paramMap);
+		System.err.println("ff"+session.getAttribute("login"));
+		String member = String.valueOf(session.getAttribute("login"));
+		String userId = member;
+		
+//		UserVO member = (UserVO) session.getAttribute("ID");
+//		String userId = member.getID();
+		
+		// 캘린더 호출
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR); // 연도 추출
+		String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1); // 월 추출
+		String ymd = ym + new DecimalFormat("00").format(cal.get(Calendar.DATE)); // 일 추출
+		String subNum = ""; // 랜덤 숫자를 저장할 문자열 변수
+		
+		for (int i = 1; i <= 6; i++) { // 6회 반복
+			subNum += (int) (Math.random() * 10); // 0~9까지의 숫자를 생성하여 subNum에 저장
+		}
+		
+		String orderId = ymd + "_" + subNum; // [연월일]_[랜덤숫자] 로 구성된 문자
+		
+		order.setOrderId(orderId);
+		order.setUserId(userId);
+		
+//		orderService.orderInfo(order);
+		
+		orderDetail.setOrderId(orderId);
+//		orderService.orderInfo_Details(orderDetail);
+		
+		// 주문 테이블, 주문 상세 테이블에 데이터를 전송하고, 카트 비우기
+//		orderService.cartAllDelete(userId);
+		
+		List<CartListVO> cartList = orderService.cartList(userId);
+		
+		model.addAttribute("cartList", cartList);
+		
+//		return "redirect:/order/cartList";
+		return "order/orderProcessDetail";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/orderProcess")
+	public int orderProcess( @RequestParam(value="userId") String userId, @RequestParam(value = "cartStockArr[]") List<String> cartStockArr, @RequestParam(value = "chbox[]") List<String> chArr, @RequestParam Map<String, Object> paramMap, Model model, HttpSession session) throws Exception {
+		logger.info("orderProcess cart");
+		model.addAttribute("login", session.getAttribute("login"));
+		System.err.println("paramMap@"+paramMap);
+		System.err.println("chArr@"+chArr);
+		System.err.println("cartStockArr@"+cartStockArr);
+		System.err.println("userId@"+userId);
+		
+		int result=0;
+		int cartNum=0;
+		int cartStock=0;
+		
+		paramMap.put("orderId", orderService.maxOrderId());
 
-		model.addAttribute("detail", detail);
-		model.addAttribute("paramMap",paramMap);
-		return "order/orderProcess";
+		//카트리스트에서 선택된 내역 주문
+		//주문서 작성 후 결제 완료->주문 내역 카트리스트에서 삭제
+		if(userId != null) {
+			//cartList
+			for(int i=0 ; i<chArr.size() ; i++) {
+				cartNum = Integer.parseInt(chArr.get(i).toString());
+				cartStock = Integer.parseInt(cartStockArr.get(i).toString());
+				paramMap.put("cartNum",cartNum);
+				paramMap.put("cartStock",cartStock);
+				System.err.println("@@@@@@@@@@@@@@@@@cs:"+cartStock);
+				//cartStockArr
+				orderService.updateCart(paramMap);
+				orderService.orderInfo_Details(paramMap);//상세주문에 선택 상품 추가
+				//orderService.deleteCart(paramMap);//카트에서 해당 상품 삭제
+			}
+			
+			result = 1;
+		}
+		
+		List<CartListVO> cartList = orderService.cartList(userId);
+
+		model.addAttribute("cartList", cartList);
+		model.addAttribute("paramMap", paramMap);
+		return result;
 	}
 	
 	// 주

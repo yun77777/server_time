@@ -29,6 +29,7 @@
 </c:if>
 <!--                         <li class="nav-item"><a class="nav-link" href="/about.do">About</a></li>
  -->                        <li class="nav-item"><a class="nav-link" href="/boardList.do">Board</a></li>
+ 							<li class="nav-item"><a class="nav-link" href="/cartList.do">Cart</a></li>
 <!--                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
  -->                        <li class="nav-item"><a class="nav-link" href="/chatting.do">Chat</a></li>
                 
@@ -43,7 +44,8 @@
                        <a class="dropdown-item" href="/orderList2.do">Order List</a>
                    </div>
                </li>
-</c:if>
+			</c:if>
+			
 <%-- <c:if test="${empty member}">
   <li class="nav-item"><a class="nav-link" href="/user/login.do">sign In</a></li>
   <li class="nav-item"><a class="nav-link" href="/signUp.do">Sign Up</a></li>

@@ -20,6 +20,8 @@
 <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"
 	crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<!-- API -->
+<script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
 
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="<c:url value='/resources/css/styles.css'/>" rel="stylesheet" />
@@ -36,7 +38,25 @@
 					
 				<ul>
 					<li>
+						<div class="allCheck">
+							<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck">모두 선택</label>
+							
+							<script>
+							$("#allCheck").click(function(){
+								var chk = $("#allCheck").prop("checked");
+								if(chk) {
+									$(".chBox").prop("checked", true);
+								} else {
+									$(".chBox").prop("checked", false);
+								}
+							});
+							</script>
+							
+						</div>
 						
+						<div class="delBtn">
+							<button type="submit" onclick="fn_delete()" class="selectDelete_btn">선택 삭제</button>
+						</div>
 						
 					</li>
 				
@@ -44,28 +64,103 @@
 					<c:set var="sum" value="0" />
 				<form id="deleteForm" method="post" enctype="multipart/form-data">
 				
+				
+				
+					<c:forEach items="${cartList}" var="cartList">
 					<li>
+						<div class="checkBox">
+							<input type="checkbox" name="chBox" class="chBox" data-cartNum="${cartList.cartNum}" />
+							<script>
+								$(".chBox").click(function(){
+									$("#allCheck").prop("checked", false);
+								});
+							</script>
+						</div>
 					
 						<div class="thumb">
-							<img src="<c:url value='/img/${detail.file}'/>" style="width:250px" />
-<%-- 							<img src="${detail.gdsThumbImg}" /> --%>
+							<img src="${cartList.gdsThumbImg}" />
 						</div>
 						<div class="gdsInfo">
 							<p>
-								<span>상품명</span>${detail.gdsName}<br />
-								<span>개당 가격</span><fmt:formatNumber pattern="###,###,###" value="${detail.gdsPrice}" /> 원<br />
-								<span>구입 수량</span>${paramMap.gdsStock} 개<br />
-								<span>최종 가격</span><fmt:formatNumber pattern="###,###,###" value="${detail.gdsPrice * paramMap.gdsStock}" /> 원
+                           		<img class="card-img-top" src="<c:url value='/img/${cartList.representative_file}'/>" style="width:100px" alt="no image" /><br />
+								<span>상품명</span>${cartList.gdsName}<br />
+								<span>개당 가격</span><fmt:formatNumber pattern="###,###,###" value="${cartList.gdsPrice}" /> 원<br />
+								<span>구입 수량</span>${cartList.cartStock} 개<br />
+								<span>최종 가격</span><fmt:formatNumber pattern="###,###,###" value="${cartList.gdsPrice * cartList.cartStock}" /> 원
 							</p>
 							
+							<p class="gdsStock">
+								<span>구입 수량 </span><fmt:formatNumber pattern="###,###,###" value="${cartList.cartStock}" /> EA
+							</p>
+						
+							<c:if test="${view.gdsStock != 0}">
+								<p class="cartStock">
+									<button type="button" class="plus">+</button>
+									<input type="number" id="cartStock" name="cartStock" class="numBox" min="1" max="${view.gdsStock}" value="${cartList.cartStock}" readonly="readonly"/>
+									<button type="button" class="minus">-</button>
+									<input type="hidden" value="${view.gdsStock}" class="gdsStock_hidden" /> 
+								</p>
+								<p class="addToCart">
+									<button type="button" class="addCart_btn">카트에 담기</button>
+								</p>
+							</c:if>
+							<c:if test="${view.gdsStock == 0}">
+								<p>상품 수량이 부족합니다.</p>						
+							</c:if>
+							
+							
+							
+							<div class="delete">
+								<button type="button" class="delete_${cartList.cartNum}_btn" data-cartNum="${cartList.cartNum}">삭제</button>
+								
+								<script>
+									$(".delete_${cartList.cartNum}_btn").click(function(){
+										var confirm_val = confirm("정말 삭제하시겠습니까?");
+										var userId=$('#userId').val();
+										
+										if(confirm_val) {
+											var checkArr = new Array();
+											
+											checkArr.push($(this).attr("data-cartNum"));
+																						
+											$.ajax({
+												url : "/deleteCart.do",
+												type : "post",
+												data : { chbox : checkArr , userId : userId},
+												success : function(result){
+													if(result == 1) {												
+														location.href = "/cartList.do";
+													} else {
+														alert("삭제 실패");
+													}
+												}
+											});
+										}	
+									});
+								</script>
+							</div>
 						</div>			
 					</li>
 					
 					<%-- 반복할 때마다 sum에 상품 가격(gdsPrice)*상품 갯수(cartStock)만큼을 더함 --%>
-					<c:set var="sum" value="${sum + (detail.gdsPrice * paramMap.gdsStock)}" />
+					<c:set var="sum" value="${sum + (cartList.gdsPrice * cartList.cartStock)}" />
 					
+					</c:forEach>
 				</form>
 				</ul>
+			
+			<div class="rorderOpne">
+			<button type="button" class="orderBtn" onclick="fn_order()">주문확인</button>
+				<script>
+					$(".orderBtn").click(function(){
+						$(".orderChk").slideDown();  // $(".orderInfo")를 나타내고
+						//$(".orderOpne_bnt").slideUp();  // $(".orderOpne_bnt")를 숨김
+					});						
+				</script>
+				
+			</div>
+			
+			<div class="orderChk"></div>
 			
 			<div class="listResult">
 				<div class="sum">
@@ -87,7 +182,7 @@
 			<div class="orderInfo">
 <%-- 				<form role="form" method="post" autocomplete="off">
  --%>										
-			<form id="orderForm" method="post" enctype="multipart/form-data">
+			<form id="boardForm" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="amount" value="${sum}" />
 					<input type="hidden" id="userId" name="userId" value="${member.ID}" />
 							
@@ -245,6 +340,7 @@
 			
 			
 		</div>
+		
 	</section>        
 
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
@@ -262,18 +358,184 @@ function fn_list(no) {
 	//$('#currentPageNo').val(no);
 	window.location='<c:url value="/boardList.do"/>';
 	
-	/* $('#orderForm').attr({
+	/* $('#boardForm').attr({
 		action : '<c:url value="/boardList.do"/>',
 		target : '_self'
 	}).submit(); */
 };
 
-
-
-function fn_order(){
-	alert($('#orderForm #orderRec').val());
+function fn_detail(no){
+	//var  formData= $('#boardForm').serialize();
+	$('#boardForm #no').attr('disabled',false);
+	$('#boardForm #no').val(no);
 	
-	var formData = new FormData($("#orderForm")[0]);
+	$('#boardForm').attr({
+		action : '<c:url value="/boardDetail.do" />',
+		target : '_self'
+	}).submit();
+
+}
+
+function fn_btn(no){
+	var  formData= $('#boardForm').serialize();
+    $.ajax({
+        cache : false,
+        url : "${pageContext.request.contextPath}/boardDetail.do",
+        type : 'POST', 
+        data : formData, 
+        success : function(data) {
+        }, // success 
+
+        error : function(xhr, status) {
+            alert(xhr + " : " + status);
+        }
+    }); // $.ajax */
+
+}
+//orderChkBtn
+function fn_order_check() {
+	$(".orderChk *").remove();
+	var checkArr = new Array();
+	var cartStockArr = new Array();
+	//var formData = new FormData($("#deleteForm")[0]);
+	var userId=$('#userId').val();
+
+	// 체크된 체크박스의 갯수만큼 반복
+	$("input[class='chBox']:checked").each(function(){
+		checkArr.push($(this).attr("data-cartNum"));  // 배열에 데이터 삽입
+		alert($(this).parent().parent().find('.cartStock').find('#cartStock').val());	
+		cartStockArr.push($(this).parent().parent().find('.cartStock').find('#cartStock').val());  // 배열에 데이터 삽입
+	});
+	
+	
+	alert(checkArr);
+	if(checkArr.length==0){
+		alert('상품 선택 후 주문하세요');
+	} else{
+		//orderChk
+		var str = "<p>"+checkArr+"</p>";
+	    $(".orderChk").append(str);
+		
+		
+		$.ajax({
+			url : "/orderChk.do",
+			type : "post",
+			//processData : false,
+			data : { chbox : checkArr , userId : userId , cartStockArr : cartStockArr},
+			success : function(result){
+				
+				if(result == 1) {						
+					alert("chk 완료");
+					location.href = "/orderList2.do";
+				} else {
+					alert("chk 실패");
+				}
+			}
+		});
+	}
+
+}
+function fn_insert() {
+	//var formData = $('#boardForm').serialize();
+	$('#boardForm #no').attr('disabled',false);
+	var formData = new FormData($("#boardForm")[0]);
+	$.ajax({
+		url : "${pageContext.request.contextPath}/insertBoard.do",
+		type : "post",
+		enctype: 'multipart/form-data',
+		data : formData,
+		processData : false,
+		contentType : false,
+		success : function(result) {
+			alert('success');
+			fn_list();
+		}, // success 
+
+		error : function(xhr, status) {
+			alert(xhr + " : " + status);
+		}
+	});
+}
+
+
+
+function fn_delete() {
+	//var formData = $('#boardForm').serialize();
+	/* $('#boardForm #no').attr('disabled',false);
+	var formData = new FormData($("#boardForm")[0]); */
+	var confirm_val = confirm("정말 삭제하시겠습니까?");
+	
+	if(confirm_val) {
+		var checkArr = new Array();
+		//var formData = new FormData($("#deleteForm")[0]);
+		var userId=$('#userId').val();
+
+		// 체크된 체크박스의 갯수만큼 반복
+		$("input[class='chBox']:checked").each(function(){
+			checkArr.push($(this).attr("data-cartNum"));  // 배열에 데이터 삽입
+		});
+		
+		alert(checkArr);
+			
+		$.ajax({
+			url : "/deleteCart.do",
+			type : "post",
+			//processData : false,
+			data : { chbox : checkArr , userId : userId },
+			success : function(result){
+				
+				if(result == 1) {						
+					alert("삭제 완료");
+					location.href = "/cartList.do";
+				} else {
+					alert("삭제 실패");
+				}
+			}
+		});
+	}
+}
+
+
+/* 	$(".order_btn").click(function(){
+		alert($('#boardForm #orderRec').val());
+			$('#boardForm').attr({
+				action : '<c:url value="/orderList.do"/>',
+				target : '_self'
+			}).submit(); 
+	
+		});	 */
+		
+function fn_order(){
+			IMP.init('imp46639314');
+		    IMP.request_pay({
+		        pg : 'html5_inicis',
+		        pay_method : 'card',
+		        merchant_uid : 'merchant_' + new Date().getTime(),
+		        name : '주문명:결제테스트',
+		        amount : 1,
+		        buyer_email : 'iamport@siot.do',
+		        buyer_name : '구매자이름',
+		        buyer_tel : '010-1234-5678',
+		        buyer_addr : '서울특별시 강남구 삼성동',
+		        buyer_postcode : '123-456'
+		    }, function(rsp) {
+		        if ( rsp.success ) {
+		            var msg = '결제가 완료되었습니다.';
+		            msg += '고유ID : ' + rsp.imp_uid;
+		            msg += '상점 거래ID : ' + rsp.merchant_uid;
+		            msg += '결제 금액 : ' + rsp.paid_amount;
+		            msg += '카드 승인번호 : ' + rsp.apply_num;
+		        } else {
+		            var msg = '결제에 실패하였습니다.';
+		            msg += '에러내용 : ' + rsp.error_msg;
+		        }
+
+		        alert(msg);
+		    });	
+		    
+		    
+		    
+	var formData = new FormData($("#boardForm")[0]);
 	$.ajax({
 		url : "${pageContext.request.contextPath}/orderList.do",
 		type : "post",
@@ -282,18 +544,43 @@ function fn_order(){
 		processData : false,
 		contentType : false,
 		success : function(result) {
-			$('#orderForm').attr({
-				action : '<c:url value="/orderList2.do"/>',
-				target : '_self'
-			}).submit(); 
+			fn_order_check();
 		}, // success 
 
 		error : function(xhr, status) {
 			alert(xhr + " : " + status);
 		}
-	});
+	}); 
 	
 }
+		
+		// + 버튼을 누르면 수량이 증가하되, 상품의 전체 수량보다 커지지 않음
+		$(".plus").click(function(){
+			var num = $(".numBox").val();
+			var plusNum = Number(num) + 1;
+			//var stock = ${view.gdsStock};
+			var stock = $(".gdsStock_hidden");
+			
+			if(plusNum >= stock) {
+				$(".numBox").val(num);
+			} else {
+				$(".numBox").val(plusNum);										
+			}
+		});
+
+
+		// - 버튼을 누르면 수량이 감소하되, 1보다 밑으로 감소하지 않음
+		$(".minus").click(function(){
+			var num = $(".numBox").val();
+			var minusNum = Number(num) - 1; 
+			
+			if(minusNum <= 0) {
+				$(".numBox").val(num);
+			} else {
+				$(".numBox").val(minusNum);										
+			}
+		});
+		
 </script>
 
 </html>
