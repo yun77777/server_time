@@ -136,8 +136,8 @@ public class orderServiceImpl implements orderService {
 
 		// 특정 주문
 		@Override
-		public List<OrderListVO> orderView(OrderVO order) throws Exception {
-			return orderMapper.orderView(order);
+		public List<Map<String, Object>> orderView(Map<String, Object> paramMap) throws Exception {
+			return orderMapper.orderView(paramMap);
 		}
 
 }

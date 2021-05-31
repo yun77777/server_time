@@ -223,31 +223,23 @@ function fn_detail_pop(B_NO,B_TYPE){
 					gdsNum : gdsNum,
 					gdsStock : gdsStock,
 					cartStock : cartStock,
+					orderProcessDetail : 'Y',
 					userId : userId
 					};
 			
-		/* 	$.ajax({
-				url : "/view/addCart.do",
+		$.ajax({
+				url : "/directOrderProcess.do",
 				type : "post",
 				data : data,
 				success : function(result){
-					
-
-					}
+				   	location.replace("/directOrderProcessDetail.do");
 				},
 				error : function(){
-					alert("카트 담기 실패");
+					alert("주문 실패");
 				}
 			});
-			$('#boardForm').attr({
-				action : '<c:url value="/orderProcessDetail.do"/>',
-				target : '_self'
-			}).submit(); */
+		
 			
-			
-			
-			
-		   	//location.replace("boardList.do");
 			
 			});
 		// 주문
@@ -301,10 +293,12 @@ function fn_list(no) {
 $(".addCart_btn").click(function(){
 	
 	var gdsNum = $("#gdsNum").val();
+	var userId = $("#userId").val();
 	var cartStock = $(".numBox").val();
 	
 	var data = {
 			gdsNum : gdsNum,
+			userId : userId,
 			cartStock : cartStock
 			};
 	

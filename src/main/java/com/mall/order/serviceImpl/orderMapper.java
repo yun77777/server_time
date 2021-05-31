@@ -69,6 +69,7 @@ public interface orderMapper {
 	// public List<OrderVO> orderList(OrderVO order) throws Exception;
 
 	// 특정 주문 목록
-	public List<OrderListVO> orderView(OrderVO order) throws Exception;
+	public List<Map<String, Object>> orderView(Map<String, Object> paramMap) throws Exception;
+
 
 }

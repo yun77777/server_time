@@ -35,25 +35,24 @@
 		<div id="container_box">
 		
 			<section id="content">
-					
+					${paramMap}
 				<ul>
 				
 					<%-- jsp상의 변수 선언 --%>
 					<c:set var="sum" value="0" />
 				<form id="deleteForm" method="post" enctype="multipart/form-data">
-					<c:forEach items="${cartList}" var="cartList">
 					<li>
 					
 						<div class="thumb">
-							<img src="${cartList.gdsThumbImg}" />
+							<img src="${paramMap.gdsThumbImg}" />
 						</div>
 						<div class="gdsInfo">
 							<p>
-                           		<img class="card-img-top" src="<c:url value='/img/${cartList.representative_file}'/>" style="width:100px" alt="no image" /><br />
-								<span>상품명</span>${cartList.gdsName}<br />
-								<span>개당 가격</span><fmt:formatNumber pattern="###,###,###" value="${cartList.gdsPrice}" /> 원<br />
-								<span>구입 수량</span>${cartList.cartStock} 개<br />
-								<span>최종 가격</span><fmt:formatNumber pattern="###,###,###" value="${cartList.gdsPrice * cartList.cartStock}" /> 원
+                           		<img class="card-img-top" src="<c:url value='/img/${paramMap.representative_file}'/>" style="width:100px" alt="no image" /><br />
+								<span>상품명</span>${paramMap.gdsName}<br />
+								<span>개당 가격</span><fmt:formatNumber pattern="###,###,###" value="${paramMap.gdsPrice}" /> 원<br />
+								<span>구입 수량</span>${paramMap.cartStock} 개<br />
+								<span>최종 가격</span><fmt:formatNumber pattern="###,###,###" value="${paramMap.gdsPrice * paramMap.cartStock}" /> 원
 							</p>
 							
 							
@@ -61,9 +60,8 @@
 					</li>
 					
 					<%-- 반복할 때마다 sum에 상품 가격(gdsPrice)*상품 갯수(cartStock)만큼을 더함 --%>
-					<c:set var="sum" value="${sum + (cartList.gdsPrice * cartList.cartStock)}" />
+					<c:set var="sum" value="${sum + (paramMap.gdsPrice * paramMap.cartStock)}" />
 					
-					</c:forEach>
 				</form>
 				</ul>
 			
