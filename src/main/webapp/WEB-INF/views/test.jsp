@@ -176,7 +176,11 @@ function fn_detail_pop(B_NO,B_TYPE){
 			 
 			};
 			
-			
+		$("#gdsName").val(detail.gdsName);
+		$("#gdsPrice").val(detail.gdsPrice);
+		$("#gdsStock").val(detail.gdsStock);
+		$("#totalPrice").val(detail.totalPrice);
+		$("#gdsDes").val(detail.gdsDes);
 		
 		//상품상세설명
 		$("#gdsName").parent().parent().find('td').append(detail.gdsName);
@@ -215,6 +219,8 @@ function fn_detail_pop(B_NO,B_TYPE){
 			
 			var gdsNum = $("#gdsNum").val();
 			var userId = $("#userId").val();
+			var gdsName = $("#gdsName").val();
+			var gdsPrice = $("#gdsPrice").val();
 			var gdsStock = cartStock;
 /* 			var gdsStock = $(".numBox").val(); */
 			$('#gdsStock').val(gdsStock);
@@ -223,6 +229,8 @@ function fn_detail_pop(B_NO,B_TYPE){
 					gdsNum : gdsNum,
 					gdsStock : gdsStock,
 					cartStock : cartStock,
+					gdsPrice : gdsPrice,
+					gdsPrice : gdsPrice,
 					orderProcessDetail : 'Y',
 					userId : userId
 					};
@@ -232,7 +240,11 @@ function fn_detail_pop(B_NO,B_TYPE){
 				type : "post",
 				data : data,
 				success : function(result){
-				   	location.replace("/directOrderProcessDetail.do");
+					$('#boardForm').attr({
+						action : '<c:url value="/directOrderProcessDetail.do"/>',
+						target : '_self'
+					}).submit(); 
+				   	//location.replace("/directOrderProcessDetail.do");
 				},
 				error : function(){
 					alert("주문 실패");

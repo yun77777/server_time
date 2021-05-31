@@ -36,7 +36,6 @@
 		
 			<section id="content">
 					${paramMap}
-					${cartList}
 				<ul>
 				
 					<%-- jsp상의 변수 선언 --%>
@@ -52,8 +51,8 @@
                            		<img class="card-img-top" src="<c:url value='/img/${paramMap.representative_file}'/>" style="width:100px" alt="no image" /><br />
 								<span>상품명</span>${paramMap.gdsName}<br />
 								<span>개당 가격</span><fmt:formatNumber pattern="###,###,###" value="${paramMap.gdsPrice}" /> 원<br />
-								<span>구입 수량</span>${paramMap.cartStock} 개<br />
-								<span>최종 가격</span><fmt:formatNumber pattern="###,###,###" value="${paramMap.gdsPrice * paramMap.cartStock}" /> 원
+								<span>구입 수량</span>${paramMap.gdsStock} 개<br />
+								<span>최종 가격</span><fmt:formatNumber pattern="###,###,###" value="${paramMap.gdsPrice * paramMap.gdsPrice}" /> 원
 							</p>
 							
 							
