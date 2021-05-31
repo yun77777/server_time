@@ -134,9 +134,6 @@
 									<button type="button" class="minus">-</button>
 									<input type="hidden" value="${view.gdsStock}" class="gdsStock_hidden" /> 
 								</p>
-								<p class="addToCart">
-									<button type="button" class="addCart_btn">카트에 담기</button>
-								</p>
 							</c:if>
 							<c:if test="${view.gdsStock == 0}">
 								<p>상품 수량이 부족합니다.</p>						
@@ -204,9 +201,7 @@
 				
 				<script>
 				$(".cancel_btn").click(function(){
-					$(".orderInfo").slideUp();  // $(".orderInfo")를 숨기고
-					$(".orderOpne_bnt").slideDown();  // $(".orderOpne_bnt")를 나타냄
-				
+					window.location='<c:url value="/test.do"/>';
 					});						
 				</script>
 				

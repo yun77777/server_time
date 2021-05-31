@@ -261,6 +261,7 @@ System.err.println("paramamamamammamama:"+userId);
 		String member = String.valueOf(session.getAttribute("login"));
 		String userId = member;
 		
+		System.err.println("@#@JWLEKJWJL:"+paramMap);
 //		UserVO member = (UserVO) session.getAttribute("ID");
 //		String userId = member.getID();
 		
@@ -294,8 +295,11 @@ System.err.println("paramamamamammamama:"+userId);
 		
 		paramMap.put("orderProcess","Y");
 		List<Map<String, Object>> cartList = orderService.cartList(paramMap);
+		
+		
 		System.err.println("cartList:"+cartList);
 		model.addAttribute("cartList", cartList);
+		orderService.deleteCart(paramMap);
 
 //		return "redirect:/order/cartList";
 		return "order/orderProcessDetail";

@@ -218,6 +218,7 @@ function fn_detail_pop(B_NO,B_TYPE){
 			var gdsStock = cartStock;
 /* 			var gdsStock = $(".numBox").val(); */
 			$('#gdsStock').val(gdsStock);
+			
 			var data = {
 					gdsNum : gdsNum,
 					gdsStock : gdsStock,
@@ -225,32 +226,31 @@ function fn_detail_pop(B_NO,B_TYPE){
 					userId : userId
 					};
 			
-			$.ajax({
+		/* 	$.ajax({
 				url : "/view/addCart.do",
-/* 				url : "/orderItem.do", */
 				type : "post",
 				data : data,
 				success : function(result){
-					if(result == 1) {
-					   //location.replace("cartList.do");
-
-					} else {
-						alert("회원만 사용할 수 있습니다.")
-						$(".numBox").val("1");
-						window.location='<c:url value="/user/login.do"/>';
+					
 
 					}
 				},
 				error : function(){
-					alert("실패");
+					alert("카트 담기 실패");
 				}
 			});
+			$('#boardForm').attr({
+				action : '<c:url value="/orderProcessDetail.do"/>',
+				target : '_self'
+			}).submit(); */
+			
 			
 			
 			
 		   	//location.replace("boardList.do");
 			
 			});
+		// 주문
 		
 		}, // success 
 
