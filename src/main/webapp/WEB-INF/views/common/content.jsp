@@ -37,9 +37,9 @@
 							</div>
 							<div class="modal-body">
 								<form id="orderForm" method="post" enctype="multipart/form-data">
-									<input type="hidden" name="gdsNum" value="${detail.gdsNum}" />
+									<input type="hidden" id="gdsNum" name="gdsNum" value="${detail.gdsNum}" />
 									<input type="hidden" name="ID" value="${member.ID}" />
-									<input type="hidden" name="userId" value="${member.ID}" />
+									<input type="hidden" id="userId" name="userId" value="${member.ID}" />
 					<%-- <input type="hidden" id="gdsNum" name="gdsNum" value="${detail.gdsNum}" />
 				<input type="hidden" name="gdsPrice" value="${detail.gdsPrice}" />
 				<input type="hidden" id="gdsStock" name="gdsStock" /> --%>
@@ -88,8 +88,8 @@
 
 							<div id="pp"></div>
 							
-							<button type="submit" id="create">new</button>
-							<button type="submit" id="create2">new2</button>
+							<button type="submit" id="create">주문</button>
+							<button type="submit" id="create2">상품상세(기존)</button>
 <!-- 							<button type="button" id="create">new</button> -->
 							 <div></div>
 

@@ -33,9 +33,9 @@
  -->                        <li class="nav-item"><a class="nav-link" href="/chatting.do">Chat</a></li>
                 
             <c:if test="${not empty member}">
-               <li class="nav-item"><a class="nav-link" href="/user/myPage.do">My Page</a></li>
-               <li class="nav-item"><a onclick="fn_logout()" class="nav-link" href="/user/logout.do">Log Out</a></li>
-               <li class="nav-item dropdown">
+<!--                <li class="nav-item"><a class="nav-link" href="/user/myPage.do">My Page</a></li>
+ --><!--                <li class="nav-item"><a onclick="fn_logout()" class="nav-link" href="/user/logout.do">Log Out</a></li>
+ -->               <li class="nav-item dropdown">
                    <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:blue">${member.ID}</a>
                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
                        <a class="dropdown-item" href="/user/myPage.do">My Page</a>

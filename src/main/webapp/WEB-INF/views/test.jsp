@@ -82,7 +82,7 @@ $(document).ready(function() {
 	
 	
 	$(".saveBtn2").click(function(){
-		alert("saveBtn");
+		//alert("saveBtn");
 	});
 	
 	
@@ -121,7 +121,7 @@ function sampleModalPopup(){
 		enctype: 'multipart/form-data',
 		data : { gdsNum : 1 },
 		success : function(result) {
-			alert('success');
+			//alert('success');
 		}, // success 
 
 		error : function(xhr, status) {
@@ -166,12 +166,13 @@ function fn_detail_pop(B_NO,B_TYPE){
 			  //$("#pp").append(i+','+imgList[i]+'<br>');
 			  //$("#pp").append(i+','+imgList[i].gdsPrice+'<br>');
 			  
-			 
+			  // #pp: 상세이미지 imgList div 영역
 			  $("#pp").append(i+','+imgList[i].file+'<br>');
 			  
 			var img=imgList[i].file;
 			var image="<c:url value='/img/"+img+"'/>"; //상품 상세 이미지
-			  $("#pp").append(i+"<img class='card-img-top scale' src="+image+"><br>");
+			  $("#pp").append(i+"<img class='card-img-top' src="+image+"><br>");
+/* 			  $("#pp").append(i+"<img class='card-img-top scale' src="+image+"><br>"); */
 			 
 			};
 			
@@ -193,47 +194,43 @@ function fn_detail_pop(B_NO,B_TYPE){
 		$("#rpsnImg").attr("src","<c:url value='/img/"+img+"'/>");
 		console.log('================================');
 		
-		//new2
+		//제품상세(기존)
 		$("#create2").on("click",function(){ 
-			alert($("#gdsPrice").val());
 			var gdsNum=$('#gdsNum').val();
 
 			//$(this).next().html("<button type='button' id='newButton'>ok</button>"); 
 			
 			fn_detail(gdsNum);
 			
-		   	alert("no");
 			});
 		
 		
-		//new
+		//주문
 		$("#create").on("click",function(){ 
 			
 			var gdsNum = $("#gdsNum").val();
-			var cartStock = 5
+			var cartStock = 5;
 /* 			var cartStock = $(".numBox").val(); */
-			
-			var data = {
-					gdsNum : gdsNum,
-					cartStock : cartStock
-					};
+			//alert('gdsNum:'+gdsNum);
 			
 			var gdsNum = $("#gdsNum").val();
 			var userId = $("#userId").val();
-			var gdsStock = $(".numBox").val();
+			var gdsStock = cartStock;
+/* 			var gdsStock = $(".numBox").val(); */
 			$('#gdsStock').val(gdsStock);
 			var data = {
 					gdsNum : gdsNum,
 					gdsStock : gdsStock,
+					cartStock : cartStock,
 					userId : userId
 					};
 			
 			$.ajax({
-				url : "/orderItem.do",
+				url : "/view/addCart.do",
+/* 				url : "/orderItem.do", */
 				type : "post",
 				data : data,
 				success : function(result){
-					
 					if(result == 1) {
 					   	location.replace("cartList.do");
 
@@ -249,7 +246,6 @@ function fn_detail_pop(B_NO,B_TYPE){
 				}
 			});
 			
-			alert('finished');
 			
 			
 		   	//location.replace("boardList.do");

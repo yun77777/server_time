@@ -91,12 +91,22 @@
 			                <table class="table table-sm">
 								<tbody>
 									<tr>
-										<th scope="row">before</th>
-										<td><a href="#" onclick="fn_detail('${list[0].B_NO}');">${list[0].TITLE}</a></td>
+										<th scope="row">이전글</th>
+										<c:if test="${!empty list[0].B_NO}">
+											<td><a href="#" onclick="fn_detail('${list[0].B_NO}');">${list[0].TITLE}</a></td>
+										</c:if>
+										<c:if test="${empty list[0].B_NO}">
+											<td>이전글이 없습니다.</td>
+										</c:if>
 									</tr>
 									<tr>
-										<th scope="row">after</th>
-										<td><a href="#" onclick="fn_detail('${list[1].B_NO}';">${list[1].TITLE}</a></td>
+										<th scope="row">다음글</th>
+										<c:if test="${!empty list[1].B_NO}">
+											<td><a href="#" onclick="fn_detail('${list[1].B_NO}');">${list[1].TITLE}</a></td>
+										</c:if>
+										<c:if test="${empty list[1].B_NO}">
+											<td>다음글이 없습니다.</td>
+										</c:if>
 									</tr>
 								</tbody>
 							</table>
