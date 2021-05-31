@@ -183,8 +183,8 @@ function fn_detail_pop(B_NO,B_TYPE){
 		//상품상세설명
 		$("#gdsPrice").parent().parent().find('td').append(detail.gdsPrice);
 		//상품상세설명
-		$("#gdsStock").parent().parent().find('td').append(detail.gdsStock);
-		//상품상세설명
+/* 		$("#gdsStock").parent().parent().find('td').append(detail.gdsStock);
+ */		//상품상세설명
 		$("#totalPrice").parent().parent().find('td').append(detail.totalPrice);
 		//상품상세설명
 		$("#gdsDes").parent().parent().find('td').append(detail.gdsDes);

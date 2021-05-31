@@ -52,7 +52,7 @@
 								<span>상품명</span>${paramMap.gdsName}<br />
 								<span>개당 가격</span><fmt:formatNumber pattern="###,###,###" value="${paramMap.gdsPrice}" /> 원<br />
 								<span>구입 수량</span>${paramMap.gdsStock} 개<br />
-								<span>최종 가격</span><fmt:formatNumber pattern="###,###,###" value="${paramMap.gdsPrice * paramMap.gdsPrice}" /> 원
+								<span>최종 가격</span><fmt:formatNumber pattern="###,###,###" value="${paramMap.gdsStock * paramMap.gdsPrice}" /> 원
 							</p>
 							
 							
@@ -60,7 +60,7 @@
 					</li>
 					
 					<%-- 반복할 때마다 sum에 상품 가격(gdsPrice)*상품 갯수(cartStock)만큼을 더함 --%>
-					<c:set var="sum" value="${sum + (paramMap.gdsPrice * paramMap.cartStock)}" />
+					<c:set var="sum" value="${sum + (paramMap.gdsPrice * paramMap.gdsStock)}" />
 					
 				</form>
 				</ul>
