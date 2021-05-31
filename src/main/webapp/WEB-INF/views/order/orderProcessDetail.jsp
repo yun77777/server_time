@@ -37,45 +37,12 @@
 			<section id="content">
 					
 				<ul>
-					<li>
-						<div class="allCheck">
-							<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck">모두 선택</label>
-							
-							<script>
-							$("#allCheck").click(function(){
-								var chk = $("#allCheck").prop("checked");
-								if(chk) {
-									$(".chBox").prop("checked", true);
-								} else {
-									$(".chBox").prop("checked", false);
-								}
-							});
-							</script>
-							
-						</div>
-						
-						<div class="delBtn">
-							<button type="submit" onclick="fn_delete()" class="selectDelete_btn">선택 삭제</button>
-						</div>
-						
-					</li>
 				
 					<%-- jsp상의 변수 선언 --%>
 					<c:set var="sum" value="0" />
 				<form id="deleteForm" method="post" enctype="multipart/form-data">
-				
-				
-				
 					<c:forEach items="${cartList}" var="cartList">
 					<li>
-						<div class="checkBox">
-							<input type="checkbox" name="chBox" class="chBox" data-cartNum="${cartList.cartNum}" />
-							<script>
-								$(".chBox").click(function(){
-									$("#allCheck").prop("checked", false);
-								});
-							</script>
-						</div>
 					
 						<div class="thumb">
 							<img src="${cartList.gdsThumbImg}" />
@@ -89,56 +56,7 @@
 								<span>최종 가격</span><fmt:formatNumber pattern="###,###,###" value="${cartList.gdsPrice * cartList.cartStock}" /> 원
 							</p>
 							
-							<p class="gdsStock">
-								<span>구입 수량 </span><fmt:formatNumber pattern="###,###,###" value="${cartList.cartStock}" /> EA
-							</p>
-						
-							<c:if test="${view.gdsStock != 0}">
-								<p class="cartStock">
-									<button type="button" class="plus">+</button>
-									<input type="number" id="cartStock" name="cartStock" class="numBox" min="1" max="${view.gdsStock}" value="${cartList.cartStock}" readonly="readonly"/>
-									<button type="button" class="minus">-</button>
-									<input type="hidden" value="${view.gdsStock}" class="gdsStock_hidden" /> 
-								</p>
-								<p class="addToCart">
-									<button type="button" class="addCart_btn">카트에 담기</button>
-								</p>
-							</c:if>
-							<c:if test="${view.gdsStock == 0}">
-								<p>상품 수량이 부족합니다.</p>						
-							</c:if>
 							
-							
-							
-							<div class="delete">
-								<button type="button" class="delete_${cartList.cartNum}_btn" data-cartNum="${cartList.cartNum}">삭제</button>
-								
-								<script>
-									$(".delete_${cartList.cartNum}_btn").click(function(){
-										var confirm_val = confirm("정말 삭제하시겠습니까?");
-										var userId=$('#userId').val();
-										
-										if(confirm_val) {
-											var checkArr = new Array();
-											
-											checkArr.push($(this).attr("data-cartNum"));
-																						
-											$.ajax({
-												url : "/deleteCart.do",
-												type : "post",
-												data : { chbox : checkArr , userId : userId},
-												success : function(result){
-													if(result == 1) {												
-														location.href = "/cartList.do";
-													} else {
-														alert("삭제 실패");
-													}
-												}
-											});
-										}	
-									});
-								</script>
-							</div>
 						</div>			
 					</li>
 					
@@ -185,7 +103,11 @@
 			<form id="boardForm" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="amount" value="${sum}" />
 					<input type="hidden" id="userId" name="userId" value="${member.ID}" />
-							
+					<input type="hidden" id="imp_uid" name="imp_uid">	            
+					<input type="hidden" id="merchant_uid" name="merchant_uid">	            
+					<input type="hidden" id="paid_amount" name="paid_amount">	            
+					<input type="hidden" id="apply_num" name="apply_num">	
+					   		
 					<div class="inputArea">
 						<label for="">수령인</label>
 						<input type="text" name="orderRec" id="orderRec" required="required" />
@@ -335,7 +257,8 @@
 				
 			</div>
 			
-				
+<%-- 				<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
+ --%>				
 			</section>
 			
 			
@@ -435,75 +358,9 @@ function fn_order_check() {
 	}
 
 }
-function fn_insert() {
-	//var formData = $('#boardForm').serialize();
-	$('#boardForm #no').attr('disabled',false);
-	var formData = new FormData($("#boardForm")[0]);
-	$.ajax({
-		url : "${pageContext.request.contextPath}/insertBoard.do",
-		type : "post",
-		enctype: 'multipart/form-data',
-		data : formData,
-		processData : false,
-		contentType : false,
-		success : function(result) {
-			alert('success');
-			fn_list();
-		}, // success 
-
-		error : function(xhr, status) {
-			alert(xhr + " : " + status);
-		}
-	});
-}
 
 
 
-function fn_delete() {
-	//var formData = $('#boardForm').serialize();
-	/* $('#boardForm #no').attr('disabled',false);
-	var formData = new FormData($("#boardForm")[0]); */
-	var confirm_val = confirm("정말 삭제하시겠습니까?");
-	
-	if(confirm_val) {
-		var checkArr = new Array();
-		//var formData = new FormData($("#deleteForm")[0]);
-		var userId=$('#userId').val();
-
-		// 체크된 체크박스의 갯수만큼 반복
-		$("input[class='chBox']:checked").each(function(){
-			checkArr.push($(this).attr("data-cartNum"));  // 배열에 데이터 삽입
-		});
-		
-		alert(checkArr);
-			
-		$.ajax({
-			url : "/deleteCart.do",
-			type : "post",
-			//processData : false,
-			data : { chbox : checkArr , userId : userId },
-			success : function(result){
-				
-				if(result == 1) {						
-					alert("삭제 완료");
-					location.href = "/cartList.do";
-				} else {
-					alert("삭제 실패");
-				}
-			}
-		});
-	}
-}
-
-
-/* 	$(".order_btn").click(function(){
-		alert($('#boardForm #orderRec').val());
-			$('#boardForm').attr({
-				action : '<c:url value="/orderList.do"/>',
-				target : '_self'
-			}).submit(); 
-	
-		});	 */
 		
 function fn_order(){
 			IMP.init('imp46639314');
@@ -512,7 +369,7 @@ function fn_order(){
 		        pay_method : 'card',
 		        merchant_uid : 'merchant_' + new Date().getTime(),
 		        name : '주문명:결제테스트',
-		        amount : 1,
+		        amount : 100,
 		        buyer_email : 'iamport@siot.do',
 		        buyer_name : '구매자이름',
 		        buyer_tel : '010-1234-5678',
@@ -525,6 +382,29 @@ function fn_order(){
 		            msg += '상점 거래ID : ' + rsp.merchant_uid;
 		            msg += '결제 금액 : ' + rsp.paid_amount;
 		            msg += '카드 승인번호 : ' + rsp.apply_num;
+		            
+		            $("#imp_uid").value(rsp.imp_uid);
+		            $("#merchant_uid").value(rsp.merchant_uid);
+		            $("#paid_amount").value(rsp.paid_amount);
+		            $("#apply_num").value(rsp.apply_num);
+	         
+		            var formData = new FormData($("#boardForm")[0]);
+		        	$.ajax({
+		        		url : "${pageContext.request.contextPath}/orderList.do",
+		        		type : "post",
+		        		enctype: 'multipart/form-data',
+		        		data : formData,
+		        		processData : false,
+		        		contentType : false,
+		        		success : function(result) {
+		        			alert('주문이 완료되었습니다.');
+		        		}, // success 
+
+		        		error : function(xhr, status) {
+		        			alert(xhr + " : " + status);
+		        		}
+		        	}); 
+		            
 		        } else {
 		            var msg = '결제에 실패하였습니다.';
 		            msg += '에러내용 : ' + rsp.error_msg;
@@ -535,51 +415,9 @@ function fn_order(){
 		    
 		    
 		    
-	var formData = new FormData($("#boardForm")[0]);
-	$.ajax({
-		url : "${pageContext.request.contextPath}/orderList.do",
-		type : "post",
-		enctype: 'multipart/form-data',
-		data : formData,
-		processData : false,
-		contentType : false,
-		success : function(result) {
-			fn_order_check();
-		}, // success 
-
-		error : function(xhr, status) {
-			alert(xhr + " : " + status);
-		}
-	}); 
+	
 	
 }
-		
-		// + 버튼을 누르면 수량이 증가하되, 상품의 전체 수량보다 커지지 않음
-		$(".plus").click(function(){
-			var num = $(".numBox").val();
-			var plusNum = Number(num) + 1;
-			//var stock = ${view.gdsStock};
-			var stock = $(".gdsStock_hidden");
-			
-			if(plusNum >= stock) {
-				$(".numBox").val(num);
-			} else {
-				$(".numBox").val(plusNum);										
-			}
-		});
-
-
-		// - 버튼을 누르면 수량이 감소하되, 1보다 밑으로 감소하지 않음
-		$(".minus").click(function(){
-			var num = $(".numBox").val();
-			var minusNum = Number(num) - 1; 
-			
-			if(minusNum <= 0) {
-				$(".numBox").val(num);
-			} else {
-				$(".numBox").val(minusNum);										
-			}
-		});
 		
 </script>
 

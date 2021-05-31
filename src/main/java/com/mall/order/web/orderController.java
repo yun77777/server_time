@@ -151,7 +151,10 @@ Map<String, Object> result = new HashMap<String, Object>();
 	// 카트 담기
 	@ResponseBody
 	@RequestMapping(value = "/view/addCart.do", method = RequestMethod.POST)
-	public int addCart(CartListVO cart, HttpSession session) throws Exception {
+	public int addCart(Model model, CartListVO cart, HttpSession session) throws Exception {
+		model.addAttribute("login", session.getAttribute("login"));
+		model.addAttribute("member", session.getAttribute("member"));
+
 		System.err.println("cart:"+cart);
 		int result = 0;
 		System.err.println("sessionL"+session.getAttribute("login"));
@@ -168,21 +171,6 @@ Map<String, Object> result = new HashMap<String, Object>();
 		return result;
 	}
 
-	// 카트 목록
-//	@RequestMapping(value = "/cartList.do", method = RequestMethod.GET)
-//	public void getCartList(HttpSession session, Model model) throws Exception {
-//		logger.info("get cart list");
-//
-//		String member = String.valueOf(session.getAttribute("login"));
-//		String userId = member;
-//		
-////		UserVO member = (UserVO) session.getAttribute("ID");
-////		String userId = member.getID();
-//
-//		List<CartListVO> cartList = orderService.cartList(userId);
-//
-//		model.addAttribute("cartList", cartList);
-//	}
 
 	// 카트 삭제
 	@ResponseBody
@@ -191,6 +179,7 @@ Map<String, Object> result = new HashMap<String, Object>();
 	public int deleteCart( @RequestParam(value="userId") String userId, @RequestParam(value = "chbox[]") List<String> chArr, @RequestParam Map<String, Object> paramMap, Model model, HttpSession session) throws Exception {
 		logger.info("delete cart");
 		model.addAttribute("login", session.getAttribute("login"));
+		model.addAttribute("member", session.getAttribute("member"));
 		System.err.println("paramMap@"+paramMap);
 		System.err.println("chArr@"+chArr);
 		System.err.println("userId@"+userId);
@@ -242,7 +231,7 @@ Map<String, Object> result = new HashMap<String, Object>();
 		order.setOrderId(orderId);
 		order.setUserId(userId);
 		paramMap.put("userId",userId);
-
+System.err.println("paramamamamammamama:"+userId);
 //		orderService.orderInfo(order);
 
 		orderDetail.setOrderId(orderId);
@@ -250,7 +239,7 @@ Map<String, Object> result = new HashMap<String, Object>();
 
 		// 주문 테이블, 주문 상세 테이블에 데이터를 전송하고, 카트 비우기
 //		orderService.cartAllDelete(userId);
-		
+		paramMap.put("orderProcess","N");
 		List<Map<String, Object>> cartList = orderService.cartList(paramMap);
 //		List<CartListVO> cartList = orderService.cartList(userId);
 
@@ -303,8 +292,9 @@ Map<String, Object> result = new HashMap<String, Object>();
 		
 //		List<CartListVO> cartList = orderService.cartList(userId);
 		
-		paramMap.put("order_process","Y");
+		paramMap.put("orderProcess","Y");
 		List<Map<String, Object>> cartList = orderService.cartList(paramMap);
+		System.err.println("cartList:"+cartList);
 		model.addAttribute("cartList", cartList);
 
 //		return "redirect:/order/cartList";
@@ -316,6 +306,7 @@ Map<String, Object> result = new HashMap<String, Object>();
 	public int orderProcess( @RequestParam(value="userId") String userId, @RequestParam(value = "cartStockArr[]") List<String> cartStockArr, @RequestParam(value = "chbox[]") List<String> chArr, @RequestParam Map<String, Object> paramMap, Model model, HttpSession session) throws Exception {
 		logger.info("orderProcess cart");
 		model.addAttribute("login", session.getAttribute("login"));
+		model.addAttribute("member", session.getAttribute("member"));
 		System.err.println("paramMap@"+paramMap);
 		System.err.println("chArr@"+chArr);
 		System.err.println("cartStockArr@"+cartStockArr);
@@ -359,6 +350,9 @@ Map<String, Object> result = new HashMap<String, Object>();
 		@ResponseBody
 		@RequestMapping(value = "/orderItem.do", method = RequestMethod.POST)
 		public int orderItem(@RequestParam Map<String, Object> paramMap, HttpSession session, Model model) throws Exception {
+			model.addAttribute("login", session.getAttribute("login"));
+			model.addAttribute("member", session.getAttribute("member"));
+
 			System.err.println(("orderItem:"+paramMap));
 			Map<String, Object> detail = mngService.selectItemDetail(paramMap);
 			model.addAttribute("detail",detail);
@@ -388,6 +382,7 @@ Map<String, Object> result = new HashMap<String, Object>();
 
 		System.err.println("insert:"+paramMap);
 		System.err.println("$$$$$$$$$$");
+		
 		orderService.orderInfo(paramMap);
 //		orderService.cartAllDelete(userId);
 
@@ -406,6 +401,7 @@ Map<String, Object> result = new HashMap<String, Object>();
 		// 로그인 여부 구분
 
 		//orderService.deleteCart(paramMap);
+		orderService.deleteCart(paramMap);
 		
 		List<Map<String, Object>> orderList = orderService.orderList(paramMap);
 		//orderService.orderInfo_Details(paramMap);
@@ -423,6 +419,7 @@ Map<String, Object> result = new HashMap<String, Object>();
 	public int orderChk( @RequestParam(value="userId") String userId, @RequestParam(value = "cartStockArr[]") List<String> cartStockArr, @RequestParam(value = "chbox[]") List<String> chArr, @RequestParam Map<String, Object> paramMap, Model model, HttpSession session) throws Exception {
 		logger.info("orderChk cart");
 		model.addAttribute("login", session.getAttribute("login"));
+		model.addAttribute("member", session.getAttribute("member"));
 		System.err.println("paramMap@"+paramMap);
 		System.err.println("chArr@"+chArr);
 		System.err.println("userId@"+userId);

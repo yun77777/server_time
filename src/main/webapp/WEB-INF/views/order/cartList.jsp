@@ -220,7 +220,8 @@
 			
 			
 		</div>
-		
+<%-- 			<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
+ --%>		
 	</section>        
 
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
@@ -305,7 +306,7 @@ function fn_order(){
 						action : '<c:url value="/orderProcessDetail.do"/>',
 						target : '_self'
 					}).submit(); 
-					location.href = "/orderList2.do";
+					//location.href = "/orderList2.do";
 				} else {
 					alert("chk 실패");
 				}
