@@ -41,7 +41,8 @@ public interface orderService {
 	public void addCart(CartListVO cart) throws Exception;
 
 	// 카트 리스트
-	public List<CartListVO> cartList(String userId) throws Exception;
+	public List<Map<String, Object>> cartList(Map<String, Object> paramMap) throws Exception;
+//	public List<CartListVO> cartList(String userId) throws Exception;
 
 	// 카트 삭제
 	public void deleteCart(Map<String, Object> paramMap) throws Exception;

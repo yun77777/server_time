@@ -232,7 +232,7 @@ function fn_detail_pop(B_NO,B_TYPE){
 				data : data,
 				success : function(result){
 					if(result == 1) {
-					   	location.replace("cartList.do");
+					   //location.replace("cartList.do");
 
 					} else {
 						alert("회원만 사용할 수 있습니다.")

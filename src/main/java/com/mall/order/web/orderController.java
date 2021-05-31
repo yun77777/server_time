@@ -214,7 +214,7 @@ Map<String, Object> result = new HashMap<String, Object>();
 	// 주문
 	@RequestMapping(value = "/cartList.do")
 //	@RequestMapping(value = "/cartList.do", method = RequestMethod.POST)
-	public String order(Model model, HttpSession session, OrderVO order, OrderDetailVO orderDetail) throws Exception {
+	public String order(@RequestParam Map<String, Object> paramMap, Model model, HttpSession session, OrderVO order, OrderDetailVO orderDetail) throws Exception {
 		logger.info("order");
 		model.addAttribute("login", session.getAttribute("login"));
 		model.addAttribute("member", session.getAttribute("member"));
@@ -241,6 +241,7 @@ Map<String, Object> result = new HashMap<String, Object>();
 
 		order.setOrderId(orderId);
 		order.setUserId(userId);
+		paramMap.put("userId",userId);
 
 //		orderService.orderInfo(order);
 
@@ -250,7 +251,8 @@ Map<String, Object> result = new HashMap<String, Object>();
 		// 주문 테이블, 주문 상세 테이블에 데이터를 전송하고, 카트 비우기
 //		orderService.cartAllDelete(userId);
 		
-		List<CartListVO> cartList = orderService.cartList(userId);
+		List<Map<String, Object>> cartList = orderService.cartList(paramMap);
+//		List<CartListVO> cartList = orderService.cartList(userId);
 
 		model.addAttribute("cartList", cartList);
 
@@ -261,7 +263,7 @@ Map<String, Object> result = new HashMap<String, Object>();
 	// 주문
 	@RequestMapping(value = "/orderProcessDetail.do")
 //	@RequestMapping(value = "/cartList.do", method = RequestMethod.POST)
-	public String orderProcessDetail(Model model, HttpSession session, OrderVO order, OrderDetailVO orderDetail) throws Exception {
+	public String orderProcessDetail(@RequestParam Map<String, Object> paramMap, Model model, HttpSession session, OrderVO order, OrderDetailVO orderDetail) throws Exception {
 		logger.info("order");
 		model.addAttribute("login", session.getAttribute("login"));
 		model.addAttribute("member", session.getAttribute("member"));
@@ -289,6 +291,8 @@ Map<String, Object> result = new HashMap<String, Object>();
 		order.setOrderId(orderId);
 		order.setUserId(userId);
 		
+		paramMap.put("userId",userId);
+		
 //		orderService.orderInfo(order);
 		
 		orderDetail.setOrderId(orderId);
@@ -297,10 +301,12 @@ Map<String, Object> result = new HashMap<String, Object>();
 		// 주문 테이블, 주문 상세 테이블에 데이터를 전송하고, 카트 비우기
 //		orderService.cartAllDelete(userId);
 		
-		List<CartListVO> cartList = orderService.cartList(userId);
+//		List<CartListVO> cartList = orderService.cartList(userId);
 		
+		paramMap.put("order_process","Y");
+		List<Map<String, Object>> cartList = orderService.cartList(paramMap);
 		model.addAttribute("cartList", cartList);
-		
+
 //		return "redirect:/order/cartList";
 		return "order/orderProcessDetail";
 	}
@@ -330,6 +336,7 @@ Map<String, Object> result = new HashMap<String, Object>();
 				cartStock = Integer.parseInt(cartStockArr.get(i).toString());
 				paramMap.put("cartNum",cartNum);
 				paramMap.put("cartStock",cartStock);
+				paramMap.put("orderProcess","Y");
 				System.err.println("@@@@@@@@@@@@@@@@@cs:"+cartStock);
 				//cartStockArr
 				orderService.updateCart(paramMap);
@@ -340,7 +347,8 @@ Map<String, Object> result = new HashMap<String, Object>();
 			result = 1;
 		}
 		
-		List<CartListVO> cartList = orderService.cartList(userId);
+		List<Map<String, Object>> cartList = orderService.cartList(paramMap);
+//		List<CartListVO> cartList = orderService.cartList(userId);
 
 		model.addAttribute("cartList", cartList);
 		model.addAttribute("paramMap", paramMap);

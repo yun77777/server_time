@@ -87,8 +87,9 @@ public class orderServiceImpl implements orderService {
 
 		// 카트 리스트
 		@Override
-		public List<CartListVO> cartList(String userId) throws Exception {
-			return orderMapper.cartList(userId);
+		public List<Map<String, Object>> cartList(Map<String, Object> paramMap) throws Exception {
+//		public List<CartListVO> cartList(String userId) throws Exception {
+			return orderMapper.cartList(paramMap);
 		}
 		
 		// 카트 삭제
