@@ -42,14 +42,7 @@
 							<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck">모두 선택</label>
 							
 							<script>
-							$("#allCheck").click(function(){
-								var chk = $("#allCheck").prop("checked");
-								if(chk) {
-									$(".chBox").prop("checked", true);
-								} else {
-									$(".chBox").prop("checked", false);
-								}
-							});
+							
 							</script>
 							
 						</div>
@@ -266,18 +259,39 @@ function fn_delete() {
 $(document).ready(function(){
 var sum=0;
 $("input[class='chBox']").change(function(){
-      if($("input[class='chBox']").is(":checked")){
-          alert("체크박스 체크했음!");
+      if($(this).is(":checked")){
           //sum+=Number($(this).parent().parent().find('.cartStock').find('.numBox').val());  // 배열에 데이터 삽입
           sum+=Number($(this).parent().parent().find('.cartStock').find('.gdsPrice_hidden').val());  // 배열에 데이터 삽입
   		
       }else{
-          alert("체크박스 체크 해제!");
+    	  alert('unchecked');
+          sum-=Number($(this).parent().parent().find('.cartStock').find('.gdsPrice_hidden').val());  // 배열에 데이터 삽입
       }
       alert(sum);
       $(".listResult").html('총 합계: '+sum+'원'); 
 
   });
+  
+$("#allCheck").click(function(){
+	var chk = $("#allCheck").prop("checked");
+	
+	if(chk) {
+		$(".chBox").prop("checked", true);
+		$("input[class='chBox']:checked").each(function(){
+	          sum+=Number($(this).parent().parent().find('.cartStock').find('.gdsPrice_hidden').val());  // 배열에 데이터 삽입
+		});
+	} else {
+		$(".chBox").prop("checked", false);
+		sum=0;
+	}
+	
+
+	// 체크된 체크박스의 갯수만큼 반복
+	
+	
+    $(".listResult").html('총 합계: '+sum+'원'); 
+	
+});
 });
 //주문
 function fn_order(){
