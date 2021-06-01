@@ -107,6 +107,7 @@
 					<input type="hidden" id="merchant_uid" name="merchant_uid">	            
 					<input type="hidden" id="paid_amount" name="paid_amount">	            
 					<input type="hidden" id="apply_num" name="apply_num">	
+					<input type="hidden" id="orderId" name="orderId" value="${paramMap.orderId}">	
 					   		
 					<div class="inputArea">
 						<label for="">수령인</label>

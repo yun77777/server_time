@@ -27,10 +27,7 @@
 	<!-- 주문 정보 -->
 <insert id="orderInfo" parameterType="map">
 <!-- <insert id="orderInfo" parameterType="com.mall.vo.OrderVO"> -->
-	<selectKey resultType="int" keyProperty="orderId" order="BEFORE">
-		SELECT COALESCE(MAX(orderId),0)+1 AS orderId FROM tbl_order
-		WHERE  userId=#{userId,jdbcType=VARCHAR}
-	</selectKey>
+	
  	insert into tbl_order(
 		 orderId
 		 , userId
@@ -67,8 +64,8 @@
 	SELECT COALESCE(MAX(orderDetailsNum),0)+1 AS orderDetailsNum FROM tbl_order_details
 
 </selectKey>
- insert into tbl_order_details(orderDetailsNum, orderId, gdsNum, cartStock, orderProcess, file)
-     select #{orderDetailsNum}, #{orderId}, gdsNum, cartStock, #{orderProcess}, #{file}
+ insert into tbl_order_details(orderDetailsNum, orderId, gdsNum, cartStock, orderProcess)
+     select #{orderDetailsNum}, #{orderId}, gdsNum, #{cartStock}, #{orderProcess}
 <!--      select tbl_order_details_seq.nextval, #{orderId}, gdsNum, cartStock -->
          from tbl_cart
          where cartNum=#{cartNum} and userId=#{userId}
@@ -226,5 +223,9 @@ and c.orderProcess= #{orderProcess}
 	
 	<select id="maxOrderId" resultType="int">
 		SELECT MAX(orderId) FROM tbl_order
+	</select>
+	
+	<select id="maxCartNum" resultType="int">
+		SELECT MAX(cartNum) FROM tbl_cart
 	</select>
 </mapper>

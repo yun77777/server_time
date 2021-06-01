@@ -49,6 +49,8 @@ public interface orderService {
 
 	public int maxOrderId() throws Exception;
 
+	public int maxCartNum() throws Exception;
+
 	public void updateCart(Map<String, Object> paramMap) throws Exception;
 
 	public void updateOrderDetails(Map<String, Object> paramMap) throws Exception;

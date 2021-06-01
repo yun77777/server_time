@@ -131,6 +131,11 @@ public class orderServiceImpl implements orderService {
 		public int maxOrderId() throws Exception {
 			return orderMapper.maxOrderId();
 		}
+		
+		@Override
+		public int maxCartNum() throws Exception {
+			return orderMapper.maxCartNum();
+		}
 
 		// 주문 목록
 		@Override

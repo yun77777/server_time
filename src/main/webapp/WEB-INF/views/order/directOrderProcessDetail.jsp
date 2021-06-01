@@ -32,8 +32,8 @@
 
 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
 <section id="container">
+${paramMap.orderId }
 		<div id="container_box">
-		
 			<section id="content">
 				<ul>
 					<%-- jsp상의 변수 선언 --%>
@@ -95,11 +95,12 @@
  --%>										
 			<form id="boardForm" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="amount" value="${sum}" />
-					<input type="hidden" id="userId" name="userId" value="${member.ID}" />
+					<input type="hidden" id="userId" name="userId" value="${paramMap.ID}" />
 					<input type="hidden" id="imp_uid" name="imp_uid">	            
 					<input type="hidden" id="merchant_uid" name="merchant_uid">	            
 					<input type="hidden" id="paid_amount" name="paid_amount">	            
 					<input type="hidden" id="apply_num" name="apply_num">	
+					<input type="hidden" id="orderId" name="orderId" value="${paramMap.orderId}">	
 					   		
 					<div class="inputArea">
 						<label for="">수령인</label>

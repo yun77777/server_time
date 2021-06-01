@@ -31,7 +31,7 @@
 
 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
 <!-- Page Content--><section id="container">
-		
+		${orderList}
 		
 			<section id="content">
 				<div id="row">

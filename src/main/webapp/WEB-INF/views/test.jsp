@@ -243,6 +243,8 @@ function fn_detail_pop(B_NO,B_TYPE){
 				type : "post",
 				data : data,
 				success : function(result){
+					$("#orderId").val(result.orderId);
+					
 					$('#orderForm').attr({
 /* 					$('#boardForm').attr({ */
 						action : '<c:url value="/directOrderProcessDetail.do"/>',
