@@ -35,6 +35,9 @@
 		
 			<section id="content">
 				<%@ include file="/WEB-INF/views/common/popup/orderPopup.jsp"%>
+			<form id="detailForm" method="post">
+				<input type="hidden" id="orderId" name="orderId">
+			</form>
 		
 				<div id="row">
 				<ul class="orderList">
@@ -45,7 +48,7 @@
 					    	<img class="card-img-top" src="<c:url value='/img/${orderList.representative_file}'/>" style="width:100px" alt="no image" />
 					    </a>
 					    <br />
-						<p><span>상세주문내역</span><a href=""> 클릭</a></p>
+						<p><span>상세주문내역</span><button type="submit" onclick="fn_detail('${orderList.orderId}')">클릭</button></p>
 						<p><span>주문번호</span><a href="/shop/orderView?n=${orderList.orderId}">${orderList.orderId}</a></p>
 						<p><span>수령인</span>${orderList.orderRec}</p>
 						<p><span>주소</span>(${orderList.userAddr1}) ${orderList.userAddr2} ${orderList.userAddr3}</p>
@@ -93,13 +96,11 @@ function fn_list(no) {
 	}).submit(); */
 };
 
-function fn_detail(no){
-	//var  formData= $('#boardForm').serialize();
-	$('#boardForm #no').attr('disabled',false);
-	$('#boardForm #no').val(no);
+function fn_detail(orderId){
+	$('#detailForm #orderId').val(orderId);
 	
-	$('#boardForm').attr({
-		action : '<c:url value="/boardDetail.do" />',
+	$('#detailForm').attr({
+		action : '<c:url value="/orderDetailView.do" />',
 		target : '_self'
 	}).submit();
 

@@ -230,4 +230,25 @@ and c.orderProcess= #{orderProcess}
 	<select id="maxCartNum" resultType="int">
 		SELECT MAX(cartNum) FROM tbl_cart
 	</select>
+	
+	<select id="selectOrderDetailView" parameterType="java.util.HashMap"
+	resultType="java.util.HashMap">
+		 select 
+		   o.orderId, o.userId, o.orderRec,
+		    o.userAddr1, o.userAddr2, o.userAddr3,
+		    o.orderPhon, o.amount, o.orderDate, o.delivery
+		    , od.cartStock
+            ,od.orderDetailsNum
+		    , g.gdsName  
+     	 	,(SELECT ORG_FILE_NAME FROM MP_FILE WHERE BNO=od.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE WHERE BNO=od.gdsNum)) representative_file
+		    
+		from tbl_order_details od
+		        inner join tbl_order o
+		            on od.orderId = o.orderId
+				inner join tbl_goods g
+		            on od.gdsNum = g.gdsNum
+		    where o.userId = #{userId}
+		        and od.orderId = #{orderId}
+		
+	</select>
 </mapper>

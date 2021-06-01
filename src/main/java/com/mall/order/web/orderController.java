@@ -653,4 +653,29 @@ System.err.println("paramamamamammamama:"+userId);
 
 			return 1;
 		}
+		
+		
+	@RequestMapping(value = "/orderDetailView.do")
+	public String orderDetailView(@RequestParam Map<String, Object> paramMap, Model model, HttpSession session, OrderVO order, OrderDetailVO orderDetail) throws Exception {
+		logger.info("order");
+		model.addAttribute("login", session.getAttribute("login"));
+		model.addAttribute("member", session.getAttribute("member"));
+		
+		String member = String.valueOf(session.getAttribute("login"));
+		String userId = member;
+		
+		paramMap.put("userId",userId);
+		
+		
+		
+		
+		List<Map<String, Object>> detailList = orderService.selectOrderDetailView(paramMap);
+		Map<String, Object> detail = detailList.get(0);
+		
+		model.addAttribute("detailList", detailList);
+		model.addAttribute("detail", detail);
+		model.addAttribute("paramMap", paramMap);
+
+		return "order/orderDetailView";
+	}
 }
