@@ -236,7 +236,6 @@ function fn_detail_pop(B_NO,B_TYPE){
 					gdsPrice : gdsPrice,
 					orderProcessDetail : 'Y',
 					userId : userId ,
-					file : file
 					};
 			
 		$.ajax({
