@@ -35,6 +35,7 @@
 		
 			<section id="content">
 				<%@ include file="/WEB-INF/views/common/popup/orderPopup.jsp"%>
+				<%@ include file="/WEB-INF/views/common/popup/orderDetailPopup.jsp"%>
 			<form id="detailForm" method="post">
 				<input type="hidden" id="orderId" name="orderId">
 			</form>
@@ -46,6 +47,9 @@
 					<div>
 		 				<a href="#!" onclick="fn_detail_pop('${orderList.gdsNum}')" data-toggle="modal" data-target="#exampleModalLong">
 					    	<img class="card-img-top" src="<c:url value='/img/${orderList.representative_file}'/>" style="width:100px" alt="no image" />
+					    </a><br>
+		 				<a href="#!" onclick="fn_order_detail_pop('${orderList.orderId}')" data-toggle="modal" data-target="#orderDetailPopup">
+							상세주문내역
 					    </a>
 					    <br />
 						<p><span>상세주문내역</span><button type="submit" onclick="fn_detail('${orderList.orderId}')">클릭</button></p>
@@ -346,6 +350,44 @@ function fn_detail_pop(B_NO,B_TYPE){
 		success: eventSuccess,
 		error: function(xhr, status, error) {alert(error);}
 	}); */
+}
+	
+function fn_order_detail_pop(orderId){
+	$('#orderId').val(orderId);
+	alert("orderId:"+orderId);
+	
+	$.ajax({
+		url : "${pageContext.request.contextPath}/orderDetailViewPopup.do",
+		type : "post",
+		data : { orderId : orderId },
+		success : function(result) {
+						alert("result:"+result);
+		var obj=JSON.parse(result);
+		//var detail = obj.detail ;
+		var detailList = obj.detailList ;
+     /*    $.each(detail, function( index, value ) {
+   			$("#"+index+"").val(value);
+   			//$("#pp").append(index+','+value+'<br>');
+            console.log('element' ,index, value ); 
+         }); */
+		
+		 for (var i = 0; i <detailList.length; i++) {
+			  console.log('element', i, detailList[i]);
+			  console.log(detailList[i].gdsName);
+			  //$("#pp").append(i+','+imgList[i]+'<br>');
+			  //$("#pp").append(i+','+imgList[i].gdsPrice+'<br>');
+			  
+			  // #pp: 상세이미지 imgList div 영역
+			  $("#kk").append(i+','+detailList[i].gdsName+'<br>');
+			  //$("#pp").append(i+"<img class='card-img-top' src="+image+"><br>");
+			 
+			}
+		
+		
+		//$("#rpsnImg").attr("src","<c:url value='/img/"+img+"'/>");
+		
+		}
+	});
 }
 </script>
 

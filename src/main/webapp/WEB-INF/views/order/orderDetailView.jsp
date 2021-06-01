@@ -33,7 +33,6 @@
 		<div id="container_box">
 		
 			<section id="content">
-				${detailList}
 				<p><span>주문번호</span><a href="/shop/orderView?n=${orderList.orderId}">${orderList.orderId}</a></p>
 				
 				<ul class="detailList">

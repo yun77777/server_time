@@ -678,4 +678,45 @@ System.err.println("paramamamamammamama:"+userId);
 
 		return "order/orderDetailView";
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/orderDetailViewPopup.do")
+	public String orderDetailViewPopup(@RequestParam(value="orderId") int orderId, HttpSession session,
+			HttpServletRequest request, Model model) throws Exception {
+			//		public Map<String, Object> orderDetailViewPopup( @RequestParam Map<String, Object> paramMap, Model model, HttpSession session) throws Exception {
+		logger.info("order");
+		model.addAttribute("login", session.getAttribute("login"));
+		model.addAttribute("member", session.getAttribute("member"));
+		
+		String userId = String.valueOf(session.getAttribute("login"));
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		
+		try {
+			paramMap.put("userId",userId);
+			paramMap.put("orderId",orderId);
+			//paramMap.put("orderId",orderId);
+			System.err.println("param:"+paramMap);
+			System.err.println("userId:"+userId);
+			System.err.println("orderId:"+orderId);
+			
+			List<Map<String, Object>> detailList = orderService.selectOrderDetailView(paramMap);
+			//Map<String, Object> detail = detailList.get(0);
+			System.err.println("detailList:"+detailList);
+			System.err.println("result:"+result);
+			result.put("detailList",detailList);
+			//result.put("result",result);
+			
+//			model.addAttribute("detailList", detailList);
+//			model.addAttribute("detail", detail);
+//			model.addAttribute("paramMap", paramMap);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return JSONObject.fromObject(result).toString();
+	}
 }
