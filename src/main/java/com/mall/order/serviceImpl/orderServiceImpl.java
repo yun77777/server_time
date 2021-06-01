@@ -123,6 +123,11 @@ public class orderServiceImpl implements orderService {
 		}
 		
 		@Override
+		public void updateOrderDetails(Map<String, Object> paramMap) throws Exception {
+			orderMapper.updateOrderDetails(paramMap);
+		}
+		
+		@Override
 		public int maxOrderId() throws Exception {
 			return orderMapper.maxOrderId();
 		}

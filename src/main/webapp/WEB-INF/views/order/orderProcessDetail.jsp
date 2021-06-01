@@ -373,6 +373,8 @@ function fn_order(){
 		contentType : false,
 		success : function(result) {
 			alert('주문이 완료되었습니다.');
+		   	location.replace("/orderList2.do");
+			
 		}, // success 
 
 		error : function(xhr, status) {

@@ -50,6 +50,8 @@ public interface orderMapper {
 	public int maxOrderId() throws Exception;
 
 	public void updateCart(Map<String, Object> paramMap) throws Exception;
+
+	public void updateOrderDetails(Map<String, Object> paramMap) throws Exception;
 //	public void deleteCart(CartVO cart) throws Exception;
 
 	// 주문 정보
@@ -70,6 +72,5 @@ public interface orderMapper {
 
 	// 특정 주문 목록
 	public List<Map<String, Object>> orderView(Map<String, Object> paramMap) throws Exception;
-
 
 }

@@ -50,7 +50,8 @@ public interface orderService {
 	public int maxOrderId() throws Exception;
 
 	public void updateCart(Map<String, Object> paramMap) throws Exception;
-//	public void deleteCart(CartVO cart) throws Exception;
+
+	public void updateOrderDetails(Map<String, Object> paramMap) throws Exception;
 
 	// 주문 정보
 	public void orderInfo(Map<String, Object> paramMap) throws Exception;

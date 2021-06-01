@@ -67,8 +67,8 @@
 	SELECT COALESCE(MAX(orderDetailsNum),0)+1 AS orderDetailsNum FROM tbl_order_details
 
 </selectKey>
- insert into tbl_order_details(orderDetailsNum, orderId, gdsNum, cartStock)
-     select #{orderDetailsNum}, #{orderId}, gdsNum, cartStock
+ insert into tbl_order_details(orderDetailsNum, orderId, gdsNum, cartStock, orderProcess)
+     select #{orderDetailsNum}, #{orderId}, gdsNum, cartStock, #{orderProcess}
 <!--      select tbl_order_details_seq.nextval, #{orderId}, gdsNum, cartStock -->
          from tbl_cart
          where cartNum=#{cartNum} and userId=#{userId}
@@ -201,12 +201,26 @@ and c.orderProcess= #{orderProcess}
 	</delete>
 	
 	
-	<delete id="updateCart" parameterType="map">
+	<update id="updateCart" parameterType="map">
 		update tbl_cart
 		set cartStock = #{cartStock},
-		 orderProcess = 'Y'
+		 orderProcess = #{orderProcess}
 		where userId = #{userId} and cartNum = #{cartNum}
-	</delete>
+	</update>
+	
+	<update id="updateOrderDetails" parameterType="map">
+	update tbl_cart
+		set 
+		 orderProcess = 'C'
+		where userId = #{userId} and orderProcess='Y'
+	</update>
+	
+<!-- 	<update id="updateOrderDetails" parameterType="map">
+		update tbl_order_details
+		set orderProcess = 'C'
+		where userId = #{userId}
+	</update>
+	 -->
 	
 	<select id="maxOrderId" resultType="int">
 		SELECT MAX(orderId) FROM tbl_order

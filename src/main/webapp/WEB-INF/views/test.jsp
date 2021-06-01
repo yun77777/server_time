@@ -312,7 +312,8 @@ $(".addCart_btn").click(function(){
 	var gdsNum = $("#gdsNum").val();
 	var userId = $("#userId").val();
 	var cartStock = $(".numBox").val();
-	
+	//var msg="장바구니로 이동하시겠습니까?";
+
 	var data = {
 			gdsNum : gdsNum,
 			userId : userId,
@@ -327,11 +328,12 @@ $(".addCart_btn").click(function(){
 			
 			if(result == 1) {
 				alert("카트 담기 성공");
-				$(".numBox").val("1");
-
+/* 				confirm(msg){
+					window.location='<c:url value="/cartList.do"/>';
+				}
+ */
 			} else {
 				alert("회원만 사용할 수 있습니다.")
-				$(".numBox").val("1");
 				window.location='<c:url value="/user/login.do"/>';
 
 			}
