@@ -354,14 +354,12 @@ function fn_detail_pop(B_NO,B_TYPE){
 	
 function fn_order_detail_pop(orderId){
 	$('#orderId').val(orderId);
-	alert("orderId:"+orderId);
 	
 	$.ajax({
 		url : "${pageContext.request.contextPath}/orderDetailViewPopup.do",
 		type : "post",
 		data : { orderId : orderId },
 		success : function(result) {
-						alert("result:"+result);
 		var obj=JSON.parse(result);
 		//var detail = obj.detail ;
 		var detailList = obj.detailList ;
@@ -376,14 +374,24 @@ function fn_order_detail_pop(orderId){
 			  console.log(detailList[i].gdsName);
 			  //$("#pp").append(i+','+imgList[i]+'<br>');
 			  //$("#pp").append(i+','+imgList[i].gdsPrice+'<br>');
-			  
+			  var image="<c:url value='/img/"+detailList[i].representative_file+"'/>";
 			  // #pp: 상세이미지 imgList div 영역
-			  $("#kk").append(i+','+detailList[i].gdsName+'<br>');
-			  //$("#pp").append(i+"<img class='card-img-top' src="+image+"><br>");
-			 
+			  $("#kk").append('<b>'+(i+1)+'</b>. '+detailList[i].gdsName+'<br>');
+			  $("#kk").append(''+"<img class='card-img-top' src="+image+" style='width:20%;height:auto'><br>");
+			  $("#kk").append('cartStock: '+detailList[i].cartStock+'<br>');
+			  $("#kk").append('gdsPrice: '+detailList[i].amount+'<br>');
+
 			}
-		
-		
+         
+         $("#kk").append('<hr>');
+		  $("#kk").append('orderId: '+detailList[0].orderId+'<br>');
+		  $("#kk").append('userId: '+detailList[0].userId+'<br>');
+		  $("#kk").append('orderPhon: '+detailList[0].orderPhon+'<br>');
+		 $("#kk").append('userAddr: '+detailList[0].userAddr1
+				 +', '+detailList[0].userAddr2
+				 +', '+detailList[0].userAddr3
+				 +'<br>');
+
 		//$("#rpsnImg").attr("src","<c:url value='/img/"+img+"'/>");
 		
 		}
