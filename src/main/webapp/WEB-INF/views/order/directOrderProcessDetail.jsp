@@ -35,20 +35,15 @@
 		<div id="container_box">
 		
 			<section id="content">
-					${paramMap}
 				<ul>
-				
 					<%-- jsp상의 변수 선언 --%>
 					<c:set var="sum" value="0" />
 				<form id="deleteForm" method="post" enctype="multipart/form-data">
 					<li>
 					
-						<div class="thumb">
-							<img src="${paramMap.gdsThumbImg}" />
-						</div>
 						<div class="gdsInfo">
 							<p>
-                           		<img class="card-img-top" src="<c:url value='/img/${paramMap.representative_file}'/>" style="width:100px" alt="no image" /><br />
+                           		<img class="card-img-top" src="<c:url value='/img/${paramMap.file}'/>" style="width:100px" alt="no image" /><br />
 								<span>상품명</span>${paramMap.gdsName}<br />
 								<span>개당 가격</span><fmt:formatNumber pattern="###,###,###" value="${paramMap.gdsPrice}" /> 원<br />
 								<span>구입 수량</span>${paramMap.gdsStock} 개<br />

@@ -40,6 +40,7 @@
 <input type="hidden" id="gdsPrice" name="gdsPrice"/>
 <input type="hidden" id="gdsStock" name="gdsStock" />
 <input type="hidden" id="gdsName" name="gdsName" />
+<input type="hidden" id="file" name="file" />
 								
 								</form>
 

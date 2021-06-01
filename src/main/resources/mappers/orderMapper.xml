@@ -67,8 +67,8 @@
 	SELECT COALESCE(MAX(orderDetailsNum),0)+1 AS orderDetailsNum FROM tbl_order_details
 
 </selectKey>
- insert into tbl_order_details(orderDetailsNum, orderId, gdsNum, cartStock, orderProcess)
-     select #{orderDetailsNum}, #{orderId}, gdsNum, cartStock, #{orderProcess}
+ insert into tbl_order_details(orderDetailsNum, orderId, gdsNum, cartStock, orderProcess, file)
+     select #{orderDetailsNum}, #{orderId}, gdsNum, cartStock, #{orderProcess}, #{file}
 <!--      select tbl_order_details_seq.nextval, #{orderId}, gdsNum, cartStock -->
          from tbl_cart
          where cartNum=#{cartNum} and userId=#{userId}
@@ -107,9 +107,11 @@
 		select 
 		    *
 		from tbl_order_details d
-		        inner join tbl_cart g
-		            on d.gdsNum = g.gdsNum
-		    where g.userId = #{userId}
+		        inner join tbl_cart c
+		            on d.gdsNum = c.gdsNum
+	            inner join tbl_goods g
+		            on d.gdsNum = d.gdsNum
+		    where c.userId = #{userId}
 		        and d.orderId = #{orderId}
 <!-- 		select 
 		    o.orderId, o.userId, o.orderRec,
