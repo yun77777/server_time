@@ -89,6 +89,7 @@
 		    o.orderPhon, o.amount, o.orderDate, o.delivery
 		    , od.cartStock
 		    , g.gdsName
+		    , g.gdsNum
     	 	,(SELECT ORG_FILE_NAME FROM MP_FILE WHERE BNO=od.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE WHERE BNO=od.gdsNum)) representative_file
 		from tbl_order o
 		left outer join tbl_order_details od
@@ -96,6 +97,7 @@
 		left outer join tbl_goods g
 		on od.gdsNum=g.gdsNum
 		    where userId = #{userId}
+		    and od.orderDetailsNum=(SELECT MIN(a.orderDetailsNum) FROM tbl_order_details a inner join tbl_order b on a.orderId=o.orderId)
 	</select>
 	
 	<!-- 특정 주문 목록 -->

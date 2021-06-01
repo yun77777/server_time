@@ -29,17 +29,23 @@
 </head>
 <body>
 
-	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
+					<%@ include file="/WEB-INF/views/common/nav.jsp"%>
+	
 <!-- Page Content--><section id="container">
-		${orderList}
 		
 			<section id="content">
+				<%@ include file="/WEB-INF/views/common/popup/orderPopup.jsp"%>
+		
 				<div id="row">
 				<ul class="orderList">
 					<c:forEach items="${orderList}" var="orderList">
 					<li>
 					<div>
-					    <img class="card-img-top" src="<c:url value='/img/${orderList.representative_file}'/>" style="width:100px" alt="no image" /><br />
+		 				<a href="#!" onclick="fn_detail_pop('${orderList.gdsNum}')" data-toggle="modal" data-target="#exampleModalLong">
+					    	<img class="card-img-top" src="<c:url value='/img/${orderList.representative_file}'/>" style="width:100px" alt="no image" />
+					    </a>
+					    <br />
+						<p><span>상세주문내역</span><a href=""> 클릭</a></p>
 						<p><span>주문번호</span><a href="/shop/orderView?n=${orderList.orderId}">${orderList.orderId}</a></p>
 						<p><span>수령인</span>${orderList.orderRec}</p>
 						<p><span>주소</span>(${orderList.userAddr1}) ${orderList.userAddr2} ${orderList.userAddr3}</p>
@@ -197,7 +203,149 @@ $(function() {
 	});
 })
 
-</script>
+
+function fn_detail_pop(B_NO,B_TYPE){
+	$('#gdsNum').val(B_NO);
+	$('#B_TYPE').val(B_TYPE);
+	//itemDetailPopup
+	var  formData= $('#boardForm').serialize();
+	//alert(B_NO);
+/* 	$('.modal-body').append("afkjzxczxc"+$('#gdsNum').val());
+ */	
+	
+	$.ajax({
+		url : "${pageContext.request.contextPath}/itemDetailPopup.do",
+		type : "post",
+		data : { gdsNum : B_NO },
+		success : function(result) {
+						
+		var obj=JSON.parse(result);
+		var detail = obj.detail ;
+		var imgList = obj.imgList ;
+        $.each(detail, function( index, value ) {
+   			$("#"+index+"").val(value);
+   			//$("#pp").append(index+','+value+'<br>');
+            console.log('element' ,index, value ); 
+         });
+		
+		 for (var i = 0; i <imgList.length; i++) {
+			  console.log('element', i, imgList[i]);
+			  console.log(imgList[i].gdsPrice);
+			  //$("#pp").append(i+','+imgList[i]+'<br>');
+			  //$("#pp").append(i+','+imgList[i].gdsPrice+'<br>');
+			  
+			  // #pp: 상세이미지 imgList div 영역
+			  $("#pp").append(i+','+imgList[i].file+'<br>');
+			  
+			var img=imgList[i].file;
+			var file = $("#file").val(img);
+			var image="<c:url value='/img/"+img+"'/>"; //상품 상세 이미지
+			  $("#pp").append(i+"<img class='card-img-top' src="+image+"><br>");
+/* 			  $("#pp").append(i+"<img class='card-img-top scale' src="+image+"><br>"); */
+			 
+			};
+			
+		
+		//상품상세설명
+		$("#name").html(detail.gdsName);
+		//상품상세설명
+		$("#price").html(detail.gdsPrice);
+		//상품상세설명
+/* 		$("#gdsStock").parent().parent().find('td').append(detail.gdsStock);
+ */		//상품상세설명
+		//상품상세설명
+		$("#des").html(detail.gdsDes);
+		
+		$("#orderForm #gdsName").val(detail.gdsName);
+		$("#orderForm #gdsPrice").val(detail.gdsPrice);
+		$("#orderForm #gdsStock").val(detail.gdsStock);
+/* 		$("#gdsStock").val(detail.gdsStock); */
+		$("#orderForm #totalPrice").val(detail.totalPrice);
+		$("#orderForm #gdsDes").val(detail.gdsDes);
+		
+		//$("#gdsDes").val("새로운 값을 지정합니다.");  //텍스트 에어리어에 새로 값을 지정.
+		
+		$("#rpsnImg").attr("src","<c:url value='/img/"+img+"'/>");
+		console.log('================================');
+		
+		//제품상세(기존)
+		$("#create2").on("click",function(){ 
+			var gdsNum=$('#gdsNum').val();
+
+			//$(this).next().html("<button type='button' id='newButton'>ok</button>"); 
+			
+			fn_detail(gdsNum);
+			
+			});
+		
+		
+		//주문
+		$("#create").on("click",function(){ 
+			
+			var gdsNum = $("#gdsNum").val();
+			var cartStock = 5;
+/* 			var cartStock = $(".numBox").val(); */
+			//alert('gdsNum:'+gdsNum);
+			
+			var gdsNum = $("#gdsNum").val();
+			var userId = $("#userId").val();
+			var gdsName = $("#gdsName").val();
+			var gdsPrice = $("#gdsPrice").val();
+			var cartStock = $("#stock").val();
+			var gdsStock = cartStock;
+/* 			var gdsStock = $(".numBox").val(); */
+			$('#gdsStock').val(gdsStock);
+			
+			var data = {
+					gdsNum : gdsNum,
+					gdsStock : gdsStock,
+					cartStock : cartStock,
+					gdsName : gdsName,
+					gdsPrice : gdsPrice,
+					orderProcessDetail : 'Y',
+					userId : userId ,
+					};
+			
+		$.ajax({
+				url : "/directOrderProcess.do",
+				type : "post",
+				data : data,
+				success : function(result){
+					$("#orderId").val(result.orderId);
+					
+					$('#orderForm').attr({
+/* 					$('#boardForm').attr({ */
+						action : '<c:url value="/directOrderProcessDetail.do"/>',
+						target : '_self'
+					}).submit(); 
+				   	//location.replace("/directOrderProcessDetail.do");
+				},
+				error : function(){
+					alert("주문 실패");
+				}
+			});
+		
+			
+			
+			});
+		// 주문
+		
+		}, // success 
+
+		error : function(xhr, status) {
+			alert(xhr + " : " + status);
+		}
+	});
+	
+	/* $.ajax({
+		url: '<c:url value="/test.do" />',
+		method:"POST",
+		data:formData,
+		dataType:"html",
+		success: eventSuccess,
+		error: function(xhr, status, error) {alert(error);}
+	}); */
+}
 </script>
 
 </html>
