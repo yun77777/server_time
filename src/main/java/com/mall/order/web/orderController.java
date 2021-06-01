@@ -287,6 +287,7 @@ System.err.println("paramamamamammamama:"+userId);
 		
 		System.err.println("cartList:"+cartList);
 		model.addAttribute("cartList", cartList);
+		model.addAttribute("paramMap", paramMap);
 		orderService.deleteCart(paramMap);
 
 //		return "redirect:/order/cartList";
@@ -297,7 +298,7 @@ System.err.println("paramamamamammamama:"+userId);
 	
 	@ResponseBody
 	@RequestMapping(value = "/orderProcess.do")
-	public int orderProcess( @RequestParam(value="userId") String userId, @RequestParam(value = "cartStockArr[]") List<String> cartStockArr, @RequestParam(value = "chbox[]") List<String> chArr, @RequestParam Map<String, Object> paramMap, Model model, HttpSession session) throws Exception {
+	public Map<String, Object> orderProcess( @RequestParam(value="userId") String userId, @RequestParam(value = "cartStockArr[]") List<String> cartStockArr, @RequestParam(value = "chbox[]") List<String> chArr, @RequestParam Map<String, Object> paramMap, Model model, HttpSession session) throws Exception {
 		logger.info("orderProcess cart");
 		model.addAttribute("login", session.getAttribute("login"));
 		model.addAttribute("member", session.getAttribute("member"));
@@ -306,11 +307,10 @@ System.err.println("paramamamamammamama:"+userId);
 		System.err.println("cartStockArr@"+cartStockArr);
 		System.err.println("userId@"+userId);
 		
-		int result=0;
 		int cartNum=0;
 		int cartStock=0;
 		
-		paramMap.put("orderId", orderService.maxOrderId());
+		paramMap.put("orderId", orderService.maxOrderId()+1);
 		paramMap.put("userId",userId);
 		//카트리스트에서 선택된 내역 주문
 		//주문서 작성 후 결제 완료->주문 내역 카트리스트에서 삭제
@@ -333,7 +333,6 @@ System.err.println("paramamamamammamama:"+userId);
 				//orderService.deleteCart(paramMap);//카트에서 해당 상품 삭제
 			}
 			
-			result = 1;
 		}
 		
 		// 주문할 상품 리스트
@@ -341,7 +340,7 @@ System.err.println("paramamamamammamama:"+userId);
 
 		model.addAttribute("cartList", cartList);
 		model.addAttribute("paramMap", paramMap);
-		return result;
+		return paramMap;
 	}
 	
 	

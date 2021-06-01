@@ -99,7 +99,7 @@
 			
 			<div class="orderInfo">
 <%-- 				<form role="form" method="post" autocomplete="off">
- --%>										
+ --%>							${paramMap.orderId}			
 			<form id="boardForm" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="amount" value="${sum}" />
 					<input type="hidden" id="userId" name="userId" value="${member.ID}" />

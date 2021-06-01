@@ -189,6 +189,7 @@
 			<form id="boardForm" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="amount" value="${sum}" />
 					<input type="hidden" id="userId" name="userId" value="${member.ID}" />
+					<input type="hidden" id="orderId" name="orderId" />
 				</form>	
 			<div class="inputArea">
 				<button type="submit" onclick="fn_order()" class="order_btn">주문</button>
@@ -321,12 +322,12 @@ function fn_order(){
 		$.ajax({
 			//선택 후 orderProcess(주문) 페이지로 이동
 			url : "/orderProcess.do",
-			//url : "/orderChk.do",
 			type : "post",
 			data : { chbox : checkArr , userId : userId , cartStockArr : cartStockArr,},
 			success : function(result){
 				
-				if(result == 1) {	
+				if(result) {	
+					$("#orderId").val(result.orderId);
 					$('#boardForm').attr({
 						action : '<c:url value="/orderProcessDetail.do"/>',
 						target : '_self'
