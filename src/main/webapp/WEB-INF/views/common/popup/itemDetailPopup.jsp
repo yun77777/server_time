@@ -28,10 +28,10 @@
 				<input type="hidden" id="gdsNum" name="gdsNum" value="${detail.gdsNum}" />
 				<input type="hidden" name="gdsPrice" value="${detail.gdsPrice}" />
 				<input type="hidden" id="gdsStock" name="gdsStock" />
-			</form>
+			
 
 
-				<table class="table table-borderless">
+				<table id="details" class="table table-borderless">
 					<thead>
 					</thead>
 					<tbody>
@@ -53,7 +53,9 @@
 						</tr>
 					</tbody>
 				</table>
+				</form>
 			</div>
+			
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 				<button type="button" class="btn btn-primary">Save changes</button>

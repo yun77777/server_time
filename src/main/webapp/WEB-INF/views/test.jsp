@@ -176,18 +176,16 @@ function fn_detail_pop(B_NO,B_TYPE){
 			 
 			};
 			
-	
 		
 		//상품상세설명
-		$("#gdsName").parent().parent().find('td').append(detail.gdsName);
+		$("#name").html(detail.gdsName);
 		//상품상세설명
-		$("#gdsPrice").parent().parent().find('td').append(detail.gdsPrice);
+		$("#price").html(detail.gdsPrice);
 		//상품상세설명
 /* 		$("#gdsStock").parent().parent().find('td').append(detail.gdsStock);
  */		//상품상세설명
-		$("#totalPrice").parent().parent().find('td').append(detail.totalPrice);
 		//상품상세설명
-		$("#gdsDes").parent().parent().find('td').append(detail.gdsDes);
+		$("#des").html(detail.gdsDes);
 		
 		$("#orderForm #gdsName").val(detail.gdsName);
 		$("#orderForm #gdsPrice").val(detail.gdsPrice);
@@ -328,6 +326,7 @@ $(".addCart_btn").click(function(){
 			
 			if(result == 1) {
 				alert("카트 담기 성공");
+				$(".numBox").val(1);
 /* 				confirm(msg){
 					window.location='<c:url value="/cartList.do"/>';
 				}

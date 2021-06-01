@@ -124,6 +124,7 @@
 							</p>
 							
 							<p class="gdsStock">
+							<input id="price" type="hidden" value="${cartList.cartStock}">
 								<span>구입 수량 </span><fmt:formatNumber pattern="###,###,###" value="${cartList.cartStock}" /> EA
 							</p>
 						
@@ -133,6 +134,7 @@
 									<input type="number" id="cartStock" name="cartStock" class="numBox" min="1" max="${view.gdsStock}" value="${cartList.cartStock}" readonly="readonly"/>
 									<button type="button" class="minus">-</button>
 									<input type="hidden" value="${view.gdsStock}" class="gdsStock_hidden" /> 
+									<input type="hidden" value="${cartList.gdsPrice * cartList.cartStock}" class="gdsPrice_hidden" /> 
 								</p>
 							</c:if>
 							<c:if test="${view.gdsStock == 0}">
@@ -172,11 +174,11 @@
 							</div>
 						</div>			
 					</li>
-					
-					<%-- 반복할 때마다 sum에 상품 가격(gdsPrice)*상품 갯수(cartStock)만큼을 더함 --%>
-					<c:set var="sum" value="${sum + (cartList.gdsPrice * cartList.cartStock)}" />
-					
 					</c:forEach>
+					<%-- 반복할 때마다 sum에 상품 가격(gdsPrice)*상품 갯수(cartStock)만큼을 더함 --%>
+<%-- 					<c:set var="sum" value="${sum + (cartList.gdsPrice * cartList.cartStock)}" />
+					
+					 --%>
 				</form>
 				</ul>
 			
@@ -261,8 +263,22 @@ function fn_delete() {
 		});
 	}
 }
+$(document).ready(function(){
+var sum=0;
+$("input[class='chBox']").change(function(){
+      if($("input[class='chBox']").is(":checked")){
+          alert("체크박스 체크했음!");
+          //sum+=Number($(this).parent().parent().find('.cartStock').find('.numBox').val());  // 배열에 데이터 삽입
+          sum+=Number($(this).parent().parent().find('.cartStock').find('.gdsPrice_hidden').val());  // 배열에 데이터 삽입
+  		
+      }else{
+          alert("체크박스 체크 해제!");
+      }
+      alert(sum);
+      $(".listResult").html('총 합계: '+sum+'원'); 
 
-
+  });
+});
 //주문
 function fn_order(){
 	$(".orderChk *").remove();
@@ -270,15 +286,15 @@ function fn_order(){
 	var cartStockArr = new Array();
 	//var formData = new FormData($("#deleteForm")[0]);
 	var userId=$('#userId').val();
-
+	//var sum=0;
 	// 체크된 체크박스의 갯수만큼 반복
 	$("input[class='chBox']:checked").each(function(){
 		checkArr.push($(this).attr("data-cartNum"));  // 배열에 데이터 삽입
 		//alert($(this).parent().parent().find('.cartStock').find('#cartStock').val());	
 		cartStockArr.push($(this).parent().parent().find('.cartStock').find('#cartStock').val());  // 배열에 데이터 삽입
+		//sum+=cartStockArr.push($(this).parent().parent().find('.cartStock').find('.gdsStock_hidden').val());  // 배열에 데이터 삽입
+		
 	});
-	
-	
 	alert("checkArr:"+checkArr);
 	alert("cartStockArr:"+cartStockArr);
 	

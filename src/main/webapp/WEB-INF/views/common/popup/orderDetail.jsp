@@ -165,7 +165,7 @@
 						<input type="hidden" name="gdsNum" value="${view.gdsNum}" />
 					
 					</form> --%>
-					<form id="orderForm" method="post" enctype="multipart/form-data">
+<form id="orderForm" method="post" enctype="multipart/form-data">
 						<input type="hidden" name="userId" value="${member.ID}" />
 						<input type="hidden" id="gdsNum" name="gdsNum" value="${detail.gdsNum}" />
 						<input type="hidden" name="gdsPrice" value="${detail.gdsPrice}" />
@@ -183,15 +183,15 @@
 							<tbody>
 								<tr>
 									<th scope="row">상품명</th>
-									<td>${detail.gdsName}</td>
+									<td id="a">${detail.gdsName}</td>
 								</tr>
 								<tr>
 									<th scope="row">가격</th>
-									<td><fmt:formatNumber pattern="###,###,###" value="${detail.gdsPrice}" /> 원</td>
+									<td id="b"><fmt:formatNumber pattern="###,###,###" value="${detail.gdsPrice}" /> 원</td>
 								</tr>
 								<tr>
 									<th scope="row">재고</th>
-									<td></span><fmt:formatNumber pattern="###,###,###" value="${detail.gdsStock}" /> EA</td>
+									<td id="c" ></span><fmt:formatNumber pattern="###,###,###" value="${detail.gdsStock}" /> EA</td>
 								</tr>
 								<tr>
 									<th scope="row">Total Price</th>

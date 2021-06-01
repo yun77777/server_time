@@ -42,11 +42,11 @@
 										</tr>
 										<tr>
 											<th>상품명</th>
-											<td><input type="hidden" id="gdsName"></td>
+											<td id="name"><input type="hidden" id="gdsName"></td>
 										</tr>
 										<tr>
 											<th>가격</th>
-											<td><input type="hidden" id="gdsPrice"></td>
+											<td id="price"><input type="hidden" id="gdsPrice"></td>
 										</tr>
 										<!-- <tr>
 											<th>재고</th>
@@ -73,7 +73,7 @@
 								</tr>
 										<tr>
 											<th>상품설명</th>
-											<td><input type="hidden" id="gdsDes"></textArea>
+											<td id="des"><input type="hidden" id="gdsDes"></textArea>
 										</tr>
 									</tbody>
 								</table>
