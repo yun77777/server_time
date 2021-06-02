@@ -36,36 +36,13 @@
 </head>
 <body>
 
-	<%-- <c:forEach items="${list}" var="map">
-	    <c:forEach items="${map}" var="entry">
-	        <input type="hidden" class="key" value="${entry.key}">
-	        <input type="hidden" class="value" value="${entry.value}">
-	    </c:forEach>
-	</c:forEach> --%>
-
 
 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
+	<%@ include file="/WEB-INF/views/common/header.jsp"%> 
 	
+	<%@ include file="/WEB-INF/views/common/content.jsp"%>
 	
-	
-	
-	
-	
-	
-	
-	 <%@ include file="/WEB-INF/views/common/header.jsp"%> 
-	
-	<form id="boardForm" method="post">
-	
-		<%@ include file="/WEB-INF/views/common/content.jsp"%>
-	</form>
-
-
-
-
-
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
-
 	
 	
 </body>
@@ -288,22 +265,6 @@ function fn_list(no) {
 		target : '_self'
 	}).submit();
 	
-/* 	var formData = new FormData($("#pgForm")[0]); */
-
-/* 	$.ajax({
-		url : "${pageContext.request.contextPath}/testPg.do",
-		type : "post",
-		enctype: 'multipart/form-data',
- 		/data : formData,
-		processData : false,
-		contentType : false,
-		success : function(result) {
-		}, // success 
-
-		error : function(xhr, status) {
-			alert(xhr + " : " + status);
-		}
-	}); */
 }
 
 

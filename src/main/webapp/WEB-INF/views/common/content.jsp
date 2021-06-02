@@ -9,25 +9,14 @@
 
 <hr class="my-0" />
 
-
-<!-- Portfolio Section-->
-<!-- <section class="py-5 bg-light" style="float: left; width: 80%;">
-	<article> -->
+	<form id="boardForm" method="post">
 		<div class="container container-lg" >
-
 			<%@ include file="/WEB-INF/views/common/slideImgs.jsp"%>
-
 		</div>
-<%-- 		<%@ include file="/WEB-INF/views/common/paging.jsp"%>
- --%>	
+	</form>
 	
-	<!--@@@@@@@@@@@@ 제품 상세 팝업 모달 popup in detail -->
 <%@ include file="/WEB-INF/views/common/popup/orderPopup.jsp"%> 
-	<!--// @@@@@@@@@@@@ 제품 상세 팝업 모달 popup in detail -->
-
-	<!--@@@@@@@@@@@@ 로그인 상세 팝업 모달 popup in detail -->
 <%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
-	<!--@@@@@@@@@@@@ 로그인 상세 팝업 모달 popup in detail -->
 
 
 
