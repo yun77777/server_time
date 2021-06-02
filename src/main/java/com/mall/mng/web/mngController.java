@@ -1,5 +1,6 @@
 package com.mall.mng.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -322,12 +324,20 @@ public class mngController {
 		}		
 		return "mng/orderList";
 	}
+	
 	//orderCancel
+	@ResponseBody
 	@RequestMapping(value = "/itemDelivery.do")
-	public String itemDelivery( @RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+	public String itemDelivery( @RequestParam(value="orderId") String orderId, @RequestParam(value="delivery") String delivery, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
 		try {
 			model.addAttribute("login",httpSession.getAttribute("login"));
 			model.addAttribute("member",httpSession.getAttribute("member"));
+			
+			Map<String, Object> paramMap=new HashMap<String, Object>();
+			
+			paramMap.put("orderId",orderId);
+			paramMap.put("delivery",delivery);
+			
 			model.addAttribute("paramMap",paramMap);
 			
 			mngService.updateOrderState(paramMap);

@@ -176,6 +176,8 @@
 		on od.orderId=o.orderId
 		left outer join tbl_goods g
 		on od.gdsNum=g.gdsNum
+	    where od.orderDetailsNum=(SELECT MIN(a.orderDetailsNum) FROM tbl_order_details a inner join tbl_order b on a.orderId=o.orderId)
+		
 	</select>
 	
 	<update id="updateOrderState" parameterType="map">

@@ -35,11 +35,11 @@
 			<section id="content">
 			<!-- 고객: 입금완료 상태일 경우-->
 		<c:if test="${paramMap.delivery ne '발송' }">
-			<button onclick="fn_deliver('${paramMap.orderId}')">발송</button>
+			<button onclick="fn_deliver('${paramMap.orderId}','발송')">발송</button>
 		</c:if>
 		<c:if test="${paramMap.delivery ne '취소' }">
 			<!-- 관리자: 취소시 취소사유 입력 -->
-			<button onclick="fn_cancel('${paramMap.orderId}')">취소</button>
+			<button onclick="fn_deliver('${paramMap.orderId}','취소')">취소</button>
 		</c:if>
 			<form id="orderForm" method="post">
 				<input type="hidden" id="orderId" name="orderId">
@@ -91,7 +91,7 @@
 <script>
 function fn_deliver(orderId,delivery){
 	$('#orderId').val(orderId);
-	$('#delivery').val('발송');
+	$('#delivery').val(delivery);
 	
 	var data = {
 			orderId : orderId,
@@ -110,27 +110,6 @@ function fn_deliver(orderId,delivery){
 		}
 	});
 	
-}
-function fn_cancel(orderId,delivery){
-	$('#orderId').val(orderId);
-	$('#delivery').val('취소');
-	
-	var data = {
-			orderId : orderId,
-			delivery : delivery
-			};
-	
-	$.ajax({
-		url : "/mng/itemDelivery.do",
-		type : "post",
-		data : data,
-		success : function(result){
-			window.location='<c:url value="/mng/orderList.do"/>';
-		},
-		error : function(){
-			alert("실패");
-		}
-	});
 }
 </script>
 </html>
