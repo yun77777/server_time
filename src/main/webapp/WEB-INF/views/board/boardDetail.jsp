@@ -17,6 +17,74 @@
 <title>Modern Business - Start Bootstrap Template</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<style>
+body {
+    background-color: #f7f6f6
+}
+
+.card {
+    border: none;
+    box-shadow: 5px 6px 6px 2px #e9ecef;
+    border-radius: 4px
+}
+
+.dots {
+    height: 4px;
+    width: 4px;
+    margin-bottom: 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block
+}
+
+.badge {
+    padding: 7px;
+    padding-right: 9px;
+    padding-left: 16px;
+    box-shadow: 5px 6px 6px 2px #e9ecef
+}
+
+.user-img {
+    margin-top: 4px
+}
+
+.check-icon {
+    font-size: 17px;
+    color: #c3bfbf;
+    top: 1px;
+    position: relative;
+    margin-left: 3px
+}
+
+.form-check-input {
+    margin-top: 6px;
+    margin-left: -24px !important;
+    cursor: pointer
+}
+
+.form-check-input:focus {
+    box-shadow: none
+}
+
+.icons i {
+    margin-left: 8px
+}
+
+.reply {
+    margin-left: 12px
+}
+
+.reply small {
+    color: #b7b4b4
+}
+
+.reply small:hover {
+    color: green;
+    cursor: pointer
+}
+</style>
+
+
 <!-- Font Awesome icons (free version)-->
 <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"
 	crossorigin="anonymous"></script>
@@ -41,43 +109,60 @@
                 <!-- Contact Form-->
                 <!-- In order to set the email address and subject line for the contact form go to the assets/mail/contact_me.php file.-->
                 <div class="row">
-                	<button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="button">Go to the list</button>
                     <div class="col-lg-8 mb-4">
                         <form id="boardForm" name="sentMessage" novalidate>
                         	<input type="hidden" id="currentPageNo" name="currentPageNo" value="1"/>
-                            <div class="control-group form-group">
-                                <div class="controls">
-                                    <label>no:</label>
-                                    <input class="form-control" id="no" name="no" type="text" value="${detail.B_NO}" disabled data-validation-required-message="Please enter your name." />
-                                    <p class="help-block"></p>
-                                </div>
-                            </div>
-                            <div class="control-group form-group">
-                                <div class="controls">
-                                    <label>id:</label>
+                            <button class="btn btn-secondary btn-sm float-right" id="sendMessageButton" onclick="fn_list()" type="button">Go to the list</button>
+                            <table class="table">
+							  <thead>
+							  </thead>
+							  <tbody>
+							    <tr>
+							      <th scope="row">no</th>
+							      <td>
+							      	<div class="controls">
+	                                    <input class="form-control" id="no" name="no" type="text" value="${detail.B_NO}" disabled data-validation-required-message="Please enter your name." />
+                                	</div>
+							      </td>
+							     </tr>
+							     <tr>
+							     <th scope="row">id</th>
+							      <td>
+							      	<div class="controls">
                                     <input class="form-control" id="id" name="id" type="text"  value="${detail.id}" required data-validation-required-message="Please enter your phone number." />
-                                </div>
-                            </div>
-                            <div class="control-group form-group">
-                                <div class="controls">
-                                    <label>title:</label>
+                                	</div>
+							      </td>
+							      </tr>
+							      <tr>
+							      <th scope="row">title</th>
+							      <td>
+							      	<div class="controls">
                                     <input class="form-control" id="title" name="title" type="text"  value="${detail.title}" required data-validation-required-message="Please enter your email address." />
-                                </div>
-                            </div>
-                            <div class="control-group form-group">
-                                <div class="controls">
-                                    <label>file:</label>
+                                	</div>
+							      </td>
+							      </tr>
+							      <tr>
+							      <th scope="row">file</th>
+							      <td>
+							      	<div class="controls">
                                      <input class="form-control" id="file" name="file" type="text"  value="${detail.file}" required data-validation-required-message="Please enter your email address." />
-                                </div>
-                            </div>
-                            <div class="control-group form-group">
-                                <div class="controls">
+                                	</div>
+							      </td>
+							      </tr>
+							      <tr>
+							      <th scope="row"></th>
+							      <td>
+							      	<div class="controls">
                                 	<textarea rows="5" cols="50" id="content" name="content" class="form-control">${detail.content}</textarea>
-<%--                       				<%@ include file="/WEB-INF/views/common/smartEditor.jsp"%>
---%>                            </div>
-                                
-                                
-                            </div>
+                                	</div>
+							      </td>
+							    </tr>
+							  </tbody>
+							</table>
+                            
+                            
+                            
+                            
                             <div id="success"></div>
                             
                             <div class="inputArea">
@@ -85,8 +170,9 @@
 			</div>
                             
                             <!-- For success/fail messages-->
-                        	<button class="btn btn-primary" id="submit" onclick="" type="button">Save</button>
-			                <button class="btn btn-primary" id="sendMessageButton" onclick="fn_delete()" type="button">Delete</button>
+                            
+                        	<button class="btn btn-info btn-sm float-right" id="submit" onclick="" type="button">Save</button>
+			                <button class="btn btn-danger btn-sm float-right" id="sendMessageButton" onclick="fn_delete()" type="button">Delete</button>
 			                
 			                <table class="table table-sm">
 								<tbody>
@@ -113,10 +199,10 @@
                         </form>
                     </div>
                 </div>
-            </div>
             
             
             
+<%--             
 <div>
      <table id="replyTbl" class="table table-sm">
 	<thead>
@@ -135,28 +221,71 @@
 			</tr>
 		</c:forEach>
 	</tbody>
-</table>       
+</table>      --%>  
             
             
           
-      <form id="replyForm" method="post">
-<%--       <form id="replyForm" method="post" enctype="multipart/form-data"> --%>
-		<p>
-			<label>댓글 작성자</label> <input type="text" id="writer" name="writer" value="${member.ID}" readonly>
-		</p>
-		<p>
-			<textarea rows="5" cols="50" id="content" name="content"></textarea>
-		</p>
-		<p>
-		<input type="hidden" id="bno" name="bno" value="${detail.B_NO}">
-		</p>
+   
+
+
+<!-- <div id="replyList"></div> -->
+
+
+
+
+
+<div class="container mt-5">
+    <div class="row d-flex justify-content-center">
+        <div id="reply" class="col-md-8">
+            <div class="headings d-flex justify-content-between align-items-center mb-3">
+                <h5 id="commentCnt">comment(${len})</h5>
+                <div class="buttons"> <span class="badge bg-white d-flex flex-row align-items-center"> <span class="text-primary">Comments "ON"</span>
+                        <div class="form-check form-switch"> <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked> </div>
+                    </span> </div>
+            </div>
+            
+            <c:forEach var="result" items="${replyList}" varStatus="status">
+			 <div class="card p-3 reply">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="user d-flex flex-row align-items-center">
+                     ${result.rno}
+                     <span><small class="font-weight-bold text-primary">${result.writer}</small> <small class="font-weight-bold">${result.content}</small></span> </div> <small>2 days ago</small>
+                </div>
+                <div class="action d-flex justify-content-between mt-2 align-items-center">
+                    <div class="reply px-4"> <small>Remove</small> <span class="dots"></span> <small>Reply</small> <span class="dots"></span> <small>Translate</small> </div>
+                    <div class="icons align-items-center"> <i class="fa fa-star text-warning"></i> <i class="fa fa-check-circle-o check-icon"></i> </div>
+                </div>
+            </div>
+		</c:forEach>
+        </div>
+    </div>
+</div>
+
+   <form id="replyForm" method="post">
+   
+   
+   <div class="row">
+      	<table class="table">
+      		<tr>
+      			<td>댓글 작성자</td>
+      			<td><input type="text" id="writer" name="writer" value="${member.ID}" readonly></td>
+      		</tr>
+      		<tr>
+      			<td colspan="2">
+      				<textarea rows="5" cols="50" id="content" name="content"></textarea>
+      			</td>
+      		</tr>
+      	</table>
+   </div>
+	<input type="hidden" id="bno" name="bno" value="${detail.B_NO}">
 	</form>
-	<button type="submit" onclick="fn_reply()">댓글 작성</button>
+	<button type="submit" class="btn btn-info btn-sm float-right" onclick="fn_reply()">댓글 작성</button>
 </div>
 
 
-<div id="replyList"></div>
-        </section>
+
+
+   </section>
 
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
@@ -330,12 +459,29 @@ function fn_reply() {
 		contentType : false,
 		success : function(result) {
 			alert(result.paramMap.bno);
-			$("#replyList").append(result.list);
+			/* $("#replyList").append(result.list);
 			var content='<tr><td>'+(result.len)+'</td>'
 			content+='<td>'+result.paramMap.writer+'</td>'
 			content+='<td>'+result.paramMap.content+'</td>'
 			content+='</tr>';
-			$("#replyTbl").append(content);
+			$("#replyTbl").append(content); */
+			
+			var content='';
+			content+='<div class="card p-3 reply">';
+			content+='<div class="d-flex justify-content-between align-items-center">';
+			content+='<div class="user d-flex flex-row align-items-center">'+(result.len);
+			content+='<span><small class="font-weight-bold text-primary">'+(result.paramMap.writer)+'</small>';
+           	content+='<small class="font-weight-bold">';
+           	content+=(result.paramMap.content)+'</small></span> </div> <small>2 days ago</small></div>';
+            content+='<div class="action d-flex justify-content-between mt-2 align-items-center">';
+           	content+='<div class="reply px-4"> <small>Remove</small> <span class="dots"></span> <small>Reply</small> <span class="dots"></span> <small>Translate</small> </div>';
+           	content+='<div class="icons align-items-center"> <i class="fa fa-star text-warning"></i> <i class="fa fa-check-circle-o check-icon"></i> </div></div></div>';
+                
+			$("#reply").append(content);
+			$("#commentCnt").html('comment('+result.len+')');
+			
+			
+			
 			
 			$("#replyForm #content").val('');
 			//fn_list();

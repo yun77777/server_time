@@ -19,7 +19,156 @@
 <title>Modern Business - Start Bootstrap Template</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<link href="<c:url value='/resources/css/styles.css'/>" rel="stylesheet" />
 
+
+<style>
+/* scale */
+.scale {
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transition: all 0.3s ease-in-out;   /* 부드러운 모션을 위해 추가*/
+}
+.scale:hover {
+  transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  -o-transform: scale(1.2);
+}
+.img {width:325px; height:280px; overflow:hidden }   /* 부모를 벗어나지 않고 내부 이미지만 확대 */
+
+/*  */
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,700);
+@import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
+figure.snip1384{
+  font-family: 'Raleway', Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+  margin: 10px;
+  min-width: 230px;
+  max-width: 315px; 
+  width: 100%;
+  color: #6495ED; /* color */
+  text-align: left;
+  font-size: 16px;
+  background-color: #1fe0;
+}
+
+/* modified 21/05/30 */
+figure.snip1384.firstRow{
+  min-width: 180px;
+  max-width: 315px; 
+}
+figure.snip1384 * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+}
+figure.snip1384 img {
+  max-width: 100%;
+  backface-visibility: hidden;
+  vertical-align: top;
+}
+figure.snip1384:after,
+figure.snip1384 figcaption {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+figure.snip1384:after {
+  content: '';
+  background-color: #ffffff;
+  background-color: rgba( 255, 255, 255, 0.5 );
+  /*   background-color: rgba(0, 0, 0, 0.65); */
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+  opacity: 0;
+/*   opacity: 0; */
+}
+figure.snip1384 figcaption {
+  z-index: 1;
+  padding: 40px;
+}
+figure.snip1384 h3,
+figure.snip1384 .links {
+  width: 100%;
+  margin: 5px 0;
+  padding: 0;
+}
+figure.snip1384 h3 {
+  line-height: 1.1em;
+  font-weight: 700;
+  font-size: 1.4em;
+  text-transform: uppercase;
+  opacity: 0;
+}
+figure.snip1384 p {
+  font-size: 0.8em;
+  font-weight: 300;
+  letter-spacing: 1px;
+  opacity: 0;
+  top: 50%;
+  -webkit-transform: translateY(40px);
+  transform: translateY(40px);
+}
+figure.snip1384 i {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 20px 25px;
+  font-size: 34px;
+  opacity: 0;
+  -webkit-transform: translateX(-10px);
+  transform: translateX(-10px);
+}
+figure.snip1384 a {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+figure.snip1384:hover img,
+figure.snip1384.hover img {
+  zoom: 1;
+  filter: alpha(opacity=50);
+  -webkit-opacity: 0.5;
+  opacity: 0.5;
+}
+figure.snip1384:hover:after,
+figure.snip1384.hover:after {
+  opacity: 1;
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+}
+figure.snip1384:hover h3,
+figure.snip1384.hover h3,
+figure.snip1384:hover p,
+figure.snip1384.hover p,
+figure.snip1384:hover i,
+figure.snip1384.hover i {
+  -webkit-transform: translate(0px, 0px);
+  transform: translate(0px, 0px);
+  opacity: 1;
+}
+
+
+/* @@@@@@@@@@@@ */
+
+/* @@@@@@@@@@@@ */
+
+</style>
 <!-- Font Awesome icons (free version)-->
 <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"
 	crossorigin="anonymous"></script>
@@ -32,7 +181,7 @@
 	<!-- Core theme JS-->
 	<script src="<c:url value='/resources/js/scripts.js'/>"></script>
 <!-- Core theme CSS (includes Bootstrap)-->
-<link href="<c:url value='/resources/css/styles.css'/>" rel="stylesheet" />
+
 </head>
 <body>
 
@@ -330,151 +479,4 @@ $(".minus").click(function(){
 
 </script>
 
-<style>
-/* scale */
-.scale {
-  transform: scale(1);
-  -webkit-transform: scale(1);
-  -moz-transform: scale(1);
-  -ms-transform: scale(1);
-  -o-transform: scale(1);
-  transition: all 0.3s ease-in-out;   /* 부드러운 모션을 위해 추가*/
-}
-.scale:hover {
-  transform: scale(1.2);
-  -webkit-transform: scale(1.2);
-  -moz-transform: scale(1.2);
-  -ms-transform: scale(1.2);
-  -o-transform: scale(1.2);
-}
-.img {width:325px; height:280px; overflow:hidden }   /* 부모를 벗어나지 않고 내부 이미지만 확대 */
-
-/*  */
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,700);
-@import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
-figure.snip1384{
-  font-family: 'Raleway', Arial, sans-serif;
-  position: relative;
-  overflow: hidden;
-  margin: 10px;
-  min-width: 230px;
-  max-width: 315px; 
-  width: 100%;
-  color: #6495ED; /* color */
-  text-align: left;
-  font-size: 16px;
-  background-color: #1fe0;
-}
-
-/* modified 21/05/30 */
-figure.snip1384.firstRow{
-  min-width: 180px;
-  max-width: 315px; 
-}
-figure.snip1384 * {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-transition: all 0.35s ease;
-  transition: all 0.35s ease;
-}
-figure.snip1384 img {
-  max-width: 100%;
-  backface-visibility: hidden;
-  vertical-align: top;
-}
-figure.snip1384:after,
-figure.snip1384 figcaption {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-figure.snip1384:after {
-  content: '';
-  background-color: #ffffff;
-  background-color: rgba( 255, 255, 255, 0.5 );
-  /*   background-color: rgba(0, 0, 0, 0.65); */
-  -webkit-transition: all 0.35s ease;
-  transition: all 0.35s ease;
-  opacity: 0;
-/*   opacity: 0; */
-}
-figure.snip1384 figcaption {
-  z-index: 1;
-  padding: 40px;
-}
-figure.snip1384 h3,
-figure.snip1384 .links {
-  width: 100%;
-  margin: 5px 0;
-  padding: 0;
-}
-figure.snip1384 h3 {
-  line-height: 1.1em;
-  font-weight: 700;
-  font-size: 1.4em;
-  text-transform: uppercase;
-  opacity: 0;
-}
-figure.snip1384 p {
-  font-size: 0.8em;
-  font-weight: 300;
-  letter-spacing: 1px;
-  opacity: 0;
-  top: 50%;
-  -webkit-transform: translateY(40px);
-  transform: translateY(40px);
-}
-figure.snip1384 i {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  padding: 20px 25px;
-  font-size: 34px;
-  opacity: 0;
-  -webkit-transform: translateX(-10px);
-  transform: translateX(-10px);
-}
-figure.snip1384 a {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-}
-figure.snip1384:hover img,
-figure.snip1384.hover img {
-  zoom: 1;
-  filter: alpha(opacity=50);
-  -webkit-opacity: 0.5;
-  opacity: 0.5;
-}
-figure.snip1384:hover:after,
-figure.snip1384.hover:after {
-  opacity: 1;
-  position: absolute;
-  top: 10px;
-  bottom: 10px;
-  left: 10px;
-  right: 10px;
-}
-figure.snip1384:hover h3,
-figure.snip1384.hover h3,
-figure.snip1384:hover p,
-figure.snip1384.hover p,
-figure.snip1384:hover i,
-figure.snip1384.hover i {
-  -webkit-transform: translate(0px, 0px);
-  transform: translate(0px, 0px);
-  opacity: 1;
-}
-
-
-/* @@@@@@@@@@@@ */
-
-/* @@@@@@@@@@@@ */
-
-</style>
 </html>

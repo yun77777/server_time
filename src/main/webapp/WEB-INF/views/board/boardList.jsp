@@ -45,7 +45,7 @@
 				<h1 class="mt-4 mb-3">
 					Board <small>board</small>
 				</h1>
-				<div class="row styling">
+				<%-- <div class="row styling">
 				<div class="col-lg-8 mb-4">
 					<div class="control-group form-group">
 			          <div class='input-group date' id='datetimepicker1'>
@@ -60,27 +60,22 @@
 			          </div>
 			        </div>
 			      </div>
-			    </div><br>
+			    </div><br> --%>
 			    
 				<div class="row">
 				
 					<div class="col-lg-8 mb-4">
-						<div class="control-group form-group">
+						<%-- <div class="control-group form-group">
 							<div class="controls">
 								<label>title:</label> <input class="form-control" id="searchTitle"
 									name="searchTitle" type="text" value="${paramMap.searchTitle}" 
 									data-validation-required-message="Please enter your name." />
 								<p class="help-block"></p>
 							</div>
-						</div>
-						<div class="control-group form-group">
-							<div class="controls">
-								<label>id:</label> <input class="form-control" id="searchId"
-									name="searchId" type="text" value="${paramMap.searchId}" 
-									data-validation-required-message="Please enter your phone number." />
-							</div>
-						</div>
-						<!-- <div class="card mb-4">
+						</div> --%>
+						
+						
+						<!-- <div class="form-group row"><div class="card mb-4">
                             <h5 class="card-header">Search</h5>
                             <div class="card-body">
                                 <div class="input-group">
@@ -91,16 +86,17 @@
                         </div> -->
 						<div id="success"></div>
 						<!-- //search-->
-						<button class="btn btn-primary" onclick="fn_list('1')" type="button">Search</button>
-						<br><br>
-						<button class="btn btn-primary" onclick="fn_insert('${member.ID}')" type="button">Insert</button>
-<%-- 						<button class="btn btn-primary" onclick="fn_insert('${login.ID}')" type="button">Insert</button> --%>
+					<div class="row">
+						<div class="col-12">
+							<button class="btn btn-info btn-sm float-right" onclick="fn_insert('${member.ID}')" type="button">Insert</button>
+						</div>
 					</div>
 				</div>
+			</div>
           		<span>총 <em>${pg.totalRecordCount}</em>건 </span>
                 
 				<table class="table table-sm">
-					<thead>
+					<thead class="thead-light">
 						<tr>
 							<th scope="col">no</th>
 							<th scope="col">title</th>
@@ -124,25 +120,25 @@
 				</table>
 			</form>
 			
-			<!-- Pagination-->
-            <!-- <ul class="pagination justify-content-center">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">«</span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#!">1</a></li>
-                <li class="page-item"><a class="page-link" href="#!">2</a></li>
-                <li class="page-item"><a class="page-link" href="#!">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">»</span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </li>
-            </ul> -->
    			<%@ include file="/WEB-INF/views/common/paging.jsp"%>
+   			
+   			<div class="row float-right">
+				<div class="form-group row">
+					<div class="col-xs-4">
+						<label>id:</label> 
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-xs-4">
+						<input class="form-control" id="searchId"
+							name="searchId" type="text" value="${paramMap.searchId}" 
+							data-validation-required-message="Please enter your phone number." />
+					</div>
+				</div>
+				<div class="form-group row">
+					<button class="btn btn-secondary btn-sm right" onclick="fn_list('1')" type="button">Search</button>
+				</div>
+			</div>
 		</div>
 		<!-- //Container -->
 	</section>

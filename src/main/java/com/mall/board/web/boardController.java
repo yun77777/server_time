@@ -175,12 +175,14 @@ public class boardController {
 			List<Map<String,Object>> list=boardService.selectBoardHisList(paramMap);
 			System.err.println(Integer.parseInt(paramMap.get("no").toString()));
 			List<Map<String,Object>> replyList=replyService.list(Integer.parseInt(paramMap.get("no").toString()));
+			int len=replyList.size();
 
 			model.addAttribute("detail",detail);
 			model.addAttribute("list",list);
 			model.addAttribute("replyList",replyList);
+			model.addAttribute("len",len);
 			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
