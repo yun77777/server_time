@@ -24,7 +24,7 @@ body {
 
 .card {
     border: none;
-    box-shadow: 5px 6px 6px 2px #e9ecef;
+    /* box-shadow: 5px 6px 6px 2px #e9ecef; */
     border-radius: 4px
 }
 
@@ -41,7 +41,7 @@ body {
     padding: 7px;
     padding-right: 9px;
     padding-left: 16px;
-    box-shadow: 5px 6px 6px 2px #e9ecef
+    /* box-shadow: 5px 6px 6px 2px #e9ecef */
 }
 
 .user-img {
@@ -71,7 +71,8 @@ body {
 }
 
 .reply {
-    margin-left: 12px
+    margin-left: 12px;
+    margin-top: 20px; /* 21/06/03 added */
 }
 
 .reply small {
@@ -261,27 +262,35 @@ body {
     </div>
 </div>
 
-   <form id="replyForm" method="post">
+ 
    
    
-   <div class="row">
-      	<table class="table">
-      		<tr>
-      			<td>댓글 작성자</td>
-      			<td><input type="text" id="writer" name="writer" value="${member.ID}" readonly></td>
-      		</tr>
-      		<tr>
-      			<td colspan="2">
-      				<textarea rows="5" cols="50" id="content" name="content"></textarea>
-      			</td>
-      		</tr>
-      	</table>
-   </div>
-	<input type="hidden" id="bno" name="bno" value="${detail.B_NO}">
+   
+   <div class="container mt-5">
+    <div class="row d-flex justify-content-center">
+        <div id="reply" class="col-md-8">
+          <form id="replyForm" method="post">
+   <div class="card p-3 reply">
+   댓글 작성자<input type="text" class="form-control" id="writer" name="writer" value="${member.ID}" readonly>
+         <div class="d-flex justify-content-between align-items-center">
+             <div class="user d-flex flex-row align-items-center">
+              <textarea rows="5" cols="50" class="form-control" id="content" name="content"></textarea>
+              <span><small class="font-weight-bold text-primary">${result.writer}</small> <small class="font-weight-bold">${result.content}</small></span> </div> 
+         </div>
+         <small>2 days ago</small>
+         <div class="action d-flex justify-content-between mt-2 align-items-center">
+             <div class="reply px-4"> <small>Remove</small> <span class="dots"></span> <small>Reply</small> <span class="dots"></span> <small>Translate</small> </div>
+             <div class="icons align-items-center"> <i class="fa fa-star text-warning"></i> <i class="fa fa-check-circle-o check-icon"></i> </div>
+         </div>
+     </div>
 	</form>
-	<button type="submit" class="btn btn-info btn-sm float-right" onclick="fn_reply()">댓글 작성</button>
 </div>
-
+</div>
+</div>
+</div>
+<input type="hidden" id="bno" name="bno" value="${detail.B_NO}">
+	
+	<button type="submit" class="btn btn-info btn-sm float-right" onclick="fn_reply()">댓글 작성</button>
 
 
 
