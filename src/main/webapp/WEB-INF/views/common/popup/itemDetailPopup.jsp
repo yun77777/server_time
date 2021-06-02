@@ -30,8 +30,9 @@
 				<input type="hidden" id="gdsStock" name="gdsStock" />
 			
 
-
-				<table id="details" class="table table-borderless">
+			<div class="table-responsive-lg">
+				<table id="details" class="table">
+<!-- 				<table id="details" class="table table-borderless"> -->
 					<thead>
 					</thead>
 					<tbody>
@@ -53,7 +54,8 @@
 						</tr>
 					</tbody>
 				</table>
-				</form>
+			</div>
+			</form>
 			</div>
 			
 			<div class="modal-footer">

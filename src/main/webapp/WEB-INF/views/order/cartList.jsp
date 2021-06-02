@@ -31,29 +31,26 @@
 <body>
 
 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
-<section id="container">
-		<div id="container_box">
-		
-			<section id="content">
-					<div class="table-responsive-lg">
-						<table class="table">
-						    <tr>
-						    	<td>
-						    		<div class="allCheck">
-						    			<span>
-						    				<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck">모두 선택</label>
-						    			</span>
-										
-									</div>
-						    	</td>
-						    	<td>
-						    		<div class="allCheck">
-						    			<span>
-											<button type="submit" onclick="fn_delete()" class="selectDelete_btn">선택 삭제</button>
-										</span>
-									</div>
-						    	</td>
-						    </tr>
+<section class="py-5">
+		<div class="container">
+				<table class="table">
+				    <tr>
+				    	<td>
+				    		<div class="allCheck">
+				    			<span>
+				    				<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck">모두 선택</label>
+				    			</span>
+								
+							</div>
+				    	</td>
+				    	<td>
+				    		<div class="allCheck">
+				    			<span>
+									<button type="submit" onclick="fn_delete()" class="selectDelete_btn btn btn-danger btn-sm float-right">선택 삭제</button>
+								</span>
+							</div>
+				    	</td>
+				    </tr>
 			    <form id="deleteForm" method="post" enctype="multipart/form-data">
 				    <c:forEach items="${cartList}" var="cartList">
 						<tr>
@@ -102,9 +99,9 @@
 							<td>
 								<c:if test="${view.gdsStock != 0}">
 								<p class="cartStock">
-									<button type="button" class="plus">+</button>
+									<button type="button" class="plus btn btn-secondary btn-sm">+</button>
 									<input type="number" id="cartStock" name="cartStock" class="numBox" min="1" max="${view.gdsStock}" value="${cartList.cartStock}" readonly="readonly"/>
-									<button type="button" class="minus">-</button>
+									<button type="button" class="minus btn btn-secondary btn-sm">-</button>
 									<input type="hidden" value="${view.gdsStock}" class="gdsStock_hidden" /> 
 									<input type="hidden" value="${cartList.gdsPrice * cartList.cartStock}" class="gdsPrice_hidden" /> 
 								</p>
@@ -128,7 +125,7 @@
 							</td>
 							<td>
 								<div class="delete">
-								<button type="button" class="delete_btn" data-cartNum="${cartList.cartNum}">삭제</button>
+								<button type="button" class="delete_btn selectDelete_btn btn btn-danger btn-sm float-right" data-cartNum="${cartList.cartNum}">삭제</button>
 							</div>
 							</td>
 						</tr>
@@ -136,8 +133,7 @@
 							
 					</c:forEach>
 				</form>
-						  </table>
-						</div>
+			  </table>
 						
 			
 			<div class="orderChk"></div>
@@ -156,8 +152,8 @@
 				<input type="hidden" id="type" name="cart" />
 			</form>	
 			<div class="inputArea">
-				<button type="submit" onclick="fn_order()" class="order_btn">주문</button>
-				<button type="button" class="cancel_btn">취소</button>
+				<button type="submit" onclick="fn_order()" class="order_btn selectDelete_btn btn btn-info btn-sm float-right">주문</button>
+				<button type="button" class="cancel_btn selectDelete_btn btn btn-danger btn-sm float-right">취소</button>
 				
 				<script>
 								
@@ -169,7 +165,6 @@
 			</div>
 			
 				
-			</section>
 			
 			
 		</div>

@@ -23,9 +23,9 @@
 							</div>
 							<div class="modal-body">
 								
-
-					
-								<table class="table table-borderless">
+<div class="table-responsive-lg">
+				<table id="details" class="table">
+								<!-- <table class="table table-borderless"> -->
 									<thead>
 									</thead>
 									<tbody>
@@ -57,13 +57,13 @@
 									<td>
 										<c:if test="${view.gdsStock != 0}">
 											<p class="cartStock">
-												<button type="button" class="plus">+</button>
+												<button type="button" class="minus btn btn-secondary btn-sm">-</button>
 												<input type="number" id="stock" name="cartStock" class="numBox" min="1" max="${view.gdsStock}" value="1" readonly="readonly"/>
-												<button type="button" class="minus">-</button>
+												<button type="button" class="plus btn btn-secondary btn-sm">+</button>
 												<input type="hidden" value="${view.gdsStock}" class="gdsStock_hidden" /> 
 											</p>
 											<p class="addToCart">
-												<button type="button" class="addCart_btn">카트에 담기</button>
+												<button type="button" class="addCart_btn btn btn-info btn-sm float-right">카트에 담기</button>
 											</p>
 										</c:if>
 										<c:if test="${view.gdsStock == 0}">
@@ -77,21 +77,18 @@
 										</tr>
 									</tbody>
 								</table>
+								</div>
+								
+								<hr>
 							</div>
 
 							<div id="pp"></div>
 							
-							<button type="submit" id="create">주문</button>
-							<button type="submit" id="create2">상품상세(기존)</button>
-<!-- 							<button type="button" id="create">new</button> -->
-							 <div></div>
-
-
 							<div class="modal-footer">
+							<button type="submit" id="create2">상품상세(기존)</button>
+							<button type="submit" id="create" class="btn btn-info">주문</button>
 								<button type="button" class="btn btn-secondary"
 									data-dismiss="modal">Close</button>
-								<button type="button" id="saveBtn" class="btn btn-primary">Save
-									changes</button>
 							</div>
 						</div>
 					</div>

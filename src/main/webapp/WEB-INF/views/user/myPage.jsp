@@ -34,49 +34,77 @@
 			<form id="boardForm" method="post" enctype="multipart/form-data">
 
 				<!-- Page Heading/Breadcrumbs-->
-				<h1>
-					Member <small>My Page</small>
-				</h1>
+				<h1> My Page </h1><small> Welcome <b>${member.ID}</b>!</small>
 				
-				<div class="control-group form-group">
-					<div class="controls">
-						<label>
-							<c:if test="${not empty member}">
-<%-- 							<c:if test="${not empty login}"> --%>
-		                    	<li class="nav-item"><p class="nav-link">Welcome <b>${member.ID}</b>!</p></li>
-<%-- 		                    	<li class="nav-item"><p class="nav-link">Welcome <b>${login.ID}</b>!</p></li> --%>
-						    </c:if>
-						</label>
-					</div>
-				</div>
 				
-				<!-- Content Row-->
-				<!-- Contact Form-->
-				<!-- In order to set the email address and subject line for the contact form go to the assets/mail/contact_me.php file.-->
+				
 				<div class="row">
 					<div class="col-lg-8 mb-4">
-						<div class="control-group form-group">
-							<div class="controls">
-								<label>id:</label> <input class="form-control" id="id"
-									name="ID" type="text" value="${member.ID}" disabled/>
-<%-- 									name="ID" type="text" value="${login.ID}" disabled/> --%>
-							</div>
-						</div>
 						
-						<div class="control-group form-group">
-		<c:if test="${empty member.k_userInfo}">	
-							<div class="controls">
-								<label>password:</label> <input class="form-control" id="pw"
+				<div class="control-group form-group">
+		
+			</div>
+			<table class="table">
+				<tr>
+					<td>id</td>
+					<td colspan="2"><input class="form-control" id="id"
+									name="ID" type="text" value="${member.ID}" disabled/></td>
+				</tr>
+				<c:if test="${empty member.k_userInfo}">	
+				<tr>
+					<td>password</td>
+					<td colspan="2"><input class="form-control" id="pw"
 									name="PW" type="text" value="${info.PW}" required
-									data-validation-required-message="Please enter your email address." />
-							</div>
-							<div class="controls">
-								<label>password check:</label> <input class="form-control" id="pwChk"
+									data-validation-required-message="Please enter your email address." /></td>
+				</tr>
+				<tr>
+					<td>password check</td>
+					<td colspan="2"><input class="form-control" id="pwChk"
 									name="pwChk" type="text" required
-									data-validation-required-message="Please enter your email address." />
-							</div>
+									data-validation-required-message="Please enter your email address." /></td>
+				</tr>
 		</c:if>
-						</div>
+				<tr>
+					<td rowspan="2">address</td>
+					<td colspan="2">
+							<input type="text" class="form-control-sm" id="sample2_postcode" placeholder="우편번호">
+							<input type="button" onclick="sample2_execDaumPostcode()" class="btn btn-info btn-sm" value="우편번호 찾기">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="text" name="postalCode" id="sample2_address" value="${info.ADDRESS}" placeholder="주소" >
+						<input type="text" name="address" id="sample2_detailAddress" value="${info.ADDRESS}"  placeholder="상세주소">
+						<input type="text" name="addressDetail" id="sample2_extraAddress" value="${info.ADDRESS}" placeholder="참고항목">
+					</td>
+				</tr>
+				<tr>
+					<td>name</td>
+					<td colspan="2"><input class="form-control" id="name"
+									name="NAME" type="text" value="${info.NAME}" required
+									data-validation-required-message="Please enter your email address." /></td>
+				</tr>
+				<tr>
+					<td>contact</td>
+					<td colspan="2"><input class="form-control" id="contact" value="${info.CONTACT}"
+									name="CONTACT" type="text" required
+									data-validation-required-message="Please enter your email address." /></td>
+				</tr>
+				<tr>
+					<td>phone</td>
+					<td colspan="2"><input class="form-control" id="phone"
+									name="PHONE" type="text" required value="${info.PHONE}"
+									data-validation-required-message="Please enter your email address." /></td>
+				</tr>
+				<tr>
+					<td>email</td>
+					<td colspan="2"><input class="form-control" id="email" value="${info.EMAIL}"
+									name="EMAIL" type="text" required
+									data-validation-required-message="Please enter your email address." /></td>
+				</tr>
+				
+				
+			</table>
 						<div class="control-group form-group">
 							<div class="controls">
 								<label>name:</label> <input class="form-control" id="name"
@@ -102,7 +130,7 @@
 							
 							<p>
 							<input type="text" id="sample2_postcode" placeholder="우편번호">
-							<input type="button" onclick="sample2_execDaumPostcode()" value="우편번호 찾기">
+							<input type="button" onclick="sample2_execDaumPostcode()" class="btn btn-info btn-sm" value="우편번호 찾기">
 						</p>
 						<p>
 							<input type="text" name="postalCode" id="sample2_address" value="${info.ADDRESS}" placeholder="주소" >
@@ -142,8 +170,8 @@
 					</div>
 				</div>
 			</form>
-			<button class="btn btn-primary" onclick="fn_update()" type="submit">Update</button>
-			<button class="btn btn-primary" onclick="" type="submit">Delete</button>
+			<button class="btn selectDelete_btn btn-info btn-sm float-right" onclick="fn_update()" type="submit">Update</button>
+			<button class="btn selectDelete_btn btn-danger btn-sm float-right" onclick="" type="submit">Delete</button>
 		</div>
 	</section>
 
