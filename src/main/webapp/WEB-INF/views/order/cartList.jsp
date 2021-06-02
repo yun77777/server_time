@@ -99,9 +99,9 @@
 							<td>
 								<c:if test="${view.gdsStock != 0}">
 								<p class="cartStock">
-									<button type="button" class="plus btn btn-secondary btn-sm">+</button>
-									<input type="number" id="cartStock" name="cartStock" class="numBox" min="1" max="${view.gdsStock}" value="${cartList.cartStock}" readonly="readonly"/>
 									<button type="button" class="minus btn btn-secondary btn-sm">-</button>
+									<input type="number" id="cartStock" name="cartStock" class="numBox" min="1" max="${view.gdsStock}" value="${cartList.cartStock}" readonly="readonly"/>
+									<button type="button" class="plus btn btn-secondary btn-sm">+</button>
 									<input type="hidden" value="${view.gdsStock}" class="gdsStock_hidden" /> 
 									<input type="hidden" value="${cartList.gdsPrice * cartList.cartStock}" class="gdsPrice_hidden" /> 
 								</p>
@@ -257,28 +257,28 @@ $("#allCheck").click(function(){
 
 //+ 버튼을 누르면 수량이 증가하되, 상품의 전체 수량보다 커지지 않음
 $(".plus").click(function(){
-	var num = $(this).next().val();
+	var num = $(this).prev().val();
 	
 	var plusNum = Number(num) + 1;
 	var stock = $(".gdsStock_hidden");
 	
 	if(plusNum >= stock) {
-		$(this).next().val(num);
+		$(this).prev().val(num);
 	} else {
-		$(this).next().val(plusNum);
+		$(this).prev().val(plusNum);
 	}
 });
 
 
 //- 버튼을 누르면 수량이 감소하되, 1보다 밑으로 감소하지 않음
 $(".minus").click(function(){
-	var num = $(this).prev().val();
+	var num = $(this).next().val();
 	var minusNum = Number(num) - 1; 
 	
 	if(minusNum <= 0) {
-		$(this).prev().val(num);
+		$(this).next().val(num);
 	} else {
-		$(this).prev().val(minusNum);
+		$(this).next().val(minusNum);
 	}
 });
 
