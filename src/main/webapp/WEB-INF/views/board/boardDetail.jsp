@@ -117,23 +117,45 @@
             
             
             
-            <div>
-
-	<form method="post" action="/reply/write.do">
-	
+<div>
+     <table id="replyTbl" class="table table-sm">
+	<thead>
+		<tr>
+			<th scope="col">rno</th>
+			<th scope="col">writer</th>
+			<th scope="col">content</th>
+		</tr>
+	</thead>
+	<tbody>
+		<c:forEach var="result" items="${replyList}" varStatus="status">
+			<tr>
+				<td>${result.rno}</td>
+				<td>${result.writer}</td>
+				<td>${result.content}</td>
+			</tr>
+		</c:forEach>
+	</tbody>
+</table>       
+            
+            
+          
+      <form id="replyForm" method="post">
+<%--       <form id="replyForm" method="post" enctype="multipart/form-data"> --%>
 		<p>
-			<label>댓글 작성자</label> <input type="text" name="writer" value="${member.ID}" readonly>
+			<label>댓글 작성자</label> <input type="text" id="writer" name="writer" value="${member.ID}" readonly>
 		</p>
 		<p>
-			<textarea rows="5" cols="50" name="content"></textarea>
+			<textarea rows="5" cols="50" id="content" name="content"></textarea>
 		</p>
 		<p>
-		<input type="hidden" name="bno" value="${detail.B_NO}">
-			<button type="submit">댓글 작성</button>
+		<input type="hidden" id="bno" name="bno" value="${detail.B_NO}">
 		</p>
 	</form>
-	
+	<button type="submit" onclick="fn_reply()">댓글 작성</button>
 </div>
+
+
+<div id="replyList"></div>
         </section>
 
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
@@ -147,7 +169,9 @@
 </body>
 
 <script>
-
+$(document).ready({
+	
+});
 
 function fn_list(no) {
 	//$('#currentPageNo').val(no);
@@ -286,6 +310,42 @@ $(function() {
 	});
 })
 
+function fn_reply() {
+	var formData = new FormData($("#replyForm")[0]);
+	/* $('#replyForm').attr({
+		action : '<c:url value="reply/write.do" />',
+		target : '_self'
+	}).submit(); */
+	
+/* 	var bno=$("#bno").val();
+	var writer=$("#writer").val();
+	var content=$("#content").val(); */
+	$.ajax({
+		url : "${pageContext.request.contextPath}/reply/write.do",
+		type : "post",
+		//data : {bno:bno, writer:writer, content:content},
+		enctype: 'multipart/form-data',
+		data : formData,
+		processData : false,
+		contentType : false,
+		success : function(result) {
+			alert(result.paramMap.bno);
+			$("#replyList").append(result.list);
+			var content='<tr><td>'+(result.len)+'</td>'
+			content+='<td>'+result.paramMap.writer+'</td>'
+			content+='<td>'+result.paramMap.content+'</td>'
+			content+='</tr>';
+			$("#replyTbl").append(content);
+			
+			$("#replyForm #content").val('');
+			//fn_list();
+		}, // success 
+
+		error : function(xhr, status) {
+			alert(xhr + " : " + status);
+		}
+	});
+}
 </script>
 
 </html>

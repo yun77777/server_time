@@ -1,17 +1,10 @@
 package com.mall.board.web;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import com.mall.common.PaginationVO;
-import com.mall.user.LoginDTO;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -25,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.mall.board.service.ReplyService;
 import com.mall.board.service.boardService;
+import com.mall.common.PaginationVO;
 import com.mall.mng.service.mngService;
+import com.mall.user.LoginDTO;
 
 
 
@@ -40,6 +36,9 @@ public class boardController {
 	
 	@Resource(name = "mngService")
 	private mngService mngService;
+	
+	@Resource(name = "replyService")
+	private ReplyService replyService;
 	
 //	@RequestMapping(value = "/test.do")
 //	public String test(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="20") int recordCountPerPage,
@@ -174,9 +173,14 @@ public class boardController {
 			System.err.println(detail);
 			
 			List<Map<String,Object>> list=boardService.selectBoardHisList(paramMap);
+			System.err.println(Integer.parseInt(paramMap.get("no").toString()));
+			List<Map<String,Object>> replyList=replyService.list(Integer.parseInt(paramMap.get("no").toString()));
 
 			model.addAttribute("detail",detail);
 			model.addAttribute("list",list);
+			model.addAttribute("replyList",replyList);
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
