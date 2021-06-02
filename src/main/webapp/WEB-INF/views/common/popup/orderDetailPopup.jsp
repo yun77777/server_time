@@ -23,13 +23,10 @@
 							</div>
 							<div class="modal-body">
 								<div id="kk"></div>
+								<div id="itemDetail"></div>
+								<div id="orderInfo"></div>
 					
 							</div>
-
-							
-							
-
-
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary"
 									data-dismiss="modal">Close</button>

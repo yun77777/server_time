@@ -41,30 +41,90 @@
 			</form>
 		
 				<div id="row">
-				<ul class="orderList">
-					<c:forEach items="${orderList}" var="orderList">
-					<li>
-					<div>
-		 				<a href="#!" onclick="fn_detail_pop('${orderList.gdsNum}')" data-toggle="modal" data-target="#exampleModalLong">
-					    	<img class="card-img-top" src="<c:url value='/img/${orderList.representative_file}'/>" style="width:100px" alt="no image" />
-					    </a><br>
-		 				<a href="#!" onclick="fn_order_detail_pop('${orderList.orderId}')" data-toggle="modal" data-target="#orderDetailPopup">
-							상세주문내역
-					    </a>
-					    <br />
-						<p><span>상세주문내역</span><button type="submit" onclick="fn_detail('${orderList.orderId}')">클릭</button></p>
-						<p><span>주문번호</span><a href="/shop/orderView?n=${orderList.orderId}">${orderList.orderId}</a></p>
-						<p><span>수령인</span>${orderList.orderRec}</p>
-						<p><span>주소</span>(${orderList.userAddr1}) ${orderList.userAddr2} ${orderList.userAddr3}</p>
-						<p><span>가격</span><fmt:formatNumber pattern="###,###,###" value="${orderList.amount}" /> 원</p>
-						<p><span>상태</span>${orderList.delivery}</p>
-						<p><span>주문수량</span>${orderList.cartStock}</p>
-						<p><span>상품명</span>${orderList.gdsName} 외 ${orderList.cnt} 건</p>
+				<c:forEach items="${orderList}" var="orderList">
+					<div class="table-responsive-lg">
+						<table class="table">
+							<tr>
+								<td colspan="2">
+									<a href="#!" onclick="fn_detail_pop('${orderList.gdsNum}')" data-toggle="modal" data-target="#exampleModalLong">
+							    	<img class="card-img-top" src="<c:url value='/img/${orderList.representative_file}'/>" style="width:100px" alt="no image" />
+								    </a><br>
+					 				<a href="#!" onclick="fn_order_detail_pop('${orderList.orderId}')" data-toggle="modal" data-target="#orderDetailPopup">
+										상세주문내역
+								    </a>
+								    <br />
+									<p><span>상세주문내역</span><button type="submit" onclick="fn_detail('${orderList.orderId}')" class="btn btn-info btn-sm float-right">클릭</button></p>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									주문번호
+								</td>
+								<td>
+									<a href="/shop/orderView?n=${orderList.orderId}">${orderList.orderId}</a></p>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									수령인
+								</td>
+								<td>
+									${orderList.orderRec}
+								</td>
+							</tr>
+							<tr>
+								<td>
+									주소
+								</td>
+								<td>
+									(${orderList.userAddr1}) ${orderList.userAddr2} ${orderList.userAddr3}</p>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									가격
+								</td>
+								<td>
+									<fmt:formatNumber pattern="###,###,###" value="${orderList.amount}" /> 원</p>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									가격
+								</td>
+								<td>
+									<fmt:formatNumber pattern="###,###,###" value="${orderList.amount}" /> 원</p>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									상태
+								</td>
+								<td>
+									${orderList.delivery}
+								</td>
+							</tr>
+							<tr>
+								<td>
+									주문수량
+								</td>
+								<td>
+									${orderList.cartStock}
+								</td>
+							</tr>
+							<tr>
+								<td>
+									상품명
+								</td>
+								<td>
+									${orderList.gdsName} 외 ${orderList.cnt} 건</p>
+								</td>
+							</tr>
+						</table>
 					</div>
-					</li>
-					</c:forEach>
-				</ul>
-				</div>
+					<hr>
+				</c:forEach>
+				
 				<div id="row">
 				<c:if test="${empty orderList}">
 					<p><span>주문내역이 없습니다.</span></p>
@@ -368,7 +428,8 @@ function fn_order_detail_pop(orderId){
    			//$("#pp").append(index+','+value+'<br>');
             console.log('element' ,index, value ); 
          }); */
-		
+		 var content='<section id="content"><div class="table-responsive-lg"><table class="table">';
+
 		 for (var i = 0; i <detailList.length; i++) {
 			  console.log('element', i, detailList[i]);
 			  console.log(detailList[i].gdsName);
@@ -381,6 +442,12 @@ function fn_order_detail_pop(orderId){
 			  $("#kk").append('cartStock: '+detailList[i].cartStock+'<br>');
 			  $("#kk").append('gdsPrice: '+detailList[i].amount+'<br>');
 
+			  
+			  content+='<tr><td>'+(i+1)+'</td><td>'+(detailList[i].gdsName)+'</td></tr>';
+			  content+='<tr><td colspan="2">'+"<img class='card-img-top' src="+image+" style='width:20%;height:auto'>"+'</td></tr>';
+			  content+='<tr><td>cartStock</td><td>'+(detailList[i].cartStock)+'</td></tr>';
+			  content+='<tr><td>gdsPrice</td><td>'+(detailList[i].amount)+'</td></tr>';
+			  
 			}
          
          $("#kk").append('<hr>');
@@ -391,6 +458,23 @@ function fn_order_detail_pop(orderId){
 				 +', '+detailList[0].userAddr2
 				 +', '+detailList[0].userAddr3
 				 +'<br>');
+		 
+		 content+='</table></div></section>';
+		 $("#itemDetail").html('<hr>'+content);
+		 
+		 
+		 var orderContent='<table class="table table-hover table-dark">';
+		 orderContent+='<tr><td>orderId</td><td>'+(detailList[0].orderId)+'</td></tr>';
+		 orderContent+='<tr><td>userId</td><td>'+(detailList[0].userId)+'</td></tr>';
+		 orderContent+='<tr><td>orderPhon</td><td>'+(detailList[0].orderPhon)+'</td></tr>';
+		 orderContent+='<tr><td>userAddr</td><td>'+(detailList[0].userAddr)+', '+(detailList[0].userAddr2)+', '+(detailList[0].userAddr3)+'</td></tr>';
+		 orderContent+='</table>'
+
+		 $("#orderInfo").html('<hr>'+orderContent);
+		 
+		
+		 
+		 
 
 		//$("#rpsnImg").attr("src","<c:url value='/img/"+img+"'/>");
 		
