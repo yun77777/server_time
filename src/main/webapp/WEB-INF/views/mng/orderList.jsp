@@ -114,7 +114,7 @@
 						<c:forEach var="result" items="${list}" varStatus="status">
 							<tr>
 								<th scope="row">${result.orderId}</th>
-								<td><a href="#" onclick="fn_detail('${result.orderId}','${result.delivery}');">${result.gdsName}</a></td>
+								<td><a href="#" onclick="fn_detail('${result.orderId}','${result.delivery}');">${result.gdsName} 외 ${result.cnt-1} 건</a></td>
 								<td>${result.gdsNum}</td>
 								<td>${result.amount}</td>
 								<td>${result.delivery}</td>

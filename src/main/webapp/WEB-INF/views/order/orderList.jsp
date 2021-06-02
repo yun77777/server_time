@@ -59,7 +59,7 @@
 						<p><span>가격</span><fmt:formatNumber pattern="###,###,###" value="${orderList.amount}" /> 원</p>
 						<p><span>상태</span>${orderList.delivery}</p>
 						<p><span>주문수량</span>${orderList.cartStock}</p>
-						<p><span>상품명</span>${orderList.gdsName}</p>
+						<p><span>상품명</span>${orderList.gdsName} 외 ${orderList.cnt} 건</p>
 					</div>
 					</li>
 					</c:forEach>

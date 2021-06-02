@@ -170,12 +170,15 @@
 		    , od.cartStock
 		    , g.gdsName
 		    , g.gdsNum
+		    , b.cnt
     	 	,(SELECT ORG_FILE_NAME FROM MP_FILE WHERE BNO=od.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE WHERE BNO=od.gdsNum)) representative_file
 		from tbl_order o
 		left outer join tbl_order_details od
 		on od.orderId=o.orderId
 		left outer join tbl_goods g
 		on od.gdsNum=g.gdsNum
+		left outer join (SELECT orderId, COUNT(*) AS cnt FROM tbl_order_details GROUP BY orderId) b
+        on b.orderId=o.orderId
 	    where od.orderDetailsNum=(SELECT MIN(a.orderDetailsNum) FROM tbl_order_details a inner join tbl_order b on a.orderId=o.orderId)
 		
 	</select>

@@ -35,7 +35,7 @@
 
 				<!-- Page Heading/Breadcrumbs-->
 				<h1>
-					Member <small>My Page${k_userInfo}</small>
+					Member <small>My Page</small>
 				</h1>
 				
 				<div class="control-group form-group">
@@ -91,7 +91,7 @@
 								<input class="form-control" id="postalCode"
 									name="postalCode" type="text" value="${info.ADDRESS}" required
 									data-validation-required-message="Please enter your email address." />
-									<button type="button" onclick="fn_dp_chk()">postal code check</button>
+									<button type="button" onclick="sample2_execDaumPostcode()">postal code check</button>
 								<input class="form-control" id="address" value="${info.ADDRESS}"
 									name="address" type="text" required
 									data-validation-required-message="Please enter your email address." />
@@ -99,6 +99,21 @@
 									name="addressDetail" type="text" required
 									data-validation-required-message="Please enter your email address." />
 							</div>
+							
+							<p>
+							<input type="text" id="sample2_postcode" placeholder="우편번호">
+							<input type="button" onclick="sample2_execDaumPostcode()" value="우편번호 찾기">
+						</p>
+						<p>
+							<input type="text" name="postalCode" id="sample2_address" value="${info.ADDRESS}" placeholder="주소" >
+							<input type="text" name="address" id="sample2_detailAddress" value="${info.ADDRESS}"  placeholder="상세주소">
+							<input type="text" name="addressDetail" id="sample2_extraAddress" value="${info.ADDRESS}" placeholder="참고항목">
+						</p>
+						
+						<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
+						<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
+						<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
+						</div>
 						</div>
 						<div class="control-group form-group">
 							<div class="controls">
@@ -140,11 +155,19 @@
 	<!-- Core theme JS-->
 	<script src="<c:url value='/resources/js/scripts.js'/>"></script>
 	
+	
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<%@ include file="/WEB-INF/views/common/commonFunction.jsp"%>
 </body>
 
 <script>
 $(document).ready(function(){
-	var addressArr=$("#postalCode").val().split(', ');
+	var addressArr=$("#sample2_postcode").val().split(', ');
+
+	$("#sample2_postcode").val(addressArr[0]);
+	$("#sample2_address").val(addressArr[1]);
+	$("#sample2_detailAddress").val(addressArr[2]);
+var addressArr=$("#postalCode").val().split(', ');
 
 	$("#postalCode").val(addressArr[0]);
 	$("#address").val(addressArr[1]);
@@ -165,7 +188,8 @@ function fn_list(no) {
 function fn_sign_up() {
 	//var formData = $('#boardForm').serialize();
 	
-	var wholeAddress=$("#postalCode").val()+', '+$("#address").val()+', '+$("#addressDetail").val();
+	var wholeAddress=$("#sample2_postcode").val()+', '+$("#sample2_address").val()+', '+$("#sample2_detailAddress").val();
+/* 	var wholeAddress=$("#postalCode").val()+', '+$("#address").val()+', '+$("#addressDetail").val(); */
 	$("#wholeAddress").val(wholeAddress);
 	var formData = new FormData($("#boardForm")[0]);
 
@@ -193,7 +217,8 @@ function fn_sign_up() {
 
 function fn_update() {
 	//var formData = $('#boardForm').serialize();
-	var wholeAddress=$("#postalCode").val()+', '+$("#address").val()+', '+$("#addressDetail").val();
+	var wholeAddress=$("#sample2_postcode").val()+', '+$("#sample2_address").val()+', '+$("#sample2_detailAddress").val();
+/* 	var wholeAddress=$("#postalCode").val()+', '+$("#address").val()+', '+$("#addressDetail").val(); */
 	$("#wholeAddress").val(wholeAddress);
 	alert('update');
 	$('#boardForm #id').attr('disabled',false);
