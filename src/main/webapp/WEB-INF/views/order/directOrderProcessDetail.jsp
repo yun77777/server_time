@@ -49,17 +49,12 @@ ${paramMap.orderId }
 								<span>구입 수량</span>${paramMap.gdsStock} 개<br />
 								<span>최종 가격</span><fmt:formatNumber pattern="###,###,###" value="${paramMap.gdsStock * paramMap.gdsPrice}" /> 원
 							</p>
-							
-							
 						</div>			
 					</li>
-					
 					<%-- 반복할 때마다 sum에 상품 가격(gdsPrice)*상품 갯수(cartStock)만큼을 더함 --%>
 					<c:set var="sum" value="${sum + (paramMap.gdsPrice * paramMap.gdsStock)}" />
-					
 				</form>
 				</ul>
-			
 			<div class="rorderOpne">
 			<button type="button" class="orderBtn" onclick="fn_order()">주문확인</button>
 				<script>

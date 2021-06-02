@@ -49,25 +49,26 @@ public class mngServiceImpl implements mngService {
 
 		mngMapper.register(vo);
 	}
+
 	@Override
-	public void updateItem( Map<String, Object> paramMap, MultipartHttpServletRequest multi,
+	public void updateItem(Map<String, Object> paramMap, MultipartHttpServletRequest multi,
 //			public void updateItem(GoodsVO vo, Map<String, Object> paramMap, MultipartHttpServletRequest multi,
 			HttpServletRequest request) throws Exception {
-		
-		//paramMap.put("gdsNum", vo.getGdsNum());
-		
+
+		// paramMap.put("gdsNum", vo.getGdsNum());
+
 		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(paramMap, multi);
 		int size = list.size();
 		System.err.println("multi list:" + list);
-		//파일지우기
-		//boardMapper.deleteFile(paramMap);
+		// 파일지우기
+		// boardMapper.deleteFile(paramMap);
 
 		if (size > 0) {
 			for (int i = 0; i < size; i++) {
 				boardMapper.insertFile(list.get(i));
 			}
 		}
-		
+
 		mngMapper.updateItem(paramMap);
 	}
 
@@ -80,12 +81,12 @@ public class mngServiceImpl implements mngService {
 	public List<Map<String, Object>> selectItemImgList(Map<String, Object> paramMap) throws Exception {
 		return mngMapper.selectItemImgList(paramMap);
 	}
-	
+
 	@Override
 	public List<Map<String, Object>> selectCommonCodes(Map<String, Object> paramMap) throws Exception {
 		return mngMapper.selectCommonCodes(paramMap);
 	}
-	
+
 	@Override
 	public List<Map<String, Object>> selectCategoryCode(Map<String, Object> paramMap) throws Exception {
 		return mngMapper.selectCategoryCode(paramMap);
@@ -96,6 +97,7 @@ public class mngServiceImpl implements mngService {
 		return mngMapper.selectItemDetail(paramMap);
 	}
 
+	@Override
 	public Integer selectItemListMaxNo(Map<String, Object> paramMap) throws Exception {
 		int maxNo;
 
@@ -106,7 +108,29 @@ public class mngServiceImpl implements mngService {
 		return maxNo;
 	}
 
+	@Override
 	public Integer selectItemListCnt(Map<String, Object> paramMap) throws Exception {
 		return mngMapper.selectItemListCnt(paramMap);
 	}
+
+	@Override
+	public List<Map<String, Object>> selectOrderList(Map<String, Object> paramMap) throws Exception {
+		return mngMapper.selectOrderList(paramMap);
+	}
+
+	@Override
+	public Integer selectOrderListCnt(Map<String, Object> paramMap) throws Exception {
+		return mngMapper.selectOrderListCnt(paramMap);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectOrderDetail(Map<String, Object> paramMap) throws Exception {
+		return mngMapper.selectOrderDetail(paramMap);
+	}
+	
+	@Override
+	public void updateOrderState(Map<String, Object> paramMap) {
+		mngMapper.updateOrderState(paramMap);
+	}
+
 }

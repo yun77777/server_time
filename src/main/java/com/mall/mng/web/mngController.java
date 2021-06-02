@@ -7,29 +7,24 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.google.gson.Gson;
 import com.mall.board.service.boardService;
 import com.mall.common.PaginationVO;
-import com.mall.vo.CategoryVO;
-import com.mall.vo.GoodsVO;
-import com.mall.vo.GoodsViewVO;
-import com.mysql.cj.xdevapi.JsonArray;
-import com.mall.order.service.orderService;
 import com.mall.mng.service.mngService;
+import com.mall.order.service.orderService;
+import com.mall.vo.GoodsVO;
 
 @Controller
+@RequestMapping("/mng")
 public class mngController {
 
 	private static final Logger logger = LoggerFactory.getLogger(mngController.class);
@@ -73,6 +68,64 @@ public class mngController {
 		}
 		
 	return "mng/itemList";
+	}
+	
+	@RequestMapping(value = "/orderList.do")
+	public String orderListMng(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="5") int recordCountPerPage,
+			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+		model.addAttribute("login",httpSession.getAttribute("login"));
+		model.addAttribute("member",httpSession.getAttribute("member"));
+		
+		paramMap.put("recordCountPerPage", recordCountPerPage);
+		paramMap.put("currentPageNo", currentPageNo);
+		
+		paramMap.put("B_TYPE",4);
+		
+		try {
+			PaginationVO pg = new PaginationVO(currentPageNo, recordCountPerPage, 3, 
+					mngService.selectOrderListCnt(paramMap));
+			
+			paramMap.put("length",recordCountPerPage);
+			paramMap.put("start",pg.getFirstRecordIndex()-1);
+			
+			List<Map<String,Object>> list=mngService.selectOrderList(paramMap);
+			
+			model.addAttribute("list",list);
+			model.addAttribute("paramMap",paramMap);
+			model.addAttribute("pg",pg);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "mng/orderList";
+	}
+	
+	@RequestMapping(value = "/orderDetail.do")
+	public String orderDetail(
+			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+		try {
+			model.addAttribute("login",httpSession.getAttribute("login"));
+			model.addAttribute("member",httpSession.getAttribute("member"));
+			
+//			paramMap.put("B_TYPE",4);
+			
+			List<Map<String, Object>> detailList=mngService.selectOrderDetail(paramMap);
+			System.err.println("detailP");
+			System.err.println(paramMap);
+			paramMap.put("L_CATEGORY",1);
+			List<Map<String, Object>> category1=mngService.selectCategoryCode(paramMap);
+			paramMap.put("L_CATEGORY",2);
+			List<Map<String, Object>> category2=mngService.selectCategoryCode(paramMap);
+			model.addAttribute("category1",category1);
+			model.addAttribute("category2",category2);
+		
+			model.addAttribute("detailList",detailList);
+			model.addAttribute("paramMap",paramMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+	return "mng/orderDetail";
 	}
 	
 	@RequestMapping(value = "/itemDetail.do")
@@ -267,6 +320,21 @@ public class mngController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
-		return "mng/mngCommonCodes";
+		return "mng/orderList";
+	}
+	//orderCancel
+	@RequestMapping(value = "/itemDelivery.do")
+	public String itemDelivery( @RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+		try {
+			model.addAttribute("login",httpSession.getAttribute("login"));
+			model.addAttribute("member",httpSession.getAttribute("member"));
+			model.addAttribute("paramMap",paramMap);
+			
+			mngService.updateOrderState(paramMap);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return "mng/orderList";
 	}
 }

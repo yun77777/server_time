@@ -160,4 +160,58 @@
 	FROM COMMON_TBL
 	WHERE L_CATEGORY=#{L_CATEGORY}	
 	</select>
+	
+	 <select id="selectOrderList" parameterType="java.util.HashMap"
+		resultType="java.util.HashMap">
+ 		select 
+		    o.orderId, o.userId, o.orderRec,
+		    o.userAddr1, o.userAddr2, o.userAddr3,
+		    o.orderPhon, o.amount, o.orderDate, o.delivery
+		    , od.cartStock
+		    , g.gdsName
+		    , g.gdsNum
+    	 	,(SELECT ORG_FILE_NAME FROM MP_FILE WHERE BNO=od.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE WHERE BNO=od.gdsNum)) representative_file
+		from tbl_order o
+		left outer join tbl_order_details od
+		on od.orderId=o.orderId
+		left outer join tbl_goods g
+		on od.gdsNum=g.gdsNum
+	</select>
+	
+	<update id="updateOrderState" parameterType="map">
+		update tbl_order
+		set delivery=#{delivery}
+		where orderId=#{orderId}
+	</update>
+	
+	<select id="selectOrderListCnt" parameterType="map"
+		resultType="Integer">
+			SELECT COUNT(1) CNT
+		FROM (
+			SELECT o.orderId
+		FROM tbl_order o
+		where o.orderId>0
+		<!-- <include refid="searchOption"/> -->
+		) o
+	</select>
+	
+	<select id="selectOrderDetail" parameterType="java.util.HashMap"
+	resultType="java.util.HashMap">
+		 select 
+		   o.orderId, o.userId, o.orderRec,
+		    o.userAddr1, o.userAddr2, o.userAddr3,
+		    o.orderPhon, o.amount, o.orderDate, o.delivery
+		    , od.cartStock
+            ,od.orderDetailsNum
+		    , g.gdsName  
+     	 	,(SELECT ORG_FILE_NAME FROM MP_FILE WHERE BNO=od.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE WHERE BNO=od.gdsNum)) representative_file
+		    
+		from tbl_order_details od
+		        inner join tbl_order o
+		            on od.orderId = o.orderId
+				inner join tbl_goods g
+		            on od.gdsNum = g.gdsNum
+            where o.orderId=#{orderId}
+		
+	</select>
 </mapper>

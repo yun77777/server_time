@@ -35,4 +35,11 @@ public interface mngService {
 
 	public Integer selectItemListMaxNo(Map<String, Object> paramMap) throws Exception;
 
+	public List<Map<String, Object>> selectOrderList(Map<String, Object> paramMap) throws Exception;
+
+	public Integer selectOrderListCnt(Map<String, Object> paramMap) throws Exception;
+
+	public List<Map<String, Object>> selectOrderDetail(Map<String, Object> paramMap) throws Exception;
+
+	public void updateOrderState(Map<String, Object> paramMap);
 }

@@ -45,17 +45,17 @@ public class boardServiceImpl implements boardService {
 	public Map<String, Object> selectFile(Map<String, Object> paramMap) throws Exception {
 		return boardMapper.selectFile(paramMap);
 	}
-
+	@Override
 	public Integer selectBoardListCnt(Map<String, Object> paramMap) throws Exception {
 		return boardMapper.selectBoardListCnt(paramMap);
 	}
-
+	@Override
 	public Integer memberLogin(Map<String, Object> paramMap) throws Exception {
 		System.err.println("login@:" + paramMap);
 		System.err.println(boardMapper.memberLogin(paramMap));
 		return boardMapper.memberLogin(paramMap);
 	}
-
+	@Override
 	public Integer selectBoardMaxNo(Map<String, Object> paramMap) throws Exception {
 		int maxNo;
 
