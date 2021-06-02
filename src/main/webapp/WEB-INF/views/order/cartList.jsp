@@ -35,93 +35,72 @@
 		<div id="container_box">
 		
 			<section id="content">
-					
-				<ul>
-					<li>
-						<div class="allCheck">
-							<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck">모두 선택</label>
-							
-							<script>
-							
-							</script>
-							
-						</div>
-						
-						<div class="delBtn">
-							<button type="submit" onclick="fn_delete()" class="selectDelete_btn">선택 삭제</button>
-							
-							<script>
-								/* $(".selectDelete_btn").click(function(){
-									var confirm_val = confirm("정말 삭제하시겠습니까?");
-									
-									if(confirm_val) {
-										var checkArr = new Array();
-										//var formData = new FormData($("#deleteForm")[0]);
-										var userId=$('#userId').val();
-
-										// 체크된 체크박스의 갯수만큼 반복
-										$("input[class='chBox']:checked").each(function(){
-											checkArr.push($(this).attr("data-cartNum"));  // 배열에 데이터 삽입
-										});
+					<div class="table-responsive-lg">
+						<table class="table">
+						    <tr>
+						    	<td>
+						    		<div class="allCheck">
+						    			<span>
+						    				<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck">모두 선택</label>
+						    			</span>
 										
-										alert(checkArr);
-											
-										$.ajax({
-											url : "/deleteCart.do",
-											type : "post",
-											data : { chbox : checkArr , userId : userId },
-											success : function(result){
-												
-												if(result == 1) {												
-													location.href = "/cartList.do";
-												} else {
-													alert("삭제 실패");
-												}
-											}
-										});
-									}	
-								}); */
-							</script>
-							
-						</div>
-						
-					</li>
-				
-					<%-- jsp상의 변수 선언 --%>
-					<c:set var="sum" value="0" />
-				<form id="deleteForm" method="post" enctype="multipart/form-data">
-				
-				
-				
-					<c:forEach items="${cartList}" var="cartList">
-					<li>
-						<div class="checkBox">
-							<input type="checkbox" name="chBox" class="chBox" data-cartNum="${cartList.cartNum}" />
-							<script>
-								$(".chBox").click(function(){
-									$("#allCheck").prop("checked", false);
-								});
-							</script>
-						</div>
-					
-						<div class="thumb">
-							<img src="${cartList.gdsThumbImg}" />
-						</div>
-						<div class="gdsInfo">
-							<p>
-                           		<img class="card-img-top" src="<c:url value='/img/${cartList.representative_file}'/>" style="width:100px" alt="no image" /><br />
-								<span>상품명</span>${cartList.gdsName}<br />
-								<span>개당 가격</span><fmt:formatNumber pattern="###,###,###" value="${cartList.gdsPrice}" /> 원<br />
-								<span>구입 수량</span>${cartList.cartStock} 개<br />
-								<span>최종 가격</span><fmt:formatNumber pattern="###,###,###" value="${cartList.gdsPrice * cartList.cartStock}" /> 원
-							</p>
-							
-							<p class="gdsStock">
-							<input id="price" type="hidden" value="${cartList.cartStock}">
-								<span>구입 수량 </span><fmt:formatNumber pattern="###,###,###" value="${cartList.cartStock}" /> EA
-							</p>
-						
-							<c:if test="${view.gdsStock != 0}">
+									</div>
+						    	</td>
+						    	<td>
+						    		<div class="allCheck">
+						    			<span>
+											<button type="submit" onclick="fn_delete()" class="selectDelete_btn">선택 삭제</button>
+										</span>
+									</div>
+						    	</td>
+						    </tr>
+			    <form id="deleteForm" method="post" enctype="multipart/form-data">
+				    <c:forEach items="${cartList}" var="cartList">
+						<tr>
+							<td>
+							<div class="checkBox">
+								<input type="checkbox" name="chBox" class="chBox" data-cartNum="${cartList.cartNum}" />
+								<input type="hidden" value="${cartList.gdsPrice}">
+								<input type="hidden" value="${cartList.gdsPrice * cartList.cartStock}">
+								<input type="hidden" value="${cartList.cartStock}">
+								<script>
+									$(".chBox").click(function(){
+										$("#allCheck").prop("checked", false);
+									});
+								</script>
+							</div>
+							</td>
+							<td>
+								<div class="">
+									<img class="card-img-top" src="<c:url value='/img/${cartList.representative_file}'/>" style="width:100px" alt="no image" />
+								</div>
+<%-- 								<div class="thumb">
+									<img src="${cartList.gdsThumbImg}" />
+								</div> --%>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								상품명
+							</td>
+							<td>
+								${cartList.gdsName}
+							</td>
+						</tr>
+						<tr>
+							<td>
+								개당 가격
+							</td>
+							<td>
+								<fmt:formatNumber pattern="###,###,###" value="${cartList.gdsPrice}" /> 원
+							</td>
+						</tr>
+						<tr>
+							<td>
+								구입 수량
+							</td>
+							<td>
+								<c:if test="${view.gdsStock != 0}">
 								<p class="cartStock">
 									<button type="button" class="plus">+</button>
 									<input type="number" id="cartStock" name="cartStock" class="numBox" min="1" max="${view.gdsStock}" value="${cartList.cartStock}" readonly="readonly"/>
@@ -129,51 +108,37 @@
 									<input type="hidden" value="${view.gdsStock}" class="gdsStock_hidden" /> 
 									<input type="hidden" value="${cartList.gdsPrice * cartList.cartStock}" class="gdsPrice_hidden" /> 
 								</p>
-							</c:if>
-							<c:if test="${view.gdsStock == 0}">
-								<p>상품 수량이 부족합니다.</p>						
-							</c:if>
+								</c:if>
+								<c:if test="${view.gdsStock == 0}">
+									<p>상품 수량이 부족합니다.</p>						
+								</c:if>
 							
-							
-							
-							<div class="delete">
-								<button type="button" class="delete_${cartList.cartNum}_btn" data-cartNum="${cartList.cartNum}">삭제</button>
-								
-								<script>
-									$(".delete_${cartList.cartNum}_btn").click(function(){
-										var confirm_val = confirm("정말 삭제하시겠습니까?");
-										var userId=$('#userId').val();
-										
-										if(confirm_val) {
-											var checkArr = new Array();
-											
-											checkArr.push($(this).attr("data-cartNum"));
-																						
-											$.ajax({
-												url : "/deleteCart.do",
-												type : "post",
-												data : { chbox : checkArr , userId : userId},
-												success : function(result){
-													if(result == 1) {												
-														location.href = "/cartList.do";
-													} else {
-														alert("삭제 실패");
-													}
-												}
-											});
-										}	
-									});
-								</script>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								최종 가격
+							</td>
+							<td>
+								<fmt:formatNumber pattern="###,###,###" value="${cartList.gdsPrice * cartList.cartStock}" /> 원
+							</td>
+						</tr>
+						<tr>
+							<td>
+							</td>
+							<td>
+								<div class="delete">
+								<button type="button" class="delete_btn" data-cartNum="${cartList.cartNum}">삭제</button>
 							</div>
-						</div>			
-					</li>
+							</td>
+						</tr>
+							
+							
 					</c:forEach>
-					<%-- 반복할 때마다 sum에 상품 가격(gdsPrice)*상품 갯수(cartStock)만큼을 더함 --%>
-<%-- 					<c:set var="sum" value="${sum + (cartList.gdsPrice * cartList.cartStock)}" />
-					
-					 --%>
 				</form>
-				</ul>
+						  </table>
+						</div>
+						
 			
 			<div class="orderChk"></div>
 			
@@ -184,21 +149,18 @@
 			</div>
 			
 			<div class="orderInfo">
-<%-- 				<form role="form" method="post" autocomplete="off">
- --%>										
 			<form id="boardForm" method="post" enctype="multipart/form-data">
-					<input type="hidden" name="amount" value="${sum}" />
-					<input type="hidden" id="userId" name="userId" value="${member.ID}" />
-					<input type="hidden" id="orderId" name="orderId" />
-				</form>	
+				<input type="hidden" name="amount" value="${sum}" />
+				<input type="hidden" id="userId" name="userId" value="${member.ID}" />
+				<input type="hidden" id="orderId" name="orderId" />
+				<input type="hidden" id="type" name="cart" />
+			</form>	
 			<div class="inputArea">
 				<button type="submit" onclick="fn_order()" class="order_btn">주문</button>
 				<button type="button" class="cancel_btn">취소</button>
 				
 				<script>
-				$(".cancel_btn").click(function(){
-					window.location='<c:url value="/test.do"/>';
-					});						
+								
 				</script>
 				
 			</div>
@@ -261,12 +223,12 @@ $(document).ready(function(){
 var sum=0;
 $("input[class='chBox']").change(function(){
       if($(this).is(":checked")){
-          //sum+=Number($(this).parent().parent().find('.cartStock').find('.numBox').val());  // 배열에 데이터 삽입
-          sum+=Number($(this).parent().parent().find('.cartStock').find('.gdsPrice_hidden').val());  // 배열에 데이터 삽입
+    	  sum+=Number($(this).next().next().val());
+          //sum+=Number($(this).parent().parent().parent().find('.cartStock').find('.gdsPrice_hidden').val());  // 배열에 데이터 삽입
   		
       }else{
-    	  alert('unchecked');
-          sum-=Number($(this).parent().parent().find('.cartStock').find('.gdsPrice_hidden').val());  // 배열에 데이터 삽입
+    	  sum-=Number($(this).next().next().val());
+          //sum-=Number($(this).parent().parent().parent().find('.cartStock').find('.gdsPrice_hidden').val());  // 배열에 데이터 삽입
       }
       alert(sum);
       $(".listResult").html('총 합계: '+sum+'원'); 
@@ -279,7 +241,7 @@ $("#allCheck").click(function(){
 	if(chk) {
 		$(".chBox").prop("checked", true);
 		$("input[class='chBox']:checked").each(function(){
-	          sum+=Number($(this).parent().parent().find('.cartStock').find('.gdsPrice_hidden').val());  // 배열에 데이터 삽입
+	          sum+=Number($(this).next().next().val());
 		});
 	} else {
 		$(".chBox").prop("checked", false);
@@ -293,60 +255,12 @@ $("#allCheck").click(function(){
     $(".listResult").html('총 합계: '+sum+'원'); 
 	
 });
-});
-//주문
-function fn_order(){
-	$(".orderChk *").remove();
-	var checkArr = new Array();
-	var cartStockArr = new Array();
-	//var formData = new FormData($("#deleteForm")[0]);
-	var userId=$('#userId').val();
-	//var sum=0;
-	// 체크된 체크박스의 갯수만큼 반복
-	$("input[class='chBox']:checked").each(function(){
-		checkArr.push($(this).attr("data-cartNum"));  // 배열에 데이터 삽입
-		//alert($(this).parent().parent().find('.cartStock').find('#cartStock').val());	
-		cartStockArr.push($(this).parent().parent().find('.cartStock').find('#cartStock').val());  // 배열에 데이터 삽입
-		//sum+=cartStockArr.push($(this).parent().parent().find('.cartStock').find('.gdsStock_hidden').val());  // 배열에 데이터 삽입
-		
-	});
-	alert("checkArr:"+checkArr);
-	alert("cartStockArr:"+cartStockArr);
-	
-	if(checkArr.length==0){
-		alert('상품 선택 후 주문하세요');
-	} else{
-		var str = "<p>"+checkArr+"</p>";
-	    $(".orderChk").append(str);
-		
-		$.ajax({
-			//선택 후 orderProcess(주문) 페이지로 이동
-			url : "/orderProcess.do",
-			type : "post",
-			data : { chbox : checkArr , userId : userId , cartStockArr : cartStockArr,},
-			success : function(result){
-				
-				if(result) {	
-					$("#orderId").val(result.orderId);
-					$('#boardForm').attr({
-						action : '<c:url value="/orderProcessDetail.do"/>',
-						target : '_self'
-					}).submit(); 
-					//location.href = "/orderList2.do";
-				} else {
-					alert("chk 실패");
-				}
-			}
-		});
-	}
-	
-}
 
 
 
 
 
-// + 버튼을 누르면 수량이 증가하되, 상품의 전체 수량보다 커지지 않음
+//+ 버튼을 누르면 수량이 증가하되, 상품의 전체 수량보다 커지지 않음
 $(".plus").click(function(){
 	var num = $(this).next().val();
 	
@@ -361,7 +275,7 @@ $(".plus").click(function(){
 });
 
 
-// - 버튼을 누르면 수량이 감소하되, 1보다 밑으로 감소하지 않음
+//- 버튼을 누르면 수량이 감소하되, 1보다 밑으로 감소하지 않음
 $(".minus").click(function(){
 	var num = $(this).prev().val();
 	var minusNum = Number(num) - 1; 
@@ -372,7 +286,86 @@ $(".minus").click(function(){
 		$(this).prev().val(minusNum);
 	}
 });
+
+$(".delete_btn").click(function(){
+	var confirm_val = confirm("정말 삭제하시겠습니까?");
+	var userId=$('#userId').val();
+	
+	if(confirm_val) {
+		var checkArr = new Array();
 		
+		checkArr.push($(this).attr("data-cartNum"));
+													
+		$.ajax({
+			url : "/deleteCart.do",
+			type : "post",
+			data : { chbox : checkArr , userId : userId},
+			success : function(result){
+				if(result == 1) {												
+					location.href = "/cartList.do";
+				} else {
+					alert("삭제 실패");
+				}
+			}
+		});
+	}	
+});
+
+$(".cancel_btn").click(function(){
+	window.location='<c:url value="/test.do"/>';
+});		
+});
+//주문
+function fn_order(){
+	$(".orderChk *").remove();
+	var checkArr = new Array();
+	var cartStockArr = new Array();
+	//var formData = new FormData($("#deleteForm")[0]);
+	var userId=$('#userId').val();
+	//var sum=0;
+	// 체크된 체크박스의 갯수만큼 반복
+	$("input[class='chBox']:checked").each(function(){
+		checkArr.push($(this).attr("data-cartNum"));  // 배열에 데이터 삽입
+		cartStockArr.push($(this).next().next().next().val());  // 배열에 데이터 삽입
+		//cartStockArr.push($(this).parent().parent().find('.cartStock').find('#cartStock').val());  // 배열에 데이터 삽입
+		
+	});
+	alert("checkArr:"+checkArr);
+	alert("cartStockArr:"+cartStockArr);
+	
+	if(checkArr.length==0){
+		alert('상품 선택 후 주문하세요');
+	} else{
+		var str = "<p>"+checkArr+"</p>";
+	    $(".orderChk").append(str);
+
+	    $.ajax({
+			//선택 후 orderProcess(주문) 페이지로 이동
+			url : "/orderProcess.do",
+			type : "post",
+			data : { chbox : checkArr , userId : userId , cartStockArr : cartStockArr,},
+			success : function(result){
+				alert(result);
+				if(result) {
+					$("#orderId").val(result.orderId);
+					alert(result.orderId);
+					
+					$('#boardForm').attr({
+						action : '<c:url value="/orderProcessDetail.do"/>',
+						target : '_self'
+					}).submit();
+					//location.href = "/orderList2.do";
+				} else {
+					alert("주문 오류가 발생했습니다.");
+				}
+			}
+		});
+	}
+	
+}
+
+
+
 </script>
 
 </html>

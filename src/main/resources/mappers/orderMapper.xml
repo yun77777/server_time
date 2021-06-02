@@ -70,7 +70,10 @@
          from tbl_cart
          where cartNum=#{cartNum} and userId=#{userId}
 </insert> 
-
+<!-- <delete id="deleteOrderInfoDetails">
+ delete  tbl_order_details
+ where orderId=#{orderId} and userId=#{userId}
+</delete>  -->
 	    
 	<!-- 카트 비우기 -->
 	<delete id="cartAllDelete">
@@ -198,7 +201,8 @@ and c.orderProcess= #{orderProcess}
 	<delete id="deleteCart" parameterType="map">
 <!-- 	<delete id="deleteCart" parameterType="com.mall.vo.CartVO"> -->
 		delete from tbl_cart
-		where cartNum = #{cartNum} and userId = #{userId}
+		where userId = #{userId}
+		and orderProcess = #{orderProcess}
 	</delete>
 	
 	
@@ -216,12 +220,14 @@ and c.orderProcess= #{orderProcess}
 		where userId = #{userId} and orderProcess='Y'
 	</update>
 	
-<!-- 	<update id="updateOrderDetails" parameterType="map">
-		update tbl_order_details
-		set orderProcess = 'C'
-		where userId = #{userId}
-	</update>
-	 -->
+
+<delete id="deleteOrderDetails" parameterType="map">
+		delete from tbl_order_details
+		where orderId = #{orderId}
+		and orderProcess = #{orderProcess}
+</delete>
+	
+	
 	
 	<select id="maxOrderId" resultType="int">
 		SELECT MAX(orderId) FROM tbl_order

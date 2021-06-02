@@ -104,6 +104,11 @@ public class orderServiceImpl implements orderService {
 	public void deleteCart(Map<String, Object> paramMap) throws Exception {
 		orderMapper.deleteCart(paramMap);
 	}
+	
+	@Override
+	public void deleteOrderInfoDetails(Map<String, Object> paramMap) throws Exception {
+		orderMapper.deleteOrderInfoDetails(paramMap);
+	}
 
 	// 주문 정보
 	@Override
@@ -129,8 +134,8 @@ public class orderServiceImpl implements orderService {
 	}
 
 	@Override
-	public void updateOrderDetails(Map<String, Object> paramMap) throws Exception {
-		orderMapper.updateOrderDetails(paramMap);
+	public void deleteOrderDetails(Map<String, Object> paramMap) throws Exception {
+		orderMapper.deleteOrderDetails(paramMap);
 	}
 
 	@Override

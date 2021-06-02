@@ -235,10 +235,9 @@ System.err.println("paramamamamammamama:"+userId);
 		return "order/cartList";
 	}
 	
-	// 주문
 	@RequestMapping(value = "/orderProcessDetail.do")
 //	@RequestMapping(value = "/cartList.do", method = RequestMethod.POST)
-	public String orderProcessDetail(@RequestParam Map<String, Object> paramMap, Model model, HttpSession session, OrderVO order, OrderDetailVO orderDetail) throws Exception {
+	public String orderProcessDetail(@RequestParam Map<String, Object> paramMap, Model model, HttpSession session) throws Exception {
 		logger.info("order");
 		model.addAttribute("login", session.getAttribute("login"));
 		model.addAttribute("member", session.getAttribute("member"));
@@ -246,54 +245,23 @@ System.err.println("paramamamamammamama:"+userId);
 		System.err.println("ff"+session.getAttribute("login"));
 		String member = String.valueOf(session.getAttribute("login"));
 		String userId = member;
-		
-		System.err.println("@#@JWLEKJWJL:"+paramMap);
-//		UserVO member = (UserVO) session.getAttribute("ID");
-//		String userId = member.getID();
-		
-		// 캘린더 호출
-		Calendar cal = Calendar.getInstance();
-		int year = cal.get(Calendar.YEAR); // 연도 추출
-		String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1); // 월 추출
-		String ymd = ym + new DecimalFormat("00").format(cal.get(Calendar.DATE)); // 일 추출
-		String subNum = ""; // 랜덤 숫자를 저장할 문자열 변수
-		
-		for (int i = 1; i <= 6; i++) { // 6회 반복
-			subNum += (int) (Math.random() * 10); // 0~9까지의 숫자를 생성하여 subNum에 저장
-		}
-		
-		String orderId = ymd + "_" + subNum; // [연월일]_[랜덤숫자] 로 구성된 문자
-		
-		order.setOrderId(orderId);
-		order.setUserId(userId);
-		
 		paramMap.put("userId",userId);
+		System.err.println("@#@JWLEKJWJL:"+paramMap);
 		
-		
-//		orderService.orderInfo(order);
-		
-		orderDetail.setOrderId(orderId);
-//		orderService.orderInfo_Details(orderDetail);
-		
-		// 주문 테이블, 주문 상세 테이블에 데이터를 전송하고, 카트 비우기
-//		orderService.cartAllDelete(userId);
-		
-//		List<CartListVO> cartList = orderService.cartList(userId);
-		
-		paramMap.put("orderProcess","Y");
-		//paramMap.put("orderProcess","C");//completely ordered
-		List<Map<String, Object>> cartList = orderService.cartList(paramMap);
-		orderService.updateOrderDetails(paramMap);//카트 ccccccccc
-		
-		System.err.println("cartList:"+cartList);
-		model.addAttribute("cartList", cartList);
-		model.addAttribute("paramMap", paramMap);
-		orderService.deleteCart(paramMap);
 
+		paramMap.put("orderProcess","Y");
+		List<Map<String, Object>> cartList = orderService.cartList(paramMap);
+		orderService.deleteCart(paramMap);
+		
+		List<Map<String, Object>> orderView = orderService.orderView(paramMap);
+		model.addAttribute("cartList", cartList);
+//		model.addAttribute("orderView", orderView);
+		model.addAttribute("paramMap",paramMap);
+		
+		
 //		return "redirect:/order/cartList";
 		return "order/orderProcessDetail";
 	}
-	
 	
 	
 	@ResponseBody
@@ -315,7 +283,14 @@ System.err.println("paramamamamammamama:"+userId);
 		//카트리스트에서 선택된 내역 주문
 		//주문서 작성 후 결제 완료->주문 내역 카트리스트에서 삭제
 		//paramMap.put("orderProcess","C");//completely ordered
-
+		
+		//orderService.deleteOrderInfoDetails(paramMap);
+		
+		
+		paramMap.put("orderProcess","Y");
+		orderService.deleteCart(paramMap);
+		orderService.deleteOrderDetails(paramMap);
+		
 		if(userId != null) {
 			//cartList
 			for(int i=0 ; i<chArr.size() ; i++) {
@@ -323,7 +298,7 @@ System.err.println("paramamamamammamama:"+userId);
 				cartStock = Integer.parseInt(cartStockArr.get(i).toString());
 				paramMap.put("cartNum",cartNum);
 				paramMap.put("cartStock",cartStock);
-				paramMap.put("orderProcess","Y");
+				
 				System.err.println("@@@@@@@@@@@@@@@@@cs:"+cartNum);
 				System.err.println("@@@@@@@@@@@@@@@@@cs:"+cartStock);
 				System.err.println("@@@@@@@@@@@@@@@@@cs:"+userId);
@@ -335,9 +310,11 @@ System.err.println("paramamamamammamama:"+userId);
 			
 		}
 		
+		
+		
 		// 주문할 상품 리스트
 		List<Map<String, Object>> cartList = orderService.cartList(paramMap);
-
+		System.err.println("cartList:"+cartList);
 		model.addAttribute("cartList", cartList);
 		model.addAttribute("paramMap", paramMap);
 		return paramMap;
@@ -384,8 +361,6 @@ System.err.println("paramamamamammamama:"+userId);
 
 		
 		
-		
-		
 		//orderProcess='C'로 변경
 
 		//임시(API적용전 테스트)
@@ -393,7 +368,7 @@ System.err.println("paramamamamammamama:"+userId);
 		paramMap.put("merchant_uid","merchant_uid");
 		paramMap.put("paid_amount",1000);
 		paramMap.put("apply_num",10);
-		paramMap.put("userId", paramMap.get("userId"));
+		//paramMap.put("userId", paramMap.get("userId"));
 //		paramMap.put("orderId", orderService.maxOrderId());
 
 		orderService.orderInfo(paramMap);
@@ -415,7 +390,8 @@ System.err.println("paramamamamammamama:"+userId);
 		// 로그인 여부 구분
 
 		//orderService.deleteCart(paramMap);
-		
+		//orderService.updateOrderDetails(paramMap);//카트 ccccccccc
+
 		List<Map<String, Object>> orderList = orderService.orderList(paramMap);
 		//orderService.orderInfo_Details(paramMap);
 		System.err.println(orderList);
@@ -511,6 +487,12 @@ System.err.println("paramamamamammamama:"+userId);
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("paramMap", paramMap);
 		
+		paramMap.put("orderProcess","Y");
+		orderService.deleteCart(paramMap);
+		
+		
+		
+		
 		//@@@
 //		model.addAttribute("login",session.getAttribute("login"));
 //		model.addAttribute("member",session .getAttribute("member"));
@@ -579,11 +561,12 @@ System.err.println("paramamamamammamama:"+userId);
 			
 
 			paramMap.put("orderProcess","Y");
-			
 			List<Map<String, Object>> cartList = orderService.cartList(paramMap);
+			orderService.deleteCart(paramMap);
+			
 			List<Map<String, Object>> orderView = orderService.orderView(paramMap);
 			model.addAttribute("cartList", cartList);
-			model.addAttribute("orderView", orderView);
+//			model.addAttribute("orderView", orderView);
 			model.addAttribute("paramMap",paramMap);
 			
 //			return "redirect:/order/cartList";
@@ -608,7 +591,10 @@ System.err.println("paramamamamammamama:"+userId);
 			
 			//카트리스트에서 선택된 내역 주문
 			//주문서 작성 후 결제 완료->주문 내역 카트리스트에서 삭제
-			paramMap.put("orderProcess","Y");
+			
+//			orderService.updateOrderDetails(paramMap);
+//deleteOrderDetails
+			//paramMap.put("orderProcess","Y");
 			//주문번호 orderId
 			paramMap.put("orderId", orderService.maxOrderId()+1);
 			paramMap.put("cartNum", orderService.maxCartNum()+1);

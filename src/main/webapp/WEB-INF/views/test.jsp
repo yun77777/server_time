@@ -246,14 +246,6 @@ function fn_detail_pop(B_NO,B_TYPE){
 		}
 	});
 	
-	/* $.ajax({
-		url: '<c:url value="/test.do" />',
-		method:"POST",
-		data:formData,
-		dataType:"html",
-		success: eventSuccess,
-		error: function(xhr, status, error) {alert(error);}
-	}); */
 }
 
 

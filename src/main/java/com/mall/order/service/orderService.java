@@ -49,13 +49,15 @@ public interface orderService {
 	// 카트 삭제
 	public void deleteCart(Map<String, Object> paramMap) throws Exception;
 
+	public void deleteOrderInfoDetails(Map<String, Object> paramMap) throws Exception;
+
 	public int maxOrderId() throws Exception;
 
 	public int maxCartNum() throws Exception;
 
 	public void updateCart(Map<String, Object> paramMap) throws Exception;
 
-	public void updateOrderDetails(Map<String, Object> paramMap) throws Exception;
+	public void deleteOrderDetails(Map<String, Object> paramMap) throws Exception;
 
 	// 주문 정보
 	public void orderInfo(Map<String, Object> paramMap) throws Exception;
