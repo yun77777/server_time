@@ -292,4 +292,6 @@ public class boardController {
 //		return "chat/chattingview";
 	}
 	
+	
+	
 }

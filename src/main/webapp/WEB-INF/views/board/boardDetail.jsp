@@ -114,6 +114,26 @@
                     </div>
                 </div>
             </div>
+            
+            
+            
+            <div>
+
+	<form method="post" action="/reply/write.do">
+	
+		<p>
+			<label>댓글 작성자</label> <input type="text" name="writer" value="${member.ID}" readonly>
+		</p>
+		<p>
+			<textarea rows="5" cols="50" name="content"></textarea>
+		</p>
+		<p>
+		<input type="hidden" name="bno" value="${detail.B_NO}">
+			<button type="submit">댓글 작성</button>
+		</p>
+	</form>
+	
+</div>
         </section>
 
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
@@ -266,7 +286,6 @@ $(function() {
 	});
 })
 
-</script>
 </script>
 
 </html>
