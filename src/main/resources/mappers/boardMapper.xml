@@ -66,6 +66,7 @@
 		,B.cnt
 		,B.input_dt
 		,B.updt_dt
+		,B.originNo
 		,B.groupOrd
 		,B.groupLayer
 		<!-- ,MF.ORG_FILE_NAME file -->

@@ -115,7 +115,7 @@ body {
                         	<input type="hidden" id="currentPageNo" name="currentPageNo" value="1"/>
                         	<input type="hidden" id="replyType" name="replyType" value="${paramMap.replyType}"/>
                         	<input type="hidden" id="originNo" name="originNo"
-                        	<c:if test='${empty paramMap.originNo}'>
+	                                    <c:if test='${empty paramMap.originNo}'>
 	                                    value="${detail.originNo}"</c:if>
 	                                    <c:if test='${!empty paramMap.originNo}'>
 	                                    value="${paramMap.originNo}"</c:if>
@@ -492,7 +492,8 @@ function fn_reply(no){
 /* 	$('#boardForm #no').val(Number(no)+1); */
 	$('#boardForm #replyType').val('Y');
 	alert("no:"+no);
-	$('#boardForm #originNo').val(Number(no));
+	alert($('#boardForm #originNo').val());
+	//$('#boardForm #originNo').val(Number(no));
 	//$('#boardForm #groupOrd').val(Number(no)+1);
 	//$('#boardForm #groupLayer').val(Number(no)+1);
 	
