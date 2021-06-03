@@ -321,4 +321,19 @@
    	  delete from MP_FILE where BNO=#{no, jdbcType=VARCHAR}
 	</delete>
 	
+	
+	<select id="selectBoardFileList" parameterType="java.util.HashMap"
+		resultType="java.util.HashMap">
+ 	SELECT 
+ 		FILE_NO,
+			BNO,
+			ORG_FILE_NAME,
+			STORED_FILE_NAME,
+			FILE_SIZE,
+			SEQ_MP_FILE_NO,
+			FILE_PATH,
+			B_TYPE
+		FROM MP_FILE
+		where BNO=#{no}
+	</select>
 </mapper>

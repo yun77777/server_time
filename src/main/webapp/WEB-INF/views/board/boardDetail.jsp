@@ -184,13 +184,27 @@ body {
 							      </td>
 							      </tr>
 							      <tr>
-							      <th scope="row">file</th>
+							      <th scope="row">file${fileList}</th>
 							      <td>
 							      	<div class="controls">
                                      <input class="form-control" id="file" name="file" type="text"  value="${detail.file}" required data-validation-required-message="Please enter your email address." />
                                 	</div>
 							      </td>
 							      </tr>
+							     
+						       <c:forEach var="result" items="${fileList}" varStatus="status">
+	 							<tr>
+							      <td colspan="2">
+		 							<img class="list_img" src="<c:url value='/img/${result.ORG_FILE_NAME}'/>" alt="no image" style="width:50%;height:auto"/>
+                               	  </td>
+							    </tr>
+	 							<tr>
+							      <td colspan="2">
+                                     <input class="form-control" id="file" name="file" type="file"  value="${result.ORG_FILE_NAME}" required data-validation-required-message="Please enter your email address." />
+                               	  </td>
+							    </tr>
+                                </c:forEach>
+							      	
 							      <tr>
 							      <th scope="row"></th>
 							      <td>

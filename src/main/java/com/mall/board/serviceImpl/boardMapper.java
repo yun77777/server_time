@@ -14,6 +14,8 @@ public interface boardMapper {
 
 	List<Map<String, Object>> selectBoardHisList(Map<String, Object> paramMap) throws Exception;
 
+	List<Map<String, Object>> selectBoardFileList(Map<String, Object> paramMap) throws Exception;
+
 	Map<String, Object> selectContent(Map<String, Object> paramMap) throws Exception;
 
 	Map<String, Object> selectFile(Map<String, Object> paramMap) throws Exception;

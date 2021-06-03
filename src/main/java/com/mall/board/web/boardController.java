@@ -187,6 +187,7 @@ public class boardController {
 			System.err.println(detail);
 			
 			List<Map<String,Object>> list=boardService.selectBoardHisList(paramMap);
+			List<Map<String,Object>> fileList=boardService.selectBoardFileList(paramMap);
 			System.err.println(Integer.parseInt(paramMap.get("no").toString()));
 			List<Map<String,Object>> replyList=replyService.list(Integer.parseInt(paramMap.get("no").toString()));
 //			if(paramMap.get("replyType")!=null && paramMap.get("replyType").toString().equals("Y")) {
@@ -207,6 +208,7 @@ public class boardController {
 			model.addAttribute("detail",detail);
 			model.addAttribute("list",list);
 			model.addAttribute("replyList",replyList);
+			model.addAttribute("fileList",fileList);
 			model.addAttribute("len",len);
 
 			model.addAttribute("paramMap",paramMap);
