@@ -42,6 +42,10 @@ public class boardServiceImpl implements boardService {
 	}
 
 	@Override
+	public void updateReply(Map<String, Object> paramMap) throws Exception {
+		boardMapper.updateReply(paramMap);
+	}
+	@Override
 	public Map<String, Object> selectFile(Map<String, Object> paramMap) throws Exception {
 		return boardMapper.selectFile(paramMap);
 	}

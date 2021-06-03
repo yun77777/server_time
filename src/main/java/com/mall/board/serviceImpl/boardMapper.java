@@ -36,6 +36,8 @@ public interface boardMapper {
 
 	public void updateCnt(Map<String, Object> paramMap) throws Exception;
 
+	public void updateReply(Map<String, Object> paramMap) throws Exception;
+
 	void mergeBoard(Map<String, Object> paramMap) throws Exception;
 
 	// history

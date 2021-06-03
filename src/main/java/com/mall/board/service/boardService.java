@@ -26,6 +26,8 @@ public interface boardService {
 
 	public Map<String, Object> selectBoardDetail(Map<String, Object> paramMap) throws Exception;
 
+	public void updateReply(Map<String, Object> paramMap) throws Exception;
+
 	public void insertBoard(Map<String, Object> paramMap, MultipartHttpServletRequest multi, HttpServletRequest request)
 			throws Exception;
 

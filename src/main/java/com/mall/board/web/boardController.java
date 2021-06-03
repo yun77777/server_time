@@ -179,7 +179,15 @@ public class boardController {
 			if(paramMap.get("originNo")!=null) {
 				paramMap.put("B_NO",paramMap.get("no"));
 				paramMap.put("title",paramMap.get("title"));
+				
+				
+				paramMap.put("newGroupOrd",Integer.parseInt(paramMap.get("groupOrd").toString())+1);//기존groupOrd+1
+				paramMap.put("newGroupLayer",Integer.parseInt(paramMap.get("groupLayer").toString())+1);//부모글 groupLayer+1
+				
+				
 				boardService.insertReply(paramMap, request);
+				boardService.updateReply(paramMap);
+
 			}
 			
 			

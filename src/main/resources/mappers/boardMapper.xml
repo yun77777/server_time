@@ -66,10 +66,12 @@
 		,B.cnt
 		,B.input_dt
 		,B.updt_dt
-		,MF.ORG_FILE_NAME file
+		,B.groupOrd
+		,B.groupLayer
+		<!-- ,MF.ORG_FILE_NAME file -->
 		from board B
-		left outer join MP_FILE MF
-		on B.B_NO=MF.BNO
+<!-- 		left outer join MP_FILE MF
+		on B.B_NO=MF.BNO -->
 		where B.B_NO=#{no} and B.B_TYPE=#{B_TYPE}
 	</select>
 	
@@ -93,8 +95,8 @@
 		,B_TYPE
 		
 		,originNo
-		,groupOrd
-		,groupLayer
+	<!-- 	,groupOrd
+		,groupLayer -->
 		) values(
 		#{B_NO}
 		,#{id,jdbcType=VARCHAR}
@@ -104,10 +106,21 @@
 		,#{B_TYPE,jdbcType=VARCHAR}
 		
 		,#{originNo,jdbcType=VARCHAR}
-		,#{groupOrd,jdbcType=VARCHAR}
-		,#{groupLayer,jdbcType=VARCHAR}
+	<!-- 	,#{groupOrd,jdbcType=VARCHAR}
+		,#{groupLayer,jdbcType=VARCHAR} -->
 		
 		)
+	</insert>
+	
+	<insert id="updateReply" parameterType="map">
+		update board set
+		
+		groupOrd = #{newGroupOrd,jdbcType=VARCHAR}
+		,groupLayer =#{newGroupLayer,jdbcType=VARCHAR}
+		
+		where B_NO=#{B_NO} and originNo=#{originNo} and groupOrd=#{groupOrd} 
+		and groupLayer=#{groupLayer} and B_TYPE=#{B_TYPE}
+		
 	</insert>
 	
 	<insert id="insertReply" parameterType="map">

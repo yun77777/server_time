@@ -113,9 +113,20 @@ body {
                     <div class="col-lg-8 mb-4">
                         <form id="boardForm" name="sentMessage" novalidate>
                         	<input type="hidden" id="currentPageNo" name="currentPageNo" value="1"/>
+                        	<input type="hidden" id="replyType" name="replyType" value="Y"/>
                         	<input type="hidden" id="originNo" name="originNo"/>
-                        	<input type="hidden" id="groupOrd" name="groupOrd"/>
-                        	<input type="hidden" id="groupLayer" name="groupLayer"/>
+                        	<input type="hidden" id="groupOrd" name="groupOrd"
+                        	<c:if test='${empty paramMap.groupOrd}'>
+	                                    value="${detail.groupOrd}"</c:if>
+	                                    <c:if test='${!empty paramMap.groupOrd}'>
+	                                    value="${paramMap.groupOrd}"</c:if>
+                        	/>
+                        	<input type="hidden" id="groupLayer" name="groupLayer"
+                        	<c:if test='${empty paramMap.groupLayer}'>
+	                                    value="${detail.groupLayer}"</c:if>
+	                                    <c:if test='${!empty paramMap.groupLayer}'>
+	                                    value="${paramMap.groupLayer}"</c:if>
+                        	/>
                             <button class="btn btn-secondary btn-sm float-right" id="sendMessageButton" onclick="fn_list()" type="button">Go to the list</button>
                             <table class="table">
 							  <thead>
@@ -349,7 +360,6 @@ function fn_detail(no){
 	//var  formData= $('#boardForm').serialize();
 	$('#boardForm #no').attr('disabled',false);
 	$('#boardForm #no').val(no);
-	alert(no);
 	$('#boardForm').attr({
 		action : '<c:url value="/boardDetail.do" />',
 		target : '_self'
@@ -386,7 +396,6 @@ function fn_insert() {
 		processData : false,
 		contentType : false,
 		success : function(result) {
-			alert('success');
 			fn_list();
 		}, // success 
 
@@ -408,7 +417,6 @@ function fn_delete() {
 		processData : false,
 		contentType : false,
 		success : function(result) {
-			alert('success');
 			fn_list();
 		}, // success 
 
@@ -443,7 +451,6 @@ $(function() {
 		var selcatd = $("#selcatd > option:selected").val();
 		var title = $("#title").val();
 		var content = document.getElementById("content").value;
-		alert(content);
 		if (selcatd == "") {
 			alert("카테고리를 선택해주세요.");
 			return;
@@ -478,13 +485,8 @@ function fn_reply(no){
 	//$('#boardForm #no').attr('disabled',false);
 	$('#boardForm #no').val(Number(no)+1);
 	$('#boardForm #originNo').val(Number(no));
-	$('#boardForm #groupOrd').val(Number(no)+1);
-	$('#boardForm #groupLayer').val(Number(no)+1);
-	
-	alert(no);
-	alert($('#boardForm #originNo').val());
-	alert($('#boardForm #groupOrd').val());
-	alert($('#boardForm #groupLayer').val());
+	//$('#boardForm #groupOrd').val(Number(no)+1);
+	//$('#boardForm #groupLayer').val(Number(no)+1);
 	
 	$('#boardForm').attr({
 		action : '<c:url value="/boardDetail.do" />',
@@ -512,10 +514,6 @@ function fn_reply2() {
 		contentType : false,
 		success : function(result) {
 			fn_detail(result.replyNo);
-			alert("replyNo: "+result.replyNo);
-			alert("originNo: "+result.originNo);
-			alert("groupOrd: "+result.groupOrd);
-			alert("groupLayer: "+result.groupLayer);
 			
 			//fn_list();
 		}, // success 
@@ -545,7 +543,6 @@ function fn_comment() {
 		processData : false,
 		contentType : false,
 		success : function(result) {
-			alert(result.paramMap.bno);
 			/* $("#replyList").append(result.list);
 			var content='<tr><td>'+(result.len)+'</td>'
 			content+='<td>'+result.paramMap.writer+'</td>'
