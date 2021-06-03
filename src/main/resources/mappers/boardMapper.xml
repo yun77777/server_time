@@ -111,9 +111,9 @@
 	</insert>
 	
 	<insert id="insertReply" parameterType="map">
-	<selectKey resultType="int" keyProperty="no" order="BEFORE">
+	<selectKey resultType="int" keyProperty="B_NO" order="BEFORE">
 		SELECT COALESCE(MAX(B_NO),0)+1 AS B_NO FROM board
-		WHERE  B_NO=#{no,jdbcType=VARCHAR} AND B_TYPE=#{B_TYPE}
+		where B_NO=#{B_NO} and B_TYPE=#{B_TYPE}
 	</selectKey>
 		insert board(
 		B_NO
@@ -132,11 +132,11 @@
 		,#{title,jdbcType=VARCHAR}
 		,#{content,jdbcType=VARCHAR}
 		,NOW()
-		,#{B_TYPE,jdbcType=VARCHAR}
+		,#{B_TYPE}
 		
-		,#{originNo,jdbcType=VARCHAR}
-		,#{groupOrd,jdbcType=VARCHAR}
-		,#{groupLayer,jdbcType=VARCHAR}
+		,#{originNo}
+		,#{groupOrd}
+		,#{groupLayer}
 		)
 	</insert>
 	

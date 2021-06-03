@@ -45,16 +45,19 @@ public class boardServiceImpl implements boardService {
 	public Map<String, Object> selectFile(Map<String, Object> paramMap) throws Exception {
 		return boardMapper.selectFile(paramMap);
 	}
+
 	@Override
 	public Integer selectBoardListCnt(Map<String, Object> paramMap) throws Exception {
 		return boardMapper.selectBoardListCnt(paramMap);
 	}
+
 	@Override
 	public Integer memberLogin(Map<String, Object> paramMap) throws Exception {
 		System.err.println("login@:" + paramMap);
 		System.err.println(boardMapper.memberLogin(paramMap));
 		return boardMapper.memberLogin(paramMap);
 	}
+
 	@Override
 	public Integer selectBoardMaxNo(Map<String, Object> paramMap) throws Exception {
 		int maxNo;
@@ -90,21 +93,14 @@ public class boardServiceImpl implements boardService {
 		}
 
 	}
+
 	@Override
-	public void insertReply(Map<String, Object> paramMap, MultipartHttpServletRequest multi, HttpServletRequest request)
-			throws Exception {
+	public void insertReply(Map<String, Object> paramMap, HttpServletRequest request) throws Exception {
 		System.err.println("$$$$$$$$$:" + paramMap);
 		boardMapper.mergeBoard(paramMap);
 		boardMapper.insertHisBoard(paramMap);
-		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(paramMap, multi);
-		int size = list.size();
-		System.err.println("multi list:" + list);
-		if (size > 0) {
-			for (int i = 0; i < size; i++) {
-				boardMapper.insertReply(list.get(i));
-			}
-		}
-		
+		boardMapper.insertReply(paramMap);
+
 	}
 
 	@Override

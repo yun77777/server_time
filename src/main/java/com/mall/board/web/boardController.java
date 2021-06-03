@@ -176,14 +176,11 @@ public class boardController {
 			System.err.println(Integer.parseInt(paramMap.get("no").toString()));
 			List<Map<String,Object>> replyList=replyService.list(Integer.parseInt(paramMap.get("no").toString()));
 			
-//			if(paramMap.get("originNo")!=null) {
-//				paramMap.put("originNo",paramMap.get("no"));
-//				paramMap.put("groupOrd",Integer.parseInt(paramMap.get("no").toString())+1);
-//				paramMap.put("groupLayer",Integer.parseInt(paramMap.get("no").toString())+1);
-//				
-//				boardService.insertReply(paramMap, multi, request);
-//				
-//			}
+			if(paramMap.get("originNo")!=null) {
+				paramMap.put("B_NO",paramMap.get("no"));
+				paramMap.put("title",paramMap.get("title"));
+				boardService.insertReply(paramMap, request);
+			}
 			
 			
 			
@@ -327,11 +324,13 @@ public class boardController {
 			if(paramMap.get("no").toString()!=null||!paramMap.get("no").toString().trim().equals(""))
 				paramMap.put("no",paramMap.get("no"));
 			
+			paramMap.put("B_NO",paramMap.get("no"));
 			paramMap.put("originNo",paramMap.get("no"));
 			paramMap.put("groupOrd",Integer.parseInt(paramMap.get("no").toString())+1);
 			paramMap.put("groupLayer",Integer.parseInt(paramMap.get("no").toString())+1);
+			paramMap.put("title","[Re:] "+paramMap.get("title"));
 			
-			boardService.insertReply(paramMap, multi, request);
+			boardService.insertReply(paramMap, request);
 			
 			int replyNo=boardService.selectBoardListCnt(paramMap)+1;
 			paramMap.put("replyNo",replyNo);

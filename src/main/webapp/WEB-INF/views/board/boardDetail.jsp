@@ -131,7 +131,7 @@ body {
 	                                    <c:if test='${!empty paramMap.no}'>
 	                                    value="${paramMap.no}"</c:if>
 	                                    
-	                                     disabled data-validation-required-message="Please enter your name." />
+	                                     readonly data-validation-required-message="Please enter your name." />
                                 	</div>
 							      </td>
 							     </tr>
@@ -156,7 +156,12 @@ body {
                                      <c:if test='${empty paramMap.title}'>
 	                                    value="${detail.title}"</c:if>
 	                                    <c:if test='${!empty paramMap.title}'>
-	                                    value="[Re:] ${paramMap.title}"</c:if>
+<%-- 	                                    value="${paramMap.title}"</c:if>
+ --%>
+ <%-- 	                            
+        
+ --%>
+                                      value="[Re:] ${paramMap.title}"</c:if>
                                      
                                      required data-validation-required-message="Please enter your email address." />
                                 	</div>
@@ -470,13 +475,16 @@ $(function() {
 function fn_reply(no){
 	//var  formData= $('#boardForm').serialize();
 	
-	$('#boardForm #no').attr('disabled',false);
+	//$('#boardForm #no').attr('disabled',false);
 	$('#boardForm #no').val(Number(no)+1);
 	$('#boardForm #originNo').val(Number(no));
 	$('#boardForm #groupOrd').val(Number(no)+1);
 	$('#boardForm #groupLayer').val(Number(no)+1);
 	
 	alert(no);
+	alert($('#boardForm #originNo').val());
+	alert($('#boardForm #groupOrd').val());
+	alert($('#boardForm #groupLayer').val());
 	
 	$('#boardForm').attr({
 		action : '<c:url value="/boardDetail.do" />',
