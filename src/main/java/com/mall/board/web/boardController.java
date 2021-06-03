@@ -202,11 +202,12 @@ public class boardController {
 //			}
 			
 			
-			
+			int len=boardService.selectBoardMaxNo(paramMap);
 
 			model.addAttribute("detail",detail);
 			model.addAttribute("list",list);
 			model.addAttribute("replyList",replyList);
+			model.addAttribute("len",len);
 
 			model.addAttribute("paramMap",paramMap);
 			
@@ -245,6 +246,8 @@ public class boardController {
 		System.err.println("file:"+multi);
 		
 		paramMap.put("B_TYPE",1);
+		//paramMap.put("no",Integer.parseInt(paramMap.get("no").toString())+1);
+		//paramMap.put("originNo",paramMap.get("no"));
 
 		try {
 			if(paramMap.get("no").toString()!=null||!paramMap.get("no").toString().trim().equals(""))

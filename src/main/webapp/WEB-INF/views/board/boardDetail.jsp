@@ -113,7 +113,7 @@ body {
                     <div class="col-lg-8 mb-4">
                         <form id="boardForm" name="sentMessage" novalidate>
                         	<input type="hidden" id="currentPageNo" name="currentPageNo" value="1"/>
-                        	<input type="hidden" id="replyType" name="replyType" value="Y"/>
+                        	<input type="hidden" id="replyType" name="replyType" value="${paramMap.replyType}"/>
                         	<input type="hidden" id="originNo" name="originNo"
                         	<c:if test='${empty paramMap.originNo}'>
 	                                    value="${detail.originNo}"</c:if>
@@ -155,7 +155,7 @@ body {
 							     <th scope="row">id</th>
 							      <td>
 							      	<div class="controls">
-                                    <input class="form-control" id="id" name="id" type="text"  
+                                    <input class="form-control" id="id" name="id" type="text" readonly
                                     <c:if test='${empty paramMap.id}'>
 	                                    value="${detail.id}"</c:if>
 	                                    <c:if test='${!empty paramMap.id}'>
@@ -488,7 +488,9 @@ function fn_reply(no){
 	//var  formData= $('#boardForm').serialize();
 	
 	//$('#boardForm #no').attr('disabled',false);
-	//$('#boardForm #no').val(Number(no));
+	$('#boardForm #no').val(${len}+1);
+/* 	$('#boardForm #no').val(Number(no)+1); */
+	$('#boardForm #replyType').val('Y');
 	alert("no:"+no);
 	$('#boardForm #originNo').val(Number(no));
 	//$('#boardForm #groupOrd').val(Number(no)+1);

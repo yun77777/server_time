@@ -32,7 +32,7 @@
 		FROM board B,(SELECT @rownum:=0) R
 		where B.B_NO>0 AND B.B_TYPE=#{B_TYPE}
 		<include refid="searchOption"/>
-		ORDER BY B.B_NO DESC, B.groupOrd DESC
+		ORDER BY B.originNo DESC, B.groupOrd ASC 
 		<!-- ORDER BY B.B_NO DESC -->
 	<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
 	</select>
@@ -82,7 +82,7 @@
 	</update>
 	
 	<insert id="insertBoard" parameterType="map">
-	<selectKey resultType="int" keyProperty="no" order="BEFORE">
+	<selectKey resultType="int" keyProperty="B_NO" order="BEFORE">
 		SELECT COALESCE(MAX(B_NO),0)+1 AS B_NO FROM board
 		WHERE  B_NO=#{no,jdbcType=VARCHAR} AND B_TYPE=#{B_TYPE}
 	</selectKey>
@@ -105,7 +105,7 @@
 		,NOW()
 		,#{B_TYPE,jdbcType=VARCHAR}
 		
-		,#{no}
+		,#{originNo}
 	<!-- 	,#{groupOrd,jdbcType=VARCHAR}
 		,#{groupLayer,jdbcType=VARCHAR} -->
 		
@@ -160,6 +160,7 @@
 			,content
 			,updt_dt
 			,B_TYPE
+			,originNo
 		) VALUES(
 			#{no, jdbcType=VARCHAR}
 			, #{id, jdbcType=VARCHAR}
@@ -167,6 +168,7 @@
 			, #{content, jdbcType=VARCHAR}
 			, NOW()
 			, #{B_TYPE}
+			, #{no}
 		)
 		ON DUPLICATE KEY UPDATE
 		B_NO = #{no, jdbcType=VARCHAR}
@@ -175,6 +177,7 @@
 		, content = #{content, jdbcType=VARCHAR}
 		, updt_dt = NOW()
 		, B_TYPE = #{B_TYPE}
+		
 	</update>
 	
 	<update id="deleteBoard" parameterType="map">
@@ -197,6 +200,7 @@
 		,updt_dt
 		,cnt
 		,B_TYPE
+		<!-- ,originNo -->
 		)
 		select
 		#{HIS_ID,jdbcType=VARCHAR}
@@ -208,6 +212,7 @@
 		,updt_dt
 		,cnt
 		,B_TYPE
+		<!-- ,originNo -->
 		from board where B_NO=#{no, jdbcType=VARCHAR}
 	</insert>
 	
