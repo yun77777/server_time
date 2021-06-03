@@ -164,9 +164,23 @@ public class boardController {
 		try {
 			model.addAttribute("login",httpSession.getAttribute("login"));
 			model.addAttribute("member",httpSession.getAttribute("member"));
-			
-			paramMap.put("B_TYPE",1);
 
+			paramMap.put("B_TYPE",1);
+//			if(paramMap.get("replyType")!=null && paramMap.get("replyType").toString().equals("Y")) {
+//				//paramMap.put("originNo",paramMap.get("no"));
+//				paramMap.put("title",paramMap.get("title"));
+//				
+//				paramMap.put("B_NO",Integer.parseInt(boardService.selectBoardMaxNo(paramMap).toString())+1);
+//
+//				paramMap.put("groupOrd",Integer.parseInt(paramMap.get("groupOrd").toString())+1);//기존groupOrd+1
+//				paramMap.put("groupLayer",Integer.parseInt(paramMap.get("groupLayer").toString())+1);//부모글 groupLayer+1
+//				
+//				paramMap.put("newGroupOrd",Integer.parseInt(paramMap.get("groupOrd").toString()));//기존groupOrd+1
+//				paramMap.put("newGroupLayer",Integer.parseInt(paramMap.get("groupLayer").toString()));//부모글 groupLayer+1
+//				
+//				boardService.insertReply(paramMap, request);
+////				boardService.updateReply(paramMap);
+//			}
 			Map<String,Object> detail=boardService.selectBoardDetail(paramMap);
 			System.err.println("detailP");
 			System.err.println(paramMap);
@@ -175,29 +189,25 @@ public class boardController {
 			List<Map<String,Object>> list=boardService.selectBoardHisList(paramMap);
 			System.err.println(Integer.parseInt(paramMap.get("no").toString()));
 			List<Map<String,Object>> replyList=replyService.list(Integer.parseInt(paramMap.get("no").toString()));
-			
-			if(paramMap.get("originNo")!=null) {
-				paramMap.put("B_NO",paramMap.get("no"));
-				paramMap.put("title",paramMap.get("title"));
-				
-				
-				paramMap.put("newGroupOrd",Integer.parseInt(paramMap.get("groupOrd").toString())+1);//기존groupOrd+1
-				paramMap.put("newGroupLayer",Integer.parseInt(paramMap.get("groupLayer").toString())+1);//부모글 groupLayer+1
-				
-				
-				boardService.insertReply(paramMap, request);
-				boardService.updateReply(paramMap);
-
-			}
+//			if(paramMap.get("replyType")!=null && paramMap.get("replyType").toString().equals("Y")) {
+//				paramMap.put("B_NO",paramMap.get("no"));
+//				paramMap.put("title",paramMap.get("title"));
+//				
+//				
+//				paramMap.put("newGroupOrd",Integer.parseInt(paramMap.get("groupOrd").toString())+1);//기존groupOrd+1
+//				paramMap.put("newGroupLayer",Integer.parseInt(paramMap.get("groupLayer").toString())+1);//부모글 groupLayer+1
+//				
+//				boardService.insertReply(paramMap, request);
+//				boardService.updateReply(paramMap);
+//			}
 			
 			
 			
-			int len=boardService.selectBoardMaxNo(paramMap)+1;
 
 			model.addAttribute("detail",detail);
 			model.addAttribute("list",list);
 			model.addAttribute("replyList",replyList);
-			model.addAttribute("len",len);
+
 			model.addAttribute("paramMap",paramMap);
 			
 
@@ -239,37 +249,38 @@ public class boardController {
 		try {
 			if(paramMap.get("no").toString()!=null||!paramMap.get("no").toString().trim().equals(""))
 				paramMap.put("no",paramMap.get("no"));
-			boardService.insertBoard(paramMap, multi, request);
+			
+			if(paramMap.get("replyType")!=null && paramMap.get("replyType").toString().equals("Y")) {
+				//paramMap.put("originNo",paramMap.get("no"));
+				paramMap.put("title",paramMap.get("title"));
+				
+				paramMap.put("B_NO",Integer.parseInt(boardService.selectBoardMaxNo(paramMap).toString())+1);
+
+				paramMap.put("groupOrd",Integer.parseInt(paramMap.get("groupOrd").toString())+1);//기존groupOrd+1
+				paramMap.put("groupLayer",Integer.parseInt(paramMap.get("groupLayer").toString())+1);//부모글 groupLayer+1
+				
+				paramMap.put("newGroupOrd",Integer.parseInt(paramMap.get("groupOrd").toString()));//기존groupOrd+1
+				paramMap.put("newGroupLayer",Integer.parseInt(paramMap.get("groupLayer").toString()));//부모글 groupLayer+1
+				
+				boardService.insertReply(paramMap, request);
+//				boardService.updateReply(paramMap);
+			}else {
+				
+				System.err.println("asmkdlmslkdmzklxcmklzcxm");
+				System.err.println(paramMap);
+				boardService.insertBoard(paramMap, multi, request);
+			}
+			
+			
+			
 			model.addAttribute("paramMap", paramMap);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
 		return paramMap;
 	}
-	
-//	@RequestMapping(value="/displayImages.do")
-//	public String displayImages(@RequestParam(value="file_no") String file_no, HttpServletResponse response)throws Exception{
-//
-//		Map<String, Object> map = new HashMap<String, Object>();
-//	    map.put("file_no", file_no);
-//		Map<String, Object> result = boardService.selectFile(map);
-//		System.err.println("map@:"+map);
-//		System.err.println("result@:"+result);
-//		response.setContentType("image/jpg");
-//	    ServletOutputStream bout = response.getOutputStream();
-//	    //파일의 경로
-//	    String imgpath = map.get("FILE_PATH").toString();
-//	    System.err.println(File.separator);
-////	    String imgpath = map.get("path")+File.separator+result.get("file");
-//	    FileInputStream f = new FileInputStream(imgpath);
-//	    int length;
-//	    byte[] buffer = new byte[10];
-//	    while((length=f.read(buffer)) != -1){
-//	    	bout.write(buffer,0,length);
-//	    }
-//	    return null;
-//	}
-	
+
 	
 	@ResponseBody
 	@RequestMapping(value = "/deleteBoard.do")
@@ -331,7 +342,8 @@ public class boardController {
 		try {
 			if(paramMap.get("no").toString()!=null||!paramMap.get("no").toString().trim().equals(""))
 				paramMap.put("no",paramMap.get("no"));
-			
+			boardService.insertReply(paramMap, request);
+
 			paramMap.put("B_NO",paramMap.get("no"));
 			paramMap.put("originNo",paramMap.get("no"));
 			paramMap.put("groupOrd",Integer.parseInt(paramMap.get("no").toString())+1);

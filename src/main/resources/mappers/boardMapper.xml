@@ -105,28 +105,26 @@
 		,NOW()
 		,#{B_TYPE,jdbcType=VARCHAR}
 		
-		,#{originNo,jdbcType=VARCHAR}
+		,#{no}
 	<!-- 	,#{groupOrd,jdbcType=VARCHAR}
 		,#{groupLayer,jdbcType=VARCHAR} -->
 		
 		)
 	</insert>
 	
-	<insert id="updateReply" parameterType="map">
-		update board set
-		
-		groupOrd = #{newGroupOrd,jdbcType=VARCHAR}
-		,groupLayer =#{newGroupLayer,jdbcType=VARCHAR}
-		
-		where B_NO=#{B_NO} and originNo=#{originNo} and groupOrd=#{groupOrd} 
-		and groupLayer=#{groupLayer} and B_TYPE=#{B_TYPE}
-		
-	</insert>
+	<update id="updateReply" parameterType="map">
+	update board set groupOrd = groupOrd + 1 
+	where originNo = #{originNo} and groupOrd > #{groupOrd}
+	</update>
 	
 	<insert id="insertReply" parameterType="map">
-	<selectKey resultType="int" keyProperty="B_NO" order="BEFORE">
+	<!-- <selectKey resultType="int" keyProperty="B_NO" order="BEFORE">
 		SELECT COALESCE(MAX(B_NO),0)+1 AS B_NO FROM board
-		where B_NO=#{B_NO} and B_TYPE=#{B_TYPE}
+		WHERE B_TYPE=#{B_TYPE}
+	</selectKey> -->
+<selectKey resultType="int" keyProperty="groupOrd" order="BEFORE">
+		SELECT COALESCE(MAX(groupOrd),0)+1 AS groupOrd FROM board
+		WHERE  originNo=#{originNo}
 	</selectKey>
 		insert board(
 		B_NO

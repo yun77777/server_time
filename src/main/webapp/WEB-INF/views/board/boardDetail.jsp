@@ -114,7 +114,12 @@ body {
                         <form id="boardForm" name="sentMessage" novalidate>
                         	<input type="hidden" id="currentPageNo" name="currentPageNo" value="1"/>
                         	<input type="hidden" id="replyType" name="replyType" value="Y"/>
-                        	<input type="hidden" id="originNo" name="originNo"/>
+                        	<input type="hidden" id="originNo" name="originNo"
+                        	<c:if test='${empty paramMap.originNo}'>
+	                                    value="${detail.originNo}"</c:if>
+	                                    <c:if test='${!empty paramMap.originNo}'>
+	                                    value="${paramMap.originNo}"</c:if>
+                        	/>
                         	<input type="hidden" id="groupOrd" name="groupOrd"
                         	<c:if test='${empty paramMap.groupOrd}'>
 	                                    value="${detail.groupOrd}"</c:if>
@@ -207,7 +212,7 @@ body {
 			</div>
                             
                             <!-- For success/fail messages-->
-                        	<button class="btn btn-secondary btn-sm float-right" id="sbumit" onclick="fn_reply('${len}')" type="submit">답글</button>
+                        	<button class="btn btn-secondary btn-sm float-right" id="sbumit" onclick="fn_reply('${detail.B_NO}')" type="submit">답글</button>
                         	<button class="btn btn-info btn-sm float-right" id="submit" onclick="" type="button">저장</button>
 			                <button class="btn btn-danger btn-sm float-right" id="sendMessageButton" onclick="fn_delete()" type="button">삭제</button>
 			                
@@ -483,7 +488,8 @@ function fn_reply(no){
 	//var  formData= $('#boardForm').serialize();
 	
 	//$('#boardForm #no').attr('disabled',false);
-	$('#boardForm #no').val(Number(no)+1);
+	//$('#boardForm #no').val(Number(no));
+	alert("no:"+no);
 	$('#boardForm #originNo').val(Number(no));
 	//$('#boardForm #groupOrd').val(Number(no)+1);
 	//$('#boardForm #groupLayer').val(Number(no)+1);

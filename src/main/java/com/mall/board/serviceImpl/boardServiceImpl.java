@@ -101,8 +101,6 @@ public class boardServiceImpl implements boardService {
 	@Override
 	public void insertReply(Map<String, Object> paramMap, HttpServletRequest request) throws Exception {
 		System.err.println("$$$$$$$$$:" + paramMap);
-		boardMapper.mergeBoard(paramMap);
-		boardMapper.insertHisBoard(paramMap);
 		boardMapper.insertReply(paramMap);
 
 	}

@@ -193,7 +193,6 @@ function fn_detail(no,id){
 		alert("You need to log in first");
 	else{
 		$('#boardForm #no').val(no);
-		alert("no:"+no);
 		$('#boardForm').attr({
 			action : '<c:url value="/boardDetail.do" />',
 			target : '_self'
