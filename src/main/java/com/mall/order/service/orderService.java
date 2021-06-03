@@ -49,6 +49,8 @@ public interface orderService {
 	// 카트 삭제
 	public void deleteCart(Map<String, Object> paramMap) throws Exception;
 
+	public void deleteSeparateCart(Map<String, Object> paramMap) throws Exception;
+
 	public void deleteOrderInfoDetails(Map<String, Object> paramMap) throws Exception;
 
 	public int maxOrderId() throws Exception;

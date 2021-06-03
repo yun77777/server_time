@@ -13,7 +13,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-cornflowerblue">
 <!--         <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> -->
     <div class="container">
-        <a class="navbar-brand" href="/test.do">Mall</a>
+        <a class="navbar-brand" href="/test.do"><img src="/se2/img/dog.png" style="width:10%;height:auto"></a>
         <c:if test="${empty member}">
         	<a href="#myModal" class="" data-toggle="modal">Login</a>
         </c:if>

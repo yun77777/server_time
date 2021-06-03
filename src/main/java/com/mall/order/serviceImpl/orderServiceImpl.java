@@ -106,6 +106,11 @@ public class orderServiceImpl implements orderService {
 	}
 	
 	@Override
+	public void deleteSeparateCart(Map<String, Object> paramMap) throws Exception {
+		orderMapper.deleteSeparateCart(paramMap);
+	}
+	
+	@Override
 	public void deleteOrderInfoDetails(Map<String, Object> paramMap) throws Exception {
 		orderMapper.deleteOrderInfoDetails(paramMap);
 	}

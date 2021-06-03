@@ -113,6 +113,9 @@ body {
                     <div class="col-lg-8 mb-4">
                         <form id="boardForm" name="sentMessage" novalidate>
                         	<input type="hidden" id="currentPageNo" name="currentPageNo" value="1"/>
+                        	<input type="hidden" id="originNo" name="originNo"/>
+                        	<input type="hidden" id="groupOrd" name="groupOrd"/>
+                        	<input type="hidden" id="groupLayer" name="groupLayer"/>
                             <button class="btn btn-secondary btn-sm float-right" id="sendMessageButton" onclick="fn_list()" type="button">Go to the list</button>
                             <table class="table">
 							  <thead>
@@ -122,7 +125,13 @@ body {
 							      <th scope="row">no</th>
 							      <td>
 							      	<div class="controls">
-	                                    <input class="form-control" id="no" name="no" type="text" value="${detail.B_NO}" disabled data-validation-required-message="Please enter your name." />
+	                                    <input class="form-control" id="no" name="no" type="text" 
+	                                    <c:if test='${empty paramMap.no}'>
+	                                    value="${detail.B_NO}"</c:if>
+	                                    <c:if test='${!empty paramMap.no}'>
+	                                    value="${paramMap.no}"</c:if>
+	                                    
+	                                     disabled data-validation-required-message="Please enter your name." />
                                 	</div>
 							      </td>
 							     </tr>
@@ -130,7 +139,12 @@ body {
 							     <th scope="row">id</th>
 							      <td>
 							      	<div class="controls">
-                                    <input class="form-control" id="id" name="id" type="text"  value="${detail.id}" required data-validation-required-message="Please enter your phone number." />
+                                    <input class="form-control" id="id" name="id" type="text"  
+                                    <c:if test='${empty paramMap.id}'>
+	                                    value="${detail.id}"</c:if>
+	                                    <c:if test='${!empty paramMap.id}'>
+	                                    value="${member.ID}"</c:if>
+                                    required data-validation-required-message="Please enter your phone number." />
                                 	</div>
 							      </td>
 							      </tr>
@@ -138,7 +152,13 @@ body {
 							      <th scope="row">title</th>
 							      <td>
 							      	<div class="controls">
-                                    <input class="form-control" id="title" name="title" type="text"  value="${detail.title}" required data-validation-required-message="Please enter your email address." />
+                                    <input class="form-control" id="title" name="title" type="text" 
+                                     <c:if test='${empty paramMap.title}'>
+	                                    value="${detail.title}"</c:if>
+	                                    <c:if test='${!empty paramMap.title}'>
+	                                    value="[Re:] ${paramMap.title}"</c:if>
+                                     
+                                     required data-validation-required-message="Please enter your email address." />
                                 	</div>
 							      </td>
 							      </tr>
@@ -171,9 +191,9 @@ body {
 			</div>
                             
                             <!-- For success/fail messages-->
-                            
-                        	<button class="btn btn-info btn-sm float-right" id="submit" onclick="" type="button">Save</button>
-			                <button class="btn btn-danger btn-sm float-right" id="sendMessageButton" onclick="fn_delete()" type="button">Delete</button>
+                        	<button class="btn btn-secondary btn-sm float-right" id="sbumit" onclick="fn_reply('${len}')" type="submit">답글</button>
+                        	<button class="btn btn-info btn-sm float-right" id="submit" onclick="" type="button">저장</button>
+			                <button class="btn btn-danger btn-sm float-right" id="sendMessageButton" onclick="fn_delete()" type="button">삭제</button>
 			                
 			                <table class="table table-sm">
 								<tbody>
@@ -269,7 +289,7 @@ body {
    <div class="container mt-5">
     <div class="row d-flex justify-content-center">
         <div id="reply" class="col-md-8">
-          <form id="replyForm" method="post">
+          <form id="commentForm" method="post">
    <div class="card p-3 reply">
    댓글 작성자<input type="text" class="form-control" id="writer" name="writer" value="${member.ID}" readonly>
          <div class="d-flex justify-content-between align-items-center">
@@ -290,7 +310,7 @@ body {
 </div>
 <input type="hidden" id="bno" name="bno" value="${detail.B_NO}">
 	
-	<button type="submit" class="btn btn-info btn-sm float-right" onclick="fn_reply()">댓글 작성</button>
+	<button type="submit" class="btn btn-info btn-sm float-right" onclick="fn_comment()">댓글 작성</button>
 
 
 
@@ -308,7 +328,6 @@ body {
 
 <script>
 $(document).ready({
-	
 });
 
 function fn_list(no) {
@@ -325,7 +344,7 @@ function fn_detail(no){
 	//var  formData= $('#boardForm').serialize();
 	$('#boardForm #no').attr('disabled',false);
 	$('#boardForm #no').val(no);
-	
+	alert(no);
 	$('#boardForm').attr({
 		action : '<c:url value="/boardDetail.do" />',
 		target : '_self'
@@ -448,9 +467,60 @@ $(function() {
 	});
 })
 
-function fn_reply() {
-	var formData = new FormData($("#replyForm")[0]);
-	/* $('#replyForm').attr({
+function fn_reply(no){
+	//var  formData= $('#boardForm').serialize();
+	
+	$('#boardForm #no').attr('disabled',false);
+	$('#boardForm #no').val(Number(no)+1);
+	$('#boardForm #originNo').val(Number(no));
+	$('#boardForm #groupOrd').val(Number(no)+1);
+	$('#boardForm #groupLayer').val(Number(no)+1);
+	
+	alert(no);
+	
+	$('#boardForm').attr({
+		action : '<c:url value="/boardDetail.do" />',
+		target : '_self'
+	}).submit();
+
+}
+
+function fn_reply2() {
+	$('#boardForm #no').attr('disabled',false);
+	var formData = new FormData($("#boardForm")[0]);
+	/* $("#no").val('');
+	$("#id").val('');
+	$("#title").val('');
+	$("#file").val('');
+	$("#content").html(''); */
+	
+	$.ajax({
+		url : "${pageContext.request.contextPath}/insertReply.do",
+		type : "post",
+		//data : {bno:bno, writer:writer, content:content},
+		enctype: 'multipart/form-data',
+		data : formData,
+		processData : false,
+		contentType : false,
+		success : function(result) {
+			fn_detail(result.replyNo);
+			alert("replyNo: "+result.replyNo);
+			alert("originNo: "+result.originNo);
+			alert("groupOrd: "+result.groupOrd);
+			alert("groupLayer: "+result.groupLayer);
+			
+			//fn_list();
+		}, // success 
+
+		error : function(xhr, status) {
+			alert(xhr + " : " + status);
+		}
+	});
+}
+
+function fn_comment() {
+	var formData = new FormData($("#commentForm")[0]);
+	/* $('#commentForm').attr({
 		action : '<c:url value="reply/write.do" />',
 		target : '_self'
 	}).submit(); */
@@ -492,7 +562,7 @@ function fn_reply() {
 			
 			
 			
-			$("#replyForm #content").val('');
+			$("#commentForm #content").val('');
 			//fn_list();
 		}, // success 
 

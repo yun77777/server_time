@@ -209,7 +209,12 @@ and c.orderProcess= #{orderProcess}
 		where userId = #{userId}
 		and orderProcess = #{orderProcess}
 	</delete>
-	
+	<delete id="deleteSeparateCart" parameterType="map">
+<!-- 	<delete id="deleteCart" parameterType="com.mall.vo.CartVO"> -->
+		delete from tbl_cart
+		where userId = #{userId}
+		and cartNum = #{cartNum}
+	</delete>
 	
 	<update id="updateCart" parameterType="map">
 		update tbl_cart

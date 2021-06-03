@@ -173,13 +173,15 @@ Map<String, Object> result = new HashMap<String, Object>();
 		int result = 0;
 		int cartNum = 0;
 		paramMap.put("userId",userId);
+		paramMap.put("orderProcess","N");
 		// 로그인 여부 구분
 		if(userId != null) {
 			
 			for(String i : chArr) {  // 에이젝스에서 받은 chArr의 갯수만큼 반복
 				cartNum = Integer.parseInt(i);  // i번째 데이터를 cartNum에 저장
 				paramMap.put("cartNum",cartNum);
-				orderService.deleteCart(paramMap);
+				orderService.deleteSeparateCart(paramMap);
+//				orderService.deleteCart(paramMap);
 			}
 			result = 1;
 		}		

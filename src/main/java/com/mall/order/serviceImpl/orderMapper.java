@@ -58,6 +58,8 @@ public interface orderMapper {
 	public void updateCart(Map<String, Object> paramMap) throws Exception;
 
 	public void deleteOrderDetails(Map<String, Object> paramMap) throws Exception;
+
+	public void deleteSeparateCart(Map<String, Object> paramMap) throws Exception;
 //	public void deleteCart(CartVO cart) throws Exception;
 
 	// 주문 정보

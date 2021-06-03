@@ -32,7 +32,8 @@
 		FROM board B,(SELECT @rownum:=0) R
 		where B.B_NO>0 AND B.B_TYPE=#{B_TYPE}
 		<include refid="searchOption"/>
-		ORDER BY B.B_NO DESC
+		ORDER BY B.B_NO DESC, B.groupOrd DESC
+		<!-- ORDER BY B.B_NO DESC -->
 	<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
 	</select>
 	
@@ -90,6 +91,10 @@
 		,content
 		,input_dt
 		,B_TYPE
+		
+		,originNo
+		,groupOrd
+		,groupLayer
 		) values(
 		#{B_NO}
 		,#{id,jdbcType=VARCHAR}
@@ -97,6 +102,41 @@
 		,#{content,jdbcType=VARCHAR}
 		,NOW()
 		,#{B_TYPE,jdbcType=VARCHAR}
+		
+		,#{originNo,jdbcType=VARCHAR}
+		,#{groupOrd,jdbcType=VARCHAR}
+		,#{groupLayer,jdbcType=VARCHAR}
+		
+		)
+	</insert>
+	
+	<insert id="insertReply" parameterType="map">
+	<selectKey resultType="int" keyProperty="no" order="BEFORE">
+		SELECT COALESCE(MAX(B_NO),0)+1 AS B_NO FROM board
+		WHERE  B_NO=#{no,jdbcType=VARCHAR} AND B_TYPE=#{B_TYPE}
+	</selectKey>
+		insert board(
+		B_NO
+		,id
+		,title
+		,content
+		,input_dt
+		,B_TYPE
+		
+		,originNo
+		,groupOrd
+		,groupLayer
+		) values(
+		#{B_NO}
+		,#{id,jdbcType=VARCHAR}
+		,#{title,jdbcType=VARCHAR}
+		,#{content,jdbcType=VARCHAR}
+		,NOW()
+		,#{B_TYPE,jdbcType=VARCHAR}
+		
+		,#{originNo,jdbcType=VARCHAR}
+		,#{groupOrd,jdbcType=VARCHAR}
+		,#{groupLayer,jdbcType=VARCHAR}
 		)
 	</insert>
 	

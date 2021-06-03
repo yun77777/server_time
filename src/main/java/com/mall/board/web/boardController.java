@@ -175,12 +175,25 @@ public class boardController {
 			List<Map<String,Object>> list=boardService.selectBoardHisList(paramMap);
 			System.err.println(Integer.parseInt(paramMap.get("no").toString()));
 			List<Map<String,Object>> replyList=replyService.list(Integer.parseInt(paramMap.get("no").toString()));
-			int len=replyList.size();
+			
+//			if(paramMap.get("originNo")!=null) {
+//				paramMap.put("originNo",paramMap.get("no"));
+//				paramMap.put("groupOrd",Integer.parseInt(paramMap.get("no").toString())+1);
+//				paramMap.put("groupLayer",Integer.parseInt(paramMap.get("no").toString())+1);
+//				
+//				boardService.insertReply(paramMap, multi, request);
+//				
+//			}
+			
+			
+			
+			int len=boardService.selectBoardMaxNo(paramMap)+1;
 
 			model.addAttribute("detail",detail);
 			model.addAttribute("list",list);
 			model.addAttribute("replyList",replyList);
 			model.addAttribute("len",len);
+			model.addAttribute("paramMap",paramMap);
 			
 
 		} catch (Exception e) {
@@ -298,6 +311,52 @@ public class boardController {
 //		return "chat/chattingview";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/insertReply.do")
+	public Map<String,Object> insertReply(
+			MultipartHttpServletRequest multi, @RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+		model.addAttribute("login",httpSession.getAttribute("login"));
+		model.addAttribute("member",httpSession.getAttribute("member"));
+
+		System.err.println("insert:"+paramMap);
+		System.err.println("file:"+multi);
+		
+		paramMap.put("B_TYPE",1);
+
+		try {
+			if(paramMap.get("no").toString()!=null||!paramMap.get("no").toString().trim().equals(""))
+				paramMap.put("no",paramMap.get("no"));
+			
+			paramMap.put("originNo",paramMap.get("no"));
+			paramMap.put("groupOrd",Integer.parseInt(paramMap.get("no").toString())+1);
+			paramMap.put("groupLayer",Integer.parseInt(paramMap.get("no").toString())+1);
+			
+			boardService.insertReply(paramMap, multi, request);
+			
+			int replyNo=boardService.selectBoardListCnt(paramMap)+1;
+			paramMap.put("replyNo",replyNo);
+			
+			model.addAttribute("paramMap", paramMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return paramMap;
+	}
 	
-	
+	@RequestMapping(value = "/replyInsert.do")
+	public String replyInsert(
+			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+		try {
+			model.addAttribute("login",httpSession.getAttribute("login"));
+			model.addAttribute("member",httpSession.getAttribute("member"));
+			
+			paramMap.put("B_TYPE",1);
+
+			paramMap.put("no",boardService.selectBoardMaxNo(paramMap)+1);
+			model.addAttribute("paramMap",paramMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+	return "board/boardInsert";
+	}
 }
