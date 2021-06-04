@@ -184,7 +184,7 @@ body {
 							      </td>
 							      </tr>
 							      <tr>
-							      <th scope="row">file${fileList}</th>
+							      <th scope="row">file</th>
 							      <td>
 							      	<div class="controls">
                                      <input class="form-control" id="file" name="file" type="text"  value="${detail.file}" required data-validation-required-message="Please enter your email address." />
@@ -206,8 +206,7 @@ body {
                                 </c:forEach>
 							      	
 							      <tr>
-							      <th scope="row"></th>
-							      <td>
+							       <td colspan="2">
 							      	<div class="controls">
                                 	<textarea rows="5" cols="50" id="content" name="content" class="form-control">${detail.content}</textarea>
                                 	</div>
@@ -257,38 +256,6 @@ body {
                 </div>
             
             
-            
-<%--             
-<div>
-     <table id="replyTbl" class="table table-sm">
-	<thead>
-		<tr>
-			<th scope="col">rno</th>
-			<th scope="col">writer</th>
-			<th scope="col">content</th>
-		</tr>
-	</thead>
-	<tbody>
-		<c:forEach var="result" items="${replyList}" varStatus="status">
-			<tr>
-				<td>${result.rno}</td>
-				<td>${result.writer}</td>
-				<td>${result.content}</td>
-			</tr>
-		</c:forEach>
-	</tbody>
-</table>      --%>  
-            
-            
-          
-   
-
-
-<!-- <div id="replyList"></div> -->
-
-
-
-
 
 <div class="container mt-5">
     <div class="row d-flex justify-content-center">
@@ -324,7 +291,7 @@ body {
    <div class="container mt-5">
     <div class="row d-flex justify-content-center">
         <div id="reply" class="col-md-8">
-          <form id="commentForm" method="post">
+          <form id="commentForm" method="post" enctype="multipart/form-data">
    <div class="card p-3 reply">
    댓글 작성자<input type="text" class="form-control" id="writer" name="writer" value="${member.ID}" readonly>
          <div class="d-flex justify-content-between align-items-center">
@@ -338,12 +305,12 @@ body {
              <div class="icons align-items-center"> <i class="fa fa-star text-warning"></i> <i class="fa fa-check-circle-o check-icon"></i> </div>
          </div>
      </div>
+     <input type="hidden" id="bno" name="bno">
 	</form>
 </div>
 </div>
 </div>
 </div>
-<input type="hidden" id="bno" name="bno" value="${detail.B_NO}">
 	
 	<button type="submit" class="btn btn-info btn-sm float-right" onclick="fn_comment()">댓글 작성</button>
 
@@ -548,6 +515,8 @@ function fn_reply2() {
 }
 
 function fn_comment() {
+	$("#bno").val($("#boardForm #no").val());
+	alert($("#bno").val());
 	var formData = new FormData($("#commentForm")[0]);
 	/* $('#commentForm').attr({
 		action : '<c:url value="reply/write.do" />',
