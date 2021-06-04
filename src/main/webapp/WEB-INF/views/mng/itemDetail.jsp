@@ -192,8 +192,8 @@
 									<div>
 										<img class="card-img-top" style="width:20%;height:auto" name="itemImg${var.index}" id="itemImg${var.index}" src="<c:url value='/img/${file.file}'/>" alt="no image" />
 										<input type="hidden" class="FILE_NO" id="FILE_NO" name="FILE_NO_${var.index}" value="${file.file_no}">
+										<input type="hidden" id="FILE_NAME" name="FILE_NAME" value="FILE_NO_${var.index}">
 										<a href="#" id="fileName" onclick="return false;">${file.ORG_FILE_NAME}</a>${file.file_no}
-								        <input type='file' style='float:left;' id='file_${var.index}' name='file_${var.index}' value="${result.file_no}">
 										<button id="fileDelBtn" onclick="fn_del('${file.file_no}','FILE_NO_${var.index}');" type="button">삭제</button><br>
 									</div>
 									</c:forEach>
