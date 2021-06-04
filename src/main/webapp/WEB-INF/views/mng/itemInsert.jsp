@@ -195,7 +195,7 @@ function fn_deleteFile(obj){
 
 function fn_list(no) {
 	//$('#currentPageNo').val(no);
-	window.location='<c:url value="/itemList.do"/>';
+	window.location='<c:url value="/mng/itemList.do"/>';
 	
 	/* $('#boardForm').attr({
 		action : '<c:url value="/boardList.do"/>',
@@ -209,7 +209,7 @@ function fn_insert() {
 	var formData = new FormData($("#boardForm")[0]);
 	alert('insert');
 	$.ajax({
-		url : "${pageContext.request.contextPath}/insertItem.do",
+		url : "${pageContext.request.contextPath}/mng/insertItem.do",
 		type : "post",
 		enctype: 'multipart/form-data',
 		data : formData,

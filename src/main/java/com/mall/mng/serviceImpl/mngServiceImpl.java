@@ -51,25 +51,30 @@ public class mngServiceImpl implements mngService {
 	}
 
 	@Override
-	public void updateItem(Map<String, Object> paramMap, MultipartHttpServletRequest multi,
-//			public void updateItem(GoodsVO vo, Map<String, Object> paramMap, MultipartHttpServletRequest multi,
-			HttpServletRequest request) throws Exception {
-
+	public void updateItem(Map<String, Object> paramMap, String [] files, String [] fileNames, MultipartHttpServletRequest multi) throws Exception {
 		// paramMap.put("gdsNum", vo.getGdsNum());
-
-		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(paramMap, multi);
+//		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(paramMap, multi);
+		List<Map<String, Object>> list = fileUtils.parseUpdateFileInfo(paramMap, files, fileNames, multi);
 		int size = list.size();
+		//mngMapper.updateItem(paramMap, files, fileNames, multi);
 		System.err.println("multi list:" + list);
 		// 파일지우기
 		// boardMapper.deleteFile(paramMap);
-
 		if (size > 0) {
 			for (int i = 0; i < size; i++) {
-				boardMapper.insertFile(list.get(i));
+				if(list.get(i).get("NEW_ITEM").equals("Y"))
+					
+					boardMapper.insertFile(list.get(i));
+				else {
+					boardMapper.updateFile(list.get(i));
+					boardMapper.selectFile(list.get(i));
+					System.err.println("기존리스트:"+boardMapper.selectBoardFileList(paramMap));
+					System.err.println("기존리스@트:"+boardMapper.selectFile(list.get(i)));
+				}
 			}
 		}
-
-		mngMapper.updateItem(paramMap);
+		
+		//mngMapper.updateItem(paramMap); //본문수정 나중에
 	}
 
 	@Override

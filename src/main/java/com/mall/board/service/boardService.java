@@ -40,4 +40,7 @@ public interface boardService {
 
 	public void deleteBoard(Map<String, Object> paramMap, MultipartHttpServletRequest multi, HttpServletRequest request)
 			throws Exception;
+
+	public void updateFile(Map<String, Object> paramMap, MultipartHttpServletRequest multi, HttpServletRequest request)
+			throws Exception;
 }

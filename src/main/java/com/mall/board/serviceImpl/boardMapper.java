@@ -51,4 +51,6 @@ public interface boardMapper {
 
 	public void deleteFile(Map<String, Object> paramMap) throws Exception;
 
+	public void updateFile(Map<String, Object> paramMap) throws Exception;
+
 }

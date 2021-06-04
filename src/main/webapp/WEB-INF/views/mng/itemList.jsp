@@ -19,11 +19,6 @@
 	crossorigin="anonymous"></script>
 	
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<!-- Bootstrap core JS-->
-<!-- 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
- -->	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
-	<!-- Core theme JS-->
 	<script src="<c:url value='/resources/js/scripts.js'/>"></script>
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="<c:url value='/resources/css/styles.css'/>" rel="stylesheet" />
@@ -170,7 +165,7 @@ function fn_list(no) {
 	$('#currentPageNo').val(no);
 	
 	$('#boardForm').attr({
-		action : '<c:url value="/itemList.do"/>',
+		action : '<c:url value="/mng/itemList.do"/>',
 		target : '_self'
 	}).submit();
 };
@@ -180,7 +175,7 @@ function fn_insert(id){
 		alert("You need to log in first");
 	else{
 		$('#boardForm').attr({
-			action : '<c:url value="/itemInsert.do" />',
+			action : '<c:url value="/mng/itemInsert.do" />',
 			target : '_self'
 		}).submit();
 	}
@@ -197,7 +192,7 @@ function fn_detail(gdsNum){
 		$('#boardForm #gdsNum').val(gdsNum);
 		
 		$('#boardForm').attr({
-			action : '<c:url value="/itemDetail.do" />',
+			action : '<c:url value="/mng/itemDetail.do" />',
 			target : '_self'
 		}).submit();
 	/* } */

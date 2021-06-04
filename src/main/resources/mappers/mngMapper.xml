@@ -110,11 +110,14 @@
 	 	, B.gdsThumbImg
 	 	, MF.ORG_FILE_NAME file
 	 	, MF.FILE_PATH file_src
-	 	, MF.SEQ_MP_FILE_NO file_no1
+	 	, MF.SEQ_MP_FILE_NO
+	 	, MF.FILE_NO file_no
+	 	, MF.DEL_GB
 		FROM tbl_goods B,(SELECT @rownum:=0) R
 		left outer join MP_FILE MF
 		on MF.BNO=#{gdsNum}
 		where B.gdsNum=#{gdsNum}
+		and MF.DEL_GB='N'
 	</select>
 	
 	<select id="selectItemListMaxNo" parameterType="map"
@@ -122,7 +125,7 @@
 			SELECT max(gdsNum) FROM tbl_goods
 	</select>
 	
-	<insert id="updateItem">
+	<insert id="updateItem" >
 		update tbl_goods 
 		set 
 			gdsNum=#{gdsNum}
@@ -133,7 +136,8 @@
 			, gdsDes=#{gdsDes}
 			, gdsImg=#{gdsImg}
 			, gdsThumbImg=#{gdsThumbImg}
-		where gdsNum=#{gdsNum}
+		where gdsNum=#{no}
+<!-- 		where gdsNum=#{gdsNum} -->
 	</insert>
 	
 	<select id="selectCommonCodes" parameterType="java.util.HashMap"

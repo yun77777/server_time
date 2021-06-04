@@ -17,9 +17,8 @@ public interface mngService {
 	public void register(GoodsVO vo, Map<String, Object> paramMap, MultipartHttpServletRequest multi,
 			HttpServletRequest request) throws Exception;
 
-	public void updateItem(Map<String, Object> paramMap, MultipartHttpServletRequest multi,
-//			public void updateItem(GoodsVO vo, Map<String, Object> paramMap, MultipartHttpServletRequest multi,
-			HttpServletRequest request) throws Exception;
+	public void updateItem(Map<String, Object> paramMap, String[] files, String[] fileNames,
+			MultipartHttpServletRequest multi) throws Exception;
 
 	List<Map<String, Object>> selectItemList(Map<String, Object> paramMap) throws Exception;
 

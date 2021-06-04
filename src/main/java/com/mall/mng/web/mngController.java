@@ -1,6 +1,8 @@
 package com.mall.mng.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -259,26 +261,31 @@ public class mngController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/updateItem.do")
-	public Map<String,Object> saveItem(
-			 MultipartFile file,
-//			GoodsVO vo, MultipartFile file,
-			MultipartHttpServletRequest multi, @RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
-		model.addAttribute("login",httpSession.getAttribute("login"));
-		model.addAttribute("member",httpSession.getAttribute("member"));
+	public String updateItem(
+			@RequestParam Map<String, Object> paramMap,
+			@RequestParam(value="fileNoDel[]") String[] files,
+			@RequestParam(value="fileNameDel[]") String[] fileNames,
+			 HttpSession httpSession,
+			 MultipartHttpServletRequest multi) throws Exception {
+		//Map<String, Object> paramMap=new HashMap<String, Object>();
+//		paramMap.put("B_TYPE",4);
+//		paramMap.put("no",paramMap.get("gdsNum"));
+//		System.err.println("insert:"+paramMap);
 		paramMap.put("B_TYPE",4);
-		paramMap.put("no",paramMap.get("gdsNum"));
-		System.err.println("insert:"+paramMap);
-		System.err.println("file:"+multi);
+//		String fileNoDel=paramMap.get("fileNoDel").toString();
+//		String fileNameDel=paramMap.get("fileNameDel").toString();
+//		
+//		String [] files=fileNoDel.split(",");
+//		String [] fileNames=fileNameDel.split(",");
 		
 		try {
-			paramMap.put("update","Y");
-			model.addAttribute("paramMap", paramMap);
-			mngService.updateItem( paramMap, multi, request);
-//			mngService.updateItem(vo, paramMap, multi, request);
+//			paramMap.put("update","Y");
+			mngService.updateItem(paramMap, files, fileNames, multi);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}		
-		return paramMap;
+		}
+		
+		return "success";
 	}
 	
 	@ResponseBody

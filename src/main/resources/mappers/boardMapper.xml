@@ -275,6 +275,14 @@
 		)
     </insert>
 
+
+	<update id="updateFile" parameterType="map">
+		UPDATE MP_FILE SET
+    	DEL_GB = 'Y'
+    	WHERE FILE_NO = #{FILE_NO}
+	</update>
+	
+	
     <select id="selectItemList" parameterType="java.util.HashMap"
 		resultType="java.util.HashMap">
 			<include refid="com.mall.common.commonMapper.pagingHeaderSql"/>
@@ -314,11 +322,12 @@
 			FILE_PATH,
 			B_TYPE
 		FROM MP_FILE
-		WHERE FILE_NO=#{file_no}
+		WHERE FILE_NO=#{FILE_NO}
 	</select>
 	
 	<delete id="deleteFile" parameterType="map">
-   	  delete from MP_FILE where BNO=#{no, jdbcType=VARCHAR}
+   	  delete MP_FILE 
+   	  where BNO=#{no, jdbcType=VARCHAR}
 	</delete>
 	
 	
