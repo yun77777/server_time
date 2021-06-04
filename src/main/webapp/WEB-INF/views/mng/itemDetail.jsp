@@ -85,82 +85,9 @@
 				<div class="jsx-2303464893 editor">
 					<textarea rows="5" cols="50" id="gdsDes" name="gdsDes" class="form-control">${detail.gdsDes}</textarea>
 				</div>
-				
-				<!-- <script>
-					var ckeditor_config = {
-							resize_enaleb : false,
-							enterMode : CKEDITOR.ENTER_BR,
-							shiftEnterMode : CKEDITOR.ENTER_P,
-							filebrowserUploadUrl : "/admin/goods/ckUpload"
-					};
-					
-					CKEDITOR.replace("gdsDes", ckeditor_config);
-				</script>
-				 -->
-				
 			</div>
-			
-			
-		
-<%-- 				<%=request.getRealPath("/") %> 
- --%>				
-<%--  <%=request.getSession().getServletContext().getRealPath("/") %>
- --%>
-			</div>
-			<div class="inputArea">
-				<div class="col-lg-4 col-sm-6 mb-4">
-                    <div class="card h-100">
-<%-- 		            	<img class="card-img-top" src="<c:url value='/img/${detail.file}'/>" alt="no image" /></a>
- --%>                    
- 				<label for="gdsImg">이미지</label>
-				<c:forEach var="result" items="${imgList}" varStatus="status">
-				<div id="files">
-					<label for="gdsImg${status.index}"><h3>${result.file}</h3></label>
-			        <img class="card-img-top" name="itemImg${status.index}" id="itemImg${status.index}" src="<c:url value='/img/${result.file}'/>" alt="no image" />
-			        <input type='file' style='float:left;' id='file_${status.index}' name='file_${status.index}' value="">
-					<a href="#this" class="btn" id="delete" name="delete">삭제</a>
-					<input type="file" id="gdsImg${status.index}" name="file_${status.index}" value="${result.file}" class="form-control"/>
-					<input type="hidden" id="idx" value="${status.index}">
-
-
-<!-- 				<div class="select_img"><img src="" /></div>
- -->				
- 				</div>
- 
-				</c:forEach>
-				
-				<input type="hidden" id="len" value="${len}">
-				<div class="select_img"><img src="" /></div>
-				
-                <div id="fileDiv"></div>
-		         
-		        <br/><br/>
-		        <a href="#this" class="btn" id="addFile">파일 추가</a>
-			                    
-                    </div>
-                </div>
-	                    
-	                  
-				
-				<script>
-				
-					$("input[type=file]").change(function(){
-						var gdsImg="#"+$(this).attr("id");
-						var itemImg="#"+$(this).prev().attr("id");
-
-						if(this.files && this.files[0]) {
-							var reader = new FileReader;
-							reader.onload = function(data) {
-								$(itemImg).attr("src", data.target.result).width(500);
-								
-/* 								$(".select_img img").attr("src", data.target.result).width(500);								 */
-							}
-							reader.readAsDataURL(this.files[0]);
-						}
-					});
-				</script>
-			</div>
-			</form>
+		</div>
+	</form>
 			
 			
 			
@@ -204,6 +131,10 @@
 					</table>
 					
 				</form>
+				<script>
+				
+					
+				</script>
 		<div>
 						<button type="submit" class="update_btn">저장</button>
 						<button type="button" class="cancel_btn">취소</button>
@@ -241,6 +172,22 @@ $(document).ready(function(){
 		formObj.submit();
 	}); */
 	
+	
+	$("input[type=file]").change(function(){
+		var itemImg="#"+$(this).prev().attr("id");
+
+		if(this.files && this.files[0]) {
+			var reader = new FileReader;
+			reader.onload = function(data) {
+				$(itemImg).attr("src", data.target.result).width(500);
+				
+/* 								$(".select_img img").attr("src", data.target.result).width(500);								 */
+			}
+			reader.readAsDataURL(this.files[0]);
+		}
+	});
+	
+	
 	fn_addFile();
 	$(".cancel_btn").on("click", function(){
 		event.preventDefault();
@@ -260,7 +207,6 @@ $(document).ready(function(){
 		formObj.submit(); */
 		
 		fn_save();
-		
 	})
 });
 
@@ -276,7 +222,7 @@ function fn_valiChk(){
 function fn_addFile(){
 	var fileIndex = 1;
 	$(".fileAdd_btn").on("click", function(){
-		$("#fileIndex").append("<div><input type='file' style='float:left;' id='file_"+(fileIndex++)+"' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
+		$("#fileIndex").append("<div>   <input type='file' style='float:left;' id='file_"+(fileIndex++)+"' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
 	});
 	$(document).on("click","#fileDelBtn", function(){
 		$(this).parent().remove();
