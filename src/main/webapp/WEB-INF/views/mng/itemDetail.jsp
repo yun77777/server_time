@@ -174,8 +174,9 @@ $(document).ready(function(){
 	
 	
 	$("input[type=file]").change(function(){
+		alert('f');
 		var itemImg="#"+$(this).prev().attr("id");
-
+		alert(itemImg);
 		if(this.files && this.files[0]) {
 			var reader = new FileReader;
 			reader.onload = function(data) {
@@ -222,7 +223,12 @@ function fn_valiChk(){
 function fn_addFile(){
 	var fileIndex = 1;
 	$(".fileAdd_btn").on("click", function(){
-		$("#fileIndex").append("<div>   <input type='file' style='float:left;' id='file_"+(fileIndex++)+"' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
+		$("#fileIndex").append("<div><inpu" type='file' style='float:left;' id='file_"+(fileIndex)+"' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
+		//$("#fileIndex").append("<div><img class='card-img-top' style='width:20%;height:auto' name='itemImg$"+(fileIndex++)+"' id='itemImg"+(fileIndex++)+"' alt='no image' /><input type='file' style='float:left;' id='file_"+(fileIndex)+"' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
+	
+	
+	
+	
 	});
 	$(document).on("click","#fileDelBtn", function(){
 		$(this).parent().remove();
