@@ -45,7 +45,7 @@ public class mngServiceImpl implements mngService {
 			}
 		}
 System.err.println("zxczxczxczcx:"+paramMap);
-		mngMapper.register(paramMap, multi);
+		mngMapper.register(paramMap);
 	}
 
 	@Override
