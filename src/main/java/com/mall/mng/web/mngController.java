@@ -205,20 +205,20 @@ public class mngController {
 	@ResponseBody
 	@RequestMapping(value = "/insertItem.do")
 	public Map<String,Object> insertBoard(
-			GoodsVO vo, MultipartFile file,
-			MultipartHttpServletRequest multi, @RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
-		model.addAttribute("login",httpSession.getAttribute("login"));
-		model.addAttribute("member",httpSession.getAttribute("member"));
+			@RequestParam Map<String, Object> paramMap,
+			@RequestParam(value="fileNoDel[]") String[] files,
+			@RequestParam(value="fileNameDel[]") String[] fileNames,
+			 HttpSession httpSession,
+			 MultipartHttpServletRequest multi) throws Exception {		
 		paramMap.put("B_TYPE",4);
 //gdsNum
-		paramMap.put("gdsNum",mngService.selectItemListMaxNo(paramMap)+1);
+		//paramMap.put("gdsNum",mngService.selectItemListMaxNo(paramMap)+1);
 
 		System.err.println("insert:"+paramMap);
 		System.err.println("file:"+multi);
 		
 		try {
 //			boardService.insertBoard(paramMap, multi, request);
-			model.addAttribute("paramMap", paramMap);
 			
 			//@@@@@@@@@@
 //			String imgUploadPath = uploadPath + File.separator + "imgUpload";  // 이미지를 업로드할 폴더를 설정 = /uploadPath/imgUpload 
@@ -244,15 +244,8 @@ public class mngController {
 //			}
 			
 			
-			System.out.println("=================");
-			
-			System.out.println("1 = " + vo.getGdsName());
-			System.out.println("1 = " + vo.getGdsPrice());
-			System.out.println("1 = " + vo.getGdsDes());
-			System.out.println("1 = " + vo.getGdsImg());
-			System.out.println("=================");
 								
-			mngService.register(vo, paramMap, multi, request);
+			mngService.register(paramMap, multi);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		

@@ -34,10 +34,8 @@ public class mngServiceImpl implements mngService {
 
 	// 상품등록
 	@Override
-	public void register(GoodsVO vo, Map<String, Object> paramMap, MultipartHttpServletRequest multi,
-			HttpServletRequest request) throws Exception {
-
-		paramMap.put("no", vo.getGdsNum());
+	public void register(Map<String, Object> paramMap, MultipartHttpServletRequest multi) throws Exception  {
+		paramMap.put("no", paramMap.get("gdsNum"));
 		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(paramMap, multi);
 		int size = list.size();
 		System.err.println("multi list:" + list);
@@ -46,8 +44,8 @@ public class mngServiceImpl implements mngService {
 				boardMapper.insertFile(list.get(i));
 			}
 		}
-
-		mngMapper.register(vo);
+System.err.println("zxczxczxczcx:"+paramMap);
+		mngMapper.register(paramMap, multi);
 	}
 
 	@Override

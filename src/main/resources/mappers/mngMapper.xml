@@ -10,7 +10,7 @@
 <!-- 	    	start with cateCodeRef is null connect by prior cateCode = cateCodeRef
  -->	</select>
 
-	<insert id="register">
+	<insert id="register" parameterType="map">
 	<!-- <selectKey resultType="int" keyProperty="gdsNum" order="BEFORE">
 		SELECT COALESCE(MAX(gdsNum),0)+1 AS gdsNum FROM tbl_goods
 	</selectKey> -->

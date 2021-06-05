@@ -131,15 +131,11 @@
 					</table>
 					
 				</form>
-				<script>
-				
-					
-				</script>
 		<div>
 						<button type="submit" class="update_btn">저장</button>
 						<button type="button" class="cancel_btn">취소</button>
 						<button type="button" class="fileAdd_btn">파일추가</button>
-					</div>
+		</div>
 			
 		<div>
 				<button class="btn btn-primary" id="saveBtn" type="button">Save</button>
@@ -234,14 +230,9 @@ function fn_valiChk(){
 }
 function fn_addFile(){
 	var fileIndex = 1;
-	var content='<div class="inputArea">';
-	content+='<label for="gdsImg">이미지</label>';
-	content+=' <input type="file" id="gdsImg" name="file" />';
-	content+='<div class="select_img"><img src="" /></div></div>';
 	$(".fileAdd_btn").on("click", function(){
 		$("#fileIndex").append("<div><input type='file' style='float:left;' id='file_"+(fileIndex)+"' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
 		//$("#fileIndex").append("<div><img class='card-img-top' style='width:20%;height:auto' name='itemImg$"+(fileIndex++)+"' id='itemImg"+(fileIndex++)+"' alt='no image' /><input type='file' style='float:left;' id='file_"+(fileIndex)+"' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
-$("#fileIndex").append(content);
 	});
 	 
 	 

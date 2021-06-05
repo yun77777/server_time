@@ -37,7 +37,7 @@ public class FileUtils {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		Map<String, Object> listMap = null;
 
-		int no = Integer.parseInt(paramMap.get("no").toString());
+		int no = Integer.parseInt(paramMap.get("gdsNum").toString());
 		int B_TYPE = Integer.parseInt(paramMap.get("B_TYPE").toString());
 //		int bno = boardVO.getB_NO();
 

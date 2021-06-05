@@ -126,4 +126,11 @@ public class boardServiceImpl implements boardService {
 		boardMapper.insertHisBoard(paramMap);
 	}
 
+	@Override
+	public void updateFile(Map<String, Object> paramMap, MultipartHttpServletRequest multi, HttpServletRequest request)
+			throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

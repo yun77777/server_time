@@ -100,51 +100,50 @@
 				
 			</div>
 			
-			<div class="inputArea">
-				<label for="gdsImg">이미지</label>
-				<input type="file" id="gdsImg" name="file_0" class="form-control"/>
-<!-- 				<input type="file" id="gdsImg" name="file" class="form-control"/> -->
-				<div class="select_img"><img src="" /></div>
-				
-				<script>
-					$("#gdsImg").change(function(){
-						if(this.files && this.files[0]) {
-							var reader = new FileReader;
-							reader.onload = function(data) {
-								$(".select_img img").attr("src", data.target.result).width(500);								
-							}
-							reader.readAsDataURL(this.files[0]);
-						}
-					});
-				</script>
-				<%=request.getRealPath("/") %> 
-<%-- 				<%=request.getRealPath("/") %> 
- --%>				
-<%--  <%=request.getSession().getServletContext().getRealPath("/") %>
- --%>
-			</div>
-			
-			
-			
-<%-- 			</form>
- --%>			
 		</div>
 	</section>
 	<!-- //@@@ -->
-
- 		 <div id="fileDiv">
-            <p>
-                <!-- <input type="file" id="file" name="file_0"> -->
-                <a href="#this" class="btn" id="delete" name="delete">삭제</a>
-            </p>
-        </div>
-         
-        <br/><br/>
-        <a href="#this" class="btn" id="addFile">파일 추가</a>
-
-
-
 			</form>
+			
+				<form id="writeForm" method="post" enctype="multipart/form-data">
+		
+					
+					<input type="hidden" id="no" name="no" value="${detail.gdsNum}"/>
+					<input type="hidden" id="fileNoDel" name="fileNoDel[]" value=""> 
+					<input type="hidden" id="fileNameDel" name="fileNameDel[]" value=""> 
+					
+					<table>
+						<tbody>
+							<tr>
+								<td id="fileIndex">
+								
+									<c:forEach var="file" items="${imgList}" varStatus="var">
+									<div>
+										<img class="card-img-top" style="width:20%;height:auto" name="itemImg${var.index}" id="itemImg${var.index}" src="<c:url value='/img/${file.file}'/>" alt="no image" />
+										<input type="hidden" class="FILE_NO" id="FILE_NO" name="FILE_NO_${var.index}" value="${file.file_no}">
+										<input type="hidden" id="FILE_NAME" name="FILE_NAME" value="FILE_NO_${var.index}">
+										<a href="#" id="fileName" onclick="return false;">${file.file}</a>${file.file_no}
+										<button id="fileDelBtn" onclick="fn_del('${file.file_no}','FILE_NO_${var.index}');" type="button">삭제</button><br>
+									</div>
+									</c:forEach>
+									
+								</td>
+							</tr>
+						</tbody>			
+					</table>
+					
+				</form>
+		<div>
+						<button type="submit" class="update_btn">저장</button>
+						<button type="button" class="cancel_btn">취소</button>
+						<button type="button" class="fileAdd_btn">파일추가</button>
+		</div>
+			
+			
+			
+			
+			
+			
 			<div class="inputArea">
 				<button type="submit" id="register_Btn" class="btn btn-primary">등록</button>			
 			</div>
@@ -167,6 +166,74 @@
 <script>
 var gfv_count = 1;
 $(document).ready(function(){
+	var formObj = $("form[name='writeForm']");
+	/* $(".write_btn").on("click", function(){
+		if(fn_valiChk()){
+			return false;
+		}
+		formObj.attr("action", "/board/write");
+		formObj.attr("method", "post");
+		formObj.submit();
+	}); */
+	
+	
+	$("input[type=file]").change(function(){
+		alert('f');
+		var itemImg="#"+$(this).prev().attr("id");
+		alert(itemImg);
+		if(this.files && this.files[0]) {
+			var reader = new FileReader;
+			reader.onload = function(data) {
+				$(itemImg).attr("src", data.target.result).width(500);
+				
+/* 								$(".select_img img").attr("src", data.target.result).width(500);								 */
+			}
+			reader.readAsDataURL(this.files[0]);
+		}
+	});
+	
+	
+	fn_addFile();
+	$(".cancel_btn").on("click", function(){
+		event.preventDefault();
+		/* location.href = "/board/readView?bno=${update.bno}"
+			   + "&page=${scri.page}"
+			   + "&perPageNum=${scri.perPageNum}"
+			   + "&searchType=${scri.searchType}"
+			   + "&keyword=${scri.keyword}"; */
+	})
+	
+	$(".update_btn").on("click", function(){
+		if(fn_valiChk()){
+			return false;
+		}
+		/* formObj.attr("action", "/mng/updateItem.do");
+		formObj.attr("method", "post");
+		formObj.submit(); */
+		
+		fn_insert();
+	})
+	
+	
+	$("#gdsImg").change(function(){
+		alert('f');
+		   if(this.files && this.files[0]) {
+		    var reader = new FileReader;
+		    reader.onload = function(data) {
+		     $(".select_img img").attr("src", data.target.result).width(500);        
+		    }
+		    reader.readAsDataURL(this.files[0]);
+		   }
+		  });
+	
+	
+	/*  */
+	
+	
+	
+	
+	
+	
     $("#addFile").on("click", function(e){ //파일 추가 버튼
         e.preventDefault();
         fn_addFile();
@@ -178,19 +245,48 @@ $(document).ready(function(){
     });
 });
 
-function fn_addFile(){
-    var str = "<p><input type='file' name='file_"+(gfv_count++)+"'><a href='#this' class='btn' name='delete'>삭제</a></p>";
-    $("#fileDiv").append(str);
-    $("a[name='delete']").on("click", function(e){ //삭제 버튼
-        e.preventDefault();
-        fn_deleteFile($(this));
-    });
+
+function fn_valiChk(){
+	var regForm = $("form[name='writeForm'] .chk").length;
+	for(var i = 0; i<regForm; i++){
+		if($(".chk").eq(i).val() == "" || $(".chk").eq(i).val() == null){
+			alert($(".chk").eq(i).attr("title"));
+			return true;
+		}
+	}
 }
- 
-function fn_deleteFile(obj){
-    obj.parent().remove();
+function fn_addFile(){
+	var fileIndex = 1;
+	$(".fileAdd_btn").on("click", function(){
+		$("#fileIndex").append("<div><input type='file' style='float:left;' id='file_"+(fileIndex)+"' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
+		//$("#fileIndex").append("<div><img class='card-img-top' style='width:20%;height:auto' name='itemImg$"+(fileIndex++)+"' id='itemImg"+(fileIndex++)+"' alt='no image' /><input type='file' style='float:left;' id='file_"+(fileIndex)+"' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
+	});
+	 
+	 
+	  
+	
+	
+	
+	$(document).on("click","#fileDelBtn", function(){
+		$(this).parent().remove();
+		
+	});
 }
 
+var fileNoArry = new Array();
+var fileNameArry = new Array();
+
+function fn_del(value, name){
+	
+	fileNoArry.push(value);
+	fileNameArry.push(name);
+	$("#fileNoDel").attr("value", fileNoArry);
+	$("#fileNameDel").attr("value", fileNameArry);
+}
+
+
+
+/*  */
 
 
 function fn_list(no) {
@@ -206,7 +302,55 @@ function fn_list(no) {
 function fn_insert() {
 	//var formData = $('#boardForm').serialize();
 	$('#boardForm #gdsNum').attr('disabled',false);
-	var formData = new FormData($("#boardForm")[0]);
+	//var formData = new FormData($("#boardForm")[0]);
+	var  formData= new FormData($("#writeForm")[0]);
+
+	var category=$("#boardForm #category").val();
+	var gdsNum=$("#boardForm #gdsNum").val();
+	var gdsName=$("#boardForm #gdsName").val();
+	var gdsPrice=$("#boardForm #gdsPrice").val();
+	var gdsStock=$("#boardForm #gdsStock").val();
+	var gdsDes=$("#boardForm #gdsDes").val();
+	
+	alert($("#gdsNum").val());
+	
+	formData.append("cateCode",category);
+	formData.append("gdsNum",gdsNum);
+	formData.append("gdsName",gdsName);
+	formData.append("gdsPrice",gdsPrice);
+	formData.append("gdsStock",gdsStock);
+	formData.append("gdsDes",gdsDes);
+
+
+	var fileNoDel = new Array();
+	var fileNameDel = new Array();
+	var file = new Array();
+	
+	
+	$(".FILE_NO").each(function(){
+		fileNoDel.push($(this).val());
+		fileNameDel.push($(this).next().val());
+		//checkArr.push($(this).attr("data-cartNum"));  // 배열에 데이터 삽입
+		
+	});
+	
+	$("input[type=file]").each(function(){
+		//alert('file:'+$(this).val());
+		file.push($(this).val());
+		
+	}); 
+	
+	//alert($("input[type=file]").val());
+	
+	formData.append("fileNoDel",fileNoDel);
+	formData.append("fileNameDel",fileNameDel);
+	formData.append("no",$("#itemForm #gdsNum").val());
+	formData.append("B_TYPE",4);
+	
+	formData.append("file",file);
+	
+	
+	
 	alert('insert');
 	$.ajax({
 		url : "${pageContext.request.contextPath}/mng/insertItem.do",
@@ -230,7 +374,7 @@ var oEditors = [];
 nhn.husky.EZCreator.createInIFrame({
 	oAppRef : oEditors,
 	elPlaceHolder : "gdsDes", //저는 textarea의 id와 똑같이 적어줬습니다.
-	sSkinURI : "se2/SmartEditor2Skin.html", //경로를 꼭 맞춰주세요!
+	sSkinURI : "${pageContext.request.contextPath}/se2/SmartEditor2Skin.html", //경로를 꼭 맞춰주세요!
 	fCreator : "createSEditor2",
 	htParams : {
 		// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
