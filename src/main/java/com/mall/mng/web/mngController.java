@@ -319,7 +319,7 @@ public class mngController {
 			List<Map<String,Object>> list=mngService.selectCommonCodes(paramMap);
 			model.addAttribute("list",list);
 			model.addAttribute("pg",pg);
-
+//selectCommonCodesMaxNo
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		

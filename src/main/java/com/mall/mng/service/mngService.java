@@ -37,7 +37,13 @@ public interface mngService {
 
 	public Integer selectOrderListCnt(Map<String, Object> paramMap) throws Exception;
 
+	public Integer selectCommonCodesMaxNo(Map<String, Object> paramMap) throws Exception;
+
 	public List<Map<String, Object>> selectOrderDetail(Map<String, Object> paramMap) throws Exception;
 
 	public void updateOrderState(Map<String, Object> paramMap);
+
+	public void updateCommonCodes(Map<String, Object> paramMap);
+
+	public void deleteCommonCodes(Map<String, Object> paramMap);
 }

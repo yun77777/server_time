@@ -34,7 +34,7 @@ public class mngServiceImpl implements mngService {
 
 	// 상품등록
 	@Override
-	public void register(Map<String, Object> paramMap, MultipartHttpServletRequest multi) throws Exception  {
+	public void register(Map<String, Object> paramMap, MultipartHttpServletRequest multi) throws Exception {
 		paramMap.put("no", paramMap.get("gdsNum"));
 		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(paramMap, multi);
 		int size = list.size();
@@ -44,12 +44,13 @@ public class mngServiceImpl implements mngService {
 				boardMapper.insertFile(list.get(i));
 			}
 		}
-System.err.println("zxczxczxczcx:"+paramMap);
+		System.err.println("zxczxczxczcx:" + paramMap);
 		mngMapper.register(paramMap);
 	}
 
 	@Override
-	public void updateItem(Map<String, Object> paramMap, String [] files, String [] fileNames, MultipartHttpServletRequest multi) throws Exception {
+	public void updateItem(Map<String, Object> paramMap, String[] files, String[] fileNames,
+			MultipartHttpServletRequest multi) throws Exception {
 		// paramMap.put("gdsNum", vo.getGdsNum());
 //		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(paramMap, multi);
 		List<Map<String, Object>> list = fileUtils.parseUpdateFileInfo(paramMap, files, fileNames, multi);
@@ -60,19 +61,19 @@ System.err.println("zxczxczxczcx:"+paramMap);
 		// boardMapper.deleteFile(paramMap);
 		if (size > 0) {
 			for (int i = 0; i < size; i++) {
-				if(list.get(i).get("NEW_ITEM").equals("Y"))
-					
+				if (list.get(i).get("NEW_ITEM").equals("Y"))
+
 					boardMapper.insertFile(list.get(i));
 				else {
 					boardMapper.updateFile(list.get(i));
 					boardMapper.selectFile(list.get(i));
-					System.err.println("기존리스트:"+boardMapper.selectBoardFileList(paramMap));
-					System.err.println("기존리스@트:"+boardMapper.selectFile(list.get(i)));
+					System.err.println("기존리스트:" + boardMapper.selectBoardFileList(paramMap));
+					System.err.println("기존리스@트:" + boardMapper.selectFile(list.get(i)));
 				}
 			}
 		}
-		
-		//mngMapper.updateItem(paramMap); //본문수정 나중에
+
+		// mngMapper.updateItem(paramMap); //본문수정 나중에
 	}
 
 	@Override
@@ -127,13 +128,28 @@ System.err.println("zxczxczxczcx:"+paramMap);
 	}
 
 	@Override
+	public Integer selectCommonCodesMaxNo(Map<String, Object> paramMap) throws Exception {
+		return mngMapper.selectCommonCodesMaxNo(paramMap);
+	}
+
+	@Override
 	public List<Map<String, Object>> selectOrderDetail(Map<String, Object> paramMap) throws Exception {
 		return mngMapper.selectOrderDetail(paramMap);
 	}
-	
+
 	@Override
 	public void updateOrderState(Map<String, Object> paramMap) {
 		mngMapper.updateOrderState(paramMap);
+	}
+
+	@Override
+	public void updateCommonCodes(Map<String, Object> paramMap) {
+		mngMapper.updateCommonCodes(paramMap);
+	}
+
+	@Override
+	public void deleteCommonCodes(Map<String, Object> paramMap) {
+		mngMapper.deleteCommonCodes(paramMap);
 	}
 
 }

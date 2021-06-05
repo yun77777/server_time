@@ -167,6 +167,11 @@
  		where CID=#{CID}
 	</delete>
 	
+	<select id="selectCommonCodesMaxNo" parameterType="map"
+		resultType="Integer">
+			SELECT max(CID) FROM COMMON_TBL
+	</select>
+	
 	<select id="selectCategoryCode" parameterType="java.util.HashMap"
 		resultType="java.util.HashMap">
  	SELECT
