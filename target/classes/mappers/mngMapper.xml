@@ -153,6 +153,20 @@
 		<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
 	</select>
 	
+	<update id="updateCommonCodes" parameterType="java.util.HashMap">
+ 	update COMMON_TBL set
+ 		NAME=#{NAME}
+ 		, DESCRPT=#{DESCRPT}
+ 		, L_CATEGORY=#{L_CATEGORY}
+ 		, S_CATEGORY=#{S_CATEGORY}
+		where CID=#{CID}
+	</update>
+	
+	<delete id="deleteCommonCodes" parameterType="java.util.HashMap">
+ 	delete COMMON_TBL
+ 		where CID=#{CID}
+	</delete>
+	
 	<select id="selectCategoryCode" parameterType="java.util.HashMap"
 		resultType="java.util.HashMap">
  	SELECT

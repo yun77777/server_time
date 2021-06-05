@@ -323,7 +323,7 @@ public class mngController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
-		return "mng/orderList";
+		return "mng/mngCommonCodes";
 	}
 	
 	//orderCancel
