@@ -56,7 +56,7 @@ public class mngServiceImpl implements mngService {
 //		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(paramMap, multi);
 		List<Map<String, Object>> list = fileUtils.parseUpdateFileInfo(paramMap, files, fileNames, multi);
 		int size = list.size();
-		//mngMapper.updateItem(paramMap, files, fileNames, multi);
+		mngMapper.updateItem(paramMap);
 		System.err.println("multi list:" + list);
 		// 파일지우기
 		// boardMapper.deleteFile(paramMap);

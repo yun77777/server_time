@@ -278,6 +278,7 @@ public class mngController {
 //		String [] files=fileNoDel.split(",");
 //		String [] fileNames=fileNameDel.split(",");
 		
+		System.err.println("PARAM:"+paramMap);
 		try {
 //			paramMap.put("update","Y");
 			mngService.updateItem(paramMap, files, fileNames, multi);

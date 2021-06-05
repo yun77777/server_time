@@ -209,6 +209,18 @@ $(document).ready(function(){
 		
 		fn_save();
 	})
+	
+	
+	$("#gdsImg").change(function(){
+		alert('f');
+		   if(this.files && this.files[0]) {
+		    var reader = new FileReader;
+		    reader.onload = function(data) {
+		     $(".select_img img").attr("src", data.target.result).width(500);        
+		    }
+		    reader.readAsDataURL(this.files[0]);
+		   }
+		  });
 });
 
 function fn_valiChk(){
@@ -222,14 +234,21 @@ function fn_valiChk(){
 }
 function fn_addFile(){
 	var fileIndex = 1;
+	var content='<div class="inputArea">';
+	content+='<label for="gdsImg">이미지</label>';
+	content+=' <input type="file" id="gdsImg" name="file" />';
+	content+='<div class="select_img"><img src="" /></div></div>';
 	$(".fileAdd_btn").on("click", function(){
-		$("#fileIndex").append("<div><inpu" type='file' style='float:left;' id='file_"+(fileIndex)+"' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
+		$("#fileIndex").append("<div><input type='file' style='float:left;' id='file_"+(fileIndex)+"' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
 		//$("#fileIndex").append("<div><img class='card-img-top' style='width:20%;height:auto' name='itemImg$"+(fileIndex++)+"' id='itemImg"+(fileIndex++)+"' alt='no image' /><input type='file' style='float:left;' id='file_"+(fileIndex)+"' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
-	
-	
-	
-	
+$("#fileIndex").append(content);
 	});
+	 
+	 
+	  
+	
+	
+	
 	$(document).on("click","#fileDelBtn", function(){
 		$(this).parent().remove();
 		
@@ -293,6 +312,24 @@ function fn_save() {
 	$('#itemForm #gdsNum').attr('disabled',false);
 	var  formData= new FormData($("#writeForm")[0]);
 /* 	var  formData= $('#writeForm').serialize(); */
+
+
+	var category=$("#itemForm #category").val();
+	var gdsNum=$("#itemForm #gdsNum").val();
+	var gdsName=$("#itemForm #gdsName").val();
+	var gdsPrice=$("#itemForm #gdsPrice").val();
+	var gdsStock=$("#itemForm #gdsStock").val();
+	var gdsDes=$("#itemForm #gdsDes").val();
+	
+	alert($("#gdsNum").val());
+	
+	formData.append("cateCode",category);
+	formData.append("gdsNum",gdsNum);
+	formData.append("gdsName",gdsName);
+	formData.append("gdsPrice",gdsPrice);
+	formData.append("gdsStock",gdsStock);
+	formData.append("gdsDes",gdsDes);
+
 
 	var fileNoDel = new Array();
 	var fileNameDel = new Array();
