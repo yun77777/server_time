@@ -166,7 +166,7 @@ public class mngController {
 	}
 	
 	@RequestMapping(value = "/itemInsert.do")
-	public String boardInsert(
+	public String itemInsert(
 			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
 		try {
 			model.addAttribute("login",httpSession.getAttribute("login"));
@@ -347,6 +347,7 @@ System.err.println("fsdlmflmf:"+checkArr);
 			paramMap.put("B_TYPE",4);
 
 			model.addAttribute("paramMap",paramMap);
+			model.addAttribute("maxNo",mngService.selectCommonCodesMaxNo(paramMap));
 			List<Map<String,Object>> list=mngService.selectCommonCodes(paramMap);
 			model.addAttribute("list",list);
 			model.addAttribute("pg",pg);
@@ -379,4 +380,51 @@ System.err.println("fsdlmflmf:"+checkArr);
 		}		
 		return "mng/orderList";
 	}
+	
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/insertCommonCodes.do")
+	public Map<String,Object> insertCommonCodes(
+//			@RequestParam Map<String, Object> paramMap,
+			@RequestParam(value="cidArr[]") int[] cidArr,
+			@RequestParam(value="lCategoryArr[]") String[] lCategoryArr,
+			@RequestParam(value="sCategoryArr[]") String[] sCategoryArr,
+			@RequestParam(value="nameArr[]") String[] nameArr,
+			@RequestParam(value="descrptArr[]") String[] descrptArr,
+//			@RequestParam(value="fileNameDel[]") String[] fileNames,
+			 HttpSession httpSession) throws Exception {		
+		Map<String, Object> paramMap=new HashMap<String, Object>();				
+		paramMap.put("B_TYPE",4);
+		
+		int CID=0;
+		String L_CATEGORY="";
+		String S_CATEGORY="";
+		String NAME="";
+		String DESCRPT="";
+		
+		if(cidArr != null) {
+			//cartList
+			for(int i=0 ; i<cidArr.length ; i++) {
+				CID = cidArr[i];
+				L_CATEGORY = lCategoryArr[i];
+				S_CATEGORY = sCategoryArr[i];
+				NAME = nameArr[i];
+				DESCRPT = descrptArr[i];
+				
+				System.err.println("CID:"+CID);
+				
+				paramMap.put("CID",CID);
+				paramMap.put("L_CATEGORY",L_CATEGORY);
+				paramMap.put("S_CATEGORY",S_CATEGORY);
+				paramMap.put("NAME",NAME);
+				paramMap.put("DESCRPT",DESCRPT);
+				
+				mngService.insertCommonCodes(paramMap);
+			}
+		}
+		return paramMap;
+	}
+		
 }

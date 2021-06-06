@@ -14,6 +14,8 @@ public interface mngMapper {
 	public void register(Map<String, Object> paramMap) throws Exception;
 
 	public void updateItem(Map<String, Object> paramMap) throws Exception;
+
+	public void insertCommonCodes(Map<String, Object> paramMap) throws Exception;
 //	public void updateItem(GoodsVO vo) throws Exception;
 
 	public List<Map<String, Object>> selectItemList(Map<String, Object> paramMap) throws Exception;

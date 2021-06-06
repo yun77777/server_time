@@ -16,6 +16,8 @@ public interface mngService {
 
 	public void register(Map<String, Object> paramMap, MultipartHttpServletRequest multi) throws Exception;
 
+	public void insertCommonCodes(Map<String, Object> paramMap) throws Exception;
+
 	public void updateItem(Map<String, Object> paramMap, String[] files, String[] fileNames,
 			MultipartHttpServletRequest multi) throws Exception;
 

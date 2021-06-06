@@ -166,6 +166,42 @@
 		) B
 	</select>
 	
+	<insert id="insertCommonCodes" parameterType="map">
+		<!-- insert into COMMON_TBL (
+				CID
+				, L_CATEGORY
+				, S_CATEGORY
+				, NAME
+				, DESCRPT
+			)
+	   		values (
+		   		#{CID}
+		   		, #{L_CATEGORY}
+		   		, #{S_CATEGORY}
+		   		, #{NAME}
+		   		, #{DESCRPT}
+	   		) -->
+  		INSERT INTO COMMON_TBL(
+	   	  CID
+				, L_CATEGORY
+				, S_CATEGORY
+				, NAME
+				, DESCRPT
+		) VALUES(
+			#{CID}
+		   		, #{L_CATEGORY}
+		   		, #{S_CATEGORY}
+		   		, #{NAME}
+		   		, #{DESCRPT}
+		)
+		ON DUPLICATE KEY UPDATE
+		CID = #{CID}
+		, L_CATEGORY = #{L_CATEGORY, jdbcType=VARCHAR}
+		, S_CATEGORY = #{S_CATEGORY, jdbcType=VARCHAR}
+		, NAME = #{NAME, jdbcType=VARCHAR}
+		, DESCRPT = #{DESCRPT}
+	</insert>
+	
 	<update id="updateCommonCodes" parameterType="java.util.HashMap">
  	update COMMON_TBL set
  		NAME=#{NAME}

@@ -156,5 +156,9 @@ public class mngServiceImpl implements mngService {
 	public void deleteCommonCodes(Map<String, Object> paramMap) {
 		mngMapper.deleteCommonCodes(paramMap);
 	}
+	@Override
+	public void insertCommonCodes(Map<String, Object> paramMap) throws Exception {
+		mngMapper.insertCommonCodes(paramMap);
+	}
 
 }

@@ -39,7 +39,7 @@
 		<div class="inputArea">
 				<button type="button" id="addCodeBtn" class="btn btn-primary">추가</button>			
 				<button type="button" onclick="" id="delete_btn" class="btn btn-primary">삭제</button>			
-				<button type="submit" id="register_Btn" class="btn btn-primary">저장</button>			
+				<button type="button" id="insertBtn" onclick="" class="btn btn-primary">저장</button>			
 		
 		</div>
 			<input type="hidden" id="gdsNum" name="gdsNum">
@@ -86,8 +86,8 @@
 									</script>
 								</div>
 							</th>
-								<th><input type="text" name=CID value="${result.CID}"></th>
-								<td><input type="text" name=L_CATEGORY value="${result.L_CATEGORY}"></td>
+								<th><input type="text" name="CID" value="${result.CID}" readonly></th>
+								<td><input type="text" name="L_CATEGORY" value="${result.L_CATEGORY}"></td>
 								<td><input type="text" name="S_CATEGORY" value="${result.S_CATEGORY}"></td>
 								<td><input type="text" name="NAME" value="${result.NAME}"></td>
 								<td><input type="text" name="DESCRPT" value="${result.DESCRPT}"></td>
@@ -134,15 +134,19 @@ $(document).ready(function(){
     });
     
     
+   	$(".chBox").click(function(){
+			$("#allCheck").prop("checked", false);
+		});
     $("#addCodeBtn").on("click",function(e){
-    	var row='<tr><th><input type="text" name=CID value=""></th>';
-    	row+='<td><input type="text" name=L_CATEGORY value=""></td>';
+    	var maxNo=Number('${maxNo}')+1;
+    	var row='<tr><th><div class="checkBox"><input type="checkbox" name="chBox" class="chBox" data-cid="'+maxNo+'" /></div></th>';
+    	row+='<th><input type="text" name="CID" value="'+maxNo+'" readonly></th>';
+    	row+='<td><input type="text" name="L_CATEGORY" value=""></td>';
     	row+='<td><input type="text" name="S_CATEGORY" value=""></td>';
     	row+='<td><input type="text" name="NAME" value=""></td>';
     	row+='<td><input type="text" name="DESCRPT" value=""></td></tr>';
     	
     	$("#codesSection").append(row);
-    	alert($("input[name=CID]").val());
     });
     
     
@@ -190,10 +194,58 @@ $(document).ready(function(){
     		});
     	}
     });
+   
     
 	$(".chBox").click(function(){
 		$("#allCheck").prop("checked", false);
 	});
+	
+	$("#insertBtn").on("click",function(e){
+		//var formData = $('#boardForm').serialize();
+		var formData = new FormData($("#boardForm")[0]);
+		var cidArr = new Array();
+		var lCategoryArr = new Array();
+		var sCategoryArr = new Array();
+		var nameArr = new Array();
+		var descrptArr = new Array();
+		
+		$("input[name=CID]").each(function(){
+			cidArr.push($(this).val());
+		});
+		$("input[name=L_CATEGORY]").each(function(){
+			lCategoryArr.push($(this).val());
+		});
+		$("input[name=S_CATEGORY]").each(function(){
+			sCategoryArr.push($(this).val());
+		});
+		$("input[name=NAME]").each(function(){
+			nameArr.push($(this).val());
+		});
+		$("input[name=DESCRPT]").each(function(){
+			descrptArr.push($(this).val());
+		});
+		
+		alert(cidArr);
+		alert('insert');
+		$.ajax({
+			url : "/mng/insertCommonCodes.do",
+			type : "post",
+			data : { cidArr : cidArr ,lCategoryArr : lCategoryArr ,sCategoryArr : sCategoryArr ,
+				nameArr : nameArr ,descrptArr : descrptArr ,},
+			//processData : false,
+			//contentType : false,
+			success : function(result) {
+				//fn_list();
+			}, // success 
+
+			error : function(xhr, status) {
+				alert(xhr + " : " + status);
+			}
+		});
+		
+		
+    });
+	
 });
 
 function fn_addFile(){
@@ -223,18 +275,14 @@ function fn_list(no) {
 
 function fn_insert() {
 	//var formData = $('#boardForm').serialize();
-	$('#boardForm #gdsNum').attr('disabled',false);
 	var formData = new FormData($("#boardForm")[0]);
 	alert('insert');
 	$.ajax({
-		url : "${pageContext.request.contextPath}/insertItem.do",
+		url : "/mng/insertCommonCodes.do",
 		type : "post",
-		enctype: 'multipart/form-data',
 		data : formData,
-		processData : false,
-		contentType : false,
 		success : function(result) {
-			fn_list();
+			//fn_list();
 		}, // success 
 
 		error : function(xhr, status) {
