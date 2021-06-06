@@ -301,11 +301,11 @@ public class mngController {
 	@ResponseBody
 	@RequestMapping(value = "/deleteCommonCodes.do")
 	public int deleteCommonCodes(
-			@RequestParam(value="chbox") int [] checkArr, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+			@RequestParam(value="chbox[]") int [] checkArr, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
 		try {
 			model.addAttribute("login",httpSession.getAttribute("login"));
 			model.addAttribute("member",httpSession.getAttribute("member"));
-
+System.err.println("fsdlmflmf:"+checkArr);
 			
 			Map<String, Object> paramMap=new HashMap<String, Object>();
 			int CID=0;
@@ -314,11 +314,13 @@ public class mngController {
 				//cartList
 				for(int i=0 ; i<checkArr.length ; i++) {
 					CID = checkArr[i];
+					System.err.println("CID:"+CID);
 					paramMap.put("CID",CID);
 					
 					//cartStockArr
 					mngService.deleteCommonCodes(paramMap);
 			}
+		}
 			
 			
 			model.addAttribute("paramMap", paramMap);

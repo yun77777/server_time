@@ -175,8 +175,8 @@
 		where CID=#{CID}
 	</update>
 	
-	<delete id="deleteCommonCodes" parameterType="java.util.HashMap">
- 	delete COMMON_TBL
+	<delete id="deleteCommonCodes" parameterType="map">
+ 	delete from COMMON_TBL
  		where CID=#{CID}
 	</delete>
 	
