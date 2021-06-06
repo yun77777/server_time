@@ -29,6 +29,8 @@ public interface mngService {
 
 	public Integer selectItemListCnt(Map<String, Object> paramMap) throws Exception;
 
+	public Integer selectCommonCodesCnt(Map<String, Object> paramMap) throws Exception;
+
 	public Map<String, Object> selectItemDetail(Map<String, Object> paramMap) throws Exception;
 
 	public Integer selectItemListMaxNo(Map<String, Object> paramMap) throws Exception;

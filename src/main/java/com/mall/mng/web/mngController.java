@@ -298,13 +298,43 @@ public class mngController {
 		return paramMap;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/deleteCommonCodes.do")
+	public int deleteCommonCodes(
+			@RequestParam(value="chbox") int [] checkArr, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+		try {
+			model.addAttribute("login",httpSession.getAttribute("login"));
+			model.addAttribute("member",httpSession.getAttribute("member"));
+
+			
+			Map<String, Object> paramMap=new HashMap<String, Object>();
+			int CID=0;
+			
+			if(checkArr != null) {
+				//cartList
+				for(int i=0 ; i<checkArr.length ; i++) {
+					CID = checkArr[i];
+					paramMap.put("CID",CID);
+					
+					//cartStockArr
+					mngService.deleteCommonCodes(paramMap);
+			}
+			
+			
+			model.addAttribute("paramMap", paramMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return 1;
+	}
+	
 	@RequestMapping(value = "/mngCommonCodes.do")
 	public String mngCommonCodes(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="5") int recordCountPerPage,
 			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
 		
 		try {
 			PaginationVO pg = new PaginationVO(currentPageNo, recordCountPerPage, 3, 
-					mngService.selectItemListCnt(paramMap));
+					mngService.selectCommonCodesCnt(paramMap));
 			
 			paramMap.put("length",recordCountPerPage);
 			paramMap.put("start",pg.getFirstRecordIndex()-1);
@@ -313,7 +343,6 @@ public class mngController {
 			model.addAttribute("member",httpSession.getAttribute("member"));
 			
 			paramMap.put("B_TYPE",4);
-			paramMap.put("gdsNum",mngService.selectItemListMaxNo(paramMap)+1);
 
 			model.addAttribute("paramMap",paramMap);
 			List<Map<String,Object>> list=mngService.selectCommonCodes(paramMap);

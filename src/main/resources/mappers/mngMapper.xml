@@ -153,6 +153,19 @@
 		<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
 	</select>
 	
+	<select id="selectCommonCodesCnt" parameterType="map"
+		resultType="Integer">
+			SELECT COUNT(1) CNT
+		FROM (
+			SELECT B.CID
+		
+		FROM COMMON_TBL B
+		where B.CID>=0
+		ORDER BY B.CID DESC
+		<!-- <include refid="searchOption"/> -->
+		) B
+	</select>
+	
 	<update id="updateCommonCodes" parameterType="java.util.HashMap">
  	update COMMON_TBL set
  		NAME=#{NAME}

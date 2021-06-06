@@ -116,6 +116,11 @@ public class mngServiceImpl implements mngService {
 	public Integer selectItemListCnt(Map<String, Object> paramMap) throws Exception {
 		return mngMapper.selectItemListCnt(paramMap);
 	}
+	
+	@Override
+	public Integer selectCommonCodesCnt(Map<String, Object> paramMap) throws Exception {
+		return mngMapper.selectCommonCodesCnt(paramMap);
+	}
 
 	@Override
 	public List<Map<String, Object>> selectOrderList(Map<String, Object> paramMap) throws Exception {

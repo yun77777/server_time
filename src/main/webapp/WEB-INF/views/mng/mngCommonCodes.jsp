@@ -28,24 +28,25 @@
 	<!-- Page content-->
 	<section class="py-5">
 		<div class="container">
-			<form id="boardForm" method="post" enctype="multipart/form-data">
 
 				<!-- Page Heading/Breadcrumbs-->
 				<h2>Manage Common Codes</h2>
 
 <!-- @@@ -->
-	<section id="container">
+		<form id="boardForm" method="post" enctype="multipart/form-data">
+
 		<div id="container_box">
-			<form id="boardForm" method="post">
+		<div class="inputArea">
+				<button type="button" id="addCodeBtn" class="btn btn-primary">추가</button>			
+				<button type="button" onclick="" id="delete_btn" class="btn btn-primary">삭제</button>			
+				<button type="submit" id="register_Btn" class="btn btn-primary">저장</button>			
+		
+		</div>
 			<input type="hidden" id="gdsNum" name="gdsNum">
 			<input type="hidden" id="currentPageNo" name="currentPageNo" value="${pg.currentPageNo}"/>
 			<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
 				<!-- Page Heading/Breadcrumbs-->
-				<div class="inputArea">
-					<button type="submit" id="" class="btn btn-primary">추가</button>			
-					<button type="submit" id="" class="btn btn-primary">삭제</button>			
-					<button type="submit" id="register_Btn" class="btn btn-primary">저장</button>			
-				</div>
+				
           		<span>Total: <em>${pg.totalRecordCount}</em> </span>
                 
 				<table class="table table-sm">
@@ -58,6 +59,13 @@
 					</colgroup>
 					<thead>
 						<tr>
+						<th>
+						<div class="allCheck">
+			    			<span>
+			    				<input type="checkbox" name="allCheck" id="allCheck" />
+			    			</span>
+		    			</div>
+						</th>
 							<th>CID</th>
 							<th>L_CATEGORY</th>
 							<th>S_CATEGORY</th>
@@ -65,9 +73,19 @@
 							<th>DESCRPT</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="codesSection">
 						<c:forEach var="result" items="${list}" varStatus="status">
 							<tr>
+							<th>
+								<div class="checkBox">
+									<input type="checkbox" name="chBox" class="chBox" data-cid="${result.CID}" />
+									<script>
+										$(".chBox").click(function(){
+											$("#allCheck").prop("checked", false);
+										});
+									</script>
+								</div>
+							</th>
 								<th><input type="text" name=CID value="${result.CID}"></th>
 								<td><input type="text" name=L_CATEGORY value="${result.L_CATEGORY}"></td>
 								<td><input type="text" name="S_CATEGORY" value="${result.S_CATEGORY}"></td>
@@ -78,10 +96,8 @@
 					</tbody>
 				</table>
 				<%@ include file="/WEB-INF/views/common/paging.jsp"%>
-			</form>
 			
 			</div>
-	</section>
 	<!-- //@@@ -->
 
 
@@ -116,6 +132,68 @@ $(document).ready(function(){
         e.preventDefault();
         fn_deleteFile($(this));
     });
+    
+    
+    $("#addCodeBtn").on("click",function(e){
+    	var row='<tr><th><input type="text" name=CID value=""></th>';
+    	row+='<td><input type="text" name=L_CATEGORY value=""></td>';
+    	row+='<td><input type="text" name="S_CATEGORY" value=""></td>';
+    	row+='<td><input type="text" name="NAME" value=""></td>';
+    	row+='<td><input type="text" name="DESCRPT" value=""></td></tr>';
+    	
+    	$("#codesSection").append(row);
+    	alert($("input[name=CID]").val());
+    });
+    
+    
+    
+    
+    $("#allCheck").click(function(){
+    	var chk = $("#allCheck").prop("checked");
+    	
+    	if(chk) {
+    		$(".chBox").prop("checked", true);
+    	} else {
+    		$(".chBox").prop("checked", false);
+    	}
+    	
+    	
+    });
+    
+   $("#delete_btn").on("click",function(e){
+
+    	var confirm_val = confirm("정말 삭제하시겠습니까?");
+    	
+    	if(confirm_val) {
+    		var checkArr = new Array();
+
+    		// 체크된 체크박스의 갯수만큼 반복
+    		$("input[class='chBox']:checked").each(function(){
+    			checkArr.push($(this).attr("data-cid"));
+    		});
+    		
+    		alert(checkArr);
+    			
+    		$.ajax({
+    			url : "/mng/deleteCommonCodes.do",
+    			type : "post",
+    			data : { chbox : checkArr },
+    			success : function(result){
+    				
+    				if(result == 1) {						
+    					alert("삭제 완료");
+    					location.href = "/mng/mngCommonCodes.do";
+    				} else {
+    					alert("삭제 실패");
+    				}
+    			}
+    		});
+    	}
+    });
+    
+	$(".chBox").click(function(){
+		$("#allCheck").prop("checked", false);
+	});
 });
 
 function fn_addFile(){
@@ -135,7 +213,7 @@ function fn_deleteFile(obj){
 
 function fn_list(no) {
 	//$('#currentPageNo').val(no);
-	window.location='<c:url value="/itemList.do"/>';
+	window.location='<c:url value="/mng/mngCommonCodes.do"/>';
 	
 	/* $('#boardForm').attr({
 		action : '<c:url value="/boardList.do"/>',
