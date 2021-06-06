@@ -95,6 +95,11 @@ public class mngServiceImpl implements mngService {
 	public List<Map<String, Object>> selectCategoryCode(Map<String, Object> paramMap) throws Exception {
 		return mngMapper.selectCategoryCode(paramMap);
 	}
+	
+	@Override
+	public List<Map<String, Object>> selectCategorySCode(Map<String, Object> paramMap) throws Exception {
+		return mngMapper.selectCategorySCode(paramMap);
+	}
 
 	@Override
 	public Map<String, Object> selectItemDetail(Map<String, Object> paramMap) throws Exception {

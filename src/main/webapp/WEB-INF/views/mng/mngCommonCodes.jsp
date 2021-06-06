@@ -47,7 +47,7 @@
 			<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
 				<!-- Page Heading/Breadcrumbs-->
 				
-          		<span>Total: <em>${pg.totalRecordCount}</em> </span>
+          		<span id="total">Total: ${pg.totalRecordCount} </span>
                 
 				<table class="table table-sm">
 					<colgroup>
@@ -137,16 +137,21 @@ $(document).ready(function(){
    	$(".chBox").click(function(){
 			$("#allCheck").prop("checked", false);
 		});
+   	
+   	var maxNo=Number('${maxNo}');
+   	var total=Number('${pg.totalRecordCount}');
+   	var idx=0;
+   	
     $("#addCodeBtn").on("click",function(e){
-    	var maxNo=Number('${maxNo}')+1;
-    	var row='<tr><th><div class="checkBox"><input type="checkbox" name="chBox" class="chBox" data-cid="'+maxNo+'" /></div></th>';
-    	row+='<th><input type="text" name="CID" value="'+maxNo+'" readonly></th>';
+    	var row='<tr><th><div class="checkBox"><input type="checkbox" name="chBox" class="chBox" data-cid="'+(++maxNo)+'" /></div></th>';
+    	row+='<th><input type="text" name="CID" value="'+(maxNo)+'" readonly></th>';
     	row+='<td><input type="text" name="L_CATEGORY" value=""></td>';
     	row+='<td><input type="text" name="S_CATEGORY" value=""></td>';
     	row+='<td><input type="text" name="NAME" value=""></td>';
     	row+='<td><input type="text" name="DESCRPT" value=""></td></tr>';
     	
     	$("#codesSection").append(row);
+    	$("#total").html('Total: '+(total+(++idx)));
     });
     
     

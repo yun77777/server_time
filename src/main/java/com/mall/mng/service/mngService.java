@@ -29,6 +29,8 @@ public interface mngService {
 
 	public List<Map<String, Object>> selectCategoryCode(Map<String, Object> paramMap) throws Exception;
 
+	public List<Map<String, Object>> selectCategorySCode(Map<String, Object> paramMap) throws Exception;
+
 	public Integer selectItemListCnt(Map<String, Object> paramMap) throws Exception;
 
 	public Integer selectCommonCodesCnt(Map<String, Object> paramMap) throws Exception;

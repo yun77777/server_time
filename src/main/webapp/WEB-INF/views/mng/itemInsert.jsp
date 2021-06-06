@@ -47,18 +47,21 @@
  --%>			
 			<div class="inputArea">	
 				<label>1차 분류${category1}</label>
-				<select name="cateCode" class="category1 form-control">
+				<select id="cateCode" name="cateCode" class="category1 form-control">
 					<option value="">전체</option>
 					<c:forEach var="result" items="${category1}">
-						<option value="${result.S_CATEGORY}">${result.S_CATEGORY}</option>
+						<option value="${result.S_CATEGORY}">${result.NAME}</option>
 					</c:forEach>
 				</select>
 			
-				<label>2차 분류${category2}</label>
-				<select class="category2 form-control" name="">
+				<label>2차 분류${top}/${bottom}</label>
+				<select id="cateCode2"  class="category2 form-control" name="">
 					<option value="">전체</option>
-					<c:forEach var="result" items="${category2}">
-						<option value="${result.S_CATEGORY}">${result.S_CATEGORY}</option>
+						<c:forEach var="result" items="${top}">
+							<option id="topOpt" value="${result.S_CATEGORY}">${result.NAME}</option>
+						</c:forEach>
+					<c:forEach var="result" items="${bottom}">
+						<option id="bottomOpt" value="${result.S_CATEGORY}">${result.NAME}</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -166,6 +169,9 @@
 <script>
 var gfv_count = 1;
 $(document).ready(function(){
+	$("#topOpt").hide();
+	$("#bottomOpt").hide();
+	
 	var formObj = $("form[name='writeForm']");
 	/* $(".write_btn").on("click", function(){
 		if(fn_valiChk()){
@@ -242,6 +248,27 @@ $(document).ready(function(){
     $("a[name='delete']").on("click", function(e){ //삭제 버튼
         e.preventDefault();
         fn_deleteFile($(this));
+    });
+    
+    
+    
+    $("#cateCode").change(function(){
+    	alert($(this).val());
+    	//var opt='<option value="${result.S_CATEGORY}">${result.NAME}</option>';
+    	//$("#cateCode2").html('');
+    	if($(this).val()=='상의'){
+    		alert("상의");
+	    	$("#topOpt").show();
+	    	$("#bottomOpt").hide();
+   		} else if($(this).val()=='하의'){
+   			alert("하의");
+	    	$("#topOpt").hide();
+	    	$("#bottomOpt").show();
+   		} else{
+   			$("#topOpt").hide();
+	    	$("#bottomOpt").hide();
+   		}
+    	
     });
 });
 

@@ -186,13 +186,20 @@ public class mngController {
 //			model.addAttribute("category", new Gson().toJson(category));  // 변수 category를 제이슨(json)타입으로 변환하여 category 세션에 부여
 ////			model.addAttribute("category", JSONArray.fromObject(category));  // 변수 category를 제이슨(json)타입으로 변환하여 category 세션에 부여
 
-			paramMap.put("L_CATEGORY",1);
+			paramMap.put("L_CATEGORY","L");
 			List<Map<String, Object>> category1=mngService.selectCategoryCode(paramMap);
-			paramMap.put("L_CATEGORY",2);
+			paramMap.put("L_CATEGORY","S");
 			List<Map<String, Object>> category2=mngService.selectCategoryCode(paramMap);
-			System.err.println("@@@cate1:"+category1);
+			paramMap.put("S_CATEGORY","상의");
+			List<Map<String, Object>> category3=mngService.selectCategorySCode(paramMap);
+			paramMap.put("S_CATEGORY","하의");
+			List<Map<String, Object>> category4=mngService.selectCategorySCode(paramMap);
+			System.err.println("@@@category3:"+category3);
+			System.err.println("@@@category4:"+category4);
 			model.addAttribute("category1",category1);
 			model.addAttribute("category2",category2);
+			model.addAttribute("top",category3);
+			model.addAttribute("bottom",category4);
 
 		
 		} catch (Exception e) {
@@ -331,7 +338,7 @@ System.err.println("fsdlmflmf:"+checkArr);
 	}
 	
 	@RequestMapping(value = "/mngCommonCodes.do")
-	public String mngCommonCodes(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="5") int recordCountPerPage,
+	public String mngCommonCodes(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="20") int recordCountPerPage,
 			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
 		
 		try {
