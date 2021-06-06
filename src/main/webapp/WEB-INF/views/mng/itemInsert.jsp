@@ -58,10 +58,10 @@
 				<select id="cateCode2"  class="category2 form-control" name="">
 					<option value="">전체</option>
 						<c:forEach var="result" items="${top}">
-							<option id="topOpt" value="${result.S_CATEGORY}">${result.NAME}</option>
+							<option class="topOpt" value="${result.S_CATEGORY}">${result.NAME}</option>
 						</c:forEach>
 					<c:forEach var="result" items="${bottom}">
-						<option id="bottomOpt" value="${result.S_CATEGORY}">${result.NAME}</option>
+						<option class="bottomOpt" value="${result.S_CATEGORY}">${result.NAME}</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -169,8 +169,7 @@
 <script>
 var gfv_count = 1;
 $(document).ready(function(){
-	$("#topOpt").hide();
-	$("#bottomOpt").hide();
+	
 	
 	var formObj = $("form[name='writeForm']");
 	/* $(".write_btn").on("click", function(){
@@ -250,23 +249,19 @@ $(document).ready(function(){
         fn_deleteFile($(this));
     });
     
-    
+    $(".topOpt").hide();
+	$(".bottomOpt").hide();
     
     $("#cateCode").change(function(){
-    	alert($(this).val());
-    	//var opt='<option value="${result.S_CATEGORY}">${result.NAME}</option>';
-    	//$("#cateCode2").html('');
     	if($(this).val()=='상의'){
-    		alert("상의");
-	    	$("#topOpt").show();
-	    	$("#bottomOpt").hide();
+	    	$(".topOpt").show();
+	    	$(".bottomOpt").hide();
    		} else if($(this).val()=='하의'){
-   			alert("하의");
-	    	$("#topOpt").hide();
-	    	$("#bottomOpt").show();
+	    	$(".topOpt").hide();
+	    	$(".bottomOpt").show();
    		} else{
-   			$("#topOpt").hide();
-	    	$("#bottomOpt").hide();
+   			$(".topOpt").hide();
+	    	$(".bottomOpt").hide();
    		}
     	
     });
