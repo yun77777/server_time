@@ -20,6 +20,8 @@ public interface mngMapper {
 
 	public List<Map<String, Object>> selectItemList(Map<String, Object> paramMap) throws Exception;
 
+	public List<Map<String, Object>> selectItemMainList(Map<String, Object> paramMap) throws Exception;
+
 	public List<Map<String, Object>> selectItemImgList(Map<String, Object> paramMap) throws Exception;
 
 	public List<Map<String, Object>> selectCommonCodes(Map<String, Object> paramMap) throws Exception;
@@ -49,4 +51,6 @@ public interface mngMapper {
 	public void updateCommonCodes(Map<String, Object> paramMap);
 
 	public void deleteCommonCodes(Map<String, Object> paramMap);
+
+	public void deleteItem(Map<String, Object> paramMap);
 }

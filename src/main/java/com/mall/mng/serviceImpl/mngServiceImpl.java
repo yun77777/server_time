@@ -82,6 +82,11 @@ public class mngServiceImpl implements mngService {
 	}
 
 	@Override
+	public List<Map<String, Object>> selectItemMainList(Map<String, Object> paramMap) throws Exception {
+		return mngMapper.selectItemMainList(paramMap);
+	}
+
+	@Override
 	public List<Map<String, Object>> selectItemImgList(Map<String, Object> paramMap) throws Exception {
 		return mngMapper.selectItemImgList(paramMap);
 	}
@@ -95,7 +100,7 @@ public class mngServiceImpl implements mngService {
 	public List<Map<String, Object>> selectCategoryCode(Map<String, Object> paramMap) throws Exception {
 		return mngMapper.selectCategoryCode(paramMap);
 	}
-	
+
 	@Override
 	public List<Map<String, Object>> selectCategorySCode(Map<String, Object> paramMap) throws Exception {
 		return mngMapper.selectCategorySCode(paramMap);
@@ -121,7 +126,7 @@ public class mngServiceImpl implements mngService {
 	public Integer selectItemListCnt(Map<String, Object> paramMap) throws Exception {
 		return mngMapper.selectItemListCnt(paramMap);
 	}
-	
+
 	@Override
 	public Integer selectCommonCodesCnt(Map<String, Object> paramMap) throws Exception {
 		return mngMapper.selectCommonCodesCnt(paramMap);
@@ -161,6 +166,12 @@ public class mngServiceImpl implements mngService {
 	public void deleteCommonCodes(Map<String, Object> paramMap) {
 		mngMapper.deleteCommonCodes(paramMap);
 	}
+	
+	@Override
+	public void deleteItem(Map<String, Object> paramMap) {
+		mngMapper.deleteItem(paramMap);
+	}
+
 	@Override
 	public void insertCommonCodes(Map<String, Object> paramMap) throws Exception {
 		mngMapper.insertCommonCodes(paramMap);

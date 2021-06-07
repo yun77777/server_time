@@ -42,21 +42,26 @@
 			
 <%-- 			<form role="form" method="post" autocomplete="off" enctype="multipart/form-data">
  --%>			
+ 
+            <button class="btn btn-secondary btn-sm float-right" id="" onclick="fn_list()" type="button">list</button>
+ 
 			<div class="inputArea">	
 				<label>1차 분류</label>
-				<select name="cateCode" class="category1 form-control">
+				<select id="cateCode1" name="cateCode1" class="category1 form-control">
 					<!-- <option value="">전체</option> -->
 				<c:forEach var="result" items="${category1}">
-					<option value="${result.S_CATEGORY}" <c:if test="${detail.cateCode eq result.L_CATEGORY}"> selected</c:if> >${result.S_CATEGORY}</option>
+					<option value="${result.CID}" <c:if test="${detail.cateCode1 eq result.CID}"> selected</c:if> >${result.NAME}</option>
 				</c:forEach>
 				</select>
 			
 				<label>2차 분류</label>
-				<select class="category2 form-control" value="${detail.category}" name="cateCode">
-					<option value="2">2</option>
+				<select id="cateCode2" name="cateCode2" class="category2 form-control" value="${detail.category}">
 					<option value="">전체</option>
-					<c:forEach var="result" items="${category2}">
-						<option value="${result.S_CATEGORY}">${result.S_CATEGORY}</option>
+					<c:forEach var="result" items="${top}">
+						<option class="topOpt" value="${result.CID}" <c:if test="${detail.cateCode2 eq result.CID}"> selected</c:if> >${result.NAME}</option>
+					</c:forEach>
+					<c:forEach var="result" items="${bottom}">
+						<option class="bottomOpt" value="${result.CID}" <c:if test="${detail.cateCode2 eq result.CID}"> selected</c:if> >${result.NAME}</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -132,8 +137,8 @@
 					
 				</form>
 		<div>
-						<button type="submit" class="update_btn">저장</button>
-						<button type="button" class="cancel_btn">취소</button>
+<!-- 						<button type="submit" class="update_btn">저장</button>
+ -->						<button type="button" class="cancel_btn">취소</button>
 						<button type="button" class="fileAdd_btn">파일추가</button>
 		</div>
 			
@@ -217,6 +222,25 @@ $(document).ready(function(){
 		    reader.readAsDataURL(this.files[0]);
 		   }
 		  });
+	
+	
+	  $(".topOpt").hide();
+		$(".bottomOpt").hide();
+	    
+	    $("#cateCode1").change(function(){
+	    	
+	    	if($(this).val()=='7'){
+		    	$(".topOpt").show();
+		    	$(".bottomOpt").hide();
+	   		} else if($(this).val()=='9'){
+		    	$(".topOpt").hide();
+		    	$(".bottomOpt").show();
+	   		} else{
+	   			$(".topOpt").hide();
+		    	$(".bottomOpt").hide();
+	   		}
+	    	
+	    });
 });
 
 function fn_valiChk(){
@@ -305,7 +329,8 @@ function fn_save() {
 /* 	var  formData= $('#writeForm').serialize(); */
 
 
-	var category=$("#itemForm #category").val();
+	var cateCode1=$("#itemForm #cateCode1").val();
+	var cateCode2=$("#itemForm #cateCode2").val();
 	var gdsNum=$("#itemForm #gdsNum").val();
 	var gdsName=$("#itemForm #gdsName").val();
 	var gdsPrice=$("#itemForm #gdsPrice").val();
@@ -314,7 +339,8 @@ function fn_save() {
 	
 	alert($("#gdsNum").val());
 	
-	formData.append("cateCode",category);
+	formData.append("cateCode1",cateCode1);
+	formData.append("cateCode2",cateCode2);
 	formData.append("gdsNum",gdsNum);
 	formData.append("gdsName",gdsName);
 	formData.append("gdsPrice",gdsPrice);
@@ -359,8 +385,7 @@ function fn_save() {
 		processData : false,
 		contentType : false,
 		success : function(result) {
-			alert(result);
-			//fn_list();
+			fn_list();
 		}, // success 
 
 		error : function(xhr, status) {

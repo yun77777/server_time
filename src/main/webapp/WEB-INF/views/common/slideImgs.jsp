@@ -14,7 +14,7 @@
     <!--PELOCULAS RECOMENDADS-->
 <div class="peliculas-recomendadas contenedor">
       <div class="contenedor-titulo-controles">
-        <h3>TYPE 1</h3>
+        <h3>상의</h3>
         <div class="indicadores">
 
         </div>
@@ -25,7 +25,7 @@
 
         <div class="contenedor-carrusel">
           <div class="carrusel">
-<c:forEach var="result" items="${list}" varStatus="status">
+<c:forEach var="result" items="${list1}" varStatus="status">
             <%-- <div class="pelicula">
               <a href="#">
 				<img src="<c:url value='/img/${result.representative_file}'/>" alt="no image" />              </a>
@@ -55,7 +55,7 @@
     <!--SUSPENSO-->
 <div class="peliculas-recomendadas contenedor">
       <div class="contenedor-titulo-controles contenedor-titulo-controles2">
-        <h3>TYPE 2</h3>
+        <h3>하의</h3>
         <div class="indicadores">
 
         </div>
@@ -66,7 +66,7 @@
 
         <div class="contenedor-carrusel contenedor-carrusel2">
           <div class="carrusel">
-<c:forEach var="result" items="${list}" varStatus="status">
+<c:forEach var="result" items="${list2}" varStatus="status">
             <%-- <div class="pelicula">
               <a href="#">
 				<img src="<c:url value='/img/${result.representative_file}'/>" alt="no image" />              </a>

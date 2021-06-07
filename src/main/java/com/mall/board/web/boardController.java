@@ -67,11 +67,17 @@ public class boardController {
 			paramMap.put("length",recordCountPerPage);
 			paramMap.put("start",pg.getFirstRecordIndex()-1);
 			
-			List<Map<String, Object>> list=mngService.selectItemList(paramMap);
+			paramMap.put("cateCode1",7);
+			List<Map<String, Object>> list1=mngService.selectItemMainList(paramMap);
+			paramMap.put("cateCode1",9);
+			List<Map<String, Object>> list2=mngService.selectItemMainList(paramMap);
+//			List<Map<String, Object>> list=mngService.selectItemList(paramMap);
 //			List<Map<String, Object>> list=boardService.selectItemList(paramMap);
-			System.err.println("li:"+list);
+			System.err.println("list1:"+list1);
+			System.err.println("list2:"+list2);
 			
-			model.addAttribute("list",list);
+			model.addAttribute("list1",list1);
+			model.addAttribute("list2",list2);
 			model.addAttribute("pg",pg);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

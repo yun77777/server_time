@@ -17,7 +17,8 @@
 		insert into tbl_goods (
 				gdsNum
 				, gdsName
-				, cateCode
+				, cateCode1
+				, cateCode2
 				, gdsPrice
 				, gdsStock
 				, gdsDes
@@ -27,7 +28,8 @@
 	   		values (
 		   		#{gdsNum}
 		   		, #{gdsName}
-		   		, #{cateCode} 
+		   		, #{cateCode1} 
+		   		, #{cateCode2} 
 		   		, #{gdsPrice}
 		   		, #{gdsStock}
 		   		, #{gdsDes}
@@ -43,12 +45,14 @@
  --> 	SELECT @rownum:=@rownum+1 ROWNUM
 	 	, B.gdsNum
 	 	, B.gdsName
-	 	, B.cateCode
+	 	, B.cateCode1
+	 	, B.cateCode2
 	 	, B.gdsPrice
 	 	, B.gdsStock
 	 	, B.gdsDes
 	 	, B.gdsImg
 	 	, B.gdsThumbImg
+	 	, (SELECT NAME FROM COMMON_TBL WHERE B.cateCode1=CID) cateCode
 	 	,(SELECT ORG_FILE_NAME FROM MP_FILE WHERE BNO=B.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE WHERE BNO=B.gdsNum)) representative_file
 	 	,(SELECT FILE_PATH FROM MP_FILE WHERE BNO=B.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE WHERE BNO=B.gdsNum)) file_src
 	 	,(SELECT SEQ_MP_FILE_NO FROM MP_FILE WHERE BNO=B.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE WHERE BNO=B.gdsNum)) file_no
@@ -58,6 +62,36 @@
  -->		ORDER BY B.gdsNum DESC
 		<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
 	</select>
+	
+	
+	<select id="selectItemMainList" parameterType="java.util.HashMap"
+		resultType="java.util.HashMap">
+<!-- 	<if test="PAGE_TYPE!='main'">
+ -->		<include refid="com.mall.common.commonMapper.pagingHeaderSql"/>
+<!-- 	</if>
+ --> 	SELECT @rownum:=@rownum+1 ROWNUM
+	 	, B.gdsNum
+	 	, B.gdsName
+	 	, B.cateCode1
+	 	, B.cateCode2
+	 	, B.gdsPrice
+	 	, B.gdsStock
+	 	, B.gdsDes
+	 	, B.gdsImg
+	 	, B.gdsThumbImg
+	 	, (SELECT NAME FROM COMMON_TBL WHERE B.cateCode1=CID) cateCode
+	 	,(SELECT ORG_FILE_NAME FROM MP_FILE WHERE BNO=B.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE WHERE BNO=B.gdsNum)) representative_file
+	 	,(SELECT FILE_PATH FROM MP_FILE WHERE BNO=B.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE WHERE BNO=B.gdsNum)) file_src
+	 	,(SELECT SEQ_MP_FILE_NO FROM MP_FILE WHERE BNO=B.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE WHERE BNO=B.gdsNum)) file_no
+		FROM tbl_goods B,(SELECT @rownum:=0) R
+		where B.gdsNum>=0 and B.cateCode1=#{cateCode1}
+<!-- 		<include refid="searchOption"/>
+ -->		ORDER BY B.gdsNum DESC
+		<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
+	</select>
+	
+	
+	
 	
 	<select id="selectItemListCnt" parameterType="map"
 		resultType="Integer">
@@ -77,7 +111,8 @@
 		SELECT @rownum:=@rownum+1 ROWNUM
 	 	, B.gdsNum
 	 	, B.gdsName
-	 	, B.cateCode
+	 	, B.cateCode1
+	 	, B.cateCode2
 	 	<!-- , CT.DESCRPT
 	 	, CT.S_CATEGORY -->
 	 	, B.gdsPrice
@@ -102,7 +137,8 @@
  	SELECT @rownum:=@rownum+1 ROWNUM
 	 	, B.gdsNum
 	 	, B.gdsName
-	 	, B.cateCode
+	 	, B.cateCode1
+	 	, B.cateCode2
 	 	, B.gdsPrice
 	 	, B.gdsStock
 	 	, B.gdsDes
@@ -125,12 +161,18 @@
 			SELECT max(gdsNum) FROM tbl_goods
 	</select>
 	
+	<delete id="deleteItem" parameterType="map">
+ 	delete from tbl_goods
+ 		where gdsNum=#{gdsNum}
+	</delete>
+	
 	<insert id="updateItem" >
 		update tbl_goods 
 		set 
 			gdsNum=#{gdsNum}
 			, gdsName=#{gdsName}
-			, cateCode=#{cateCode}
+			, cateCode1=#{cateCode1}
+			, cateCode2=#{cateCode2}
 			, gdsPrice=#{gdsPrice}
 			, gdsStock=#{gdsStock}
 			, gdsDes=#{gdsDes}

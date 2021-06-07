@@ -84,6 +84,7 @@
                         </div> -->
 						<div id="success"></div>
 						<!-- //search-->
+						<button type="button" onclick="" id="delete_btn" class="btn btn-primary">삭제</button>			
 						<button class="btn btn-primary" onclick="fn_list('1')" type="button">Search</button>
 						<br><br>
 						<button class="btn btn-primary" onclick="fn_insert('${member.ID}')" type="button">Insert</button>
@@ -95,6 +96,13 @@
 				<table class="table table-sm">
 					<thead>
 						<tr>
+							<th scope="col">
+							<div class="allCheck">
+				    			<span>
+				    				<input type="checkbox" name="allCheck" id="allCheck" />
+				    			</span>
+							</div>
+							</th>
 							<th scope="col">gdsNum</th>
 							<th scope="col">img</th>
 							<th scope="col">cateCode</th>
@@ -105,6 +113,16 @@
 					<tbody>
 						<c:forEach var="result" items="${list}" varStatus="status">
 							<tr>
+								<th>
+									<div class="checkBox">
+										<input type="checkbox" name="chBox" class="chBox" data-cid="${result.gdsNum}" />
+										<script>
+											$(".chBox").click(function(){
+												$("#allCheck").prop("checked", false);
+											});
+										</script>
+									</div>
+								</th>
 								<th scope="row">${result.gdsNum}</th>
 								<td style="height:200px">
 		                           <img class="card-img-top" src="<c:url value='/img/${result.representative_file}'/>" style="width:100px" alt="no image" />
@@ -161,6 +179,49 @@
 </body>
 
 <script>
+$(document).ready(function(){
+	$("#allCheck").click(function(){
+    	var chk = $("#allCheck").prop("checked");
+    	
+    	if(chk) {
+    		$(".chBox").prop("checked", true);
+    	} else {
+    		$(".chBox").prop("checked", false);
+    	}
+    });	
+	
+	 $("#delete_btn").on("click",function(e){
+
+	    	var confirm_val = confirm("정말 삭제하시겠습니까?");
+	    	
+	    	if(confirm_val) {
+	    		var checkArr = new Array();
+
+	    		// 체크된 체크박스의 갯수만큼 반복
+	    		$("input[class='chBox']:checked").each(function(){
+	    			checkArr.push($(this).attr("data-cid"));
+	    		});
+	    		
+	    		alert(checkArr);
+	    			
+	    		$.ajax({
+	    			url : "/mng/deleteItems.do",
+	    			type : "post",
+	    			data : { chbox : checkArr },
+	    			success : function(result){
+	    				
+	    				if(result == 1) {						
+	    					alert("삭제 완료");
+	    					location.href = "/mng/itemList.do";
+	    				} else {
+	    					alert("삭제 실패");
+	    				}
+	    			}
+	    		});
+	    	}
+	    });
+});
+
 function fn_list(no) {
 	$('#currentPageNo').val(no);
 	

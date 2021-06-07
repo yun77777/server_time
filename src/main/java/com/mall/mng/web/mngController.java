@@ -55,7 +55,7 @@ public class mngController {
 
 		try {
 			PaginationVO pg = new PaginationVO(currentPageNo, recordCountPerPage, 3, 
-					boardService.selectBoardListCnt(paramMap));
+					mngService.selectItemListCnt(paramMap));
 			
 			paramMap.put("length",recordCountPerPage);
 			paramMap.put("start",pg.getFirstRecordIndex()-1);
@@ -148,13 +148,16 @@ public class mngController {
 			System.err.println(detail);
 			System.err.println(paramMap);
 //			List<Map<String,Object>> list=boardService.selectBoardHisList(paramMap);
-			paramMap.put("L_CATEGORY",1);
+			paramMap.put("L_CATEGORY","L");
 			List<Map<String, Object>> category1=mngService.selectCategoryCode(paramMap);
-			paramMap.put("L_CATEGORY",2);
-			List<Map<String, Object>> category2=mngService.selectCategoryCode(paramMap);
+			paramMap.put("S_CATEGORY","상의");
+			List<Map<String, Object>> category3=mngService.selectCategorySCode(paramMap);
+			paramMap.put("S_CATEGORY","하의");
+			List<Map<String, Object>> category4=mngService.selectCategorySCode(paramMap);
+
 			model.addAttribute("category1",category1);
-			model.addAttribute("category2",category2);
-		
+			model.addAttribute("top",category3);
+			model.addAttribute("bottom",category4);		
 			model.addAttribute("detail",detail);
 			model.addAttribute("imgList",imgList);
 			model.addAttribute("len",imgList.size());
@@ -188,16 +191,12 @@ public class mngController {
 
 			paramMap.put("L_CATEGORY","L");
 			List<Map<String, Object>> category1=mngService.selectCategoryCode(paramMap);
-			paramMap.put("L_CATEGORY","S");
-			List<Map<String, Object>> category2=mngService.selectCategoryCode(paramMap);
 			paramMap.put("S_CATEGORY","상의");
 			List<Map<String, Object>> category3=mngService.selectCategorySCode(paramMap);
 			paramMap.put("S_CATEGORY","하의");
 			List<Map<String, Object>> category4=mngService.selectCategorySCode(paramMap);
-			System.err.println("@@@category3:"+category3);
-			System.err.println("@@@category4:"+category4);
+
 			model.addAttribute("category1",category1);
-			model.addAttribute("category2",category2);
 			model.addAttribute("top",category3);
 			model.addAttribute("bottom",category4);
 
@@ -257,6 +256,37 @@ public class mngController {
 			e.printStackTrace();
 		}		
 		return paramMap;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/deleteItems.do")
+	public int deleteItems(
+			@RequestParam(value="chbox[]") int [] checkArr, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+		try {
+			model.addAttribute("login",httpSession.getAttribute("login"));
+			model.addAttribute("member",httpSession.getAttribute("member"));
+System.err.println("fsdlmflmf:"+checkArr);
+			
+			Map<String, Object> paramMap=new HashMap<String, Object>();
+			int gdsNum=0;
+			
+			if(checkArr != null) {
+				for(int i=0 ; i<checkArr.length ; i++) {
+					gdsNum = checkArr[i];
+					System.err.println("gdsNum:"+gdsNum);
+					paramMap.put("gdsNum",gdsNum);
+					
+					mngService.deleteItem(paramMap);
+			}
+		}
+			
+			
+			model.addAttribute("paramMap", paramMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return 1;
 	}
 	
 	@ResponseBody
