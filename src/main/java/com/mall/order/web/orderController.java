@@ -74,7 +74,7 @@ public class orderController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/itemDetailPopup.do")
+	@RequestMapping(value = "/itemDetailPopup.do", produces = "application/text; charset=utf8")
 	//@RequestParam(value="gdsNum") String gdsNum
 	//public Map<String, Object> itemDetailPopup(@RequestParam(value="gdsNum") String gdsNum, @RequestParam Map<String, Object> paramMap, HttpSession httpSession,
 			public String itemDetailPopup(@RequestParam(value="gdsNum") String gdsNum, @RequestParam Map<String, Object> paramMap, HttpSession httpSession,

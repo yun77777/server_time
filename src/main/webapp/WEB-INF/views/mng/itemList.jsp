@@ -190,36 +190,36 @@ $(document).ready(function(){
     	}
     });	
 	
-	 $("#delete_btn").on("click",function(e){
+ $("#delete_btn").on("click",function(e){
 
-	    	var confirm_val = confirm("정말 삭제하시겠습니까?");
-	    	
-	    	if(confirm_val) {
-	    		var checkArr = new Array();
+    	var confirm_val = confirm("정말 삭제하시겠습니까?");
+    	
+    	if(confirm_val) {
+    		var checkArr = new Array();
 
-	    		// 체크된 체크박스의 갯수만큼 반복
-	    		$("input[class='chBox']:checked").each(function(){
-	    			checkArr.push($(this).attr("data-cid"));
-	    		});
-	    		
-	    		alert(checkArr);
-	    			
-	    		$.ajax({
-	    			url : "/mng/deleteItems.do",
-	    			type : "post",
-	    			data : { chbox : checkArr },
-	    			success : function(result){
-	    				
-	    				if(result == 1) {						
-	    					alert("삭제 완료");
-	    					location.href = "/mng/itemList.do";
-	    				} else {
-	    					alert("삭제 실패");
-	    				}
-	    			}
-	    		});
-	    	}
-	    });
+    		// 체크된 체크박스의 갯수만큼 반복
+    		$("input[class='chBox']:checked").each(function(){
+    			checkArr.push($(this).attr("data-cid"));
+    		});
+    		
+    		alert(checkArr);
+    			
+    		$.ajax({
+    			url : "/mng/deleteItems.do",
+    			type : "post",
+    			data : { chbox : checkArr },
+    			success : function(result){
+    				
+    				if(result == 1) {						
+    					alert("삭제 완료");
+    					location.href = "/mng/itemList.do";
+    				} else {
+    					alert("삭제 실패");
+    				}
+    			}
+    		});
+    	}
+    });
 });
 
 function fn_list(no) {

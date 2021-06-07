@@ -11,7 +11,7 @@
 <div id="myModal" class="modal fade">
 	<div class="modal-dialog modal-login">
 		<div class="modal-content">
- 		<form id="loginForm" method="post" enctype="multipart/form-data">
+ 		<form id="loginForm" method="post" enctype="">
 				<div class="modal-header">				
 					<h4 class="modal-title">Login</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -30,10 +30,12 @@
 						<input type="password" id="pw" name="PW"  class="form-control" required="required" placeholder="비밀번호">
 					</div>
 				</div>
+		</form>
 				<div class="modal-footer">
-					<label class="checkbox-inline pull-left"><input type="checkbox" name="useCookie"> Remember me</label>
-					<input type="submit" class="btn btn-primary pull-right" onclick="fn_sign_in()" value="Login">
-			        <a href="<c:url value='/signUp.do'/>" class="text-center">회원가입</a>
+					<label class="checkbox-inline pull-left"><input type="checkbox" name="useCookie" value="Y"> Remember me</label>
+					<button type="submit" class="btn btn-primary pull-right" onclick="fn_sign_in()">Login</button>
+				
+				
 				</div>
 				
 				
@@ -41,11 +43,12 @@
 		      <a class="nav-link" href="https://kauth.kakao.com/oauth/authorize?client_id=8ec4c5e4b41aba30453d25fa8512e604&redirect_uri=http://localhost:8080/user/kakaoOauth.do&response_type=code">
 		          <span><img height="53" src="<c:url value='/resources/img/btn_kakao.png'/>"></span>
 		      </a>
-		      <a href="javascript:void(0)" onclick="kakaoLogout();">
+		     <!--  <a href="javascript:void(0)" onclick="kakaoLogout();">
 		          <span>카카오 로그아웃</span>
-		      </a>
+		      </a> -->
 	</c:if>
-			</form>
+			
+	        <a href="<c:url value='/signUp.do'/>" class="text-center">회원가입</a>
 		</div>
 	</div>
 </div>     

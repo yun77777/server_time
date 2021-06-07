@@ -33,9 +33,6 @@
 
 <div class="login-box">
     <div class="login-logo">
-        <a href="${path}/">
-            <b>DoubleS</b>&nbsp MVC-BOARD
-        </a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
@@ -80,9 +77,9 @@
 		          <span><img height="53" src="<c:url value='/resources/img/btn_kakao.png'/>"></span>
 		      </a>
 			</li> --%>
-		      <a href="javascript:void(0)" onclick="kakaoLogout();">
+		      <!-- <a href="javascript:void(0)" onclick="kakaoLogout();">
 		          <span>카카오 로그아웃</span>
-		      </a>
+		      </a> -->
 	</c:if>
 
         <!-- /.social-auth-links -->
