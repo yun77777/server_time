@@ -16,7 +16,6 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Modern Business - Start Bootstrap Template</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <link href="<c:url value='/resources/css/styles.css'/>" rel="stylesheet" />
@@ -252,7 +251,6 @@ figure.snip1384.hover i {
 
 
 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
-	<%@ include file="/WEB-INF/views/common/header.jsp"%> 
 	
 	<%@ include file="/WEB-INF/views/common/content.jsp"%>
 	

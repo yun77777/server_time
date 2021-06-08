@@ -22,13 +22,24 @@
         </c:if>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
+        
+        
+        <form id="navForm" method="post">
+        	<input type="hidden" id="itemType" name="itemType">
+        </form>
+            
+            
             <ul class="navbar-nav ml-auto">
             <c:if test="${not empty member}">
             	<li class="nav-item"><p class="nav-link">환영합니다 <b>${member.ID}</b> 고객님!</p></li>
 <%--                     	<li class="nav-item"><p class="nav-link">Welcome <b>${login.ID}</b>!</p></li> --%>
 </c:if>
 <!--                         <li class="nav-item"><a class="nav-link" href="/about.do">About</a></li>
- -->                        <li class="nav-item"><a class="nav-link" href="/boardList.do">게시판</a></li>
+ -->                        
+ 							<li class="nav-item"><a class="nav-link" href="#" onclick="fn_itemList('top')">상의</a></li>
+ 							<li class="nav-item"><a class="nav-link" href="#" onclick="fn_itemList('bottom')">하의</a></li>
+ 							
+ 							<li class="nav-item"><a class="nav-link" href="/boardList.do">게시판</a></li>
  							<li class="nav-item"><a class="nav-link" href="/cartList.do">장바구니</a></li>
 <!--                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
  -->                        

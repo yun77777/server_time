@@ -1,5 +1,6 @@
 package com.mall.board.web;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -410,5 +411,51 @@ public class boardController {
 			e.printStackTrace();
 		}		
 	return "board/boardInsert";
+	}
+	
+	
+	
+	@RequestMapping(value = "/itemList.do")
+	public String itemList(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="20") int recordCountPerPage , @RequestParam Map<String, Object> paramMap, @ModelAttribute("loginDTO") LoginDTO loginDTO, HttpSession httpSession, Model model) {
+		System.err.println("test@@@:"+httpSession.getAttribute("login"));
+		System.err.println("member@@@:"+httpSession.getAttribute("member"));
+		model.addAttribute("login",httpSession.getAttribute("login"));
+		model.addAttribute("member",httpSession.getAttribute("member"));
+		model.addAttribute("k_userInfo", httpSession.getAttribute("k_userInfo"));
+		System.err.println("kxx:"+httpSession.getAttribute("k_userInfo"));
+
+		try {
+			paramMap.put("B_TYPE",4);
+			paramMap.put("PAGE_TYPE","main");
+			
+			//카테고리별 페이징기능 추가@
+			
+			PaginationVO pg = new PaginationVO(currentPageNo, recordCountPerPage, 3, 
+					mngService.selectItemListCnt(paramMap));
+			
+			paramMap.put("length",recordCountPerPage);
+			paramMap.put("start",pg.getFirstRecordIndex()-1);
+			
+			List<Map<String, Object>> list1=new ArrayList<Map<String,Object>>();
+			List<Map<String, Object>> list2=new ArrayList<Map<String,Object>>();
+			if(paramMap.get("itemType")!=null && paramMap.get("itemType").toString().equals("top")) {
+				paramMap.put("cateCode1",7);
+					list1=mngService.selectItemMainList(paramMap);
+					model.addAttribute("list1",list1);
+			} else if(paramMap.get("itemType")!=null && paramMap.get("itemType").toString().equals("bottom")) {
+				paramMap.put("cateCode1",9);
+					list2=mngService.selectItemMainList(paramMap);
+					model.addAttribute("list2",list2);
+			}
+			
+			
+			model.addAttribute("pg",pg);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return "board/itemList";
 	}
 }
