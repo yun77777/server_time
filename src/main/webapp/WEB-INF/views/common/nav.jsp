@@ -63,7 +63,7 @@
                        
                        <a class="dropdown-item" href="/mng/orderList.do">주문 내역 관리</a>
                        <a class="dropdown-item" href="portfolio-3-col.html">상품평 관리</a>
-                       <a class="dropdown-item" href="portfolio-4-col.html">고객 관리</a>
+                       <a class="dropdown-item" href="/mng/customerList.do">고객 관리</a>
                    </div>
                </li>
 </c:if>

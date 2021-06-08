@@ -20,6 +20,8 @@ public interface mngMapper {
 
 	public List<Map<String, Object>> selectItemList(Map<String, Object> paramMap) throws Exception;
 
+	public List<Map<String, Object>> selectCustomerList(Map<String, Object> paramMap) throws Exception;
+
 	public List<Map<String, Object>> selectItemMainList(Map<String, Object> paramMap) throws Exception;
 
 	public List<Map<String, Object>> selectItemImgList(Map<String, Object> paramMap) throws Exception;
@@ -31,6 +33,8 @@ public interface mngMapper {
 	public List<Map<String, Object>> selectCategorySCode(Map<String, Object> paramMap) throws Exception;
 
 	public Integer selectItemListCnt(Map<String, Object> paramMap) throws Exception;
+
+	public Integer selectCustomerListCnt(Map<String, Object> paramMap) throws Exception;
 
 	public Integer selectCommonCodesCnt(Map<String, Object> paramMap) throws Exception;
 
@@ -53,4 +57,6 @@ public interface mngMapper {
 	public void deleteCommonCodes(Map<String, Object> paramMap);
 
 	public void deleteItem(Map<String, Object> paramMap);
+
+	public void deleteCustomer(Map<String, Object> paramMap);
 }

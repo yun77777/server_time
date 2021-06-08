@@ -77,6 +77,10 @@ public class mngServiceImpl implements mngService {
 	}
 
 	@Override
+	public List<Map<String, Object>> selectCustomerList(Map<String, Object> paramMap) throws Exception {
+		return mngMapper.selectCustomerList(paramMap);
+	}
+	@Override
 	public List<Map<String, Object>> selectItemList(Map<String, Object> paramMap) throws Exception {
 		return mngMapper.selectItemList(paramMap);
 	}
@@ -122,6 +126,10 @@ public class mngServiceImpl implements mngService {
 		return maxNo;
 	}
 
+	@Override
+	public Integer selectCustomerListCnt(Map<String, Object> paramMap) throws Exception {
+		return mngMapper.selectCustomerListCnt(paramMap);
+	}
 	@Override
 	public Integer selectItemListCnt(Map<String, Object> paramMap) throws Exception {
 		return mngMapper.selectItemListCnt(paramMap);
@@ -170,6 +178,10 @@ public class mngServiceImpl implements mngService {
 	@Override
 	public void deleteItem(Map<String, Object> paramMap) {
 		mngMapper.deleteItem(paramMap);
+	}
+	@Override
+	public void deleteCustomer(Map<String, Object> paramMap) {
+		mngMapper.deleteCustomer(paramMap);
 	}
 
 	@Override

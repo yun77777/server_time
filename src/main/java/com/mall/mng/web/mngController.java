@@ -565,7 +565,10 @@ System.err.println("fsdlmflmf:"+checkArr);
 	@ResponseBody
 	@RequestMapping(value = "/insertBoard.do")
 	public Map<String,Object> insertBoardMng(
-			MultipartHttpServletRequest multi, @RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+			MultipartHttpServletRequest multi,
+			@RequestParam(value="fileNoDel[]") String[] files,
+			@RequestParam(value="fileNameDel[]") String[] fileNames,
+			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
 		model.addAttribute("login",httpSession.getAttribute("login"));
 		model.addAttribute("member",httpSession.getAttribute("member"));
 
@@ -598,7 +601,7 @@ System.err.println("fsdlmflmf:"+checkArr);
 				
 				System.err.println("asmkdlmslkdmzklxcmklzcxm");
 				System.err.println(paramMap);
-				boardService.insertBoard(paramMap, multi, request);
+				boardService.insertBoard(paramMap, files, fileNames, multi);
 			}
 			
 			
@@ -709,6 +712,60 @@ System.err.println("fsdlmflmf:"+checkArr);
 		return 1;
 	}
 	
+	@RequestMapping(value = "/customerList.do")
+	public String customerList(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="5") int recordCountPerPage,
+			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+		model.addAttribute("login",httpSession.getAttribute("login"));
+		model.addAttribute("member",httpSession.getAttribute("member"));
 
+		paramMap.put("recordCountPerPage", recordCountPerPage);
+		paramMap.put("currentPageNo", currentPageNo);
 		
+		try {
+			PaginationVO pg = new PaginationVO(currentPageNo, recordCountPerPage, 3, 
+					mngService.selectCustomerListCnt(paramMap));
+			
+			paramMap.put("length",recordCountPerPage);
+			paramMap.put("start",pg.getFirstRecordIndex()-1);
+			
+			List<Map<String,Object>> list=mngService.selectCustomerList(paramMap);
+			
+			model.addAttribute("list",list);
+			model.addAttribute("paramMap",paramMap);
+			model.addAttribute("pg",pg);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	return "mng/customerList";
+	}
+
+	@RequestMapping(value = "/deleteCustomer.do")
+	public int deleteCustomer(
+			@RequestParam(value="chbox[]") String [] checkArr, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+		try {
+			model.addAttribute("login",httpSession.getAttribute("login"));
+			model.addAttribute("member",httpSession.getAttribute("member"));
+System.err.println("fsdlmflmf:"+checkArr);
+			
+			Map<String, Object> paramMap=new HashMap<String, Object>();
+			String id="";
+			
+			if(checkArr != null) {
+				for(int i=0 ; i<checkArr.length ; i++) {
+					id = checkArr[i];
+					paramMap.put("ID",id);
+					
+					mngService.deleteCustomer(paramMap);
+			}
+		}
+			
+			
+			model.addAttribute("paramMap", paramMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return 1;
+	}
 }

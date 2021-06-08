@@ -347,4 +347,34 @@
             where o.orderId=#{orderId}
 		
 	</select>
+	
+		
+	<select id="selectCustomerList" parameterType="java.util.HashMap"
+		resultType="java.util.HashMap">
+	<include refid="com.mall.common.commonMapper.pagingHeaderSql"/>
+		
+ 	SELECT 
+	 	ID
+	 	, NAME
+		FROM member
+	<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
+		
+	</select>
+	
+	<delete id="deleteCustomer" parameterType="java.util.HashMap">
+ 	delete member where ID=#{ID} 
+	</delete>
+	
+	<select id="selectCustomerListCnt" parameterType="map"
+		resultType="Integer">
+			SELECT COUNT(1) CNT
+		FROM (
+			SELECT o.ID
+		FROM member o
+		where o.ID IS NOT NULL
+		<!-- <include refid="searchOption"/> -->
+		) o
+	</select>
+	
+	
 </mapper>
