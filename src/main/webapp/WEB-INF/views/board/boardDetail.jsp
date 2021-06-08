@@ -14,7 +14,6 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Modern Business - Start Bootstrap Template</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <style>
@@ -103,8 +102,7 @@ body {
             <div class="container">
                 <!-- Page Heading/Breadcrumbs-->
                 <h1>
-                    Board
-                    <small>detail</small>
+                    게시글 상세
                 </h1>
                 <!-- Content Row-->
                 <!-- Contact Form-->
@@ -184,28 +182,6 @@ body {
 							      </td>
 							      </tr>
 							      <tr>
-							      <th scope="row">file</th>
-							      <td>
-							      	<div class="controls">
-                                     <input class="form-control" id="file" name="file" type="text"  value="${detail.file}" required data-validation-required-message="Please enter your email address." />
-                                	</div>
-							      </td>
-							      </tr>
-							     
-						       <c:forEach var="result" items="${fileList}" varStatus="status">
-	 							<tr>
-							      <td colspan="2">
-		 							<img class="list_img" src="<c:url value='/img/${result.ORG_FILE_NAME}'/>" alt="no image" style="width:50%;height:auto"/>
-                               	  </td>
-							    </tr>
-	 							<tr>
-							      <td colspan="2">
-                                     <input class="form-control" id="file" name="file" type="file"  value="${result.ORG_FILE_NAME}" required data-validation-required-message="Please enter your email address." />
-                               	  </td>
-							    </tr>
-                                </c:forEach>
-							      	
-							      <tr>
 							       <td colspan="2">
 							      	<div class="controls">
                                 	<textarea rows="5" cols="50" id="content" name="content" class="form-control">${detail.content}</textarea>
@@ -214,8 +190,39 @@ body {
 							    </tr>
 							  </tbody>
 							</table>
-                            
-                            
+                            <form id="writeForm" method="post" enctype="multipart/form-data">
+		
+					
+					<input type="hidden" id="no" name="no" value="${detail.gdsNum}"/>
+					<input type="hidden" id="fileNoDel" name="fileNoDel[]" value=""> 
+					<input type="hidden" id="fileNameDel" name="fileNameDel[]" value=""> 
+					<input type="hidden" id="type" name="type" value="save"> 
+					
+					<table>
+						<tbody>
+							<tr>
+								<td id="fileIndex">
+								
+									<c:forEach var="file" items="${fileList}" varStatus="var">
+									<div>
+										<img class="card-img-top" style="width:20%;height:auto" name="itemImg${var.index}" id="itemImg${var.index}" src="<c:url value='/img/${file.ORG_FILE_NAME}'/>" alt="no image" />
+										<input type="hidden" class="FILE_NO" id="FILE_NO" name="FILE_NO_${var.index}" value="${file.file_no}">
+										<input type="hidden" id="FILE_NAME" name="FILE_NAME" value="FILE_NO_${var.index}">
+										<a href="#" id="fileName" onclick="return false;">${file.file}</a>${file.file_no}
+										<button id="fileDelBtn" onclick="fn_del('${file.file_no}','FILE_NO_${var.index}');" type="button">삭제</button><br>
+									</div>
+									</c:forEach>
+									
+								</td>
+							</tr>
+						</tbody>			
+					</table>
+					
+				</form>
+                <div>
+					<button type="button" class="cancel_btn">취소</button>
+					<button type="button" class="fileAdd_btn">파일추가</button>
+				</div>        
                             
                             
                             <div id="success"></div>
@@ -330,7 +337,150 @@ body {
 
 <script>
 $(document).ready({
+var formObj = $("form[name='writeForm']");
+	
+	$("input[type=file]").change(function(){
+		alert('f');
+		var itemImg="#"+$(this).prev().attr("id");
+		alert(itemImg);
+		if(this.files && this.files[0]) {
+			var reader = new FileReader;
+			reader.onload = function(data) {
+				$(itemImg).attr("src", data.target.result).width(500);
+				
+/* 								$(".select_img img").attr("src", data.target.result).width(500);								 */
+			}
+			reader.readAsDataURL(this.files[0]);
+		}
+	});
+	
+	
+	fn_addFile();
+	$(".cancel_btn").on("click", function(){
+		event.preventDefault();
+		/* location.href = "/board/readView?bno=${update.bno}"
+			   + "&page=${scri.page}"
+			   + "&perPageNum=${scri.perPageNum}"
+			   + "&searchType=${scri.searchType}"
+			   + "&keyword=${scri.keyword}"; */
+	})
+	
+	$(".update_btn").on("click", function(){
+		if(fn_valiChk()){
+			return false;
+		}
+		/* formObj.attr("action", "/mng/updateItem.do");
+		formObj.attr("method", "post");
+		formObj.submit(); */
+		
+		fn_save();
+	});
+	
 });
+
+
+var fileNoArry = new Array();
+var fileNameArry = new Array();
+
+function fn_del(value, name){
+	
+	fileNoArry.push(value);
+	fileNameArry.push(name);
+	$("#fileNoDel").attr("value", fileNoArry);
+	$("#fileNameDel").attr("value", fileNameArry);
+}
+
+function fn_save() {
+	$('#boardForm #gdsNum').attr('disabled',false);
+	var  formData= new FormData($("#writeForm")[0]);
+/* 	var  formData= $('#writeForm').serialize(); */
+
+
+	var no=$("#boardForm #no").val();
+	var id=$("#boardForm #id").val();
+	var title=$("#boardForm #title").val();
+	var content=$("#boardForm #content").val();
+	
+	formData.append("no",no);
+	formData.append("id",id);
+	formData.append("title",title);
+	formData.append("content",content);
+
+
+	var fileNoDel = new Array();
+	var fileNameDel = new Array();
+	var file = new Array();
+	
+	
+	$(".FILE_NO").each(function(){
+		fileNoDel.push($(this).val());
+		fileNameDel.push($(this).next().val());
+		//checkArr.push($(this).attr("data-cartNum"));  // 배열에 데이터 삽입
+		
+	});
+	
+	$("input[type=file]").each(function(){
+		//alert('file:'+$(this).val());
+		file.push($(this).val());
+		
+	}); 
+	
+	//alert($("input[type=file]").val());
+	
+	formData.append("fileNoDel",fileNoDel);
+	formData.append("fileNameDel",fileNameDel);
+	formData.append("no",$("#boardForm #no").val());
+	formData.append("B_TYPE",1);
+	
+	formData.append("file",file);
+	
+	
+	$.ajax({
+		url : "${pageContext.request.contextPath}/updateBoard.do",
+		type : "post",
+		enctype: 'multipart/form-data',
+		//data : {fileNoDel : fileNoDel ,fileNameDel : fileNameDel },
+		data : formData,
+/* 		data : {formData: formData, fileNoDel : fileNoDel ,fileNameDel : fileNameDel }, */
+		processData : false,
+		contentType : false,
+		success : function(result) {
+			fn_list();
+		}, // success 
+
+		error : function(xhr, status) {
+			alert(xhr + " : " + status);
+		}
+	}); 
+}
+
+function fn_delete() {
+	//var formData = $('#itemForm').serialize();
+	$('#itemForm #gdsNum').attr('disabled',false);
+/* 	$('#itemForm #no').attr('disabled',false); */
+	var formData = new FormData($("#itemForm")[0]);
+	$.ajax({
+		url : "${pageContext.request.contextPath}/mng/deleteItem.do",
+		type : "post",
+		enctype: 'multipart/form-data',
+		data : formData,
+		processData : false,
+		contentType : false,
+		success : function(result) {
+			alert('success');
+			fn_list();
+		}, // success 
+
+		error : function(xhr, status) {
+			alert(xhr + " : " + status);
+		}
+	});
+}
+
+
+
+
+
 
 function fn_list(no) {
 	//$('#currentPageNo').val(no);
@@ -458,7 +608,9 @@ $(function() {
 		if(result){
 			alert("작성 완료!");
 /* 			$("#boardForm").submit();
- */			fn_insert();
+ */			
+			fn_save();
+			/*  fn_insert(); */
 		}else{
 			return;
 		}

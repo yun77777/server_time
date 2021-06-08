@@ -102,6 +102,37 @@ public class boardServiceImpl implements boardService {
 		}
 
 	}
+	
+	
+	
+	@Override
+	public void updateBoard(Map<String, Object> paramMap, String[] files, String[] fileNames,
+			MultipartHttpServletRequest multi) throws Exception {
+		// paramMap.put("gdsNum", vo.getGdsNum());
+//		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(paramMap, multi);
+		List<Map<String, Object>> list = fileUtils.parseUpdateFileInfo(paramMap, files, fileNames, multi);
+		int size = list.size();
+		boardMapper.updateBoard(paramMap);
+		System.err.println("multi list:" + list);
+		// 파일지우기
+		// boardMapper.deleteFile(paramMap);
+		if (size > 0) {
+			for (int i = 0; i < size; i++) {
+				if (list.get(i).get("NEW_ITEM").equals("Y"))
+
+					boardMapper.insertFile(list.get(i));
+				else {
+					boardMapper.updateFile(list.get(i));
+					boardMapper.selectFile(list.get(i));
+					System.err.println("기존리스트:" + boardMapper.selectBoardFileList(paramMap));
+					System.err.println("기존리스@트:" + boardMapper.selectFile(list.get(i)));
+				}
+			}
+		}
+
+		// mngMapper.updateItem(paramMap); //본문수정 나중에
+	}
+
 
 	@Override
 	public void insertReply(Map<String, Object> paramMap, HttpServletRequest request) throws Exception {

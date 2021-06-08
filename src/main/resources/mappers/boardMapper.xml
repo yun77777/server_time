@@ -31,9 +31,8 @@
         ,IF(date_format(NOW(),'%Y-%m-%d')=date_format(input_dt,'%Y-%m-%d'),(SELECT date_format(input_dt,'%H:%m:%s') FROM board WHERE B_NO=B.B_NO AND B_TYPE=#{B_TYPE}),(SELECT date_format(input_dt,'%Y-%m-%d') FROM board WHERE B_NO=B.B_NO AND B_TYPE=#{B_TYPE})) input_dt
 		FROM board B,(SELECT @rownum:=0) R
 		where B.B_NO>0 AND B.B_TYPE=#{B_TYPE}
-		<include refid="searchOption"/>
+		<!-- <include refid="searchOption"/> -->
 		ORDER BY B.originNo DESC, B.groupOrd ASC 
-		<!-- ORDER BY B.B_NO DESC -->
 	<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
 	</select>
 	
@@ -58,7 +57,6 @@
 	<select id="selectBoardDetail" parameterType="map"
 		resultType="map">
 		select 
-		<!-- (SELECT COALESCE(MAX(no),0)+1 FROM board) no -->
 		B.B_NO
 		,B.id
 		,B.title
@@ -69,10 +67,7 @@
 		,B.originNo
 		,B.groupOrd
 		,B.groupLayer
-		<!-- ,MF.ORG_FILE_NAME file -->
 		from board B
-<!-- 		left outer join MP_FILE MF
-		on B.B_NO=MF.BNO -->
 		where B.B_NO=#{no} and B.B_TYPE=#{B_TYPE}
 	</select>
 	
@@ -96,8 +91,6 @@
 		,B_TYPE
 		
 		,originNo
-	<!-- 	,groupOrd
-		,groupLayer -->
 		) values(
 		#{B_NO}
 		,#{id,jdbcType=VARCHAR}
@@ -107,8 +100,6 @@
 		,#{B_TYPE,jdbcType=VARCHAR}
 		
 		,#{originNo}
-	<!-- 	,#{groupOrd,jdbcType=VARCHAR}
-		,#{groupLayer,jdbcType=VARCHAR} -->
 		
 		)
 	</insert>
@@ -119,10 +110,6 @@
 	</update>
 	
 	<insert id="insertReply" parameterType="map">
-	<!-- <selectKey resultType="int" keyProperty="B_NO" order="BEFORE">
-		SELECT COALESCE(MAX(B_NO),0)+1 AS B_NO FROM board
-		WHERE B_TYPE=#{B_TYPE}
-	</selectKey> -->
 <selectKey resultType="int" keyProperty="groupOrd" order="BEFORE">
 		SELECT COALESCE(MAX(groupOrd),0)+1 AS groupOrd FROM board
 		WHERE  originNo=#{originNo}
@@ -213,7 +200,6 @@
 		,updt_dt
 		,cnt
 		,B_TYPE
-		<!-- ,originNo -->
 		from board where B_NO=#{no, jdbcType=VARCHAR}
 	</insert>
 	

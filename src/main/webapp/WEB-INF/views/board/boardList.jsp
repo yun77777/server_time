@@ -43,7 +43,7 @@
 			<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
 				<!-- Page Heading/Breadcrumbs-->
 				<h1 class="mt-4 mb-3">
-					Board <small>board</small>
+					게시판
 				</h1>
 				<%-- <div class="row styling">
 				<div class="col-lg-8 mb-4">

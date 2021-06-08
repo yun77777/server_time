@@ -26,6 +26,9 @@ public interface boardService {
 
 	public Integer selectBoardMaxNo(Map<String, Object> paramMap) throws Exception;
 
+	public void updateBoard(Map<String, Object> paramMap, String[] files, String[] fileNames,
+			MultipartHttpServletRequest multi) throws Exception;
+
 	public Map<String, Object> selectBoardDetail(Map<String, Object> paramMap) throws Exception;
 
 	public void updateReply(Map<String, Object> paramMap) throws Exception;
@@ -38,8 +41,7 @@ public interface boardService {
 	public void insertMember(Map<String, Object> paramMap, MultipartHttpServletRequest multi,
 			HttpServletRequest request) throws Exception;
 
-	public void deleteBoard(Map<String, Object> paramMap, HttpServletRequest request)
-			throws Exception;
+	public void deleteBoard(Map<String, Object> paramMap, HttpServletRequest request) throws Exception;
 
 	public void updateFile(Map<String, Object> paramMap, MultipartHttpServletRequest multi, HttpServletRequest request)
 			throws Exception;

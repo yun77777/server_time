@@ -164,15 +164,6 @@
  
 $(document).ready(function(){
 	var formObj = $("form[name='writeForm']");
-	/* $(".write_btn").on("click", function(){
-		if(fn_valiChk()){
-			return false;
-		}
-		formObj.attr("action", "/board/write");
-		formObj.attr("method", "post");
-		formObj.submit();
-	}); */
-	
 	
 	$("input[type=file]").change(function(){
 		alert('f');

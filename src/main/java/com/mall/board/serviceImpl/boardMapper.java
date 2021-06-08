@@ -26,6 +26,8 @@ public interface boardMapper {
 
 	public Integer selectBoardMaxNo(Map<String, Object> paramMap) throws Exception;
 
+	public void updateBoard(Map<String, Object> paramMap) throws Exception;
+
 	public Map<String, Object> selectBoardDetail(Map<String, Object> paramMap) throws Exception;
 
 	public void insertBoard(Map<String, Object> paramMap) throws Exception;

@@ -276,7 +276,6 @@ public class boardController {
 				boardService.insertReply(paramMap, request);
 //				boardService.updateReply(paramMap);
 			}else {
-				
 				System.err.println("asmkdlmslkdmzklxcmklzcxm");
 				System.err.println(paramMap);
 				boardService.insertBoard(paramMap, multi, request);
@@ -291,6 +290,36 @@ public class boardController {
 		}		
 		return paramMap;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/updateBoard.do")
+	public String updateBoard(
+			@RequestParam Map<String, Object> paramMap,
+			@RequestParam(value="fileNoDel[]") String[] files,
+			@RequestParam(value="fileNameDel[]") String[] fileNames,
+			 HttpSession httpSession,
+			 MultipartHttpServletRequest multi) throws Exception {
+		//Map<String, Object> paramMap=new HashMap<String, Object>();
+//		paramMap.put("B_TYPE",4);
+//		paramMap.put("no",paramMap.get("gdsNum"));
+//		System.err.println("insert:"+paramMap);
+		paramMap.put("B_TYPE",4);
+//		String fileNoDel=paramMap.get("fileNoDel").toString();
+//		String fileNameDel=paramMap.get("fileNameDel").toString();
+//		
+//		String [] files=fileNoDel.split(",");
+//		String [] fileNames=fileNameDel.split(",");
+		
+		System.err.println("PARAM:"+paramMap);
+		try {
+//			paramMap.put("update","Y");
+			boardService.updateBoard(paramMap, files, fileNames, multi);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "success";
+	}
 
 	
 	@ResponseBody
@@ -301,7 +330,7 @@ public class boardController {
 			model.addAttribute("login",httpSession.getAttribute("login"));
 			model.addAttribute("member",httpSession.getAttribute("member"));
 
-			boardService.deleteBoard(paramMap, multi, request);
+			boardService.deleteBoard(paramMap, request);
 			model.addAttribute("paramMap", paramMap);
 		} catch (Exception e) {
 			e.printStackTrace();
