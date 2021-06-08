@@ -713,7 +713,7 @@ System.err.println("fsdlmflmf:"+checkArr);
 	}
 	
 	@RequestMapping(value = "/customerList.do")
-	public String customerList(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="5") int recordCountPerPage,
+	public String customerList(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="20") int recordCountPerPage,
 			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
 		model.addAttribute("login",httpSession.getAttribute("login"));
 		model.addAttribute("member",httpSession.getAttribute("member"));

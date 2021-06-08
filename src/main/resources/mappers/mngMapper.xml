@@ -352,11 +352,10 @@
 	<select id="selectCustomerList" parameterType="java.util.HashMap"
 		resultType="java.util.HashMap">
 	<include refid="com.mall.common.commonMapper.pagingHeaderSql"/>
-		
- 	SELECT 
+	SELECT @rownum:=@rownum+1 ROWNUM
 	 	ID
 	 	, NAME
-		FROM member
+		FROM member,(SELECT @rownum:=0) R
 	<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
 		
 	</select>
