@@ -39,6 +39,7 @@
  							<li class="nav-item"><a class="nav-link" href="#" onclick="fn_itemList('top')">상의</a></li>
  							<li class="nav-item"><a class="nav-link" href="#" onclick="fn_itemList('bottom')">하의</a></li>
  							<li class="nav-item"><a class="nav-link" href="#" onclick="fn_itemList('shoes')">신발</a></li>
+ 							<li class="nav-item"><a class="nav-link" href="#" onclick="fn_itemList('pet')">반려동물용품</a></li>
  							
  							<li class="nav-item"><a class="nav-link" href="/boardList.do">게시판</a></li>
  							<li class="nav-item"><a class="nav-link" href="/cartList.do">장바구니</a></li>

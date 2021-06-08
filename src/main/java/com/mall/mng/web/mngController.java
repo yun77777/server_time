@@ -205,11 +205,14 @@ public class mngController {
 			List<Map<String, Object>> category4=mngService.selectCategorySCode(paramMap);
 			paramMap.put("S_CATEGORY","신발");
 			List<Map<String, Object>> category5=mngService.selectCategorySCode(paramMap);
+			paramMap.put("S_CATEGORY","반려동물용품");
+			List<Map<String, Object>> category6=mngService.selectCategorySCode(paramMap);
 
 			model.addAttribute("category1",category1);
 			model.addAttribute("top",category3);
 			model.addAttribute("bottom",category4);
 			model.addAttribute("shoes",category5);
+			model.addAttribute("pet",category6);
 
 		
 		} catch (Exception e) {

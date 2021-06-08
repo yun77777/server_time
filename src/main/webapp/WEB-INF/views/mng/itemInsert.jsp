@@ -66,6 +66,9 @@
 					<c:forEach var="result" items="${shoes}">
 						<option class="shoesOpt" value="${result.CID}">${result.NAME}</option>
 					</c:forEach>
+					<c:forEach var="result" items="${pet}">
+						<option class="petOpt" value="${result.CID}">${result.NAME}</option>
+					</c:forEach>
 				</select>
 			</div>
 			
@@ -243,6 +246,7 @@ $(document).ready(function(){
     $(".topOpt").hide();
 	$(".bottomOpt").hide();
 	$(".shoesOpt").hide();
+	$(".petOpt").hide();
     
     $("#cateCode1").change(function(){
     	
@@ -250,18 +254,27 @@ $(document).ready(function(){
 	    	$(".topOpt").show();
 	    	$(".bottomOpt").hide();
 	    	$(".shoesOpt").hide();
+	    	$(".petOpt").hide();
    		} else if($(this).val()=='9'){
 	    	$(".topOpt").hide();
 	    	$(".bottomOpt").show();
 	    	$(".shoesOpt").hide();
+	    	$(".petOpt").hide();
    		} else if($(this).val()=='10'){
 	    	$(".topOpt").hide();
 	    	$(".bottomOpt").hide();
 	    	$(".shoesOpt").show();
+	    	$(".petOpt").hide();
+   		} else if($(this).val()=='12'){
+	    	$(".topOpt").hide();
+	    	$(".bottomOpt").hide();
+	    	$(".shoesOpt").hide();
+	    	$(".petOpt").show();
    		} else{
    			$(".topOpt").hide();
 	    	$(".bottomOpt").hide();
 	    	$(".shoesOpt").hide();
+	    	$(".petOpt").hide();
    		}
     	
     });
