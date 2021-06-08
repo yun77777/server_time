@@ -1,5 +1,6 @@
 package com.mall.user;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
@@ -27,21 +28,12 @@ public class UserManageController {
 		model.addAttribute("login", httpSession.getAttribute("login"));
 		model.addAttribute("member",httpSession.getAttribute("member"));
 		model.addAttribute("k_userInfo", httpSession.getAttribute("k_userInfo"));
-//		model.addAttribute("ID", paramMap.get("ID"));
+		
+		Map<String,Object> login=(HashMap<String, Object>) httpSession.getAttribute("login");
+		paramMap.put("ID",login.get("ID"));
 		
 		
-		
-		String ID=(String) httpSession.getAttribute("login");
-		paramMap.put("ID",ID);
-		
-		System.err.println("SESSION ID@$$@@$$$$$:"+ID);
-		
-//		Map<String, Object> login = (Map<String, Object>) httpSession.getAttribute("login");
-//		paramMap.put("ID",login.get("ID"));
-		String login = String.valueOf(httpSession.getAttribute("login"));
-//		paramMap.put("ID",httpSession.getAttribute("id"));
 		Map<String, Object> info = userService.memberInfo(paramMap);
-//		System.err.println("IDIDIDIDIDIDID@:"+paramMap.get("ID"));
 		
 		model.addAttribute("info", info);
 		System.err.println("k:"+httpSession.getAttribute("k_userInfo"));

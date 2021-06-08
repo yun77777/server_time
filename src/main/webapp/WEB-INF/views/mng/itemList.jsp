@@ -47,9 +47,9 @@
 						<!-- //search-->
 						<button type="button" onclick="" id="delete_btn" class="btn btn btn-danger btn-sm float-right">삭제</button>			
 						<button class="btn btn btn-info btn-sm float-right" onclick="fn_insert('${member.ID}')" type="button">추가</button>
-0					</div>
+					</div>
 				</div>
-          		<span>Total: <em>${pg.totalRecordCount}</em> </span>
+          		<span>전체: <em>${pg.totalRecordCount}</em> 건</span>
                 
 				<table class="table table-sm">
 					<thead>
@@ -61,11 +61,11 @@
 				    			</span>
 							</div>
 							</th>
-							<th scope="col">gdsNum</th>
-							<th scope="col">img</th>
-							<th scope="col">cateCode</th>
-							<th scope="col">gdsName</th>
-							<th scope="col">gdsStock</th>
+							<th scope="col">상품번호</th>
+							<th scope="col">이미지</th>
+							<th scope="col">카테고리</th>
+							<th scope="col">상품명</th>
+							<th scope="col">재고</th>
 						</tr>
 					</thead>
 					<tbody>

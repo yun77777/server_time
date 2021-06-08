@@ -3,11 +3,6 @@
 <html>
 <body class="hold-transition register-page">
 <div class="register-box">
-    <div class="register-logo">
-        <a href="${path}/">
-            <b>DoubleS</b>&nbsp MVC-BOARD
-        </a>
-    </div>
 
     <div class="register-box-body">
         <p class="login-box-msg">회원가입 페이지</p>

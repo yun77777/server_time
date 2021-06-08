@@ -30,7 +30,7 @@
 		<div class="container">
 
 				<!-- Page Heading/Breadcrumbs-->
-				<h2>Manage Common Codes</h2>
+				<h2>공통코드 관리</h2>
 
 <!-- @@@ -->
 		<form id="boardForm" method="post" enctype="multipart/form-data">
@@ -47,7 +47,7 @@
 			<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
 				<!-- Page Heading/Breadcrumbs-->
 				
-          		<span id="total">Total: ${pg.totalRecordCount} </span>
+          		<span id="total">전체: ${pg.totalRecordCount} 건</span>
                 
 				<table class="table table-sm">
 					<colgroup>
@@ -66,11 +66,11 @@
 			    			</span>
 		    			</div>
 						</th>
-							<th>CID</th>
-							<th>L_CATEGORY</th>
-							<th>S_CATEGORY</th>
-							<th>NAME</th>
-							<th>DESCRPT</th>
+							<th>공통코드번호</th>
+							<th>대분류</th>
+							<th>소분류</th>
+							<th>이름</th>
+							<th>상세</th>
 						</tr>
 					</thead>
 					<tbody id="codesSection">

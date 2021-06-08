@@ -15,7 +15,7 @@
 					<div class="modal-dialog modal-lg" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLongTitle">Item Detail${detail}${imgList}</h5>
+								<h5 class="modal-title" id="exampleModalLongTitle">상품 상세</h5>
 								<button type="button" class="close" data-dismiss="modal"
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
@@ -29,30 +29,30 @@
 									<thead>
 									</thead>
 									<tbody>
-										<tr>
-											<th></th>
-											<td>
-												<div class="col-md-8">
-													<img id="rpsnImg" class="card-img-top" src=""
-														alt="no image" />
+									<colgroup>
+										<col width="30%">
+										<col width="*">
+									</colgroup>
+									<tr>
+										<th></th>
+										<td>
+											<div class="col-md-8">
+												<img id="rpsnImg" class="card-img-top" src=""
+													alt="no image" />
 <!-- 													<img id="rpsnImg" class="card-img-top scale" src=""
 														alt="no image" /> -->
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<th>상품명</th>
-											<td id="name"><input type="hidden" id="gdsName"></td>
-										</tr>
-										<tr>
-											<th>가격</th>
-											<td id="price"><input type="hidden" id="gdsPrice"></td>
-										</tr>
-										<!-- <tr>
-											<th>재고</th>
-											<td><input type="hidden" id="gdsStock"></td>
-										</tr> -->
-										<tr>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>상품명</th>
+										<td id="name"><input type="hidden" id="gdsName"></td>
+									</tr>
+									<tr>
+										<th>가격</th>
+										<td id="price"><input type="hidden" id="gdsPrice"></td>
+									</tr>
+									<tr>
 									<th scope="row">구입 수량</th>
 									<td>
 										<c:if test="${view.gdsStock != 0}">
@@ -85,10 +85,10 @@
 							<div id="pp"></div>
 							
 							<div class="modal-footer">
-							<button type="submit" id="create2">상품상세(기존)</button>
+							<!-- <button type="submit" id="create2">상품상세(기존)</button> -->
 							<button type="submit" id="create" class="btn btn-info">주문</button>
 								<button type="button" class="btn btn-secondary"
-									data-dismiss="modal">Close</button>
+									data-dismiss="modal">닫기</button>
 							</div>
 						</div>
 					</div>

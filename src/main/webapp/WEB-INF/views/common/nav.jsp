@@ -15,21 +15,21 @@
     <div class="container">
         <a class="navbar-brand" href="/test.do"><img src="/se2/img/dog.png" style="width:10%;height:auto"></a>
         <c:if test="${empty member}">
-        	<a href="#myModal" class="" data-toggle="modal">Login</a>
+        	<a href="#myModal" class="" data-toggle="modal">로그인</a>
         </c:if>
         <c:if test="${!empty member}">
-        	<a onclick="fn_logout()" class="nav-link" href="/user/logout.do">Log Out</a>
+        	<a onclick="fn_logout()" class="nav-link" href="/user/logout.do">로그아웃</a>
         </c:if>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
             <c:if test="${not empty member}">
-            	<li class="nav-item"><p class="nav-link">Welcome <b>${member.ID}</b>!</p></li>
+            	<li class="nav-item"><p class="nav-link">환영합니다 <b>${member.ID}</b> 고객님!</p></li>
 <%--                     	<li class="nav-item"><p class="nav-link">Welcome <b>${login.ID}</b>!</p></li> --%>
 </c:if>
 <!--                         <li class="nav-item"><a class="nav-link" href="/about.do">About</a></li>
- -->                        <li class="nav-item"><a class="nav-link" href="/boardList.do">Board</a></li>
- 							<li class="nav-item"><a class="nav-link" href="/cartList.do">Cart</a></li>
+ -->                        <li class="nav-item"><a class="nav-link" href="/boardList.do">게시판</a></li>
+ 							<li class="nav-item"><a class="nav-link" href="/cartList.do">장바구니</a></li>
 <!--                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
  -->                        
 <!--  <li class="nav-item"><a class="nav-link" href="/chatting.do">Chat</a></li>
@@ -40,9 +40,9 @@
  -->               <li class="nav-item dropdown">
                    <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:blue">${member.ID}</a>
                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                       <a class="dropdown-item" href="/user/myPage.do">My Page</a>
-                       <a class="dropdown-item" href="/cartList.do">Cart</a>
-                       <a class="dropdown-item" href="/orderList2.do">Order List</a>
+                       <a class="dropdown-item" href="/user/myPage.do">회원 정보 관리</a>
+                       <a class="dropdown-item" href="/cartList.do">장바구니</a>
+                       <a class="dropdown-item" href="/orderList2.do">주문 내역</a>
                    </div>
                </li>
 			</c:if>
@@ -55,15 +55,15 @@
 <!-- manage -->
             <c:if test="${not empty member.MNG_DIV and member.MNG_DIV eq 'Y'}">
 <li class="nav-item dropdown">
-                     <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:red">Manage</a>
+                     <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:red">관리</a>
                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                       <a class="dropdown-item" href="/mng/itemList.do">Manage items</a>
-                       <a class="dropdown-item" href="/mng/boardList.do">Manage board</a>
-                       <a class="dropdown-item" href="/mng/mngCommonCodes.do">Manage common codes</a>
+                       <a class="dropdown-item" href="/mng/itemList.do">상품 관리</a>
+                       <a class="dropdown-item" href="/mng/boardList.do">게시판 관리</a>
+                       <a class="dropdown-item" href="/mng/mngCommonCodes.do">공통코드 관리</a>
                        
-                       <a class="dropdown-item" href="/mng/orderList.do">Order list</a>
-                       <a class="dropdown-item" href="portfolio-3-col.html">Check the reviews</a>
-                       <a class="dropdown-item" href="portfolio-4-col.html">User list</a>
+                       <a class="dropdown-item" href="/mng/orderList.do">주문 내역 관리</a>
+                       <a class="dropdown-item" href="portfolio-3-col.html">상품평 관리</a>
+                       <a class="dropdown-item" href="portfolio-4-col.html">고객 관리</a>
                    </div>
                </li>
 </c:if>

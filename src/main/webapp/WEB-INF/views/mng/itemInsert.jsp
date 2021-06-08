@@ -34,9 +34,6 @@
 			<form id="boardForm" method="post" enctype="multipart/form-data">
 
 				<!-- Page Heading/Breadcrumbs-->
-				<h1>
-					Item <small>insert</small>
-				</h1>
 
 <!-- @@@ -->
 	<section id="container">
@@ -49,7 +46,7 @@
              <button class="btn btn-secondary btn-sm float-right" id="" onclick="fn_list()" type="button">목록</button>
  
 			<div class="inputArea">	
-				<label>1차 분류${category1}</label>
+				<label>1차 분류</label>
 				<select id="cateCode1" name="cateCode1" class="category1 form-control">
 					<option value="">전체</option>
 					<c:forEach var="result" items="${category1}">
@@ -57,7 +54,7 @@
 					</c:forEach>
 				</select>
 			
-				<label>2차 분류${top}/${bottom}</label>
+				<label>2차 분류</label>
 				<select id="cateCode2" name="cateCode2" class="category2 form-control" name="">
 					<option value="">전체</option>
 						<c:forEach var="result" items="${top}">
@@ -70,7 +67,7 @@
 			</div>
 			
 			<div class="inputArea">
-				<label for="gdsName">gdsNum</label>
+				<label for="gdsName">상품 번호</label>
 				<input type="text" id="gdsNum" name="gdsNum" value="${paramMap.gdsNum}" disabled class="form-control"/>
 			</div>
 			<div class="inputArea">
@@ -91,18 +88,6 @@
 			<div class="inputArea">
 				<label for="gdsDes">상품소개</label>
 				<textarea rows="5" cols="50" id="gdsDes" name="gdsDes" class="form-control"></textarea>
-				
-				<!-- <script>
-					var ckeditor_config = {
-							resize_enaleb : false,
-							enterMode : CKEDITOR.ENTER_BR,
-							shiftEnterMode : CKEDITOR.ENTER_P,
-							filebrowserUploadUrl : "/admin/goods/ckUpload"
-					};
-					
-					CKEDITOR.replace("gdsDes", ckeditor_config);
-				</script>
-				 -->
 				
 			</div>
 			

@@ -44,7 +44,7 @@
 			<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
 				<!-- Page Heading/Breadcrumbs-->
 				<h1 class="mt-4 mb-3">
-					주문 목록
+					주문 내역 관리
 				</h1>
 				<div class="row styling">
 						<!-- <div class="card mb-4">

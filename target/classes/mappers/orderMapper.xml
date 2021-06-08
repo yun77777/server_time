@@ -93,8 +93,8 @@
 		    o.userAddr1, o.userAddr2, o.userAddr3,
 		    o.orderPhon, o.amount, o.orderDate, o.delivery
 		    , od.cartStock
-		    , g.gdsName
-		    , g.gdsNum
+		    , od.gdsName
+		    , od.gdsNum
 		    , b.cnt
     	 	,(SELECT ORG_FILE_NAME FROM MP_FILE WHERE BNO=od.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE WHERE BNO=od.gdsNum)) representative_file
 		from tbl_order o

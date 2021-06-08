@@ -13,27 +13,27 @@
 		<div class="modal-content">
  		<form id="loginForm" method="post" enctype="">
 				<div class="modal-header">				
-					<h4 class="modal-title">Login</h4>
+					<h4 class="modal-title">로그인</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">				
 					<div class="form-group">
-						<label>ID</label>
+						<label>아이디</label>
 		                <input type="text" id="id" name="ID" class="form-control" required="required" placeholder="ID">
 			
 					</div>
 					<div class="form-group">
 						<div class="clearfix">
-							<label>PASSWORD</label>
-							<a href="#" class="pull-right text-muted"><small>Forgot?</small></a>
+							<label>비밀번호</label>
+							<a href="#" class="pull-right text-muted"></a>
 						</div>
 						<input type="password" id="pw" name="PW"  class="form-control" required="required" placeholder="비밀번호">
 					</div>
 				</div>
 		</form>
 				<div class="modal-footer">
-					<label class="checkbox-inline pull-left"><input type="checkbox" name="useCookie" value="Y"> Remember me</label>
-					<button type="submit" class="btn btn-primary pull-right" onclick="fn_sign_in()">Login</button>
+					<label class="checkbox-inline pull-left"><input type="checkbox" name="useCookie" value="Y">로그인 유지</label>
+					<button type="submit" class="btn btn-primary pull-right" onclick="fn_sign_in()">로그인</button>
 				
 				
 				</div>

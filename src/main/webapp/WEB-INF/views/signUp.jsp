@@ -35,7 +35,7 @@
 
 				<!-- Page Heading/Breadcrumbs-->
 				<h1>
-					Member <small>registration</small>
+					회원가입
 				</h1>
 				<!-- Content Row-->
 				<!-- Contact Form-->
@@ -45,7 +45,7 @@
 						<c:if test="${empty k_userInfo}">
 							<div class="control-group form-group">
 								<div class="controls">
-									<label>id:</label> <input class="form-control" id="id"
+									<label>아이디:</label> <input class="form-control" id="id"
 										name="ID" type="text" required
 										data-validation-required-message="Please enter your phone number." />
 									<button type="button" onclick="fn_dp_chk()">duplication check</button>
@@ -53,12 +53,12 @@
 							</div>
 							<div class="control-group form-group">
 								<div class="controls">
-									<label>password:</label> <input class="form-control" id="pw"
+									<label>비밀번호:</label> <input class="form-control" id="pw"
 										name="PW" type="text" required
 										data-validation-required-message="Please enter your email address." />
 								</div>
 								<div class="controls">
-									<label>password check:</label> <input class="form-control" id="pwChk"
+									<label>비밀번호 확인:</label> <input class="form-control" id="pwChk"
 										name="pwChk" type="text" required
 										data-validation-required-message="Please enter your email address." />
 								</div>
@@ -72,7 +72,7 @@
 						</div> -->
 							<div class="control-group form-group">
 								<div class="controls">
-									<label>address:</label> 
+									<label>주소:</label> 
 									<input type="hidden" id="wholeAddress" name="ADDRESS">
 									<input class="form-control" id="postalCode"
 										name="postalCode" type="text" required
@@ -88,7 +88,7 @@
 							</div>
 							<div class="control-group form-group">
 							<div class="controls">
-								<label>contact:</label> 
+								<label>연락처:</label> 
 								<input class="form-control" id="contact"
 									name="CONTACT" type="text" required
 									data-validation-required-message="Please enter your email address." />
@@ -102,21 +102,21 @@
 
 						<div class="control-group form-group">
 							<div class="controls">
-								<label>name:</label> <input class="form-control" id="name"
+								<label>이름:</label> <input class="form-control" id="name"
 									name="NAME" type="text" required
 									data-validation-required-message="Please enter your email address." />
 							</div>
 						</div>
 						<div class="control-group form-group">
 							<div class="controls">
-								<label>phone:</label> <input class="form-control" id="phone"
+								<label>휴대전화번호:</label> <input class="form-control" id="phone"
 									name="PHONE" type="text" required
 									data-validation-required-message="Please enter your email address." />
 							</div>
 						</div>
 						<div class="control-group form-group">
 							<div class="controls">
-								<label>email:</label> <input class="form-control" id="email"
+								<label>이메일주소:</label> <input class="form-control" id="email"
 									name="EMAIL" type="text" required
 									data-validation-required-message="Please enter your email address." />
 							</div>
@@ -132,8 +132,8 @@
 					</div>
 				</div>
 			</form>
-			                      <button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="button">Go to the list</button>
-						<button class="btn btn-primary" id="sendMessageButton" onclick="fn_sign_up()" type="button">SignUp</button>
+                    <button class="btn btn-secondary btn-sm right" id="sendMessageButton" onclick="fn_list()" type="button">메인</button>
+					<button class="btn btn-info btn-sm right" id="sendMessageButton" onclick="fn_sign_up()" type="button">가입</button>
 		</div>
 	</section>
 
@@ -148,14 +148,8 @@
 </body>
 
 <script>
-function fn_list(no) {
-	//$('#currentPageNo').val(no);
-	window.location='<c:url value="/signIn.do"/>';
-	
-	/* $('#boardForm').attr({
-		action : '<c:url value="/boardList.do"/>',
-		target : '_self'
-	}).submit(); */
+function fn_list() {
+	window.location='<c:url value="/test.do"/>';
 };
 
 function fn_sign_up() {

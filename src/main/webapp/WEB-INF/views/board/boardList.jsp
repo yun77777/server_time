@@ -98,11 +98,11 @@
 				<table class="table table-sm">
 					<thead class="thead-light">
 						<tr>
-							<th scope="col">no</th>
-							<th scope="col">title</th>
-							<th scope="col">id</th>
-							<th scope="col">input_dt</th>
-							<th scope="col">cnt</th>
+							<th scope="col">글번호</th>
+							<th scope="col">제목</th>
+							<th scope="col">아이디</th>
+							<th scope="col">등록일자</th>
+							<th scope="col">조회수</th>
 						</tr>
 					</thead>
 					<tbody>

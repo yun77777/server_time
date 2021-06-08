@@ -358,12 +358,12 @@ function fn_detail_pop(B_NO,B_TYPE){
 			  //$("#pp").append(i+','+imgList[i].gdsPrice+'<br>');
 			  
 			  // #pp: 상세이미지 imgList div 영역
-			  $("#pp").append(i+','+imgList[i].file+'<br>');
+			 /*  $("#pp").append(i+','+imgList[i].file+'<br>'); */
 			  
 			var img=imgList[i].file;
 			var file = $("#file").val(img);
 			var image="<c:url value='/img/"+img+"'/>"; //상품 상세 이미지
-			  $("#pp").append(i+"<img class='card-img-top' src="+image+"><br>");
+			  $("#pp").append("<img class='card-img-top' src="+image+"><br><br>");
 /* 			  $("#pp").append(i+"<img class='card-img-top scale' src="+image+"><br>"); */
 			 
 			};

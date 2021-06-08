@@ -57,7 +57,7 @@
 					<div class="table-responsive-lg">
 						<table class="table">
 							<tr>
-								<td colspan="2"><a href="#!"
+								<td></td><td><a href="#!"
 									onclick="fn_detail_pop('${orderList.gdsNum}')"
 									data-toggle="modal" data-target="#exampleModalLong"> <img
 										class="card-img-top"
@@ -77,9 +77,7 @@
 							</tr>
 							<tr>
 								<td>주소</td>
-								<td>(${orderList.userAddr1}) ${orderList.userAddr2}
-									${orderList.userAddr3}
-									</p>
+								<td>(${orderList.userAddr1}) ${orderList.userAddr2}, ${orderList.userAddr3}
 								</td>
 							</tr>
 							<tr>
@@ -461,7 +459,7 @@
 									+ (i+1) + '</td></tr>';
 							content += '<tr><td>상품명</td><td>'
 									+ (detailList[i].gdsName) + '</td></tr>';
-							content += '<tr><td colspan="2">'
+							content += '<tr><td></td><td>'
 									+ "<img class='card-img-top' src=" + image
 									+ " style='width:20%;height:auto'>"
 									+ '</td></tr>';
@@ -489,13 +487,13 @@
 						$("#itemDetail").html('<hr>' + content);
 
 						var orderContent = '<table class="table table-hover table-dark">';
-						orderContent += '<tr><td>orderId</td><td>'
+						orderContent += '<tr><td>주문 번호</td><td>'
 								+ (detailList[0].orderId) + '</td></tr>';
-						orderContent += '<tr><td>userId</td><td>'
+						orderContent += '<tr><td>주문 고객</td><td>'
 								+ (detailList[0].userId) + '</td></tr>';
-						orderContent += '<tr><td>orderPhon</td><td>'
+						orderContent += '<tr><td>연락처</td><td>'
 								+ (detailList[0].orderPhon) + '</td></tr>';
-						orderContent += '<tr><td>userAddr</td><td>'
+						orderContent += '<tr><td>주소</td><td>'
 								+ (detailList[0].userAddr) + ', '
 								+ (detailList[0].userAddr2) + ', '
 								+ (detailList[0].userAddr3) + '</td></tr>';
