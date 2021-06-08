@@ -102,7 +102,7 @@ body {
             <div class="container">
                 <!-- Page Heading/Breadcrumbs-->
                 <h1>
-                    게시판 관리 상세
+                    게시글 상세
                 </h1>
                 <!-- Content Row-->
                 <!-- Contact Form-->
@@ -130,7 +130,7 @@ body {
 	                                    <c:if test='${!empty paramMap.groupLayer}'>
 	                                    value="${paramMap.groupLayer}"</c:if>
                         	/>
-                            <button class="btn btn-secondary btn-sm float-right" id="sendMessageButton" onclick="fn_list()" type="button">Go to the list</button>
+                            <button class="btn btn-secondary btn-sm float-right" id="" onclick="fn_list()" type="button">목록</button>
                             <table class="table">
 							  <thead>
 							  </thead>
@@ -182,28 +182,6 @@ body {
 							      </td>
 							      </tr>
 							      <tr>
-							      <th scope="row">file</th>
-							      <td>
-							      	<div class="controls">
-                                     <input class="form-control" id="file" name="file" type="text"  value="${detail.file}" required data-validation-required-message="Please enter your email address." />
-                                	</div>
-							      </td>
-							      </tr>
-							     
-						       <c:forEach var="result" items="${fileList}" varStatus="status">
-	 							<tr>
-							      <td colspan="2">
-		 							<img class="list_img" src="<c:url value='/img/${result.ORG_FILE_NAME}'/>" alt="no image" style="width:50%;height:auto"/>
-                               	  </td>
-							    </tr>
-	 							<tr>
-							      <td colspan="2">
-                                     <input class="form-control" id="file" name="file" type="file"  value="${result.ORG_FILE_NAME}" required data-validation-required-message="Please enter your email address." />
-                               	  </td>
-							    </tr>
-                                </c:forEach>
-							      	
-							      <tr>
 							       <td colspan="2">
 							      	<div class="controls">
                                 	<textarea rows="5" cols="50" id="content" name="content" class="form-control">${detail.content}</textarea>
@@ -212,8 +190,39 @@ body {
 							    </tr>
 							  </tbody>
 							</table>
-                            
-                            
+				</form>			
+                <form id="writeForm" method="post" enctype="multipart/form-data">
+		
+					
+					<input type="hidden" id="no" name="no" value="${detail.B_NO}"/>
+					<input type="hidden" id="fileNoDel" name="fileNoDel[]" value=""> 
+					<input type="hidden" id="fileNameDel" name="fileNameDel[]" value=""> 
+					<input type="hidden" id="type" name="type" value="save"> 
+					
+					<table>
+						<tbody>
+							<tr>
+								<td id="fileIndex">
+								
+									<c:forEach var="file" items="${fileList}" varStatus="var">
+									<div>
+										<img class="card-img-top" style="width:20%;height:auto" name="itemImg${var.index}" id="itemImg${var.index}" src="<c:url value='/img/${file.ORG_FILE_NAME}'/>" alt="no image" />
+										<input type="hidden" class="FILE_NO" id="FILE_NO" name="FILE_NO_${var.index}" value="${file.FILE_NO}">
+										<input type="hidden" id="FILE_NAME" name="FILE_NAME" value="FILE_NO_${var.index}">
+										<a href="#" id="fileName" onclick="return false;">${file.ORG_FILE_NAME}</a>${file.FILE_NO}
+										<button id="fileDelBtn" onclick="fn_del('${file.FILE_NO}','FILE_NO_${var.index}');" type="button">삭제</button><br>
+									</div>
+									</c:forEach>
+									
+								</td>
+							</tr>
+						</tbody>			
+					</table>
+					
+				</form>
+                <div>
+					<button type="button" class="fileAdd_btn">파일추가</button>
+				</div>        
                             
                             
                             <div id="success"></div>
@@ -224,7 +233,7 @@ body {
                             
                             <!-- For success/fail messages-->
                         	<button class="btn btn-secondary btn-sm float-right" id="sbumit" onclick="fn_reply('${detail.B_NO}')" type="submit">답글</button>
-                        	<button class="btn btn-info btn-sm float-right" id="submit" onclick="" type="button">저장</button>
+                        	<button class="btn btn-info btn-sm float-right" id="saveBtn" type="button">저장</button>
 			                <button class="btn btn-danger btn-sm float-right" id="sendMessageButton" onclick="fn_delete()" type="button">삭제</button>
 			                
 			                <table class="table table-sm">
@@ -249,7 +258,7 @@ body {
 									</tr>
 								</tbody>
 							</table>
-                        </form>
+                        
                     </div>
                 </div>
             
@@ -327,17 +336,155 @@ body {
 </body>
 
 <script>
-$(document).ready({
-});
-
-function fn_list(no) {
-	//$('#currentPageNo').val(no);
-	window.location='<c:url value="/boardList.do"/>';
+$(document).ready(function(){
+var formObj = $("form[name='writeForm']");
 	
-	/* $('#boardForm').attr({
-		action : '<c:url value="/boardList.do"/>',
-		target : '_self'
-	}).submit(); */
+	$("input[type=file]").change(function(){
+		alert('f');
+		var itemImg="#"+$(this).prev().attr("id");
+		alert(itemImg);
+		if(this.files && this.files[0]) {
+			var reader = new FileReader;
+			reader.onload = function(data) {
+				$(itemImg).attr("src", data.target.result).width(500);
+				
+/* 								$(".select_img img").attr("src", data.target.result).width(500);								 */
+			}
+			reader.readAsDataURL(this.files[0]);
+		}
+	});
+	
+	
+	fn_addFile();
+	
+	$(".update_btn").on("click", function(){
+		if(fn_valiChk()){
+			return false;
+		}
+		/* formObj.attr("action", "/mng/updateItem.do");
+		formObj.attr("method", "post");
+		formObj.submit(); */
+		
+		fn_save();
+	});
+	
+});
+function fn_addFile(){
+	var fileIndex = 1;
+	$(".fileAdd_btn").on("click", function(){
+		$("#fileIndex").append("<div><input type='file' style='float:left;' id='file_"+(fileIndex)+"' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
+		//$("#fileIndex").append("<div><img class='card-img-top' style='width:20%;height:auto' name='itemImg$"+(fileIndex++)+"' id='itemImg"+(fileIndex++)+"' alt='no image' /><input type='file' style='float:left;' id='file_"+(fileIndex)+"' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
+	});
+	 
+	
+	$(document).on("click","#fileDelBtn", function(){
+		$(this).parent().remove();
+		
+	});
+}
+
+var fileNoArry = new Array();
+var fileNameArry = new Array();
+
+function fn_del(value, name){
+	
+	fileNoArry.push(value);
+	fileNameArry.push(name);
+	$("#fileNoDel").attr("value", fileNoArry);
+	$("#fileNameDel").attr("value", fileNameArry);
+}
+
+function fn_save() {
+	$('#boardForm #no').attr('disabled',false);
+	var  formData= new FormData($("#writeForm")[0]);
+/* 	var  formData= $('#writeForm').serialize(); */
+
+	var no=$("#boardForm #no").val();
+	var id=$("#boardForm #id").val();
+	var title=$("#boardForm #title").val();
+	var content=$("#boardForm #content").val();
+	alert("title:"+title);
+	formData.append("no",no);
+	formData.append("id",id);
+	formData.append("title",title);
+	formData.append("content",content);
+
+	var fileNoDel = new Array();
+	var fileNameDel = new Array();
+	var file = new Array();
+	
+	
+	$(".FILE_NO").each(function(){
+		fileNoDel.push($(this).val());
+		fileNameDel.push($(this).next().val());
+		//checkArr.push($(this).attr("data-cartNum"));  // 배열에 데이터 삽입
+		
+	});
+	
+	$("input[type=file]").each(function(){
+		//alert('file:'+$(this).val());
+		file.push($(this).val());
+		
+	}); 
+	alert("fileNameDel:"+fileNameDel);
+	
+	//alert($("input[type=file]").val());
+	
+	formData.append("fileNoDel",fileNoDel);
+	formData.append("fileNameDel",fileNameDel);
+	//formData.append("no",$("#boardForm #no").val());
+	formData.append("B_TYPE",1);
+	formData.append("file",file);
+	
+	$.ajax({
+		url : "${pageContext.request.contextPath}/mng/updateBoard.do",
+		type : "post",
+		enctype: 'multipart/form-data',
+		//data : {fileNoDel : fileNoDel ,fileNameDel : fileNameDel },
+		data : formData,
+/* 		data : {formData: formData, fileNoDel : fileNoDel ,fileNameDel : fileNameDel }, */
+		processData : false,
+		contentType : false,
+		success : function(result) {
+			//fn_list();
+		}, // success 
+
+		error : function(xhr, status) {
+			alert(xhr + " : " + status);
+		}
+	}); 
+}
+
+function fn_delete() {
+	//var formData = $('#itemForm').serialize();
+	$('#itemForm #gdsNum').attr('disabled',false);
+/* 	$('#itemForm #no').attr('disabled',false); */
+	var formData = new FormData($("#itemForm")[0]);
+	$.ajax({
+		url : "${pageContext.request.contextPath}/mng/deleteItem.do",
+		type : "post",
+		enctype: 'multipart/form-data',
+		data : formData,
+		processData : false,
+		contentType : false,
+		success : function(result) {
+			alert('success');
+			fn_list();
+		}, // success 
+
+		error : function(xhr, status) {
+			alert(xhr + " : " + status);
+		}
+	});
+}
+
+
+
+
+
+
+function fn_list() {
+	window.location='<c:url value="/boardList.do"/>';
 };
 
 function fn_detail(no){
@@ -345,7 +492,7 @@ function fn_detail(no){
 	$('#boardForm #no').attr('disabled',false);
 	$('#boardForm #no').val(no);
 	$('#boardForm').attr({
-		action : '<c:url value="/boardDetail.do" />',
+		action : '<c:url value="/mng/boardDetail.do" />',
 		target : '_self'
 	}).submit();
 
@@ -355,7 +502,7 @@ function fn_btn(no){
 	var  formData= $('#boardForm').serialize();
     $.ajax({
         cache : false,
-        url : "${pageContext.request.contextPath}/boardDetail.do",
+        url : "${pageContext.request.contextPath}/mng/boardDetail.do",
         type : 'POST', 
         data : formData, 
         success : function(data) {
@@ -373,7 +520,7 @@ function fn_insert() {
 	$('#boardForm #no').attr('disabled',false);
 	var formData = new FormData($("#boardForm")[0]);
 	$.ajax({
-		url : "${pageContext.request.contextPath}/insertBoard.do",
+		url : "${pageContext.request.contextPath}/mng/insertBoard.do",
 		type : "post",
 		enctype: 'multipart/form-data',
 		data : formData,
@@ -394,7 +541,7 @@ function fn_delete() {
 	$('#boardForm #no').attr('disabled',false);
 	var formData = new FormData($("#boardForm")[0]);
 	$.ajax({
-		url : "${pageContext.request.contextPath}/deleteBoard.do",
+		url : "${pageContext.request.contextPath}/mng/deleteBoard.do",
 		type : "post",
 		enctype: 'multipart/form-data',
 		data : formData,
@@ -413,7 +560,7 @@ var oEditors = [];
 nhn.husky.EZCreator.createInIFrame({
 	oAppRef : oEditors,
 	elPlaceHolder : "content", //저는 textarea의 id와 똑같이 적어줬습니다.
-	sSkinURI : "se2/SmartEditor2Skin.html", //경로를 꼭 맞춰주세요!
+	sSkinURI : "${pageContext.request.contextPath}/se2/SmartEditor2Skin.html",
 	fCreator : "createSEditor2",
 	htParams : {
 		// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
@@ -428,7 +575,7 @@ nhn.husky.EZCreator.createInIFrame({
 });
 
 $(function() {
-	$("#submit").click(function() {
+	$("#saveBtn").click(function() {
 		oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []); 
 		//textarea의 id를 적어줍니다.
 
@@ -456,7 +603,9 @@ $(function() {
 		if(result){
 			alert("작성 완료!");
 /* 			$("#boardForm").submit();
- */			fn_insert();
+ */			
+			fn_save();
+			/*  fn_insert(); */
 		}else{
 			return;
 		}
@@ -493,7 +642,7 @@ function fn_reply2() {
 	$("#content").html(''); */
 	
 	$.ajax({
-		url : "${pageContext.request.contextPath}/insertReply.do",
+		url : "${pageContext.request.contextPath}/mng/insertReply.do",
 		type : "post",
 		//data : {bno:bno, writer:writer, content:content},
 		enctype: 'multipart/form-data',
@@ -525,7 +674,7 @@ function fn_comment() {
 	var writer=$("#writer").val();
 	var content=$("#content").val(); */
 	$.ajax({
-		url : "${pageContext.request.contextPath}/reply/write.do",
+		url : "${pageContext.request.contextPath}/mng/reply/write.do",
 		type : "post",
 		//data : {bno:bno, writer:writer, content:content},
 		enctype: 'multipart/form-data',

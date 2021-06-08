@@ -476,43 +476,48 @@ function fn_list(no) {
 
 
 $(".addCart_btn").click(function(){
-	
-	var gdsNum = $("#gdsNum").val();
 	var userId = $("#userId").val();
-	var cartStock = $(".numBox").val();
-	var msg="장바구니로 이동하시겠습니까?";
-
-	var data = {
-			gdsNum : gdsNum,
-			userId : userId,
-			cartStock : cartStock
-			};
 	
-	$.ajax({
-		url : "/view/addCart.do",
-		type : "post",
-		data : data,
-		success : function(result){
-			
-			if(result == 1) {
-				//alert("카트 담기 성공");
-				$(".numBox").val(1);
-				
-				var goToCart=confirm(msg);
- 				if(goToCart){
-					window.location='<c:url value="/cartList.do"/>';
-				}
- 
-			} else {
-				alert("회원만 사용할 수 있습니다.")
-				window.location='<c:url value="/user/login.do"/>';
+	if(userId==""){
+		alert('로그인 후 이용해주세요');
+	}
+	else{
+		var gdsNum = $("#gdsNum").val();
+		var cartStock = $(".numBox").val();
+		var msg="장바구니로 이동하시겠습니까?";
 
+		var data = {
+				gdsNum : gdsNum,
+				userId : userId,
+				cartStock : cartStock
+				};
+		
+		$.ajax({
+			url : "/view/addCart.do",
+			type : "post",
+			data : data,
+			success : function(result){
+				
+				if(result == 1) {
+					//alert("카트 담기 성공");
+					$(".numBox").val(1);
+					
+					var goToCart=confirm(msg);
+	 				if(goToCart){
+						window.location='<c:url value="/cartList.do"/>';
+					}
+	 
+				} else {
+					alert("회원만 사용할 수 있습니다.")
+					window.location='<c:url value="/user/login.do"/>';
+
+				}
+			},
+			error : function(){
+				alert("카트 담기 실패");
 			}
-		},
-		error : function(){
-			alert("카트 담기 실패");
-		}
-	});
+		});
+	}
 });
 
 // + 버튼을 누르면 수량이 증가하되, 상품의 전체 수량보다 커지지 않음

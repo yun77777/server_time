@@ -36,16 +36,19 @@
 
 				<!-- Page Heading/Breadcrumbs-->
 				<h1>
-					Board <small>insert</small>
+					게시글 작성
 				</h1>
+				
 				<!-- Content Row-->
 				<!-- Contact Form-->
 				<!-- In order to set the email address and subject line for the contact form go to the assets/mail/contact_me.php file.-->
 				<div class="row">
+		            <button class="btn btn-secondary btn-sm float-right" id="" onclick="fn_list()" type="button">목록</button>
+				
 					<div class="col-lg-8 mb-4">
 						<div class="control-group form-group">
 							<div class="controls">
-								<label>no:</label> <input class="form-control" id="no"
+								<label>글번호:</label> <input class="form-control" id="no"
 									name="no" type="text" value="${paramMap.no}" disabled
 									data-validation-required-message="Please enter your name." />
 								<p class="help-block"></p>
@@ -53,7 +56,7 @@
 						</div>
 						<div class="control-group form-group">
 							<div class="controls">
-								<label>id:</label> <input class="form-control" id="id"
+								<label>아이디:</label> <input class="form-control" id="id"
 									name="id" type="text" value="${member.ID}" required
 <%-- 									name="id" type="text" value="${login.ID}" required --%>
 									data-validation-required-message="Please enter your phone number." />
@@ -61,73 +64,53 @@
 						</div>
 						<div class="control-group form-group">
 							<div class="controls">
-								<label>title:</label> <input class="form-control" id="title"
+								<label>제목:</label> <input class="form-control" id="title"
 									name="title" type="text" value="${detail.title}" required
 									data-validation-required-message="Please enter your email address." />
 							</div>
 						</div>
 						<div class="control-group form-group">
 							<div class="controls">
-								<label>file:</label> <input class="form-control" id="file"
-									name="file" type="file" required
-									data-validation-required-message="Please enter your email address." />
-				<div class="inputArea">
-					<label for="gdsImg">이미지</label>
-					<input type="file" id="gdsImg" name="file_0" class="form-control"/>
-					<div class="select_img"><img src="" /></div>
-				</div>
-				<div id="fileDiv"></div>
-				<script>
-					$("#gdsImg").change(function(){
-						if(this.files && this.files[0]) {
-							var reader = new FileReader;
-							reader.onload = function(data) {
-								$(".select_img img").attr("src", data.target.result).width(500);								
-							}
-							reader.readAsDataURL(this.files[0]);
-						}
-					});
-				</script>
-			
-			
-		</div>
-	</section>
-	<!-- //@@@ -->
-
- 		 
-            <p>
-                <!-- <input type="file" id="file" name="file_0"> -->
-                <a href="#this" class="btn" id="delete" name="delete">삭제</a>
-            </p>
-        
-         
-        <br/><br/>
-        <a href="#this" class="btn" id="addFile">파일 추가</a>
+		                        <textarea rows="5" cols="50" id="content" name="content" class="form-control">${detail.content}</textarea>
 							</div>
 						</div>
-						<%-- <div class="control-group form-group">
-							<div class="controls">
-								<label>content:</label>
-								<textarea class="form-control" name="content" id="content" rows="10" cols="100"
-									required
-									data-validation-required-message="Please enter your message"
-									maxlength="999" style="resize: none">${detail.content}</textarea>
-							</div>
-						</div> --%>
 						
-						<!-- SmartEditor2  -->
-<%-- 						<%@ include file="/WEB-INF/views/common/smartEditor.jsp"%>
- --%>						
-                        <textarea rows="5" cols="50" id="content" name="content" class="form-control">${detail.content}</textarea>
-						<div id="success"></div>
-						<!-- For success/fail messages-->
-                        <button class="btn btn-primary" id="sendMessageButton" onclick="fn_list()" type="button">Go to the list</button>
-						<button class="btn btn-primary" onclick="" id="submit" type="button">submit</button>
-<!-- 						<button class="btn btn-primary" onclick="fn_insert()" id="submit" type="button">submit</button> -->
-					</div>
-				</div>
+			</div>
+			</div>
 			</form>
-		</div>
+			
+			
+			<form id="writeForm" method="post" enctype="multipart/form-data">
+					<input type="hidden" id="fileNoDel" name="fileNoDel[]" value=""> 
+					<input type="hidden" id="fileNameDel" name="fileNameDel[]" value=""> 
+					
+					<table>
+						<tbody>
+							<tr>
+								<td id="fileIndex">
+								
+									<c:forEach var="file" items="${imgList}" varStatus="var">
+									<div>
+										<img class="card-img-top" style="width:20%;height:auto" name="itemImg${var.index}" id="itemImg${var.index}" src="<c:url value='/img/${file.file}'/>" alt="no image" />
+										<input type="hidden" class="FILE_NO" id="FILE_NO" name="FILE_NO_${var.index}" value="${file.file_no}">
+										<input type="hidden" id="FILE_NAME" name="FILE_NAME" value="FILE_NO_${var.index}">
+										<a href="#" id="fileName" onclick="return false;">${file.file}</a>${file.file_no}
+										<button id="fileDelBtn" onclick="fn_del('${file.file_no}','FILE_NO_${var.index}');" type="button">삭제</button><br>
+									</div>
+									</c:forEach>
+									
+								</td>
+							</tr>
+						</tbody>			
+					</table>
+					
+				</form>
+			<div>
+				<button type="button" class="cancel_btn">취소</button>
+				<button type="button" class="fileAdd_btn">파일추가</button>
+			</div>
+			<button type="submit" id="register_Btn" class="btn btn-info">등록</button>			
+			
 	</section>
 
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
@@ -143,50 +126,139 @@
 <script>
 var gfv_count = 1;
 $(document).ready(function(){
-    $("#addFile").on("click", function(e){ //파일 추가 버튼
-        e.preventDefault();
-        fn_addFile();
-    });
-     
-    $("a[name='delete']").on("click", function(e){ //삭제 버튼
-        e.preventDefault();
-        fn_deleteFile($(this));
-    });
-});
 
-function fn_addFile(){
-    var str = "<p><input type='file' name='file_"+(gfv_count++)+"'><a href='#this' class='btn' name='delete'>삭제</a></p>";
-    $("#fileDiv").append(str);
-    $("a[name='delete']").on("click", function(e){ //삭제 버튼
-        e.preventDefault();
-        fn_deleteFile($(this));
-    });
-}
- 
-function fn_deleteFile(obj){
-    obj.parent().remove();
-}
-
-function fn_list(no) {
-	//$('#currentPageNo').val(no);
-	window.location='<c:url value="/boardList.do"/>';
+	var formObj = $("form[name='writeForm']");
+	/* $(".write_btn").on("click", function(){
+		if(fn_valiChk()){
+			return false;
+		}
+		formObj.attr("action", "/board/write");
+		formObj.attr("method", "post");
+		formObj.submit();
+	}); */
 	
-	/* $('#boardForm').attr({
-		action : '<c:url value="/boardList.do"/>',
-		target : '_self'
-	}).submit(); */
+	
+	$("input[type=file]").change(function(){
+		alert('f');
+		var itemImg="#"+$(this).prev().attr("id");
+		alert(itemImg);
+		if(this.files && this.files[0]) {
+			var reader = new FileReader;
+			reader.onload = function(data) {
+				$(itemImg).attr("src", data.target.result).width(500);
+				
+/* 								$(".select_img img").attr("src", data.target.result).width(500);								 */
+			}
+			reader.readAsDataURL(this.files[0]);
+		}
+	});
+	
+	
+	fn_addFile();
+	$(".cancel_btn").on("click", function(){
+		event.preventDefault();
+		/* location.href = "/board/readView?bno=${update.bno}"
+			   + "&page=${scri.page}"
+			   + "&perPageNum=${scri.perPageNum}"
+			   + "&searchType=${scri.searchType}"
+			   + "&keyword=${scri.keyword}"; */
+	})
+	
+	$(".update_btn").on("click", function(){
+		if(fn_valiChk()){
+			return false;
+		}
+		/* formObj.attr("action", "/mng/updateItem.do");
+		formObj.attr("method", "post");
+		formObj.submit(); */
+		
+		fn_insert();
+	})
+	
+});
+function fn_addFile(){
+	var fileIndex = 1;
+	$(".fileAdd_btn").on("click", function(){
+		$("#fileIndex").append("<div><input type='file' style='float:left;' id='file_"+(fileIndex)+"' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
+		//$("#fileIndex").append("<div><img class='card-img-top' style='width:20%;height:auto' name='itemImg$"+(fileIndex++)+"' id='itemImg"+(fileIndex++)+"' alt='no image' /><input type='file' style='float:left;' id='file_"+(fileIndex)+"' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
+	});
+	 
+	 
+	  
+
+	
+	
+	$(document).on("click","#fileDelBtn", function(){
+		$(this).parent().remove();
+		
+	});
+}
+
+var fileNoArry = new Array();
+var fileNameArry = new Array();
+
+function fn_del(value, name){
+	
+	fileNoArry.push(value);
+	fileNameArry.push(name);
+	$("#fileNoDel").attr("value", fileNoArry);
+	$("#fileNameDel").attr("value", fileNameArry);
+}
+
+
+
+function fn_list() {
+	window.location='<c:url value="/mng/boardList.do"/>';
 };
 
 function fn_insert() {
-	//var formData = $('#boardForm').serialize();
 	$('#boardForm #no').attr('disabled',false);
-	var formData = new FormData($("#boardForm")[0]);
-	alert($("#file").val());
+	var  formData= new FormData($("#writeForm")[0]);
+/* 	var  formData= $('#writeForm').serialize(); */
+
+	var no=$("#boardForm #no").val();
+	var id=$("#boardForm #id").val();
+	var title=$("#boardForm #title").val();
+	var content=$("#boardForm #content").val();
+	formData.append("no",no);
+	formData.append("id",id);
+	formData.append("title",title);
+	formData.append("content",content);
+
+	var fileNoDel = new Array();
+	var fileNameDel = new Array();
+	var file = new Array();
+	
+	alert("no:"+no);
+	$(".FILE_NO").each(function(){
+		fileNoDel.push($(this).val());
+		fileNameDel.push($(this).next().val());
+		//checkArr.push($(this).attr("data-cartNum"));  // 배열에 데이터 삽입
+		
+	});
+	
+	$("input[type=file]").each(function(){
+		//alert('file:'+$(this).val());
+		file.push($(this).val());
+		
+	}); 
+	alert("fileNameDel:"+fileNameDel);
+	
+	//alert($("input[type=file]").val());
+	
+	formData.append("fileNoDel",fileNoDel);
+	formData.append("fileNameDel",fileNameDel);
+	//formData.append("no",$("#boardForm #no").val());
+	formData.append("B_TYPE",1);
+	formData.append("file",file);
+	
 	$.ajax({
-		url : "${pageContext.request.contextPath}/insertBoard.do",
+		url : "${pageContext.request.contextPath}/mng/insertBoard.do",
 		type : "post",
 		enctype: 'multipart/form-data',
+		//data : {fileNoDel : fileNoDel ,fileNameDel : fileNameDel },
 		data : formData,
+/* 		data : {formData: formData, fileNoDel : fileNoDel ,fileNameDel : fileNameDel }, */
 		processData : false,
 		contentType : false,
 		success : function(result) {
@@ -196,7 +268,7 @@ function fn_insert() {
 		error : function(xhr, status) {
 			alert(xhr + " : " + status);
 		}
-	});
+	}); 
 
 }
 
@@ -204,7 +276,8 @@ var oEditors = [];
 nhn.husky.EZCreator.createInIFrame({
 	oAppRef : oEditors,
 	elPlaceHolder : "content", //저는 textarea의 id와 똑같이 적어줬습니다.
-	sSkinURI : "se2/SmartEditor2Skin.html", //경로를 꼭 맞춰주세요!
+	sSkinURI : "${pageContext.request.contextPath}/se2/SmartEditor2Skin.html",
+
 	fCreator : "createSEditor2",
 	htParams : {
 		// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
@@ -219,7 +292,7 @@ nhn.husky.EZCreator.createInIFrame({
 });
 
 $(function() {
-	$("#submit").click(function() {
+	$("#register_Btn").click(function() {
 		oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []); 
 		//textarea의 id를 적어줍니다.
 

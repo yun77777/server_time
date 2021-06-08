@@ -88,7 +88,7 @@
 						<!-- //search-->
 					<div class="row">
 						<div class="col-12">
-							<button class="btn btn-info btn-sm float-right" onclick="fn_insert('${member.ID}')" type="button">Insert</button>
+							<button class="btn btn-info btn-sm float-right" onclick="fn_insert('${member.ID}')" type="button">작성</button>
 						</div>
 					</div>
 				</div>
@@ -136,7 +136,7 @@
 					</div>
 				</div>
 				<div class="form-group row">
-					<button class="btn btn-secondary btn-sm right" onclick="fn_list('1')" type="button">Search</button>
+					<button class="btn btn-secondary btn-sm right" onclick="fn_list('1')" type="button">검색</button>
 				</div>
 			</div>
 		</div>
