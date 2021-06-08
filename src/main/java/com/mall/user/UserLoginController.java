@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.JsonNode;
-import org.json.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.mall.login.service.loginService;
 import com.mall.login.web.KakaoController;
+import com.mall.login.web.NaverLoginBO;
 
 @Controller
 @RequestMapping("/user")
@@ -38,7 +38,14 @@ public class UserLoginController {
 	public UserLoginController(UserService userService) {
 		this.userService = userService;
 	}
-
+	  /* NaverLoginBO */
+    private NaverLoginBO naverLoginBO;
+    private String apiResult = null;
+    
+    @Autowired
+    private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
+        this.naverLoginBO = naverLoginBO;
+    }
 
 	private KakaoController kakaoLogin=new KakaoController();
 
@@ -49,6 +56,17 @@ public class UserLoginController {
 	public String login( @RequestParam Map<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) {
 		String kakaoUrl = kakaoLogin.getAuthorizationUrl(session);
 		model.addAttribute("kakao_url", kakaoUrl);
+		
+		 /* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
+        String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+        
+        //https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=sE***************&
+        //redirect_uri=http%3A%2F%2F211.63.89.90%3A8090%2Flogin_project%2Fcallback&state=e68c269c-5ba9-4c31-85da-54c16c658125
+        System.out.println("네이버:" + naverAuthUrl);
+        
+        //네이버 
+        model.addAttribute("url", naverAuthUrl);
+		
 		System.err.println("로그인:"+paramMap.get("userInfo"));
 		if(paramMap.get("userInfo")!=null)
 			return "/test";
@@ -103,6 +121,29 @@ System.err.println("userInfo:"+userInfo);//@@@v2@@@
 			model.addAttribute("msg","로그인이 완료되었습니다.");
 			return "/test";
 		}
+//		return "/user/afterLogin";//ooooo
+	}
+	@RequestMapping(value = "/naverOauth.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public String getNaverSignIn(ModelMap model, @RequestParam String state,  @RequestParam String code, HttpSession session)
+			throws Exception {
+//		return "redirect:/"; //x
+		
+		// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+		Map<String, Object> paramMap=new HashMap<String, Object>();
+		
+	    System.out.println("여기는 callback");
+        OAuth2AccessToken oauthToken;
+        oauthToken = naverLoginBO.getAccessToken(session, code, state);
+        //로그인 사용자 정보를 읽어온다.
+        apiResult = naverLoginBO.getUserProfile(oauthToken);
+        model.addAttribute("result", apiResult);
+ 
+        /* 네이버 로그인 성공 페이지 View 호출 */
+		
+		//신규회원일 경우 회원가입
+		//아이디 중복 아닐 경우
+			model.addAttribute("msg","로그인이 완료되었습니다.");
+			return "/test";
 //		return "/user/afterLogin";//ooooo
 	}
 

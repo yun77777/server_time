@@ -44,7 +44,7 @@
 		      <a class="" href="https://kauth.kakao.com/oauth/authorize?client_id=8ec4c5e4b41aba30453d25fa8512e604&redirect_uri=http://localhost:8080/user/kakaoOauth.do&response_type=code">
 		          <span><img height="53" src="<c:url value='/resources/img/btn_kakao.png'/>"></span>
 		      </a>
-		      <a class="" href="">
+		      <a onclick="fn_naverUrl()" class="" href="#">
 		          <span><img height="53" src="<c:url value='/resources/img/btn_naver_green.png'/>"></span>
 		      </a>
 	      </span>

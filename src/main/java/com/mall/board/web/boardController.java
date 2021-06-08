@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.mall.board.service.ReplyService;
 import com.mall.board.service.boardService;
 import com.mall.common.PaginationVO;
+import com.mall.login.web.NaverLoginBO;
 import com.mall.mng.service.mngService;
 import com.mall.user.LoginDTO;
 
@@ -41,6 +43,14 @@ public class boardController {
 	@Resource(name = "replyService")
 	private ReplyService replyService;
 	
+	  /* NaverLoginBO */
+    private NaverLoginBO naverLoginBO;
+    private String apiResult = null;
+    
+    @Autowired
+    private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
+        this.naverLoginBO = naverLoginBO;
+    }
 //	@RequestMapping(value = "/test.do")
 //	public String test(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="20") int recordCountPerPage,
 //			@RequestParam Map<String, Object> paramMap, HttpSession session, HttpServletRequest request, Model model) throws Exception {
@@ -56,6 +66,18 @@ public class boardController {
 		model.addAttribute("k_userInfo", httpSession.getAttribute("k_userInfo"));
 		System.err.println("kxx:"+httpSession.getAttribute("k_userInfo"));
 
+		
+		 /* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
+        String naverAuthUrl = naverLoginBO.getAuthorizationUrl(httpSession);
+        
+        //https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=sE***************&
+        //redirect_uri=http%3A%2F%2F211.63.89.90%3A8090%2Flogin_project%2Fcallback&state=e68c269c-5ba9-4c31-85da-54c16c658125
+        System.out.println("네이버:" + naverAuthUrl);
+        
+        //네이버 
+        model.addAttribute("url", naverAuthUrl);
+        
+        
 		try {
 			paramMap.put("B_TYPE",4);
 			paramMap.put("PAGE_TYPE","main");

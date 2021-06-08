@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script>
 
 <script>
     var msg = "${msg}";
@@ -40,6 +41,13 @@
 			alert('로그인 후 이용해주세요');
 		else
 			window.location='<c:url value="/cartList.do"/>';
+
+    }
+    
+    function fn_naverUrl() {
+    	var url='${url}';
+    	alert(url);
+	window.location=url;
 
     }
     
