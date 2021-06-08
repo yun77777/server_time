@@ -117,7 +117,8 @@ figure.snip1384{
   min-width: 230px;
   max-width: 315px; 
   width: 100%;
-  color: #6495ED; /* color */
+  color: #000; /* color */
+/*   color: #6495ED; /* color */ */
   text-align: left;
   font-size: 16px;
   background-color: #1fe0;
