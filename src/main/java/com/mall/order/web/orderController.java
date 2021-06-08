@@ -196,41 +196,12 @@ Map<String, Object> result = new HashMap<String, Object>();
 		model.addAttribute("login", session.getAttribute("login"));
 		model.addAttribute("member", session.getAttribute("member"));
 
-		System.err.println("ff"+session.getAttribute("login"));
-		String member = String.valueOf(session.getAttribute("login"));
-		String userId = member;
-		
-//		UserVO member = (UserVO) session.getAttribute("ID");
-//		String userId = member.getID();
-
-		// 캘린더 호출
-		Calendar cal = Calendar.getInstance();
-		int year = cal.get(Calendar.YEAR); // 연도 추출
-		String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1); // 월 추출
-		String ymd = ym + new DecimalFormat("00").format(cal.get(Calendar.DATE)); // 일 추출
-		String subNum = ""; // 랜덤 숫자를 저장할 문자열 변수
-
-		for (int i = 1; i <= 6; i++) { // 6회 반복
-			subNum += (int) (Math.random() * 10); // 0~9까지의 숫자를 생성하여 subNum에 저장
-		}
-
-		String orderId = ymd + "_" + subNum; // [연월일]_[랜덤숫자] 로 구성된 문자
-
-		order.setOrderId(orderId);
-		order.setUserId(userId);
-		paramMap.put("userId",userId);
-System.err.println("paramamamamammamama:"+userId);
-//		orderService.orderInfo(order);
-
-		orderDetail.setOrderId(orderId);
-//		orderService.orderInfo_Details(orderDetail);
-
-		// 주문 테이블, 주문 상세 테이블에 데이터를 전송하고, 카트 비우기
-//		orderService.cartAllDelete(userId);
+		Map<String,Object> login=(HashMap<String, Object>) session.getAttribute("login");
+		paramMap.put("userId",login.get("ID"));
+System.err.println("paramamamamammamama:"+login.get("ID"));
 		paramMap.put("orderProcess","N");
 		List<Map<String, Object>> cartList = orderService.cartList(paramMap);
-//		List<CartListVO> cartList = orderService.cartList(userId);
-
+System.err.println("LISITIIITITISITITIT:"+cartList);
 		model.addAttribute("cartList", cartList);
 
 //		return "redirect:/order/cartList";

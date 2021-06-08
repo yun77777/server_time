@@ -160,7 +160,7 @@
 	</select>
 	
 	<!-- 카트 담기 -->
-	<insert id="addCart">
+	<insert id="addCart" parameterType="com.mall.vo.CartListVO">
 	<selectKey resultType="int" keyProperty="cartNum" order="BEFORE">
 		SELECT COALESCE(MAX(cartNum),0)+1 AS cartNum FROM tbl_cart
 		where userId=#{userId,jdbcType=VARCHAR}
