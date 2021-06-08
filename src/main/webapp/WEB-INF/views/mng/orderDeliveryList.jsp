@@ -32,69 +32,19 @@
 </head>
 <body>
 
-	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
 
 	<!-- Page Content-->
 	<section class="py-5">
 		<div class="container">
 			<form id="boardForm" method="post">
-			<input type="hidden" id="no" name="no">
+			<input type="hidden" id="orderId" name="orderId">
+			<input type="hidden" id="delivery" name="delivery">
 			<input type="hidden" id="currentPageNo" name="currentPageNo" value="${pg.currentPageNo}"/>
 			<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
 				<!-- Page Heading/Breadcrumbs-->
-				<h1 class="mt-4 mb-3">
-					게시판
-				</h1>
 				
-				<nav>
-				  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-				    <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Q&A</a>
-				    <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">FAQ</a>
-				    <a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">공지사항</a>
-				  </div>
-				</nav>
-				<div class="tab-content" id="nav-tabContent">
-				  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-					<%@ include file="/WEB-INF/views/board/qnaList.jsp"%>
-				  </div>
-				  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-				  	<%@ include file="/WEB-INF/views/board/faqList.jsp"%>
-				  </div>
-				  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-				  	<%@ include file="/WEB-INF/views/board/noticeList.jsp"%>
-				  </div>
-				</div>
-				<%-- <div class="row styling">
-				<div class="col-lg-8 mb-4">
-					<div class="control-group form-group">
-			          <div class='input-group date' id='datetimepicker1'>
-			            <input type='text' class="form-control input-lg" id="searchStartDate" name="searchStartDate" value="${paramMap.searchStartDate}"/>
-			            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-			          </div>
-			        </div>
-					<div class="control-group form-group">
-			          <div class='input-group date' id='datetimepicker1'>
-			            <input type='text' class="form-control input-lg" id="searchEndDate" name="searchEndDate" value="${paramMap.searchEndDate}"/>
-			            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-			          </div>
-			        </div>
-			      </div>
-			    </div><br> --%>
-			    
-				<div class="row">
-				
-					<div class="col-lg-8 mb-4">
-						<%-- <div class="control-group form-group">
-							<div class="controls">
-								<label>title:</label> <input class="form-control" id="searchTitle"
-									name="searchTitle" type="text" value="${paramMap.searchTitle}" 
-									data-validation-required-message="Please enter your name." />
-								<p class="help-block"></p>
-							</div>
-						</div> --%>
-						
-						
-						<!-- <div class="form-group row"><div class="card mb-4">
+				<div class="row styling">
+						<!-- <div class="card mb-4">
                             <h5 class="card-header">Search</h5>
                             <div class="card-body">
                                 <div class="input-group">
@@ -105,17 +55,81 @@
                         </div> -->
 						<div id="success"></div>
 						<!-- //search-->
+						<div class="row">
+						<div class="col-12">
+							<button type="button" onclick="" id="delete_btn" class="btn btn btn-info btn-sm float-right">발송</button>
+							<button type="button" onclick="" id="cancel_btn" class="btn btn btn-danger btn-sm float-right">취소</button>
+						</div>
+					</div>
+<%-- 						<button class="btn btn-primary" onclick="fn_insert('${login.ID}')" type="button">Insert</button> --%>
+					</div>
+				
+          		<span>총 <em>${pg.totalRecordCount}</em>건 </span>
+                
+				<table class="table table-sm">
+					<thead>
+						<tr>
+							<th scope="col">
+								<div class="allCheck">
+					    			<span>
+					    				<input type="checkbox" name="allCheck" id="allCheck" />
+					    			</span>
+								</div>
+							</th>
+							<th scope="col">orderId</th>
+							<th scope="col">gdsName</th>
+							<th scope="col">gdsNum</th>
+							<th scope="col">amount</th>
+							<th scope="col">delivery</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="result" items="${list}" varStatus="status">
+							<c:if test="${result.delivery eq '발송'}">
+								<tr>
+									<th>
+										<div class="checkBox">
+											<input type="checkbox" name="chBox" class="chBox" data-cid="${result.orderId}" />
+											<script>
+												$(".chBox").click(function(){
+													$("#allCheck").prop("checked", false);
+												});
+											</script>
+										</div>
+									</th>
+									<th scope="row">${result.orderId}</th>
+									<td><a href="#" onclick="fn_detail('${result.orderId}','${result.delivery}');">${result.gdsName} 외 ${result.cnt-1} 건</a></td>
+									<td>${result.gdsNum}</td>
+									<td>${result.amount}</td>
+									<td>${result.delivery}</td>
+								</tr>
+							</c:if>
+						</c:forEach>
+					</tbody>
+				</table>
+			</form>
+			
+   			<%@ include file="/WEB-INF/views/common/paging.jsp"%>
+			<div class="row float-right">
+				<div class="form-group row">
+					<div class="col-xs-4">
+						<label>id:</label> 
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-xs-4">
+						<input class="form-control" id="searchId"
+							name="searchId" type="text" value="${paramMap.searchId}" 
+							data-validation-required-message="검색명 입력" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<button class="btn btn-secondary btn-sm right" onclick="fn_list('1')" type="button">검색</button>
 				</div>
 			</div>
-                
-   			
 		</div>
 		<!-- //Container -->
 	</section>
-	
-	<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
-
-	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
 	<!-- Bootstrap core JS-->
 <!-- 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -134,18 +148,91 @@
 </body>
 
 <script>
+$(document).ready(function(){
+	$("#allCheck").click(function(){
+    	var chk = $("#allCheck").prop("checked");
+    	
+    	if(chk) {
+    		$(".chBox").prop("checked", true);
+    	} else {
+    		$(".chBox").prop("checked", false);
+    	}
+    });	
+	
+ $("#cancel_btn").on("click",function(e){
+
+    	var confirm_val = confirm("취소하시겠습니까?");
+    	
+    	if(confirm_val) {
+    		var checkArr = new Array();
+
+    		// 체크된 체크박스의 갯수만큼 반복
+    		$("input[class='chBox']:checked").each(function(){
+    			checkArr.push($(this).attr("data-cid"));
+    		});
+    		
+    		alert(checkArr);
+    			
+    		$.ajax({
+    			url : "/mng/cancelItems.do",
+    			type : "post",
+    			data : { chbox : checkArr },
+    			success : function(result){
+    				
+    				if(result == 1) {						
+    					alert("취소 완료");
+    					location.href = "/mng/orderList.do";
+    				} else {
+    					alert("취소 실패");
+    				}
+    			}
+    		});
+    	}
+    });
+ 
+ $("#deliver_btn").on("click",function(e){
+
+    	var confirm_val = confirm("발송처리하시겠습니까?");
+    	
+    	if(confirm_val) {
+    		var checkArr = new Array();
+
+    		// 체크된 체크박스의 갯수만큼 반복
+    		$("input[class='chBox']:checked").each(function(){
+    			checkArr.push($(this).attr("data-cid"));
+    		});
+    		
+    		alert(checkArr);
+    			
+    		$.ajax({
+    			url : "/mng/deliverItems.do",
+    			type : "post",
+    			data : { chbox : checkArr },
+    			success : function(result){
+    				
+    				if(result == 1) {						
+    					alert("발송처리 완료");
+    					location.href = "/mng/orderList.do";
+    				} else {
+    					alert("발송처리 실패");
+    				}
+    			}
+    		});
+    	}
+    });
+});
 function fn_list(no) {
 	$('#currentPageNo').val(no);
 	
 	$('#boardForm').attr({
-		action : '<c:url value="/boardList.do"/>',
+		action : '<c:url value="/mng/orderList.do"/>',
 		target : '_self'
 	}).submit();
 };
 
 function fn_insert(id){
 	if(id.length==0)
-		alert('로그인 후 이용해주세요');
+		alert("You need to log in first");
 	else{
 		$('#boardForm').attr({
 			action : '<c:url value="/boardInsert.do" />',
@@ -156,18 +243,16 @@ function fn_insert(id){
 
 }
 
-function fn_detail(no,id){
+function fn_detail(orderId,delivery){
 	//var  formData= $('#boardForm').serialize();
 	
-	if(id.length==0)
-		alert('로그인 후 이용해주세요');
-	else{
-		$('#boardForm #no').val(no);
-		$('#boardForm').attr({
-			action : '<c:url value="/boardDetail.do" />',
-			target : '_self'
-		}).submit();
-	}
+	$('#boardForm #orderId').val(orderId);
+	$('#boardForm #delivery').val(delivery);
+	
+	$('#boardForm').attr({
+		action : '<c:url value="/mng/orderDetail.do" />',
+		target : '_self'
+	}).submit();
 }
 
 $(function () {

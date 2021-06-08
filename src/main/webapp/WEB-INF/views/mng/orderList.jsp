@@ -47,89 +47,27 @@
 				<h1 class="mt-4 mb-3">
 					주문 내역 관리
 				</h1>
-				<div class="row styling">
-						<!-- <div class="card mb-4">
-                            <h5 class="card-header">Search</h5>
-                            <div class="card-body">
-                                <div class="input-group">
-                                    <input class="form-control" type="text" placeholder="Search for..." />
-                                    <span class="inpug-group-append"><button class="btn btn-secondary" type="button">Go!</button></span>
-                                </div>
-                            </div>
-                        </div> -->
-						<div id="success"></div>
-						<!-- //search-->
-						<div class="row">
-						<div class="col-12">
-							<button type="button" onclick="" id="delete_btn" class="btn btn btn-info btn-sm float-right">발송</button>
-							<button type="button" onclick="" id="cancel_btn" class="btn btn btn-danger btn-sm float-right">취소</button>
-						</div>
-					</div>
-<%-- 						<button class="btn btn-primary" onclick="fn_insert('${login.ID}')" type="button">Insert</button> --%>
-					</div>
+				<nav>
+				  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+				    <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">전체</a>
+				    <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">취소</a>
+				    <a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">발송</a>
+				  </div>
+				</nav>
+				<div class="tab-content" id="nav-tabContent">
+				  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+					<%@ include file="/WEB-INF/views/mng/orderAllList.jsp"%>
+				  </div>
+				  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+				  	<%@ include file="/WEB-INF/views/mng/orderCancelList.jsp"%>
+				  </div>
+				  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+				  	<%@ include file="/WEB-INF/views/mng/orderDeliveryList.jsp"%>
+				  </div>
 				</div>
-          		<span>총 <em>${pg.totalRecordCount}</em>건 </span>
-                
-				<table class="table table-sm">
-					<thead>
-						<tr>
-							<th scope="col">
-								<div class="allCheck">
-					    			<span>
-					    				<input type="checkbox" name="allCheck" id="allCheck" />
-					    			</span>
-								</div>
-							</th>
-							<th scope="col">orderId</th>
-							<th scope="col">gdsName</th>
-							<th scope="col">gdsNum</th>
-							<th scope="col">amount</th>
-							<th scope="col">delivery</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="result" items="${list}" varStatus="status">
-							<tr>
-								<th>
-									<div class="checkBox">
-										<input type="checkbox" name="chBox" class="chBox" data-cid="${result.orderId}" />
-										<script>
-											$(".chBox").click(function(){
-												$("#allCheck").prop("checked", false);
-											});
-										</script>
-									</div>
-								</th>
-								<th scope="row">${result.orderId}</th>
-								<td><a href="#" onclick="fn_detail('${result.orderId}','${result.delivery}');">${result.gdsName} 외 ${result.cnt-1} 건</a></td>
-								<td>${result.gdsNum}</td>
-								<td>${result.amount}</td>
-								<td>${result.delivery}</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</form>
-			
-   			<%@ include file="/WEB-INF/views/common/paging.jsp"%>
+				
+				
 		</div>
-		<div class="row float-right">
-				<div class="form-group row">
-					<div class="col-xs-4">
-						<label>id:</label> 
-					</div>
-				</div>
-				<div class="form-group row">
-					<div class="col-xs-4">
-						<input class="form-control" id="searchId"
-							name="searchId" type="text" value="${paramMap.searchId}" 
-							data-validation-required-message="검색명 입력" />
-					</div>
-				</div>
-				<div class="form-group row">
-					<button class="btn btn-secondary btn-sm right" onclick="fn_list('1')" type="button">검색</button>
-				</div>
-			</div>
 		<!-- //Container -->
 	</section>
 	

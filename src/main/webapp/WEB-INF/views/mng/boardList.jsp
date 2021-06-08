@@ -250,7 +250,7 @@ function fn_detail(no,id){
 	//var  formData= $('#boardForm').serialize();
 	
 	if(id.length==0)
-		alert("You need to log in first");
+		alert('로그인 후 이용해주세요');
 	else{
 		$('#boardForm #no').val(no);
 		$('#boardForm').attr({

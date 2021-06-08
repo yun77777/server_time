@@ -35,6 +35,14 @@
     	
     }
     
+    function fn_chk_login(id) {
+		if(id.length==0)
+			alert('로그인 후 이용해주세요');
+		else
+			window.location='<c:url value="/cartList.do"/>';
+
+    }
+    
 </script>
 <script>
 Kakao.init('0280f7076bc693fac40abb703230b06b'); //발급받은 키 중 javascript키를 사용해준다.

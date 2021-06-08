@@ -32,7 +32,6 @@
 </head>
 <body>
 
-	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
 
 	<!-- Page Content-->
 	<section class="py-5">
@@ -43,27 +42,9 @@
 			<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
 				<!-- Page Heading/Breadcrumbs-->
 				<h1 class="mt-4 mb-3">
-					게시판
+					FAQ
 				</h1>
 				
-				<nav>
-				  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-				    <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Q&A</a>
-				    <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">FAQ</a>
-				    <a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">공지사항</a>
-				  </div>
-				</nav>
-				<div class="tab-content" id="nav-tabContent">
-				  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-					<%@ include file="/WEB-INF/views/board/qnaList.jsp"%>
-				  </div>
-				  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-				  	<%@ include file="/WEB-INF/views/board/faqList.jsp"%>
-				  </div>
-				  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-				  	<%@ include file="/WEB-INF/views/board/noticeList.jsp"%>
-				  </div>
-				</div>
 				<%-- <div class="row styling">
 				<div class="col-lg-8 mb-4">
 					<div class="control-group form-group">
@@ -105,17 +86,63 @@
                         </div> -->
 						<div id="success"></div>
 						<!-- //search-->
+					<div class="row">
+						<div class="col-12">
+							<button class="btn btn-info btn-sm float-right" onclick="fn_insert('${member.ID}')" type="button">작성</button>
+						</div>
+					</div>
 				</div>
 			</div>
+          		<span>총 <em>${pg.totalRecordCount}</em>건 </span>
                 
+				<table class="table table-sm">
+					<thead class="thead-light">
+						<tr>
+							<th scope="col">글번호</th>
+							<th scope="col">제목</th>
+							<th scope="col">아이디</th>
+							<th scope="col">등록일자</th>
+							<th scope="col">조회수</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="result" items="${list}" varStatus="status">
+							<tr>
+								<th scope="row">${result.B_NO}</th>
+								<td><a href="#" onclick="fn_detail('${result.B_NO}','${member.ID}');">${result.title}</a></td>
+<%-- 								<td><a href="#" onclick="fn_detail('${result.B_NO}','${login.ID}');">${result.title}</a></td> --%>
+								<td>${result.id}</td>
+								<td>${result.input_dt}</td>
+								<td>${result.cnt}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</form>
+			
+   			<%@ include file="/WEB-INF/views/common/paging.jsp"%>
    			
+   			<div class="row float-right">
+				<div class="form-group row">
+					<div class="col-xs-4">
+						<label>id:</label> 
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-xs-4">
+						<input class="form-control" id="searchId"
+							name="searchId" type="text" value="${paramMap.searchId}" 
+							data-validation-required-message="Please enter your phone number." />
+					</div>
+				</div>
+				<div class="form-group row">
+					<button class="btn btn-secondary btn-sm right" onclick="fn_list('1')" type="button">검색</button>
+				</div>
+			</div>
 		</div>
 		<!-- //Container -->
 	</section>
 	
-	<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
-
-	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
 	<!-- Bootstrap core JS-->
 <!-- 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

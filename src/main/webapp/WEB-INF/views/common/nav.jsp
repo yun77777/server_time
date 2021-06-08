@@ -42,7 +42,7 @@
  							<li class="nav-item"><a class="nav-link" href="#" onclick="fn_itemList('pet')">반려동물용품</a></li>
  							
  							<li class="nav-item"><a class="nav-link" href="/boardList.do">게시판</a></li>
- 							<li class="nav-item"><a class="nav-link" href="/cartList.do">장바구니</a></li>
+	                        <li class="nav-item"><a class="nav-link" href="#" onclick="fn_chk_login('${member.ID}')">장바구니</a></li>
 <!--                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
  -->                        
 <!--  <li class="nav-item"><a class="nav-link" href="/chatting.do">Chat</a></li>
