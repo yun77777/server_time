@@ -38,6 +38,7 @@
  -->                        
  							<li class="nav-item"><a class="nav-link" href="#" onclick="fn_itemList('top')">상의</a></li>
  							<li class="nav-item"><a class="nav-link" href="#" onclick="fn_itemList('bottom')">하의</a></li>
+ 							<li class="nav-item"><a class="nav-link" href="#" onclick="fn_itemList('shoes')">신발</a></li>
  							
  							<li class="nav-item"><a class="nav-link" href="/boardList.do">게시판</a></li>
  							<li class="nav-item"><a class="nav-link" href="/cartList.do">장바구니</a></li>
@@ -71,7 +72,6 @@
                        <a class="dropdown-item" href="/mng/itemList.do">상품 관리</a>
                        <a class="dropdown-item" href="/mng/boardList.do">게시판 관리</a>
                        <a class="dropdown-item" href="/mng/mngCommonCodes.do">공통코드 관리</a>
-                       
                        <a class="dropdown-item" href="/mng/orderList.do">주문 내역 관리</a>
                        <a class="dropdown-item" href="portfolio-3-col.html">상품평 관리</a>
                        <a class="dropdown-item" href="/mng/customerList.do">고객 관리</a>

@@ -473,15 +473,7 @@ function fn_list(no) {
 	
 }
 
-function fn_itemList(itemType) {
-	$('#itemType').val(itemType);
-	
-	$('#navForm').attr({
-		action : '<c:url value="/itemList.do"/>',
-		target : '_self'
-	}).submit();
-	
-}
+
 
 
 

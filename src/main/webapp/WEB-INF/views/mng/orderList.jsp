@@ -33,6 +33,7 @@
 <body>
 
 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
+	<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
 
 	<!-- Page Content-->
 	<section class="py-5">

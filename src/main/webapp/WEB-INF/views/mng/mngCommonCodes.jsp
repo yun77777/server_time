@@ -25,6 +25,8 @@
 <body>
 
 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
+	<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
+	
 	<!-- Page content-->
 	<section class="py-5">
 		<div class="container">

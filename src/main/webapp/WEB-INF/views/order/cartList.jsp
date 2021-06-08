@@ -31,6 +31,8 @@
 <body>
 
 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
+	<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
+	
 <section class="py-5">
 		<div class="container">
 				<table class="table">

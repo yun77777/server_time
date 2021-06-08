@@ -24,7 +24,16 @@
     		target : '_self'
     	}).submit();
     }
-
+    
+    function fn_itemList(itemType) {
+    	$('#itemType').val(itemType);
+    	
+    	$('#navForm').attr({
+    		action : '<c:url value="/itemList.do"/>',
+    		target : '_self'
+    	}).submit();
+    	
+    }
     
 </script>
 <script>

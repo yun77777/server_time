@@ -63,6 +63,9 @@
 					<c:forEach var="result" items="${bottom}">
 						<option class="bottomOpt" value="${result.CID}">${result.NAME}</option>
 					</c:forEach>
+					<c:forEach var="result" items="${shoes}">
+						<option class="shoesOpt" value="${result.CID}">${result.NAME}</option>
+					</c:forEach>
 				</select>
 			</div>
 			
@@ -239,18 +242,26 @@ $(document).ready(function(){
     
     $(".topOpt").hide();
 	$(".bottomOpt").hide();
+	$(".shoesOpt").hide();
     
     $("#cateCode1").change(function(){
     	
     	if($(this).val()=='7'){
 	    	$(".topOpt").show();
 	    	$(".bottomOpt").hide();
+	    	$(".shoesOpt").hide();
    		} else if($(this).val()=='9'){
 	    	$(".topOpt").hide();
 	    	$(".bottomOpt").show();
+	    	$(".shoesOpt").hide();
+   		} else if($(this).val()=='10'){
+	    	$(".topOpt").hide();
+	    	$(".bottomOpt").hide();
+	    	$(".shoesOpt").show();
    		} else{
    			$(".topOpt").hide();
 	    	$(".bottomOpt").hide();
+	    	$(".shoesOpt").hide();
    		}
     	
     });

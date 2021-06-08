@@ -72,6 +72,8 @@ public class boardController {
 			List<Map<String, Object>> list1=mngService.selectItemMainList(paramMap);
 			paramMap.put("cateCode1",9);
 			List<Map<String, Object>> list2=mngService.selectItemMainList(paramMap);
+			paramMap.put("cateCode1",10);
+			List<Map<String, Object>> list3=mngService.selectItemMainList(paramMap);
 //			List<Map<String, Object>> list=mngService.selectItemList(paramMap);
 //			List<Map<String, Object>> list=boardService.selectItemList(paramMap);
 			System.err.println("list1:"+list1);
@@ -79,6 +81,7 @@ public class boardController {
 			
 			model.addAttribute("list1",list1);
 			model.addAttribute("list2",list2);
+			model.addAttribute("list3",list3);
 			model.addAttribute("pg",pg);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -438,14 +441,19 @@ public class boardController {
 			
 			List<Map<String, Object>> list1=new ArrayList<Map<String,Object>>();
 			List<Map<String, Object>> list2=new ArrayList<Map<String,Object>>();
+			List<Map<String, Object>> list3=new ArrayList<Map<String,Object>>();
 			if(paramMap.get("itemType")!=null && paramMap.get("itemType").toString().equals("top")) {
 				paramMap.put("cateCode1",7);
-					list1=mngService.selectItemMainList(paramMap);
-					model.addAttribute("list1",list1);
+				list1=mngService.selectItemMainList(paramMap);
+				model.addAttribute("list1",list1);
 			} else if(paramMap.get("itemType")!=null && paramMap.get("itemType").toString().equals("bottom")) {
 				paramMap.put("cateCode1",9);
-					list2=mngService.selectItemMainList(paramMap);
-					model.addAttribute("list2",list2);
+				list2=mngService.selectItemMainList(paramMap);
+				model.addAttribute("list2",list2);
+			} else if(paramMap.get("itemType")!=null && paramMap.get("itemType").toString().equals("shoes")) {
+				paramMap.put("cateCode1",10);
+				list3=mngService.selectItemMainList(paramMap);
+				model.addAttribute("list3",list3);
 			}
 			
 			
