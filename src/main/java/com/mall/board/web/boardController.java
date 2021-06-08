@@ -246,7 +246,10 @@ public class boardController {
 	@ResponseBody
 	@RequestMapping(value = "/insertBoard.do")
 	public Map<String,Object> insertBoard(
-			MultipartHttpServletRequest multi, @RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+			MultipartHttpServletRequest multi, 
+			@RequestParam(value="fileNoDel[]") String[] files,
+			@RequestParam(value="fileNameDel[]") String[] fileNames,
+			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
 		model.addAttribute("login",httpSession.getAttribute("login"));
 		model.addAttribute("member",httpSession.getAttribute("member"));
 
@@ -278,9 +281,8 @@ public class boardController {
 			}else {
 				System.err.println("asmkdlmslkdmzklxcmklzcxm");
 				System.err.println(paramMap);
-				boardService.insertBoard(paramMap, multi, request);
+				boardService.insertBoard(paramMap, files, fileNames, multi);
 			}
-			
 			
 			
 			model.addAttribute("paramMap", paramMap);

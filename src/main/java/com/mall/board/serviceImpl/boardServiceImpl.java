@@ -87,13 +87,14 @@ public class boardServiceImpl implements boardService {
 	}
 
 	@Override
-	public void insertBoard(Map<String, Object> paramMap, MultipartHttpServletRequest multi, HttpServletRequest request)
-			throws Exception {
+	public void insertBoard(Map<String, Object> paramMap, String[] files, String[] fileNames,
+			MultipartHttpServletRequest multi) throws Exception {
 		System.err.println("$$$$$$$$$:" + paramMap);
 		boardMapper.mergeBoard(paramMap);
 		boardMapper.insertHisBoard(paramMap);
 		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(paramMap, multi);
 		int size = list.size();
+		
 		System.err.println("multi list:" + list);
 		if (size > 0) {
 			for (int i = 0; i < size; i++) {

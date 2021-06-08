@@ -205,7 +205,7 @@ $(document).ready(function(){
 		formObj.submit(); */
 		
 		fn_insert();
-	})
+	});
 	
 	
 	$("#gdsImg").change(function(){
