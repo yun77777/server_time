@@ -360,8 +360,8 @@
 		
 	</select>
 	
-	<delete id="deleteCustomer" parameterType="java.util.HashMap">
- 	delete member where ID=#{ID} 
+	<delete id="deleteCustomer" parameterType="map">
+ 	delete from member where ID=#{ID}
 	</delete>
 	
 	<select id="selectCustomerListCnt" parameterType="map"

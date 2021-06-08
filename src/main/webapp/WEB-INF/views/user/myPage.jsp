@@ -32,11 +32,9 @@
 	<section class="py-5">
 		<div class="container">
 			<form id="boardForm" method="post" enctype="multipart/form-data">
-
+			<input type="hidden" name="ADDRESS">
 				<!-- Page Heading/Breadcrumbs-->
-				<h1> My Page </h1><small> Welcome <b>${member.ID}</b>!</small>
-				
-				
+				<h1> 회원 정보 관리 </h1>
 				
 				<div class="row">
 					<div class="col-lg-8 mb-4">
@@ -46,26 +44,26 @@
 			</div>
 			<table class="table">
 				<tr>
-					<td>id</td>
+					<td>아이디</td>
 					<td colspan="2"><input class="form-control" id="id"
 									name="ID" type="text" value="${member.ID}" disabled/></td>
 				</tr>
 				<c:if test="${empty member.k_userInfo}">	
 				<tr>
-					<td>password</td>
+					<td>비밀번호</td>
 					<td colspan="2"><input class="form-control" id="pw"
 									name="PW" type="text" value="${info.PW}" required
 									data-validation-required-message="Please enter your email address." /></td>
 				</tr>
 				<tr>
-					<td>password check</td>
+					<td>비밀번호 확인</td>
 					<td colspan="2"><input class="form-control" id="pwChk"
 									name="pwChk" type="text" required
 									data-validation-required-message="Please enter your email address." /></td>
 				</tr>
 		</c:if>
 				<tr>
-					<td rowspan="2">address</td>
+					<td rowspan="2">주소</td>
 					<td colspan="2">
 							<input type="text" class="form-control-sm" id="sample2_postcode" placeholder="우편번호">
 							<input type="button" onclick="sample2_execDaumPostcode()" class="btn btn-info btn-sm" value="우편번호 찾기">
@@ -74,30 +72,30 @@
 				<tr>
 					<td colspan="2">
 						<input type="text" name="postalCode" id="sample2_address" value="${info.ADDRESS}" placeholder="주소" >
-						<input type="text" name="address" id="sample2_detailAddress" value="${info.ADDRESS}"  placeholder="상세주소">
+						<input type="text" name="address2" id="sample2_detailAddress" value="${info.ADDRESS}"  placeholder="상세주소">
 						<input type="text" name="addressDetail" id="sample2_extraAddress" value="${info.ADDRESS}" placeholder="참고항목">
 					</td>
 				</tr>
 				<tr>
-					<td>name</td>
+					<td>이름</td>
 					<td colspan="2"><input class="form-control" id="name"
 									name="NAME" type="text" value="${info.NAME}" required
 									data-validation-required-message="Please enter your email address." /></td>
 				</tr>
 				<tr>
-					<td>contact</td>
+					<td>연락처</td>
 					<td colspan="2"><input class="form-control" id="contact" value="${info.CONTACT}"
 									name="CONTACT" type="text" required
 									data-validation-required-message="Please enter your email address." /></td>
 				</tr>
 				<tr>
-					<td>phone</td>
+					<td>휴대폰 번호</td>
 					<td colspan="2"><input class="form-control" id="phone"
 									name="PHONE" type="text" required value="${info.PHONE}"
 									data-validation-required-message="Please enter your email address." /></td>
 				</tr>
 				<tr>
-					<td>email</td>
+					<td>이메일 주소</td>
 					<td colspan="2"><input class="form-control" id="email" value="${info.EMAIL}"
 									name="EMAIL" type="text" required
 									data-validation-required-message="Please enter your email address." /></td>
@@ -105,73 +103,21 @@
 				
 				
 			</table>
-						<div class="control-group form-group">
-							<div class="controls">
-								<label>name:</label> <input class="form-control" id="name"
-									name="NAME" type="text" value="${info.NAME}" required
-									data-validation-required-message="Please enter your email address." />
-							</div>
-						</div>
-						<div class="control-group form-group">
-							<div class="controls">
-								<label>address:</label> 
-								<input type="hidden" id="wholeAddress" name="ADDRESS">
-								<input class="form-control" id="postalCode"
-									name="postalCode" type="text" value="${info.ADDRESS}" required
-									data-validation-required-message="Please enter your email address." />
-									<button type="button" onclick="sample2_execDaumPostcode()">postal code check</button>
-								<input class="form-control" id="address" value="${info.ADDRESS}"
-									name="address" type="text" required
-									data-validation-required-message="Please enter your email address." />
-								<input class="form-control" id="addressDetail" value="${info.ADDRESS}"
-									name="addressDetail" type="text" required
-									data-validation-required-message="Please enter your email address." />
-							</div>
-							
-							<p>
-							<input type="text" id="sample2_postcode" placeholder="우편번호">
-							<input type="button" onclick="sample2_execDaumPostcode()" class="btn btn-info btn-sm" value="우편번호 찾기">
-						</p>
-						<p>
-							<input type="text" name="postalCode" id="sample2_address" value="${info.ADDRESS}" placeholder="주소" >
-							<input type="text" name="address" id="sample2_detailAddress" value="${info.ADDRESS}"  placeholder="상세주소">
-							<input type="text" name="addressDetail" id="sample2_extraAddress" value="${info.ADDRESS}" placeholder="참고항목">
-						</p>
-						
+			
+			
+			
+			
 						<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
 						<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
 						<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
-						</div>
-						</div>
-						<div class="control-group form-group">
-							<div class="controls">
-								<label>contact:</label> 
-								<input class="form-control" id="contact" value="${info.CONTACT}"
-									name="CONTACT" type="text" required
-									data-validation-required-message="Please enter your email address." />
-							</div>
-						</div>
-						<div class="control-group form-group">
-							<div class="controls">
-								<label>phone:</label> <input class="form-control" id="phone"
-									name="PHONE" type="text" required value="${info.PHONE}"
-									data-validation-required-message="Please enter your email address." />
-							</div>
-						</div>
-						<div class="control-group form-group">
-							<div class="controls">
-								<label>email:</label> <input class="form-control" id="email" value="${info.EMAIL}"
-									name="EMAIL" type="text" required
-									data-validation-required-message="Please enter your email address." />
-							</div>
 						</div>
 						<div id="success"></div>
                         
 					</div>
 				</div>
 			</form>
-			<button class="btn selectDelete_btn btn-info btn-sm float-right" onclick="fn_update()" type="submit">Update</button>
-			<button class="btn selectDelete_btn btn-danger btn-sm float-right" onclick="" type="submit">Delete</button>
+			<button class="btn selectDelete_btn btn-info btn-sm float-right" onclick="fn_update()" type="submit">수정</button>
+			<button class="btn selectDelete_btn btn-danger btn-sm float-right" onclick="" type="submit">탈퇴</button>
 		</div>
 	</section>
 
@@ -190,16 +136,13 @@
 
 <script>
 $(document).ready(function(){
-	var addressArr=$("#sample2_postcode").val().split(', ');
+	var addressArr=$("#sample2_detailAddress").val().split(', ');
 
 	$("#sample2_postcode").val(addressArr[0]);
 	$("#sample2_address").val(addressArr[1]);
-	$("#sample2_detailAddress").val(addressArr[2]);
-var addressArr=$("#postalCode").val().split(', ');
+	$("#sample2_extraAddress").val(addressArr[2]);
+	$("#sample2_detailAddress").val(addressArr[3]);
 
-	$("#postalCode").val(addressArr[0]);
-	$("#address").val(addressArr[1]);
-	$("#addressDetail").val(addressArr[2]);
 
 });
 
@@ -213,45 +156,18 @@ function fn_list(no) {
 	}).submit(); */
 };
 
-function fn_sign_up() {
-	//var formData = $('#boardForm').serialize();
-	
-	var wholeAddress=$("#sample2_postcode").val()+', '+$("#sample2_address").val()+', '+$("#sample2_detailAddress").val();
-/* 	var wholeAddress=$("#postalCode").val()+', '+$("#address").val()+', '+$("#addressDetail").val(); */
-	$("#wholeAddress").val(wholeAddress);
-	var formData = new FormData($("#boardForm")[0]);
-
-	alert(wholeAddress);
-	$.ajax({
-		url : "${pageContext.request.contextPath}/insertMember.do",
-		type : "post",
-		enctype: 'multipart/form-data',
-		data : formData,
-		processData : false,
-		contentType : false,
-		success : function(result) {
-			alert('success');
-			fn_list();
-		}, // success 
-
-		error : function(xhr, status) {
-			alert(xhr + " : " + status);
-		}
-	});
-
-}
-
-
 
 function fn_update() {
 	//var formData = $('#boardForm').serialize();
-	var wholeAddress=$("#sample2_postcode").val()+', '+$("#sample2_address").val()+', '+$("#sample2_detailAddress").val();
+	var wholeAddress=$("#sample2_postcode").val()+', '+$("#sample2_address").val()
+	+', '+$("#sample2_extraAddress").val()
+	+', '+$("#sample2_detailAddress").val();
 /* 	var wholeAddress=$("#postalCode").val()+', '+$("#address").val()+', '+$("#addressDetail").val(); */
 	$("#wholeAddress").val(wholeAddress);
 	alert('update');
 	$('#boardForm #id').attr('disabled',false);
-alert($('#id').val());
-var formData = new FormData($("#boardForm")[0]);
+	$("input[name=ADDRESS]").val(wholeAddress);
+	var formData = new FormData($("#boardForm")[0]);
 
 $.ajax({
 	url : "${pageContext.request.contextPath}/user/updateUser.do",

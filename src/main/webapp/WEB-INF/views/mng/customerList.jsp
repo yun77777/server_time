@@ -174,7 +174,6 @@ $(document).ready(function(){
     			type : "post",
     			data : { chbox : checkArr },
     			success : function(result){
-    				
     				if(result == 1) {						
     					alert("삭제 완료");
     					location.href = "/mng/customerList.do";

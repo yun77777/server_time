@@ -741,6 +741,7 @@ System.err.println("fsdlmflmf:"+checkArr);
 	return "mng/customerList";
 	}
 
+	@ResponseBody
 	@RequestMapping(value = "/deleteCustomer.do")
 	public int deleteCustomer(
 			@RequestParam(value="chbox[]") String [] checkArr, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
@@ -756,11 +757,10 @@ System.err.println("fsdlmflmf:"+checkArr);
 				for(int i=0 ; i<checkArr.length ; i++) {
 					id = checkArr[i];
 					paramMap.put("ID",id);
-					
+					System.err.println("ID@:"+id);
 					mngService.deleteCustomer(paramMap);
 			}
 		}
-			
 			
 			model.addAttribute("paramMap", paramMap);
 		} catch (Exception e) {
