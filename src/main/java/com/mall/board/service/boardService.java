@@ -38,7 +38,7 @@ public interface boardService {
 	public void insertMember(Map<String, Object> paramMap, MultipartHttpServletRequest multi,
 			HttpServletRequest request) throws Exception;
 
-	public void deleteBoard(Map<String, Object> paramMap, MultipartHttpServletRequest multi, HttpServletRequest request)
+	public void deleteBoard(Map<String, Object> paramMap, HttpServletRequest request)
 			throws Exception;
 
 	public void updateFile(Map<String, Object> paramMap, MultipartHttpServletRequest multi, HttpServletRequest request)

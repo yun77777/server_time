@@ -38,16 +38,44 @@
 	<section class="py-5">
 		<div class="container">
 			<form id="boardForm" method="post">
-			<input type="hidden" id="orderId" name="orderId">
-			<input type="hidden" id="delivery" name="delivery">
+			<input type="hidden" id="no" name="no">
 			<input type="hidden" id="currentPageNo" name="currentPageNo" value="${pg.currentPageNo}"/>
 			<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
 				<!-- Page Heading/Breadcrumbs-->
 				<h1 class="mt-4 mb-3">
-					주문 목록
+					게시판 관리
 				</h1>
-				<div class="row styling">
-						<!-- <div class="card mb-4">
+				<%-- <div class="row styling">
+				<div class="col-lg-8 mb-4">
+					<div class="control-group form-group">
+			          <div class='input-group date' id='datetimepicker1'>
+			            <input type='text' class="form-control input-lg" id="searchStartDate" name="searchStartDate" value="${paramMap.searchStartDate}"/>
+			            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+			          </div>
+			        </div>
+					<div class="control-group form-group">
+			          <div class='input-group date' id='datetimepicker1'>
+			            <input type='text' class="form-control input-lg" id="searchEndDate" name="searchEndDate" value="${paramMap.searchEndDate}"/>
+			            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+			          </div>
+			        </div>
+			      </div>
+			    </div><br> --%>
+			    
+				<div class="row">
+				
+					<div class="col-lg-8 mb-4">
+						<%-- <div class="control-group form-group">
+							<div class="controls">
+								<label>title:</label> <input class="form-control" id="searchTitle"
+									name="searchTitle" type="text" value="${paramMap.searchTitle}" 
+									data-validation-required-message="Please enter your name." />
+								<p class="help-block"></p>
+							</div>
+						</div> --%>
+						
+						
+						<!-- <div class="form-group row"><div class="card mb-4">
                             <h5 class="card-header">Search</h5>
                             <div class="card-body">
                                 <div class="input-group">
@@ -58,19 +86,18 @@
                         </div> -->
 						<div id="success"></div>
 						<!-- //search-->
-						<div class="row">
+					<div class="row">
 						<div class="col-12">
-							<button type="button" onclick="" id="delete_btn" class="btn btn btn-info btn-sm float-right">발송</button>
-							<button type="button" onclick="" id="cancel_btn" class="btn btn btn-danger btn-sm float-right">취소</button>
+							<button type="button" onclick="" id="delete_btn" class="btn btn btn-danger btn-sm float-right">삭제</button>
+							<button class="btn btn-info btn-sm float-right" onclick="fn_insert('${member.ID}')" type="button">추가</button>
 						</div>
 					</div>
-<%-- 						<button class="btn btn-primary" onclick="fn_insert('${login.ID}')" type="button">Insert</button> --%>
-					</div>
 				</div>
+			</div>
           		<span>총 <em>${pg.totalRecordCount}</em>건 </span>
                 
 				<table class="table table-sm">
-					<thead>
+					<thead class="thead-light">
 						<tr>
 							<th scope="col">
 								<div class="allCheck">
@@ -79,11 +106,11 @@
 					    			</span>
 								</div>
 							</th>
-							<th scope="col">orderId</th>
-							<th scope="col">gdsName</th>
-							<th scope="col">gdsNum</th>
-							<th scope="col">amount</th>
-							<th scope="col">delivery</th>
+							<th scope="col">no</th>
+							<th scope="col">title</th>
+							<th scope="col">id</th>
+							<th scope="col">input_dt</th>
+							<th scope="col">cnt</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -91,7 +118,7 @@
 							<tr>
 								<th>
 									<div class="checkBox">
-										<input type="checkbox" name="chBox" class="chBox" data-cid="${result.orderId}" />
+										<input type="checkbox" name="chBox" class="chBox" data-cid="${result.B_NO}" />
 										<script>
 											$(".chBox").click(function(){
 												$("#allCheck").prop("checked", false);
@@ -99,11 +126,12 @@
 										</script>
 									</div>
 								</th>
-								<th scope="row">${result.orderId}</th>
-								<td><a href="#" onclick="fn_detail('${result.orderId}','${result.delivery}');">${result.gdsName} 외 ${result.cnt-1} 건</a></td>
-								<td>${result.gdsNum}</td>
-								<td>${result.amount}</td>
-								<td>${result.delivery}</td>
+								<th scope="row">${result.B_NO}</th>
+								<td><a href="#" onclick="fn_detail('${result.B_NO}','${member.ID}');">${result.title}</a></td>
+<%-- 								<td><a href="#" onclick="fn_detail('${result.B_NO}','${login.ID}');">${result.title}</a></td> --%>
+								<td>${result.id}</td>
+								<td>${result.input_dt}</td>
+								<td>${result.cnt}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -111,8 +139,8 @@
 			</form>
 			
    			<%@ include file="/WEB-INF/views/common/paging.jsp"%>
-		</div>
-		<div class="row float-right">
+   			
+   			<div class="row float-right">
 				<div class="form-group row">
 					<div class="col-xs-4">
 						<label>id:</label> 
@@ -122,13 +150,14 @@
 					<div class="col-xs-4">
 						<input class="form-control" id="searchId"
 							name="searchId" type="text" value="${paramMap.searchId}" 
-							data-validation-required-message="검색명 입력" />
+							data-validation-required-message="Please enter your phone number." />
 					</div>
 				</div>
 				<div class="form-group row">
 					<button class="btn btn-secondary btn-sm right" onclick="fn_list('1')" type="button">검색</button>
 				</div>
 			</div>
+		</div>
 		<!-- //Container -->
 	</section>
 	
@@ -164,9 +193,9 @@ $(document).ready(function(){
     	}
     });	
 	
- $("#cancel_btn").on("click",function(e){
+ $("#delete_btn").on("click",function(e){
 
-    	var confirm_val = confirm("취소하시겠습니까?");
+    	var confirm_val = confirm("정말 삭제하시겠습니까?");
     	
     	if(confirm_val) {
     		var checkArr = new Array();
@@ -179,47 +208,16 @@ $(document).ready(function(){
     		alert(checkArr);
     			
     		$.ajax({
-    			url : "/mng/cancelItems.do",
+    			url : "/mng/deleteBoards.do",
     			type : "post",
     			data : { chbox : checkArr },
     			success : function(result){
     				
     				if(result == 1) {						
-    					alert("취소 완료");
-    					location.href = "/mng/orderList.do";
+    					alert("삭제 완료");
+    					location.href = "/mng/boardList.do";
     				} else {
-    					alert("취소 실패");
-    				}
-    			}
-    		});
-    	}
-    });
- 
- $("#deliver_btn").on("click",function(e){
-
-    	var confirm_val = confirm("발송처리하시겠습니까?");
-    	
-    	if(confirm_val) {
-    		var checkArr = new Array();
-
-    		// 체크된 체크박스의 갯수만큼 반복
-    		$("input[class='chBox']:checked").each(function(){
-    			checkArr.push($(this).attr("data-cid"));
-    		});
-    		
-    		alert(checkArr);
-    			
-    		$.ajax({
-    			url : "/mng/deliverItems.do",
-    			type : "post",
-    			data : { chbox : checkArr },
-    			success : function(result){
-    				
-    				if(result == 1) {						
-    					alert("발송처리 완료");
-    					location.href = "/mng/orderList.do";
-    				} else {
-    					alert("발송처리 실패");
+    					alert("삭제 실패");
     				}
     			}
     		});
@@ -230,17 +228,17 @@ function fn_list(no) {
 	$('#currentPageNo').val(no);
 	
 	$('#boardForm').attr({
-		action : '<c:url value="/mng/orderList.do"/>',
+		action : '<c:url value="/mng/boardList.do"/>',
 		target : '_self'
 	}).submit();
 };
 
 function fn_insert(id){
 	if(id.length==0)
-		alert("You need to log in first");
+		alert("로그인 후 게시물 작성이 가능합니다.");
 	else{
 		$('#boardForm').attr({
-			action : '<c:url value="/boardInsert.do" />',
+			action : '<c:url value="/mng/boardInsert.do" />',
 			target : '_self'
 		}).submit();
 	}
@@ -248,16 +246,18 @@ function fn_insert(id){
 
 }
 
-function fn_detail(orderId,delivery){
+function fn_detail(no,id){
 	//var  formData= $('#boardForm').serialize();
 	
-	$('#boardForm #orderId').val(orderId);
-	$('#boardForm #delivery').val(delivery);
-	
-	$('#boardForm').attr({
-		action : '<c:url value="/mng/orderDetail.do" />',
-		target : '_self'
-	}).submit();
+	if(id.length==0)
+		alert("You need to log in first");
+	else{
+		$('#boardForm #no').val(no);
+		$('#boardForm').attr({
+			action : '<c:url value="/mng/boardDetail.do" />',
+			target : '_self'
+		}).submit();
+	}
 }
 
 $(function () {

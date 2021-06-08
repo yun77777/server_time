@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.mall.board.service.ReplyService;
 import com.mall.board.service.boardService;
 import com.mall.common.PaginationVO;
 import com.mall.mng.service.mngService;
@@ -41,6 +42,9 @@ public class mngController {
 	
 	@Resource(name = "mngService")
 	private mngService mngService;
+	
+	@Resource(name = "replyService")
+	private ReplyService replyService;
 	
 	@RequestMapping(value = "/itemList.do")
 	public String boardList(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="5") int recordCountPerPage,
@@ -117,13 +121,17 @@ public class mngController {
 			List<Map<String, Object>> detailList=mngService.selectOrderDetail(paramMap);
 			System.err.println("detailP");
 			System.err.println(paramMap);
-			paramMap.put("L_CATEGORY",1);
+			
+			paramMap.put("L_CATEGORY","L");
 			List<Map<String, Object>> category1=mngService.selectCategoryCode(paramMap);
-			paramMap.put("L_CATEGORY",2);
-			List<Map<String, Object>> category2=mngService.selectCategoryCode(paramMap);
+			paramMap.put("S_CATEGORY","상의");
+			List<Map<String, Object>> category3=mngService.selectCategorySCode(paramMap);
+			paramMap.put("S_CATEGORY","하의");
+			List<Map<String, Object>> category4=mngService.selectCategorySCode(paramMap);
+
 			model.addAttribute("category1",category1);
-			model.addAttribute("category2",category2);
-		
+			model.addAttribute("top",category3);
+			model.addAttribute("bottom",category4);
 			model.addAttribute("detailList",detailList);
 			model.addAttribute("paramMap",paramMap);
 		} catch (Exception e) {
@@ -463,5 +471,244 @@ System.err.println("fsdlmflmf:"+checkArr);
 		}
 		return paramMap;
 	}
+	
+	
+	
+	//BOARD
+	
+	@RequestMapping(value = "/boardList.do")
+	public String boardListMng(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="5") int recordCountPerPage,
+			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+		model.addAttribute("login",httpSession.getAttribute("login"));
+		model.addAttribute("member",httpSession.getAttribute("member"));
+
+
+		paramMap.put("recordCountPerPage", recordCountPerPage);
+		paramMap.put("currentPageNo", currentPageNo);
+		
+		paramMap.put("B_TYPE",1);
+		
+		try {
+			PaginationVO pg = new PaginationVO(currentPageNo, recordCountPerPage, 3, 
+					boardService.selectBoardListCnt(paramMap));
+			
+			paramMap.put("length",recordCountPerPage);
+			paramMap.put("start",pg.getFirstRecordIndex()-1);
+			
+			List<Map<String,Object>> list=boardService.selectBoardList(paramMap);
+			
+			model.addAttribute("list",list);
+			model.addAttribute("paramMap",paramMap);
+			model.addAttribute("pg",pg);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	return "mng/boardList";
+	}
+	
+	
+	@RequestMapping(value = "/boardDetail.do")
+	public String boardDetailMng(
+			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+		try {
+			model.addAttribute("login",httpSession.getAttribute("login"));
+			model.addAttribute("member",httpSession.getAttribute("member"));
+
+			paramMap.put("B_TYPE",1);
+			Map<String,Object> detail=boardService.selectBoardDetail(paramMap);
+			System.err.println("detailP");
+			System.err.println(paramMap);
+			System.err.println(detail);
+			
+			List<Map<String,Object>> list=boardService.selectBoardHisList(paramMap);
+			List<Map<String,Object>> fileList=boardService.selectBoardFileList(paramMap);
+			System.err.println(Integer.parseInt(paramMap.get("no").toString()));
+			List<Map<String,Object>> replyList=replyService.list(Integer.parseInt(paramMap.get("no").toString()));
+			
+			int len=boardService.selectBoardMaxNo(paramMap);
+
+			model.addAttribute("detail",detail);
+			model.addAttribute("list",list);
+			model.addAttribute("replyList",replyList);
+			model.addAttribute("fileList",fileList);
+			model.addAttribute("len",len);
+
+			model.addAttribute("paramMap",paramMap);
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+	return "mng/boardDetail";
+	}
+	
+	
+	@RequestMapping(value = "/boardInsert.do")
+	public String boardInsertMng(
+			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+		try {
+			model.addAttribute("login",httpSession.getAttribute("login"));
+			model.addAttribute("member",httpSession.getAttribute("member"));
+			
+			paramMap.put("B_TYPE",1);
+
+			paramMap.put("no",boardService.selectBoardMaxNo(paramMap)+1);
+			model.addAttribute("paramMap",paramMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+	return "mng/boardInsert";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/insertBoard.do")
+	public Map<String,Object> insertBoardMng(
+			MultipartHttpServletRequest multi, @RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+		model.addAttribute("login",httpSession.getAttribute("login"));
+		model.addAttribute("member",httpSession.getAttribute("member"));
+
+		System.err.println("insert:"+paramMap);
+		System.err.println("file:"+multi);
+		
+		paramMap.put("B_TYPE",1);
+		//paramMap.put("no",Integer.parseInt(paramMap.get("no").toString())+1);
+		//paramMap.put("originNo",paramMap.get("no"));
+
+		try {
+			if(paramMap.get("no").toString()!=null||!paramMap.get("no").toString().trim().equals(""))
+				paramMap.put("no",paramMap.get("no"));
+			
+			if(paramMap.get("replyType")!=null && paramMap.get("replyType").toString().equals("Y")) {
+				//paramMap.put("originNo",paramMap.get("no"));
+				paramMap.put("title",paramMap.get("title"));
+				
+				paramMap.put("B_NO",Integer.parseInt(boardService.selectBoardMaxNo(paramMap).toString())+1);
+
+				paramMap.put("groupOrd",Integer.parseInt(paramMap.get("groupOrd").toString())+1);//기존groupOrd+1
+				paramMap.put("groupLayer",Integer.parseInt(paramMap.get("groupLayer").toString())+1);//부모글 groupLayer+1
+				
+				paramMap.put("newGroupOrd",Integer.parseInt(paramMap.get("groupOrd").toString()));//기존groupOrd+1
+				paramMap.put("newGroupLayer",Integer.parseInt(paramMap.get("groupLayer").toString()));//부모글 groupLayer+1
+				
+				boardService.insertReply(paramMap, request);
+//				boardService.updateReply(paramMap);
+			}else {
+				
+				System.err.println("asmkdlmslkdmzklxcmklzcxm");
+				System.err.println(paramMap);
+				boardService.insertBoard(paramMap, multi, request);
+			}
+			
+			
+			
+			model.addAttribute("paramMap", paramMap);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return paramMap;
+	}
+
+	
+	@ResponseBody
+	@RequestMapping(value = "/deleteBoard.do")
+	public Map<String,Object> deleteBoardMng(
+			MultipartHttpServletRequest multi, @RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+		try {
+			model.addAttribute("login",httpSession.getAttribute("login"));
+			model.addAttribute("member",httpSession.getAttribute("member"));
+
+			boardService.deleteBoard(paramMap, multi, request);
+			model.addAttribute("paramMap", paramMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return paramMap;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/deleteBoards.do")
+	public int deleteBoards(
+			@RequestParam(value="chbox[]") int [] checkArr, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+		try {
+			model.addAttribute("login",httpSession.getAttribute("login"));
+			model.addAttribute("member",httpSession.getAttribute("member"));
+System.err.println("fsdlmflmf:"+checkArr);
+			
+			Map<String, Object> paramMap=new HashMap<String, Object>();
+			
+			if(checkArr != null) {
+				for(int i=0 ; i<checkArr.length ; i++) {
+					paramMap.put("no",checkArr[i]);
+					boardService.deleteBoard(paramMap, request);
+			}
+		}
+			
+			
+			model.addAttribute("paramMap", paramMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return 1;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/deliverItems.do")
+	public int deliverItems(
+			@RequestParam(value="chbox[]") int [] checkArr, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+		try {
+			model.addAttribute("login",httpSession.getAttribute("login"));
+			model.addAttribute("member",httpSession.getAttribute("member"));
+			System.err.println("fsdlmflmf:"+checkArr);
+			
+			Map<String, Object> paramMap=new HashMap<String, Object>();
+			
+			if(checkArr != null) {
+				for(int i=0 ; i<checkArr.length ; i++) {
+					paramMap.put("orderId",checkArr[i]);
+					paramMap.put("delivery","발송");
+					model.addAttribute("paramMap",paramMap);
+					mngService.updateOrderState(paramMap);
+				}
+			}
+			
+			model.addAttribute("paramMap", paramMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return 1;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/cancelItems.do")
+	public int cancelItems(
+			@RequestParam(value="chbox[]") int [] checkArr, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+		try {
+			model.addAttribute("login",httpSession.getAttribute("login"));
+			model.addAttribute("member",httpSession.getAttribute("member"));
+			System.err.println("fsdlmflmf:"+checkArr);
+			
+			Map<String, Object> paramMap=new HashMap<String, Object>();
+			
+			if(checkArr != null) {
+				for(int i=0 ; i<checkArr.length ; i++) {
+					paramMap.put("orderId",checkArr[i]);
+					paramMap.put("delivery","취소");
+					model.addAttribute("paramMap",paramMap);
+					mngService.updateOrderState(paramMap);
+				}
+			}
+			
+			model.addAttribute("paramMap", paramMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return 1;
+	}
+	
+
 		
 }

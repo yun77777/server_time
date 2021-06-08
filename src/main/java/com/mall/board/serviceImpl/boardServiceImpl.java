@@ -119,7 +119,7 @@ public class boardServiceImpl implements boardService {
 	}
 
 	@Override
-	public void deleteBoard(Map<String, Object> paramMap, MultipartHttpServletRequest multi, HttpServletRequest request)
+	public void deleteBoard(Map<String, Object> paramMap, HttpServletRequest request)
 			throws Exception {
 		boardMapper.deleteBoard(paramMap);
 		paramMap.put("DEL_YN", "Y");

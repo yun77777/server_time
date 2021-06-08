@@ -46,7 +46,7 @@
 <%-- 			<form role="form" method="post" autocomplete="off" enctype="multipart/form-data">
  --%>			
  
-             <button class="btn btn-secondary btn-sm float-right" id="" onclick="fn_list()" type="button">list</button>
+             <button class="btn btn-secondary btn-sm float-right" id="" onclick="fn_list()" type="button">목록</button>
  
 			<div class="inputArea">	
 				<label>1차 분류${category1}</label>
@@ -290,7 +290,7 @@ function fn_addFile(){
 	 
 	 
 	  
-	
+
 	
 	
 	$(document).on("click","#fileDelBtn", function(){

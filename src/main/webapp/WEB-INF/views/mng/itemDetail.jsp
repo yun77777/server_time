@@ -43,7 +43,7 @@
 <%-- 			<form role="form" method="post" autocomplete="off" enctype="multipart/form-data">
  --%>			
  
-            <button class="btn btn-secondary btn-sm float-right" id="" onclick="fn_list()" type="button">list</button>
+            <button class="btn btn-secondary btn-sm float-right" id="" onclick="fn_list()" type="button">목록</button>
  
 			<div class="inputArea">	
 				<label>1차 분류</label>
@@ -143,8 +143,8 @@
 		</div>
 			
 		<div>
-				<button class="btn btn-primary" id="saveBtn" type="button">Save</button>
-                <button class="btn btn-primary" id="deleteBtn" onclick="fn_delete()" type="submit">Delete</button>
+				<button class="btn btn btn-info btn-sm float-right" id="saveBtn" type="button">저장</button>
+                <button class="btn btn btn-danger btn-sm float-right" id="deleteBtn" onclick="fn_delete()" type="submit">삭제</button>
 		</div>
 	</section>
         

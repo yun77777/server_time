@@ -149,7 +149,7 @@ Map<String, Object> result = new HashMap<String, Object>();
 		String member = String.valueOf(session.getAttribute("login"));
 //		UserVO member = (UserVO) session.getAttribute("login");
 		if (member != null) {
-			cart.setUserId(member);
+			//cart.setUserId(member);
 //			cart.setUserId(member.getID());
 			orderService.addCart(cart);
 			result = 1;
@@ -562,7 +562,7 @@ System.err.println("paramamamamammamama:"+userId);
 			System.err.println("@#@JWLEKJWJL:"+paramMap);
 			
 
-			paramMap.put("orderProcess","Y");
+			paramMap.put("orderProcess","N");
 			List<Map<String, Object>> cartList = orderService.cartList(paramMap);
 			orderService.deleteCart(paramMap);
 			

@@ -36,60 +36,18 @@
 			<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
 				<!-- Page Heading/Breadcrumbs-->
 				<h1 class="mt-4 mb-3">
-					Item <small>List</small>
+				상품 관리
 				</h1>
-				<div class="row styling">
-				<div class="col-lg-8 mb-4">
-					<div class="control-group form-group">
-			          <div class='input-group date' id='datetimepicker1'>
-			            <input type='text' class="form-control input-lg" id="searchStartDate" name="searchStartDate" value="${paramMap.searchStartDate}"/>
-			            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-			          </div>
-			        </div>
-					<div class="control-group form-group">
-			          <div class='input-group date' id='datetimepicker1'>
-			            <input type='text' class="form-control input-lg" id="searchEndDate" name="searchEndDate" value="${paramMap.searchEndDate}"/>
-			            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-			          </div>
-			        </div>
-			      </div>
-			    </div><br>
 			    
 				<div class="row">
 				
 					<div class="col-lg-8 mb-4">
 						<div class="control-group form-group">
-							<div class="controls">
-								<label>title:</label> <input class="form-control" id="searchTitle"
-									name="searchTitle" type="text" value="${paramMap.searchTitle}" 
-									data-validation-required-message="Please enter your name." />
-								<p class="help-block"></p>
-							</div>
-						</div>
-						<div class="control-group form-group">
-							<div class="controls">
-								<label>id:</label> <input class="form-control" id="searchId"
-									name="searchId" type="text" value="${paramMap.searchId}" 
-									data-validation-required-message="Please enter your phone number." />
-							</div>
-						</div>
-						<!-- <div class="card mb-4">
-                            <h5 class="card-header">Search</h5>
-                            <div class="card-body">
-                                <div class="input-group">
-                                    <input class="form-control" type="text" placeholder="Search for..." />
-                                    <span class="inpug-group-append"><button class="btn btn-secondary" type="button">Go!</button></span>
-                                </div>
-                            </div>
-                        </div> -->
 						<div id="success"></div>
 						<!-- //search-->
-						<button type="button" onclick="" id="delete_btn" class="btn btn-primary">삭제</button>			
-						<button class="btn btn-primary" onclick="fn_list('1')" type="button">Search</button>
-						<br><br>
-						<button class="btn btn-primary" onclick="fn_insert('${member.ID}')" type="button">Insert</button>
-<%-- 						<button class="btn btn-primary" onclick="fn_insert('${login.ID}')" type="button">Insert</button> --%>
-					</div>
+						<button type="button" onclick="" id="delete_btn" class="btn btn btn-danger btn-sm float-right">삭제</button>			
+						<button class="btn btn btn-info btn-sm float-right" onclick="fn_insert('${member.ID}')" type="button">추가</button>
+0					</div>
 				</div>
           		<span>Total: <em>${pg.totalRecordCount}</em> </span>
                 
@@ -137,26 +95,29 @@
 				</table>
 			</form>
 			
-			<!-- Pagination-->
-            <!-- <ul class="pagination justify-content-center">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">«</span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#!">1</a></li>
-                <li class="page-item"><a class="page-link" href="#!">2</a></li>
-                <li class="page-item"><a class="page-link" href="#!">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">»</span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </li>
-            </ul> -->
    			<%@ include file="/WEB-INF/views/common/paging.jsp"%>
+		
+		
+		
+		
 		</div>
+		<div class="row float-right">
+				<div class="form-group row">
+					<div class="col-xs-4">
+						<label>id:</label> 
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-xs-4">
+						<input class="form-control" id="searchId"
+							name="searchId" type="text" value="${paramMap.searchId}" 
+							data-validation-required-message="검색명 입력" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<button class="btn btn-secondary btn-sm right" onclick="fn_list('1')" type="button">검색</button>
+				</div>
+			</div>
 		<!-- //Container -->
 	</section>
 	<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
