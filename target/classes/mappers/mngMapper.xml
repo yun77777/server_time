@@ -353,9 +353,9 @@
 		resultType="java.util.HashMap">
 	<include refid="com.mall.common.commonMapper.pagingHeaderSql"/>
 	SELECT @rownum:=@rownum+1 ROWNUM
-	 	ID
-	 	, NAME
-		FROM member,(SELECT @rownum:=0) R
+	 	, M.ID
+	 	, M.NAME
+	FROM member M, (SELECT @rownum:=0) R
 	<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
 		
 	</select>
@@ -368,11 +368,11 @@
 		resultType="Integer">
 			SELECT COUNT(1) CNT
 		FROM (
-			SELECT o.ID
-		FROM member o
-		where o.ID IS NOT NULL
+			SELECT M.ID
+		FROM member M
+		where M.ID IS NOT NULL
 		<!-- <include refid="searchOption"/> -->
-		) o
+		) M
 	</select>
 	
 	
