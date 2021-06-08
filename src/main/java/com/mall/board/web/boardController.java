@@ -461,7 +461,7 @@ public class boardController {
 				model.addAttribute("list3",list3);
 			} else if(paramMap.get("itemType")!=null && paramMap.get("itemType").toString().equals("pet")) {
 				paramMap.put("cateCode1",12);
-				list3=mngService.selectItemMainList(paramMap);
+				list4=mngService.selectItemMainList(paramMap);
 				model.addAttribute("list4",list4);
 			}
 			
