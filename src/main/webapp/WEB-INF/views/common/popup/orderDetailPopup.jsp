@@ -15,23 +15,21 @@
 					<div class="modal-dialog modal-lg" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="orderDetailPopupTitle">Item Detail${detail}${imgList}</h5>
+								<h5 class="modal-title" id="orderDetailPopupTitle">주문 상세</h5>
 								<button type="button" class="close" data-dismiss="modal"
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
 							<div class="modal-body">
-								<div id="kk"></div>
+								<!-- <div id="kk"></div> -->
 								<div id="itemDetail"></div>
 								<div id="orderInfo"></div>
 					
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary"
-									data-dismiss="modal">Close</button>
-								<button type="button" id="saveBtn" class="btn btn-primary">Save
-									changes</button>
+									data-dismiss="modal">닫기</button>
 							</div>
 						</div>
 					</div>

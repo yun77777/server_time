@@ -214,11 +214,10 @@ System.err.println("LISITIIITITISITITIT:"+cartList);
 		logger.info("order");
 		model.addAttribute("login", session.getAttribute("login"));
 		model.addAttribute("member", session.getAttribute("member"));
+		Map<String,Object> login=(HashMap<String, Object>) session.getAttribute("login");
+		paramMap.put("userId",login.get("ID"));
 		
 		System.err.println("ff"+session.getAttribute("login"));
-		String member = String.valueOf(session.getAttribute("login"));
-		String userId = member;
-		paramMap.put("userId",userId);
 		System.err.println("@#@JWLEKJWJL:"+paramMap);
 		
 
@@ -247,7 +246,8 @@ System.err.println("LISITIIITITISITITIT:"+cartList);
 		System.err.println("chArr@"+chArr);
 		System.err.println("cartStockArr@"+cartStockArr);
 		System.err.println("userId@"+userId);
-		
+		Map<String,Object> login=(HashMap<String, Object>) session.getAttribute("login");
+		paramMap.put("userId",login.get("ID"));
 		int cartNum=0;
 		int cartStock=0;
 		
@@ -341,29 +341,12 @@ System.err.println("LISITIIITITISITITIT:"+cartList);
 		paramMap.put("merchant_uid","merchant_uid");
 		paramMap.put("paid_amount",1000);
 		paramMap.put("apply_num",10);
-		//paramMap.put("userId", paramMap.get("userId"));
-//		paramMap.put("orderId", orderService.maxOrderId());
 
 		orderService.orderInfo(paramMap);
 		
-//		orderService.cartAllDelete(userId);
-
 		logger.info("get order list");
 		
 		System.err.println("paramMap@:"+paramMap);
-		//service.orderInfo_Details(orderDetail);
-	//				System.err.println("order@:"+session.getAttribute("login"));
-	//
-	//				UserVO member = (UserVO)session.getAttribute("login");
-	//				String userId = member.getID();
-	//				System.err.println("order@:"+order);
-	//				
-	//				order.setUserId(session.getAttribute("login").toString());
-	//				order.setOrderId(session.getAttribute("login").toString());
-		// 로그인 여부 구분
-
-		//orderService.deleteCart(paramMap);
-		//orderService.updateOrderDetails(paramMap);//카트 ccccccccc
 
 		List<Map<String, Object>> orderList = orderService.orderList(paramMap);
 		//orderService.orderInfo_Details(paramMap);
@@ -441,18 +424,10 @@ System.err.println("LISITIIITITISITITIT:"+cartList);
 		logger.info("get order list");
 		model.addAttribute("login",session.getAttribute("login"));
 		model.addAttribute("member",session.getAttribute("member"));
-		
+		Map<String,Object> login=(HashMap<String, Object>) session.getAttribute("login");
+		paramMap.put("userId",login.get("ID"));
 		System.err.println("paramMap@:"+paramMap);
 		System.err.println("orderRec@:"+request.getAttribute("orderRec"));
-//		System.err.println("order@:"+session.getAttribute("login"));
-//
-//		UserVO member = (UserVO)session.getAttribute("login");
-//		String userId = member.getID();
-//		System.err.println("order@:"+order);
-//		
-//		order.setUserId(session.getAttribute("login").toString());
-//		order.setOrderId(session.getAttribute("login").toString());
-		paramMap.put("userId",session.getAttribute("login"));
 
 		
 		List<Map<String, Object>> orderList = orderService.orderList(paramMap);
@@ -620,12 +595,8 @@ System.err.println("LISITIIITITISITITIT:"+cartList);
 		model.addAttribute("login", session.getAttribute("login"));
 		model.addAttribute("member", session.getAttribute("member"));
 		
-		String member = String.valueOf(session.getAttribute("login"));
-		String userId = member;
-		
-		paramMap.put("userId",userId);
-		
-		
+		Map<String,Object> login=(HashMap<String, Object>) session.getAttribute("login");
+		paramMap.put("userId",login.get("ID"));
 		
 		
 		List<Map<String, Object>> detailList = orderService.selectOrderDetailView(paramMap);
@@ -640,26 +611,24 @@ System.err.println("LISITIIITITISITITIT:"+cartList);
 	
 	
 	@ResponseBody
-	@RequestMapping(value = "/orderDetailViewPopup.do")
-	public String orderDetailViewPopup(@RequestParam(value="orderId") int orderId, HttpSession session,
+	@RequestMapping(value = "/orderDetailViewPopup.do", produces = "application/text; charset=utf8")
+	public String orderDetailViewPopup(Map<String, Object> paramMap,@RequestParam(value="orderId") int orderId, HttpSession session,
 			HttpServletRequest request, Model model) throws Exception {
 			//		public Map<String, Object> orderDetailViewPopup( @RequestParam Map<String, Object> paramMap, Model model, HttpSession session) throws Exception {
 		logger.info("order");
 		model.addAttribute("login", session.getAttribute("login"));
 		model.addAttribute("member", session.getAttribute("member"));
+		Map<String,Object> login=(HashMap<String, Object>) session.getAttribute("login");
+		paramMap.put("userId",login.get("ID"));
 		
-		String userId = String.valueOf(session.getAttribute("login"));
 		
 		Map<String, Object> result = new HashMap<String, Object>();
-		Map<String, Object> paramMap = new HashMap<String, Object>();
 		
 		
 		try {
-			paramMap.put("userId",userId);
 			paramMap.put("orderId",orderId);
 			//paramMap.put("orderId",orderId);
 			System.err.println("param:"+paramMap);
-			System.err.println("userId:"+userId);
 			System.err.println("orderId:"+orderId);
 			
 			List<Map<String, Object>> detailList = orderService.selectOrderDetailView(paramMap);

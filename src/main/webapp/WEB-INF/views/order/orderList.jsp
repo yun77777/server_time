@@ -63,21 +63,13 @@
 										class="card-img-top"
 										src="<c:url value='/img/${orderList.representative_file}'/>"
 										style="width: 100px" alt="no image" />
-								</a><br> <a href="#!"
-									onclick="fn_order_detail_pop('${orderList.orderId}')"
-									data-toggle="modal" data-target="#orderDetailPopup"> 상세주문내역
-								</a> <br />
-									<p>
-										<span>상세주문내역</span>
-										<button type="submit"
-											onclick="fn_detail('${orderList.orderId}')"
-											class="btn btn-info btn-sm float-right">클릭</button>
-									</p></td>
+								</a>
+									
+									</td>
 							</tr>
 							<tr>
 								<td>주문번호</td>
-								<td><a href="/shop/orderView?n=${orderList.orderId}">${orderList.orderId}</a>
-								</p></td>
+								<td>${orderList.orderId}</td>
 							</tr>
 							<tr>
 								<td>수령인</td>
@@ -112,8 +104,10 @@
 							</tr>
 							<tr>
 								<td>상품명</td>
-								<td>${orderList.gdsName} 외 ${orderList.cnt} 건
-									</p>
+								<td>
+								<a href="#" onclick="fn_order_detail_pop('${orderList.orderId}')" onclick="fn_order_detail_pop('${orderList.orderId}')"
+											data-toggle="modal" data-target="#orderDetailPopup">
+								${orderList.gdsName} 외 ${orderList.cnt} 건</a>
 								</td>
 							</tr>
 						</table>
@@ -447,7 +441,7 @@
 							//$("#pp").append(i+','+imgList[i].gdsPrice+'<br>');
 							var image = "<c:url value='/img/"+detailList[i].representative_file+"'/>";
 							// #pp: 상세이미지 imgList div 영역
-							$("#kk").append(
+							/* $("#kk").append(
 									'<b>' + (i + 1) + '</b>. '
 											+ detailList[i].gdsName + '<br>');
 							$("#kk")
@@ -461,22 +455,24 @@
 											+ '<br>');
 							$("#kk").append(
 									'gdsPrice: ' + detailList[i].amount
-											+ '<br>');
-
-							content += '<tr><td>' + (i + 1) + '</td><td>'
+											+ '<br>'); */
+							content+='<colgroup><col width="20%"><col width="*"></colgroup>';
+							content += '<tr><td>번호</td><td>'
+									+ (i+1) + '</td></tr>';
+							content += '<tr><td>상품명</td><td>'
 									+ (detailList[i].gdsName) + '</td></tr>';
 							content += '<tr><td colspan="2">'
 									+ "<img class='card-img-top' src=" + image
 									+ " style='width:20%;height:auto'>"
 									+ '</td></tr>';
-							content += '<tr><td>cartStock</td><td>'
+							content += '<tr><td>주문 수량</td><td>'
 									+ (detailList[i].cartStock) + '</td></tr>';
-							content += '<tr><td>gdsPrice</td><td>'
+							content += '<tr><td>가격</td><td>'
 									+ (detailList[i].amount) + '</td></tr>';
 
 						}
 
-						$("#kk").append('<hr>');
+					/* 	$("#kk").append('<hr>');
 						$("#kk").append(
 								'orderId: ' + detailList[0].orderId + '<br>');
 						$("#kk").append(
@@ -487,7 +483,7 @@
 						$("#kk").append(
 								'userAddr: ' + detailList[0].userAddr1 + ', '
 										+ detailList[0].userAddr2 + ', '
-										+ detailList[0].userAddr3 + '<br>');
+										+ detailList[0].userAddr3 + '<br>'); */
 
 						content += '</table></div></section>';
 						$("#itemDetail").html('<hr>' + content);
