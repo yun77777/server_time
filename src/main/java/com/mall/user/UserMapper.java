@@ -9,6 +9,8 @@ public interface UserMapper {
 
 	public void updateUser(Map<String, Object> paramMap) throws Exception;
 
+	public void insertMember(Map<String, Object> paramMap) throws Exception;
+
 	Map<String, Object> login(LoginDTO loginDTO) throws Exception;
 
 	Map<String, Object> memberInfo(Map<String, Object> paramMap) throws Exception;

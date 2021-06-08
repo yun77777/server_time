@@ -40,7 +40,6 @@ public class UserManageController {
 		return "/user/myPage";
 	}
 	
-	// 회원가입 처리
     @RequestMapping(value = "/updateUser.do", method = RequestMethod.POST)
     public String updateUser(@RequestParam Map<String, Object> paramMap, 
 			HttpSession httpSession, Model model) throws Exception {    	try {
@@ -61,6 +60,29 @@ public class UserManageController {
 			e.printStackTrace();
 		}
         return "/test";
+//        return "redirect:/user/myPage.do";
+    }
+    
+    @RequestMapping(value = "/insertMember.do", method = RequestMethod.POST)
+    public String insertMember(@RequestParam Map<String, Object> paramMap, 
+    		HttpSession httpSession, Model model) throws Exception {    	try {
+    			model.addAttribute("member",httpSession.getAttribute("member"));
+    			model.addAttribute("k_userInfo", httpSession.getAttribute("k_userInfo"));
+    			
+    			
+    			System.err.println("$$$$:"+paramMap);
+    			System.err.println("$ID$$:"+paramMap.get("ID"));
+//    		paramMap.put("ID",userVO.getID());
+//        	paramMap.put("PW",userVO.getPW());
+    			
+//            String hashedPw = BCrypt.hashpw(userVO.getPW(), BCrypt.gensalt());
+//            userVO.setPW(hashedPw);
+//			paramMap.put("ID",httpSession.getAttribute("id"));
+    			userService.insertMember(paramMap);
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    		}
+    		return "/test";
 //        return "redirect:/user/myPage.do";
     }
 

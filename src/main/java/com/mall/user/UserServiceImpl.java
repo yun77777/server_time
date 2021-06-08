@@ -36,10 +36,15 @@ public class UserServiceImpl implements UserService {
 		System.err.println(paramMap);
 		userMapper.register(paramMap);
 	}
+	
 	@Override
 	public void updateUser(Map<String, Object> paramMap) throws Exception {		
 		System.err.println(paramMap);
 		userMapper.updateUser(paramMap);
+	}
+	@Override
+	public void insertMember(Map<String, Object> paramMap) throws Exception {		
+		userMapper.insertMember(paramMap);
 	}
 
 	@Override

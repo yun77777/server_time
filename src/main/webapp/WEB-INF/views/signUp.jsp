@@ -32,108 +32,92 @@
 	<section class="py-5">
 		<div class="container">
 			<form id="boardForm" method="post" enctype="multipart/form-data">
-
+			<input type="hidden" name="ADDRESS">
 				<!-- Page Heading/Breadcrumbs-->
-				<h1>
-					회원가입
-				</h1>
-				<!-- Content Row-->
-				<!-- Contact Form-->
-				<!-- In order to set the email address and subject line for the contact form go to the assets/mail/contact_me.php file.-->
+				<h1> 회원 가입 </h1>
+				
 				<div class="row">
 					<div class="col-lg-8 mb-4">
-						<c:if test="${empty k_userInfo}">
-							<div class="control-group form-group">
-								<div class="controls">
-									<label>아이디:</label> <input class="form-control" id="id"
-										name="ID" type="text" required
-										data-validation-required-message="Please enter your phone number." />
-									<button type="button" onclick="fn_dp_chk()">duplication check</button>
-								</div>
-							</div>
-							<div class="control-group form-group">
-								<div class="controls">
-									<label>비밀번호:</label> <input class="form-control" id="pw"
-										name="PW" type="text" required
-										data-validation-required-message="Please enter your email address." />
-								</div>
-								<div class="controls">
-									<label>비밀번호 확인:</label> <input class="form-control" id="pwChk"
-										name="pwChk" type="text" required
-										data-validation-required-message="Please enter your email address." />
-								</div>
-							</div>
-						<!-- <div class="control-group form-group">
-							<div class="controls">
-								<label>name:</label> <input class="form-control" id="name"
-									name="NAME" type="text" required
-									data-validation-required-message="Please enter your email address." />
-							</div>
-						</div> -->
-							<div class="control-group form-group">
-								<div class="controls">
-									<label>주소:</label> 
-									<input type="hidden" id="wholeAddress" name="ADDRESS">
-									<input class="form-control" id="postalCode"
-										name="postalCode" type="text" required
-										data-validation-required-message="Please enter your email address." />
-										<button type="button" onclick="fn_dp_chk()">postal code check</button>
-									<input class="form-control" id="address"
-										name="address" type="text" required
-										data-validation-required-message="Please enter your email address." />
-									<input class="form-control" id="addressDetail"
-										name="addressDetail" type="text" required
-										data-validation-required-message="Please enter your email address." />
-								</div>
-							</div>
-							<div class="control-group form-group">
-							<div class="controls">
-								<label>연락처:</label> 
-								<input class="form-control" id="contact"
+						
+				<div class="control-group form-group">
+		
+			</div>
+			<table class="table">
+				<tr>
+					<td>아이디</td>
+					<td colspan="2"><input class="form-control" id="id"
+									name="ID" type="text" value=""/></td>
+				</tr>
+				<c:if test="${empty member.k_userInfo}">	
+				<tr>
+					<td>비밀번호</td>
+					<td colspan="2"><input class="form-control" id="pw"
+									name="PW" type="text" value="" required
+									data-validation-required-message="Please enter your email address." /></td>
+				</tr>
+				<tr>
+					<td>비밀번호 확인</td>
+					<td colspan="2"><input class="form-control" id="pwChk"
+									name="pwChk" type="text" required
+									data-validation-required-message="Please enter your email address." /></td>
+				</tr>
+		</c:if>
+				<tr>
+					<td rowspan="2">주소</td>
+					<td colspan="2">
+							<input type="text" class="form-control-sm" id="sample2_postcode" placeholder="우편번호">
+							<input type="button" onclick="sample2_execDaumPostcode()" class="btn btn-info btn-sm" value="우편번호 찾기">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="text" name="postalCode" id="sample2_address" value="" placeholder="주소" >
+						<input type="text" name="address2" id="sample2_detailAddress" value=""  placeholder="상세주소">
+						<input type="text" name="addressDetail" id="sample2_extraAddress" value="" placeholder="참고항목">
+					</td>
+				</tr>
+				<tr>
+					<td>이름</td>
+					<td colspan="2"><input class="form-control" id="name"
+									name="NAME" type="text" value="" required
+									data-validation-required-message="Please enter your email address." /></td>
+				</tr>
+				<tr>
+					<td>연락처</td>
+					<td colspan="2"><input class="form-control" id="contact" value=""
 									name="CONTACT" type="text" required
-									data-validation-required-message="Please enter your email address." />
-							</div>
-						</div>
-					</c:if>
-<input type="hidden" name="userInfo" value="${k_userInfo}">						
-<input type="hidden" name="id" value="${id}">						
-<input type="hidden" name="nickname" value="${nickname}">	
-
-
-						<div class="control-group form-group">
-							<div class="controls">
-								<label>이름:</label> <input class="form-control" id="name"
-									name="NAME" type="text" required
-									data-validation-required-message="Please enter your email address." />
-							</div>
-						</div>
-						<div class="control-group form-group">
-							<div class="controls">
-								<label>휴대전화번호:</label> <input class="form-control" id="phone"
-									name="PHONE" type="text" required
-									data-validation-required-message="Please enter your email address." />
-							</div>
-						</div>
-						<div class="control-group form-group">
-							<div class="controls">
-								<label>이메일주소:</label> <input class="form-control" id="email"
+									data-validation-required-message="Please enter your email address." /></td>
+				</tr>
+				<tr>
+					<td>휴대폰 번호</td>
+					<td colspan="2"><input class="form-control" id="phone"
+									name="PHONE" type="text" required value="
+									data-validation-required-message="Please enter your email address." /></td>
+				</tr>
+				<tr>
+					<td>이메일 주소</td>
+					<td colspan="2"><input class="form-control" id="email" value=""
 									name="EMAIL" type="text" required
-									data-validation-required-message="Please enter your email address." />
-							</div>
+									data-validation-required-message="Please enter your email address." /></td>
+				</tr>
+				
+				
+			</table>
+			
+			
+			
+			
+						<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
+						<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
+						<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
 						</div>
-						
-						
 						<div id="success"></div>
-						<!-- For success/fail messages-->
-  
-<!-- 						<button class="btn btn-primary" onclick="fn_sign_up2()" id="signIn" type="submit">Sign Up2</button>
- -->						
-<!-- 						<button class="btn btn-primary" onclick="fn_insert()" id="submit" type="button">submit</button> -->
+                        
 					</div>
 				</div>
 			</form>
-                    <button class="btn btn-secondary btn-sm right" id="sendMessageButton" onclick="fn_list()" type="button">메인</button>
-					<button class="btn btn-info btn-sm right" id="sendMessageButton" onclick="fn_sign_up()" type="button">가입</button>
+			<button class="btn selectDelete_btn btn-info btn-sm float-right" onclick="fn_sign_up()" type="submit">가입</button>
+			<button class="btn selectDelete_btn btn-secondary btn-sm float-right" onclick="fn_list()" type="submit">취소</button>
 		</div>
 	</section>
 
@@ -144,49 +128,54 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
 	<script src="<c:url value='/resources/js/scripts.js'/>"></script>
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<%@ include file="/WEB-INF/views/common/commonFunction.jsp"%>
 	
 </body>
 
 <script>
+$(document).ready(function(){
+	var addressArr=$("#sample2_detailAddress").val().split(', ');
+
+	$("#sample2_postcode").val(addressArr[0]);
+	$("#sample2_address").val(addressArr[1]);
+	$("#sample2_extraAddress").val(addressArr[2]);
+	$("#sample2_detailAddress").val(addressArr[3]);
+
+
+});
 function fn_list() {
 	window.location='<c:url value="/test.do"/>';
 };
 
 function fn_sign_up() {
 	//var formData = $('#boardForm').serialize();
-	var wholeAddress=$("#postalCode").val()+', '+$("#address").val()+', '+$("#addressDetail").val();
+	var wholeAddress=$("#sample2_postcode").val()+', '+$("#sample2_address").val()
+	+', '+$("#sample2_extraAddress").val()
+	+', '+$("#sample2_detailAddress").val();
+/* 	var wholeAddress=$("#postalCode").val()+', '+$("#address").val()+', '+$("#addressDetail").val(); */
 	$("#wholeAddress").val(wholeAddress);
+	alert('update');
+	$('#boardForm #id').attr('disabled',false);
+	$("input[name=ADDRESS]").val(wholeAddress);
 	var formData = new FormData($("#boardForm")[0]);
 
-	//alert($(input[name='nickname']).val());
-	
-	$.ajax({
-		url : "${pageContext.request.contextPath}/insertMember.do",
-		type : "post",
-		enctype: 'multipart/form-data',
-		data : formData,
-		processData : false,
-		contentType : false,
-		success : function(result) {
-			if(result.msg!=null)
-				alert(result.msg);
-			else{
-				alert('회원가입이 완료되었습니다.');
-				
-				$('#boardForm').attr({
-					action : '<c:url value="/user/login.do"/>',
-					target : '_self'
-				}).submit();
-				
-/* 				window.location='<c:url value="/user/login.do"/>';
- */
-			}
-		}, // success 
+$.ajax({
+	url : "${pageContext.request.contextPath}/user/insertMember.do",
+	type : "post",
+	enctype: 'multipart/form-data',
+	data : formData,
+	processData : false,
+	contentType : false,
+	success : function(result) {
+		alert('회원가입이 완료되었습니다.');
+		fn_list();
+	}, // success 
 
-		error : function(xhr, status) {
-			alert(xhr + " : " + status);
-		}
-	});
+	error : function(xhr, status) {
+		alert(xhr + " : " + status);
+	}
+});
 
 }
 

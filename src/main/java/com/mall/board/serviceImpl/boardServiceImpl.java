@@ -140,7 +140,7 @@ public class boardServiceImpl implements boardService {
 	}
 
 	@Override
-	public void insertMember(Map<String, Object> paramMap, MultipartHttpServletRequest multi,
+	public void insertMember(Map<String, Object> paramMap,
 			HttpServletRequest request) throws Exception {
 		System.err.println("$$$$$$$$$:" + paramMap);
 		boardMapper.insertMember(paramMap);
