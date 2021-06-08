@@ -350,7 +350,7 @@ function fn_detail_pop(B_NO,B_TYPE){
    			//$("#pp").append(index+','+value+'<br>');
             console.log('element' ,index, value ); 
          });
-		
+        $("#pp").html("");
 		 for (var i = 0; i <imgList.length; i++) {
 			  console.log('element', i, imgList[i]);
 			  console.log(imgList[i].gdsPrice);

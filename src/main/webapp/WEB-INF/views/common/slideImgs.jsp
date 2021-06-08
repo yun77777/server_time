@@ -16,7 +16,7 @@
 <div class="peliculas-recomendadas contenedor">
       <div class="contenedor-titulo-controles">
         <h3>상의</h3>
-        <small><a href="#">더보기</a></small>
+        <!-- <small><a href="#">더보기</a></small> -->
         <div class="indicadores">
 
         </div>
@@ -59,7 +59,6 @@
 <c:if test="${empty list1}">
 	<div class="contenedor-titulo-controles">
         <h3>하의</h3>
-        <small><a href="#">더보기</a></small>
         <div class="indicadores">
 
         </div>
@@ -68,7 +67,6 @@
 <c:if test="${!empty list1}">
 	<div class="contenedor-titulo-controles">
         <h3>하의</h3>
-        <small><a href="#">더보기</a></small>
         <div class="indicadores">
 
         </div>
@@ -119,7 +117,6 @@
 <c:if test="${!empty list3}">
 	<div class="contenedor-titulo-controles">
         <h3>신발</h3>
-        <small><a href="#">더보기</a></small>
         <div class="indicadores">
 
         </div>
@@ -171,7 +168,6 @@
 <c:if test="${!empty list4}">
 	<div class="contenedor-titulo-controles">
         <h3>반려동물용품</h3>
-        <small><a href="#">더보기</a></small>
         <div class="indicadores">
 
         </div>
