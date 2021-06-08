@@ -335,7 +335,7 @@ System.err.println("fsdlmflmf:"+checkArr);
 			model.addAttribute("login",httpSession.getAttribute("login"));
 			model.addAttribute("member",httpSession.getAttribute("member"));
 
-			boardService.deleteBoard(paramMap, multi, request);
+			boardService.deleteBoard(paramMap, request);
 			model.addAttribute("paramMap", paramMap);
 		} catch (Exception e) {
 			e.printStackTrace();

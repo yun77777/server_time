@@ -119,18 +119,15 @@ public class boardServiceImpl implements boardService {
 		if (size > 0) {
 			for (int i = 0; i < size; i++) {
 				if (list.get(i).get("NEW_ITEM").equals("Y"))
-
 					boardMapper.insertFile(list.get(i));
 				else {
 					boardMapper.updateFile(list.get(i));
-					boardMapper.selectFile(list.get(i));
 					System.err.println("기존리스트:" + boardMapper.selectBoardFileList(paramMap));
 					System.err.println("기존리스@트:" + boardMapper.selectFile(list.get(i)));
 				}
 			}
 		}
 
-		// mngMapper.updateItem(paramMap); //본문수정 나중에
 	}
 
 

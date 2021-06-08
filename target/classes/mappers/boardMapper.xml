@@ -71,6 +71,15 @@
 		where B.B_NO=#{no} and B.B_TYPE=#{B_TYPE}
 	</select>
 	
+	<update id="updateBoard" parameterType="map">
+		update board set
+		id=#{id}
+		,title=#{title}
+		,content=#{content}
+		,updt_dt=NOW()
+		where B_NO=#{no} and B_TYPE=#{B_TYPE}
+	</update>
+	
 	<update id="updateCnt" parameterType="map">
 		update board
 		set cnt = cnt+1
@@ -329,6 +338,6 @@
 			FILE_PATH,
 			B_TYPE
 		FROM MP_FILE
-		where BNO=#{no}
+		where BNO=#{no} and DEL_GB='N'
 	</select>
 </mapper>

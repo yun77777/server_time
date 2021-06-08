@@ -116,6 +116,8 @@ public class FileUtils {
 				list.add(listMap);
 			}
 		}
+		System.err.println("files:"+files);
+		System.err.println("fileNames:"+fileNames);
 		System.err.println("fff:"+listMap);
 
 		return list;

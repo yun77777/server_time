@@ -299,16 +299,7 @@ public class boardController {
 			@RequestParam(value="fileNameDel[]") String[] fileNames,
 			 HttpSession httpSession,
 			 MultipartHttpServletRequest multi) throws Exception {
-		//Map<String, Object> paramMap=new HashMap<String, Object>();
-//		paramMap.put("B_TYPE",4);
-//		paramMap.put("no",paramMap.get("gdsNum"));
-//		System.err.println("insert:"+paramMap);
-		paramMap.put("B_TYPE",4);
-//		String fileNoDel=paramMap.get("fileNoDel").toString();
-//		String fileNameDel=paramMap.get("fileNameDel").toString();
-//		
-//		String [] files=fileNoDel.split(",");
-//		String [] fileNames=fileNameDel.split(",");
+		//paramMap.put("B_TYPE",1);
 		
 		System.err.println("PARAM:"+paramMap);
 		try {
