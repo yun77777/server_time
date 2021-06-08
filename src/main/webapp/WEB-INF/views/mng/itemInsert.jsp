@@ -177,9 +177,7 @@ $(document).ready(function(){
 	
 	
 	$("input[type=file]").change(function(){
-		alert('f');
 		var itemImg="#"+$(this).prev().attr("id");
-		alert(itemImg);
 		if(this.files && this.files[0]) {
 			var reader = new FileReader;
 			reader.onload = function(data) {
@@ -215,7 +213,6 @@ $(document).ready(function(){
 	
 	
 	$("#gdsImg").change(function(){
-		alert('f');
 		   if(this.files && this.files[0]) {
 		    var reader = new FileReader;
 		    reader.onload = function(data) {
@@ -285,7 +282,7 @@ function fn_valiChk(){
 	var regForm = $("form[name='writeForm'] .chk").length;
 	for(var i = 0; i<regForm; i++){
 		if($(".chk").eq(i).val() == "" || $(".chk").eq(i).val() == null){
-			alert($(".chk").eq(i).attr("title"));
+			//alert($(".chk").eq(i).attr("title"));
 			return true;
 		}
 	}
@@ -348,8 +345,6 @@ function fn_insert() {
 	var gdsStock=$("#boardForm #gdsStock").val();
 	var gdsDes=$("#boardForm #gdsDes").val();
 	
-	alert($("#gdsNum").val());
-	
 	formData.append("cateCode1",cateCode1);
 	formData.append("cateCode2",cateCode2);
 	formData.append("gdsNum",gdsNum);
@@ -383,12 +378,8 @@ function fn_insert() {
 	formData.append("fileNameDel",fileNameDel);
 	formData.append("no",$("#itemForm #gdsNum").val());
 	formData.append("B_TYPE",4);
-	
 	formData.append("file",file);
 	
-	
-	
-	alert('insert');
 	$.ajax({
 		url : "${pageContext.request.contextPath}/mng/insertItem.do",
 		type : "post",
