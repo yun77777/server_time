@@ -41,8 +41,8 @@
 			    
 				<div class="row">
 				
-					<div class="col-lg-8 mb-4">
-						<div class="control-group form-group">
+				<div class="col-lg-8 mb-4">
+					<div class="control-group form-group">
 						<div id="success"></div>
 						<!-- //search-->
 						<button type="button" onclick="" id="delete_btn" class="btn btn btn-danger btn-sm float-right">삭제</button>			
