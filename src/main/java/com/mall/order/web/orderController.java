@@ -196,7 +196,7 @@ Map<String, Object> result = new HashMap<String, Object>();
 		model.addAttribute("login", session.getAttribute("login"));
 		model.addAttribute("member", session.getAttribute("member"));
 
-		Map<String,Object> login=(Map<String, Object>) session.getAttribute("login");
+		HashMap<String,Object> login=(HashMap<String, Object>) session.getAttribute("member");
 		paramMap.put("userId",login.get("ID"));
 System.err.println("paramamamamammamama:"+login.get("ID"));
 		paramMap.put("orderProcess","N");
@@ -214,7 +214,7 @@ System.err.println("LISITIIITITISITITIT:"+cartList);
 		logger.info("order");
 		model.addAttribute("login", session.getAttribute("login"));
 		model.addAttribute("member", session.getAttribute("member"));
-		Map<String,Object> login=(HashMap<String, Object>) session.getAttribute("login");
+		HashMap<String,Object> login=(HashMap<String, Object>) session.getAttribute("member");
 		paramMap.put("userId",login.get("ID"));
 		
 		System.err.println("ff"+session.getAttribute("login"));
@@ -246,7 +246,7 @@ System.err.println("LISITIIITITISITITIT:"+cartList);
 		System.err.println("chArr@"+chArr);
 		System.err.println("cartStockArr@"+cartStockArr);
 		System.err.println("userId@"+userId);
-		Map<String,Object> login=(HashMap<String, Object>) session.getAttribute("login");
+		Map<String,Object> login=(Map<String, Object>) session.getAttribute("member");
 		paramMap.put("userId",login.get("ID"));
 		int cartNum=0;
 		int cartStock=0;
@@ -424,7 +424,7 @@ System.err.println("LISITIIITITISITITIT:"+cartList);
 		logger.info("get order list");
 		model.addAttribute("login",session.getAttribute("login"));
 		model.addAttribute("member",session.getAttribute("member"));
-		Map<String,Object> login=(HashMap<String, Object>) session.getAttribute("login");
+		HashMap<String,Object> login=(HashMap<String, Object>) session.getAttribute("member");
 		paramMap.put("userId",login.get("ID"));
 		
 		System.err.println("paramMap@:"+paramMap);
@@ -619,7 +619,7 @@ System.err.println("LISITIIITITISITITIT:"+cartList);
 		logger.info("order");
 		model.addAttribute("login", session.getAttribute("login"));
 		model.addAttribute("member", session.getAttribute("member"));
-		Map<String,Object> login=(HashMap<String, Object>) session.getAttribute("login");
+		Map<String,Object> login=(HashMap<String, Object>) session.getAttribute("member");
 		paramMap.put("userId",login.get("ID"));
 		
 		

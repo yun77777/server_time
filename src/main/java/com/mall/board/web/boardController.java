@@ -1,6 +1,7 @@
 package com.mall.board.web;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -365,7 +366,7 @@ public class boardController {
 	@RequestMapping(value = "/chatting.do", method = RequestMethod.GET)
 	public String loginProcess(@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) {
 //		public String loginProcess(@RequestParam String id, HttpServletRequest request) {
-		Map<String, Object> login=(Map<String, Object>) httpSession.getAttribute("login");
+		HashMap<String,Object> login=(HashMap<String, Object>) httpSession.getAttribute("member");
 		model.addAttribute("member",httpSession.getAttribute("member"));
 
     	String id = request.getSession().getId();

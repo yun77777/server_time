@@ -29,7 +29,7 @@ public class UserManageController {
 		model.addAttribute("member",httpSession.getAttribute("member"));
 		model.addAttribute("k_userInfo", httpSession.getAttribute("k_userInfo"));
 		
-		Map<String,Object> login=(HashMap<String, Object>) httpSession.getAttribute("login");
+		Map<String,Object> login=(HashMap<String, Object>) httpSession.getAttribute("member");
 		paramMap.put("ID",login.get("ID"));
 		
 		
