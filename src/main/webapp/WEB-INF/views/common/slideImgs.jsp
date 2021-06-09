@@ -11,6 +11,8 @@
 
   <link href="<c:url value='/resources/css/style.css'/>" rel="stylesheet" />
 
+
+
     <!--PELOCULAS RECOMENDADS-->
 <c:if test="${!empty list4}">
 <div class="peliculas-recomendadas contenedor">
@@ -34,7 +36,7 @@
 	            </div> --%>
 	  <figure class="thumbnail round firstRow snip1384">
 	<!--   <figure class="thumbnail round pelicula snip1384"> -->
-			 <img class="list_img" src="<c:url value='/img/${result.representative_file}'/>" alt="no image" />
+			 <img class="lazy list_img" data-original="<c:url value='/img/${result.representative_file}'/>" alt="no image" />
 			 <figcaption>
 			   <h3>${result.gdsName}</h3>
 	<%-- <span>개당 가격</span><fmt:formatNumber pattern="###,###,###" value="${result.gdsPrice}" /> 원<br />
@@ -52,6 +54,10 @@
 	      </div>
 	</div>
 </c:if>
+
+
+
+
     <!--***********************-->
     <!--SUSPENSO-->
 <c:if test="${!empty list3}">
@@ -93,7 +99,7 @@
 	            </div> --%>
 	  <figure class="thumbnail secondRow snip1384">
 	<!--   <figure class="thumbnail pelicula snip1384"> -->
-			 <img class="list_img" src="<c:url value='/img/${result.representative_file}'/>" alt="no image" />
+			 <img class="lazy list_img" data-original="<c:url value='/img/${result.representative_file}'/>" alt="no image" />
 			 <figcaption>
 			   <h3>${result.gdsName}</h3>
 	<%-- <span>개당 가격</span><fmt:formatNumber pattern="###,###,###" value="${result.gdsPrice}" /> 원<br />
@@ -144,7 +150,7 @@
 	            </div> --%>
 	  <figure class="thumbnail secondRow snip1384">
 	<!--   <figure class="thumbnail pelicula snip1384"> -->
-			 <img class="list_img" src="<c:url value='/img/${result.representative_file}'/>" alt="no image" />
+			 <img class="lazy list_img" data-original="<c:url value='/img/${result.representative_file}'/>" alt="no image" />
 			 <figcaption>
 			   <h3>${result.gdsName}</h3>
 	<%-- <span>개당 가격</span><fmt:formatNumber pattern="###,###,###" value="${result.gdsPrice}" /> 원<br />
@@ -195,7 +201,7 @@
 	            </div> --%>
 	  <figure class="thumbnail secondRow snip1384">
 	<!--   <figure class="thumbnail pelicula snip1384"> -->
-			 <img class="list_img" src="<c:url value='/img/${result.representative_file}'/>" alt="no image" />
+			 <img class="lazy list_img" data-original="<c:url value='/img/${result.representative_file}'/>" alt="no image" />
 			 <figcaption>
 			   <h3>${result.gdsName}</h3>
 	<%-- <span>개당 가격</span><fmt:formatNumber pattern="###,###,###" value="${result.gdsPrice}" /> 원<br />
@@ -213,6 +219,18 @@
 	  </div>
 	</div>
 </c:if>
+
+
+<!-- lazyload 1.9.1 CDN -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+<script>
+$("img.lazy").lazyload({
+    threshold : 300,        //뷰포트에 보이기 300px 전에 미리 로딩
+    effect : "fadeIn"       //효과
+});
+</script>
   <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
   <script src="<c:url value='/resources/js/main.js'/>" ></script>
   
