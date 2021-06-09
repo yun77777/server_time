@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.JsonNode;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +27,7 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.mall.login.service.loginService;
 import com.mall.login.web.KakaoController;
 import com.mall.login.web.NaverLoginBO;
+
 
 @Controller
 @RequestMapping("/user")
@@ -136,15 +140,52 @@ System.err.println("userInfo:"+userInfo);//@@@v2@@@
         oauthToken = naverLoginBO.getAccessToken(session, code, state);
         //로그인 사용자 정보를 읽어온다.
         apiResult = naverLoginBO.getUserProfile(oauthToken);
-        model.addAttribute("result", apiResult);
- 
+        
+     // 내가 원하는 정보 (이름)만 JSON타입에서 String타입으로 바꿔 가져오기 위한 작업 
+        JSONParser parser = new JSONParser();
+        Object obj = null;
+        try { 
+        	obj = parser.parse(apiResult);
+        } catch (ParseException e) {
+        	e.printStackTrace(); 
+        	} 
+        JSONObject jsonobj = (JSONObject) obj;
+        JSONObject response = (JSONObject) jsonobj.get("response");
+        String id = (String) response.get("id");
+        String nname = (String) response.get("name");
+        String nemail = (String) response.get("email");
+        String ngender = (String) response.get("gender");
+        String nbirthday = (String) response.get("birthday");
+        String nage = (String) response.get("age"); 
+        String nimage = (String) response.get("profile_image");
+        // 로그인&아웃 하기위한 세션값 주기
+        session.setAttribute("id", id);
+        session.setAttribute("nname", nname);
+        session.setAttribute("nemail", nemail);
+        session.setAttribute("ngender", ngender);
+        session.setAttribute("nbirthday", nbirthday);
+        session.setAttribute("nage", nage);
+        session.setAttribute("nimage", nimage);
+
+		
+        
+        model.addAttribute("n_userInfo", apiResult);
+        model.addAttribute("ID", id);
+        System.err.println("apiResult:"+apiResult);
         /* 네이버 로그인 성공 페이지 View 호출 */
 		
+    	paramMap.put("ID",id);
+//    	session.setAttribute("destination", "/user/naverOauth.do");
+
 		//신규회원일 경우 회원가입
 		//아이디 중복 아닐 경우
+		if(loginService.selectMember(id)==null)
+			return "/signUp";
+		//기존회원일 경우 로그인
+		else {
 			model.addAttribute("msg","로그인이 완료되었습니다.");
 			return "/test";
-//		return "/user/afterLogin";//ooooo
+		}
 	}
 
 	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

@@ -33,8 +33,10 @@
 		<div class="container">
 			<form id="boardForm" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="ADDRESS">
+			<input type="hidden" name="ID" value="${ID}">
+			
 				<!-- Page Heading/Breadcrumbs-->
-				<h1> 회원 가입 </h1>
+				<h1> 회원 가입${ID}</h1>
 				
 				<div class="row">
 					<div class="col-lg-8 mb-4">
@@ -43,12 +45,13 @@
 		
 			</div>
 			<table class="table">
+		<c:if test="${empty k_userInfo and empty n_userInfo}">
 				<tr>
 					<td>아이디</td>
 					<td colspan="2"><input class="form-control" id="id"
 									name="ID" type="text" value=""/></td>
 				</tr>
-				<c:if test="${empty member.k_userInfo}">	
+				
 				<tr>
 					<td>비밀번호</td>
 					<td colspan="2"><input class="form-control" id="pw"
@@ -91,7 +94,7 @@
 				<tr>
 					<td>휴대폰 번호</td>
 					<td colspan="2"><input class="form-control" id="phone"
-									name="PHONE" type="text" required value="
+									name="PHONE" type="text" required value=""
 									data-validation-required-message="Please enter your email address." /></td>
 				</tr>
 				<tr>
@@ -155,8 +158,6 @@ function fn_sign_up() {
 	+', '+$("#sample2_detailAddress").val();
 /* 	var wholeAddress=$("#postalCode").val()+', '+$("#address").val()+', '+$("#addressDetail").val(); */
 	$("#wholeAddress").val(wholeAddress);
-	alert('update');
-	$('#boardForm #id').attr('disabled',false);
 	$("input[name=ADDRESS]").val(wholeAddress);
 	var formData = new FormData($("#boardForm")[0]);
 

@@ -8,14 +8,17 @@
                 </ol>
                 <div class="main_img carousel-inner">
                     <div class="carousel-item active">
-                        <img class="list_main_img d-block w-100" src="<c:url value='/resources/assets/img/1.jpg'/>" alt="..." />
+                        <img class="list_main_img d-block w-100" src="<c:url value='/resources/assets/img/pet_yellow_champion_hood.jpg'/>" alt="..." />
+<%--                         <img class="list_main_img d-block w-100" src="<c:url value='/resources/assets/img/1.jpg'/>" alt="..." /> --%>
                         <div class="carousel-caption d-none d-md-block">
                             <h3>First Slide</h3>
                             <p>This is a description for the first slide.</p>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="<c:url value='/resources/assets/img/2.jpg'/>" alt="..." />
+                        <img class="list_main_img d-block w-100" src="<c:url value='/resources/assets/img/pet_green_santa_hood.jpg'/>" alt="..." />
+<%--                         <img class="d-block w-100" src="<c:url value='/resources/assets/img/pet_white_n_yellow_hood.jpg'/>" alt="..." /> --%>
+<%--                         <img class="d-block w-100" src="<c:url value='/resources/assets/img/2.jpg'/>" alt="..." /> --%>
                         <div class="carousel-caption d-none d-md-block">
                             <h3>Second Slide</h3>
                             <p>This is a description for the second slide.</p>
@@ -24,7 +27,8 @@
                     	<script src=""></script>
                    
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="<c:url value='/resources/assets/img/3.jpg'/>" alt="..." />
+                        <img class="list_main_img d-block w-100" src="<c:url value='/resources/assets/img/pet_green_hood.jpg'/>" alt="..." />
+<%--                         <img class="d-block w-100" src="<c:url value='/resources/assets/img/3.jpg'/>" alt="..." /> --%>
                         <div class="carousel-caption d-none d-md-block">
                             <h3>Third Slide</h3>
                             <p>This is a description for the third slide.</p>

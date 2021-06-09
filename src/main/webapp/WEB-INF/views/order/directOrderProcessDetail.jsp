@@ -245,9 +245,7 @@ ${paramMap.orderId }
 					
 				
 			</div>
-			
-<%-- 				<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
- --%>				
+			<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
 			</section>
 			
 			

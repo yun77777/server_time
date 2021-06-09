@@ -31,19 +31,25 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	    ModelMap modelMap = modelAndView.getModelMap();
 	    Object userVO =  modelMap.get("ID");
 	    Object k_userInfo =  modelMap.get("k_userInfo");
+	    Object n_userInfo =  modelMap.get("n_userInfo");
 	    
 	    System.err.println("userVOOOOOOO:"+userVO);
 	    System.err.println("k_userInfo:"+modelMap.get("k_userInfo"));
+	    System.err.println("n_userInfo:"+modelMap.get("n_userInfo"));
 	    if (userVO != null) {
 	        logger.info("new login success");
 	        httpSession.setAttribute(LOGIN, userVO);
 	        httpSession.setAttribute("k_userInfo", k_userInfo);
+	        httpSession.setAttribute("n_userInfo", n_userInfo);
+	        
 	        System.err.println("session:"+userVO);
 	        Map<String, Object> member=loginMapper.selectMember(userVO.toString());
-	        member.put("k_userInfo", k_userInfo);
+//	        member.put("k_userInfo", k_userInfo);
+//	        member.put("n_userInfo", n_userInfo);
 	        System.err.println("member:"+member);
 	        httpSession.setAttribute("member", member);
-
+	        
+	        
 	        //response.sendRedirect("/");
 
 	        if (request.getParameter("useCookie") != null) {
@@ -56,9 +62,14 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	            // 전송
 	            response.addCookie(loginCookie);
 	        }
-
-	        Object destination = httpSession.getAttribute("destination");
-			response.sendRedirect(destination != null ? (String) destination : "/test.do");
+	        
+	        if(n_userInfo!=null & member==null) {
+				//response.sendRedirect("/test.do");
+	        }else {
+	        	Object destination = httpSession.getAttribute("destination");
+				response.sendRedirect(destination != null ? (String) destination : "/test.do");
+	        }
+	        
 //	        response.sendRedirect(destination != null ? (String) destination : "/");
 	    }
 

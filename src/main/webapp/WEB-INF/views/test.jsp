@@ -260,11 +260,16 @@ figure.snip1384.hover i {
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 	
 	
+	
+	<div id="image_container"> 
+	<!-- 이미지 마크업 생성 공간 --> </div>
+
 </body>
 
 
 <script>
 $(document).ready(function() {
+	
 	/* Demo purposes only */
 	$(".hover").mouseleave(
 	  function () {
@@ -346,12 +351,15 @@ function fn_detail_pop(B_NO,B_TYPE){
 		var obj=JSON.parse(result);
 		var detail = obj.detail ;
 		var imgList = obj.imgList ;
+		
+		$("#pp").html("");
+		
         $.each(detail, function( index, value ) {
    			$("#"+index+"").val(value);
    			//$("#pp").append(index+','+value+'<br>');
             console.log('element' ,index, value ); 
          });
-        $("#pp").html("");
+        
 		 for (var i = 0; i <imgList.length; i++) {
 			  console.log('element', i, imgList[i]);
 			  console.log(imgList[i].gdsPrice);
@@ -405,50 +413,55 @@ function fn_detail_pop(B_NO,B_TYPE){
 		
 		//주문
 		$("#create").on("click",function(){ 
+			var userId = '${member.ID}';
+			if(userId.length==0){
+				alert('로그인 후 이용해주세요');
+			} else {
+				var gdsNum = $("#gdsNum").val();
+				var cartStock = 5;
+	/* 			var cartStock = $(".numBox").val(); */
+				//alert('gdsNum:'+gdsNum);
+				
+				var gdsNum = $("#gdsNum").val();
+				var userId = $("#userId").val();
+				var gdsName = $("#gdsName").val();
+				var gdsPrice = $("#gdsPrice").val();
+				var cartStock = $("#stock").val();
+				var gdsStock = cartStock;
+	/* 			var gdsStock = $(".numBox").val(); */
+				$('#gdsStock').val(gdsStock);
+				
+				var data = {
+						gdsNum : gdsNum,
+						gdsStock : gdsStock,
+						cartStock : cartStock,
+						gdsName : gdsName,
+						gdsPrice : gdsPrice,
+						orderProcessDetail : 'Y',
+						userId : userId ,
+						};
+				
+			$.ajax({
+					url : "/directOrderProcess.do",
+					type : "post",
+					data : data,
+					success : function(result){
+						$("#orderId").val(result.orderId);
+						
+						$('#orderForm').attr({
+	/* 					$('#boardForm').attr({ */
+							action : '<c:url value="/directOrderProcessDetail.do"/>',
+							target : '_self'
+						}).submit(); 
+					   	//location.replace("/directOrderProcessDetail.do");
+					},
+					error : function(){
+						alert("주문 실패");
+					}
+				});
 			
-			var gdsNum = $("#gdsNum").val();
-			var cartStock = 5;
-/* 			var cartStock = $(".numBox").val(); */
-			//alert('gdsNum:'+gdsNum);
+			}
 			
-			var gdsNum = $("#gdsNum").val();
-			var userId = $("#userId").val();
-			var gdsName = $("#gdsName").val();
-			var gdsPrice = $("#gdsPrice").val();
-			var cartStock = $("#stock").val();
-			var gdsStock = cartStock;
-/* 			var gdsStock = $(".numBox").val(); */
-			$('#gdsStock').val(gdsStock);
-			
-			var data = {
-					gdsNum : gdsNum,
-					gdsStock : gdsStock,
-					cartStock : cartStock,
-					gdsName : gdsName,
-					gdsPrice : gdsPrice,
-					orderProcessDetail : 'Y',
-					userId : userId ,
-					};
-			
-		$.ajax({
-				url : "/directOrderProcess.do",
-				type : "post",
-				data : data,
-				success : function(result){
-					$("#orderId").val(result.orderId);
-					
-					$('#orderForm').attr({
-/* 					$('#boardForm').attr({ */
-						action : '<c:url value="/directOrderProcessDetail.do"/>',
-						target : '_self'
-					}).submit(); 
-				   	//location.replace("/directOrderProcessDetail.do");
-				},
-				error : function(){
-					alert("주문 실패");
-				}
-			});
-		
 			
 			
 			});

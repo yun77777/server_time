@@ -19,7 +19,7 @@ public class NaverLoginBO {
 	// 네이버 로그인 정보
 	private final static String CLIENT_ID = "JfxL6j4Q1r7tlTKVfJ6Q";
 	private final static String CLIENT_SECRET = "s_Viww55bx";
-	private final static String REDIRECT_URI = "/user/naverOauth.do";
+	private final static String REDIRECT_URI = "http://localhost:8080/user/naverOauth.do";
 	
 	private final static String SESSION_STATE = "naver_oauth_state";
 	private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";

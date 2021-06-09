@@ -108,6 +108,7 @@ public class boardController {
 			model.addAttribute("list3",list3);
 			model.addAttribute("list4",list4);
 			model.addAttribute("pg",pg);
+//			httpSession.setAttribute("destination", "/test.do");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -489,6 +490,7 @@ public class boardController {
 			
 			
 			model.addAttribute("pg",pg);
+			model.addAttribute("itemType",paramMap.get("itemType"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

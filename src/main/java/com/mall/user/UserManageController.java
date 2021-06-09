@@ -68,6 +68,7 @@ public class UserManageController {
     		HttpSession httpSession, Model model) throws Exception {    	try {
     			model.addAttribute("member",httpSession.getAttribute("member"));
     			model.addAttribute("k_userInfo", httpSession.getAttribute("k_userInfo"));
+    			model.addAttribute("n_userInfo", httpSession.getAttribute("n_userInfo"));
     			
     			
     			System.err.println("$$$$:"+paramMap);

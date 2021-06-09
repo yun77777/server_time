@@ -45,8 +45,7 @@
     }
     
     function fn_naverUrl() {
-    	var url='${url}';
-    	alert(url);
+   	var url='${url}';
 	window.location=url;
 
     }

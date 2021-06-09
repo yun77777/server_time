@@ -11,8 +11,8 @@
     	alert("아이디와 비밀번호를 확인해주세요.");
         self.location = "/user/login.do";
     }else{
-    	alert("successfully login");
-        self.location = "/user/afterLogin.do";
+    	alert("로그인되었습니다.");
+        self.location = "/test.do";
     }
         
     </script>

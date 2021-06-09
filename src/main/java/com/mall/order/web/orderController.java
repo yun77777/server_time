@@ -196,7 +196,7 @@ Map<String, Object> result = new HashMap<String, Object>();
 		model.addAttribute("login", session.getAttribute("login"));
 		model.addAttribute("member", session.getAttribute("member"));
 
-		Map<String,Object> login=(HashMap<String, Object>) session.getAttribute("login");
+		Map<String,Object> login=(Map<String, Object>) session.getAttribute("login");
 		paramMap.put("userId",login.get("ID"));
 System.err.println("paramamamamammamama:"+login.get("ID"));
 		paramMap.put("orderProcess","N");
