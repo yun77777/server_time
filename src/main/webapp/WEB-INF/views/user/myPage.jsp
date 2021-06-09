@@ -48,7 +48,7 @@
 					<td colspan="2"><input class="form-control" id="id"
 									name="ID" type="text" value="${member.ID}" disabled/></td>
 				</tr>
-				<c:if test="${empty member.k_userInfo}">	
+				<c:if test="${empty member.k_userInfo and member.u_userInfo}">	
 				<tr>
 					<td>비밀번호</td>
 					<td colspan="2"><input class="form-control" id="pw"
