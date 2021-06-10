@@ -10,10 +10,22 @@
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
  <!-- Navigation-->
+ <!-- Image and text -->
+<!-- <nav class="navbar navbar-dark bg-cornflowerblue">
+  <a class="navbar-brand" href="/test.do">
+        <img src="/se2/img/dog.png" style="width:10%;height:auto"><br>댕댕몰
+        </a>
+</nav>
+  -->
+ 
 <nav class="navbar navbar-expand-lg navbar-dark bg-cornflowerblue">
 <!--         <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> -->
+    <a class="navbar-brand" href="/test.do">
+        <img src="/se2/img/dog.png" style="width:10%;height:auto"><br>댕댕몰
+    </a>
+    
     <div class="container">
-        <a class="navbar-brand" href="/test.do"><img src="/se2/img/dog.png" style="width:10%;height:auto"></a>
+        
         <c:if test="${empty member}">
         	<a href="#myModal" class="" data-toggle="modal">로그인</a>
         </c:if>
@@ -79,7 +91,14 @@
                    </div>
                </li>
 </c:if>
-                
+				<li class="nav-item">
+				 <c:if test="${empty member}">
+		        	<a class="nav-link" href="#myModal" class="" data-toggle="modal">로그인</a>
+		        </c:if>
+		        <c:if test="${!empty member}">
+		        	<a onclick="fn_logout()" class="nav-link" href="/user/logout.do">로그아웃</a>
+		        </c:if>
+				</li>
             </ul>
         </div>
     </div>
