@@ -58,51 +58,58 @@
 						<div class="table-responsive-lg">
 							<table class="table">
 								<tr>
-									<td></td>
-									<td><a href="#!"
-										onclick="fn_detail_pop('${orderList.gdsNum}')"
-										data-toggle="modal" data-target="#exampleModalLong"> <img
-											class="card-img-top"
-											src="<c:url value='/img/${orderList.representative_file}'/>"
-											style="width: 100px" alt="no image" />
-									</a></td>
+									<td rowspan="3">
+										<div class="text-center">
+										<a href="#!"
+											onclick="fn_detail_pop('${orderList.gdsNum}')"
+											data-toggle="modal" data-target="#exampleModalLong"> 
+											<!-- <img class="card-img-top rounded" -->
+											<img class="card-img-top"
+												src="<c:url value='/img/${orderList.representative_file}'/>"
+												style="width: 100px" alt="no image" />
+										</a></div>
+									</td>
+									<td colspan="2"></td>
 								</tr>
+								
 								<tr>
 									<td>주문번호</td>
-									<td>${orderList.orderId}</td>
+									<td colspan="2">${orderList.orderId}</td>
+								</tr>
+								
+								<!-- <tr><td colspan="2"></td></tr>
+								<tr><td colspan="2"></td></tr>
+								<tr><td colspan="2"></td></tr> -->
+								<tr>
+									<td>주문번호</td>
+									<td colspan="2">${orderList.orderId}</td>
 								</tr>
 								<tr>
 									<td>수령인</td>
-									<td>${orderList.orderRec}</td>
+									<td colspan="2">${orderList.orderRec}</td>
 								</tr>
 								<tr>
 									<td>주소</td>
-									<td>(${orderList.userAddr1}) ${orderList.userAddr2}, ${orderList.userAddr3}
+									<td colspan="2">(${orderList.userAddr1}) ${orderList.userAddr2}, ${orderList.userAddr3}
 									</td>
 								</tr>
 								<tr>
 									<td>가격</td>
-									<td><fmt:formatNumber pattern="###,###,###"
-											value="${orderList.amount}" /> 원
-										</p></td>
-								</tr>
-								<tr>
-									<td>가격</td>
-									<td><fmt:formatNumber pattern="###,###,###"
+									<td colspan="2"><fmt:formatNumber pattern="###,###,###"
 											value="${orderList.amount}" /> 원
 										</p></td>
 								</tr>
 								<tr>
 									<td>상태</td>
-									<td>${orderList.delivery}</td>
+									<td colspan="2">${orderList.delivery}</td>
 								</tr>
 								<tr>
 									<td>주문수량</td>
-									<td>${orderList.cartStock}</td>
+									<td colspan="2">${orderList.cartStock}</td>
 								</tr>
 								<tr>
 									<td>상품명</td>
-									<td>
+									<td colspan="2">
 									<a href="#" onclick="fn_order_detail_pop('${orderList.orderId}')" onclick="fn_order_detail_pop('${orderList.orderId}')"
 												data-toggle="modal" data-target="#orderDetailPopup">
 									${orderList.gdsName} <c:if test="${orderList.cnt eq 1}"> 1</c:if><c:if test="${orderList.cnt ne 1}">외 ${orderList.cnt-1}</c:if> 건</a>
