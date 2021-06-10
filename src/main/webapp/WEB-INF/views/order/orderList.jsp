@@ -53,12 +53,17 @@
 			<h3>주문 완료 상품</h3>
 			<div class="orderInfo">
 				
-					<c:forEach items="${orderList}" var="orderList">
+					
 					<div id="row">
 						<div class="table-responsive-lg">
 							<table class="table">
+							<c:forEach items="${orderList}" var="orderList" varStatus="status">
+							<tr>
+							<th class="table-info">${status.index+1}</th>
+								<td colspan="2" class="table-info"></td>
+							</tr>
 								<tr>
-									<td rowspan="3">
+									<td rowspan="4">
 										<div class="text-center">
 										<a href="#!"
 											onclick="fn_detail_pop('${orderList.gdsNum}')"
@@ -66,24 +71,36 @@
 											<!-- <img class="card-img-top rounded" -->
 											<img class="card-img-top"
 												src="<c:url value='/img/${orderList.representative_file}'/>"
-												style="width: 100px" alt="no image" />
+												style="height: 200px;width:auto" alt="no image" />
 										</a></div>
 									</td>
-									<td colspan="2"></td>
+									<td>주문번호</td>
+									<td>${orderList.orderId}</td>
 								</tr>
 								
 								<tr>
-									<td>주문번호</td>
-									<td colspan="2">${orderList.orderId}</td>
+									<td>상품명</td>
+									<td>
+									<a href="#" onclick="fn_order_detail_pop('${orderList.orderId}')" onclick="fn_order_detail_pop('${orderList.orderId}')"
+												data-toggle="modal" data-target="#orderDetailPopup">
+									${orderList.gdsName} <c:if test="${orderList.cnt eq 1}"> 1</c:if><c:if test="${orderList.cnt ne 1}">외 ${orderList.cnt-1}</c:if> 건</a>
+									</td>
+								</tr>
+								<tr>
+									<td>가격</td>
+									<td><fmt:formatNumber pattern="###,###,###"
+											value="${orderList.amount}" /> 원
+									</td>
+								</tr>
+								<tr>
+									<td>상태</td>
+									<td>${orderList.delivery}</td>
 								</tr>
 								
-								<!-- <tr><td colspan="2"></td></tr>
-								<tr><td colspan="2"></td></tr>
-								<tr><td colspan="2"></td></tr> -->
-								<tr>
+								<%-- <tr>
 									<td>주문번호</td>
 									<td colspan="2">${orderList.orderId}</td>
-								</tr>
+								</tr> --%>
 								<tr>
 									<td>수령인</td>
 									<td colspan="2">${orderList.orderRec}</td>
@@ -93,7 +110,8 @@
 									<td colspan="2">(${orderList.userAddr1}) ${orderList.userAddr2}, ${orderList.userAddr3}
 									</td>
 								</tr>
-								<tr>
+								</c:forEach>
+								<%-- <tr>
 									<td>가격</td>
 									<td colspan="2"><fmt:formatNumber pattern="###,###,###"
 											value="${orderList.amount}" /> 원
@@ -114,14 +132,14 @@
 												data-toggle="modal" data-target="#orderDetailPopup">
 									${orderList.gdsName} <c:if test="${orderList.cnt eq 1}"> 1</c:if><c:if test="${orderList.cnt ne 1}">외 ${orderList.cnt-1}</c:if> 건</a>
 									</td>
-								</tr>
+								</tr> --%>
 							</table>
 							</div>
 						</div>
 						
 						<br>
 						<br>
-						</c:forEach>
+						
 					
 				
 
