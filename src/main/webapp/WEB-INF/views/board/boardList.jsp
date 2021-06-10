@@ -25,7 +25,7 @@
 
 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
     <form id="boardListForm" method="post">
-    	<input type="hidden" id="boardType" name="boardType">
+    	<input type="hidden" id="B_TYPE" name="B_TYPE">
 		<input type="hidden" id="currentPageNo" name="currentPageNo" value="${pg.currentPageNo}"/>
 		<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
     </form>
@@ -33,31 +33,21 @@
 	<!-- Page Content-->
 	<section class="py-5">
 		<div class="container">
-			<form id="boardForm" method="post">
-			<input type="hidden" id="no" name="no">
-			<input type="hidden" id="currentPageNo" name="currentPageNo" value="${pg.currentPageNo}"/>
-			<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
-				<!-- Page Heading/Breadcrumbs-->
-				<h1 class="mt-4 mb-3">
-					게시판${boardType}
-				</h1>
-				
-				
 				<nav>
 				  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-				    <a class="nav-link <c:if test="${boardType eq 'qna'}"> active </c:if>" id="nav-home-tab" onclick="fn_boardList('qna',1)" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Q&A</a>
-				    <a class="nav-link <c:if test="${boardType eq 'faq'}"> active </c:if>" id="nav-profile-tab" onclick="fn_boardList('faq',1)" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">FAQ</a>
-				    <a class="nav-link <c:if test="${boardType eq 'notice'}"> active </c:if>" id="nav-contact-tab" onclick="fn_boardList('notice',1)" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">공지사항</a>
+				    <a class="nav-link <c:if test="${B_TYPE eq '1'}"> active </c:if>" id="nav-home-tab" onclick="fn_boardList(1,1)" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Q&A</a>
+				    <a class="nav-link <c:if test="${B_TYPE eq '2'}"> active </c:if>" id="nav-profile-tab" onclick="fn_boardList(2,1)" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">FAQ</a>
+				    <a class="nav-link <c:if test="${B_TYPE eq '3'}"> active </c:if>" id="nav-contact-tab" onclick="fn_boardList(3,1)" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">공지사항</a>
 				  </div>
 				</nav>
 				<div class="tab-content" id="nav-tabContent">
-				  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+				  <div class="tab-pane fade show <c:if test="${B_TYPE eq '1'}"> active </c:if>" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 					<%@ include file="/WEB-INF/views/board/qnaList.jsp"%>
 				  </div>
-				  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+				  <div class="tab-pane fade show <c:if test="${B_TYPE eq '2'}"> active </c:if>" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 				  	<%@ include file="/WEB-INF/views/board/faqList.jsp"%>
 				  </div>
-				  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+				  <div class="tab-pane fade show <c:if test="${B_TYPE eq '3'}"> active </c:if>" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
 				  	<%@ include file="/WEB-INF/views/board/noticeList.jsp"%>
 				  </div>
 				</div>
@@ -87,12 +77,10 @@
 </body>
 
 <script>
-function fn_boardList(boardType,no) {
-	$('#boardType').val(boardType);
+function fn_boardList(B_TYPE,no) {
+	$('#B_TYPE').val(B_TYPE);
 	$('#currentPageNo').val(no);
 
-	alert("boardType:"+boardType);
-	
 	$('#boardListForm').attr({
 		action : '<c:url value="/boardList.do"/>',
 		target : '_self'
@@ -119,8 +107,9 @@ function fn_boardList(boardType,no) {
 	
 }
 
-function fn_list(no) {
+function fn_list(no, B_TYPE) {
 	$('#currentPageNo').val(no);
+	$('#boardForm #B_TYPE').val(B_TYPE);
 	
 	$('#boardForm').attr({
 		action : '<c:url value="/boardList.do"/>',
@@ -128,7 +117,9 @@ function fn_list(no) {
 	}).submit();
 };
 
-function fn_insert(id){
+function fn_insert(id, B_TYPE){
+	$('#boardForm #B_TYPE').val(B_TYPE);
+
 	if(id.length==0)
 		alert('로그인 후 이용해주세요');
 	else{
@@ -141,9 +132,10 @@ function fn_insert(id){
 
 }
 
-function fn_detail(no,id){
+function fn_detail(no,id,B_TYPE){
 	//var  formData= $('#boardForm').serialize();
-	
+	$('#boardForm #B_TYPE').val(B_TYPE);
+
 	if(id.length==0)
 		alert('로그인 후 이용해주세요');
 	else{

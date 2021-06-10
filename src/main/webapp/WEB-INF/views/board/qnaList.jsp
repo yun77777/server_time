@@ -38,6 +38,7 @@
 		<div class="container">
 			<form id="boardForm" method="post">
 			<input type="hidden" id="no" name="no">
+			<input type="hidden" id="B_TYPE" name="B_TYPE">
 			<input type="hidden" id="currentPageNo" name="currentPageNo" value="${pg.currentPageNo}"/>
 			<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
 				<!-- Page Heading/Breadcrumbs-->
@@ -48,7 +49,7 @@
 			
 			<div class="row">
 				<div class="col-12">
-					<button class="btn btn-info btn-sm float-right" onclick="fn_insert('${member.ID}')" type="button">작성</button>
+					<button class="btn btn-info btn-sm float-right" onclick="fn_insert('${member.ID}','${B_TYPE}')" type="button">작성</button>
 				</div>
 			</div>
           		<span>총 <em>${pg.totalRecordCount}</em>건 </span>
@@ -67,7 +68,7 @@
 						<c:forEach var="result" items="${list}" varStatus="status">
 							<tr>
 								<th scope="row">${result.B_NO}</th>
-								<td><a href="#" onclick="fn_detail('${result.B_NO}','${member.ID}');">${result.title}</a></td>
+								<td><a href="#" onclick="fn_detail('${result.B_NO}','${member.ID}','${paramMap.B_TYPE}');">${result.title}</a></td>
 <%-- 								<td><a href="#" onclick="fn_detail('${result.B_NO}','${login.ID}');">${result.title}</a></td> --%>
 								<td>${result.id}</td>
 								<td>${result.input_dt}</td>
@@ -76,18 +77,18 @@
 						</c:forEach>
 					</tbody>
 				</table>
-			</form>
-			
-   			<%@ include file="/WEB-INF/views/common/paging.jsp"%>
-			
 			<div class="row">
 				<div class="col-2 float-right">
 				<input class="form-control float-right" id="searchId"
 						name="searchId" type="text" value="${paramMap.searchId}" 
 						data- validation-required-message="Please enter your phone number." />
 				</div>
-				<button class="btn btn-secondary btn-sm float-right" onclick="fn_list('1')" type="button">검색</button>
+				<button class="btn btn-secondary btn-sm float-right" onclick="fn_list('1',1)" type="submit">검색</button>
 			</div>
+			</form>
+			
+   			<%@ include file="/WEB-INF/views/common/paging.jsp"%>
+			
 			
 		</div>
 		<!-- //Container -->
@@ -110,90 +111,6 @@
  -->	
 </body>
 
-<script>
-function fn_list(no) {
-	$('#currentPageNo').val(no);
-	
-	$('#boardForm').attr({
-		action : '<c:url value="/boardList.do"/>',
-		target : '_self'
-	}).submit();
-};
-
-function fn_insert(id){
-	if(id.length==0)
-		alert('로그인 후 이용해주세요');
-	else{
-		$('#boardForm').attr({
-			action : '<c:url value="/boardInsert.do" />',
-			target : '_self'
-		}).submit();
-	}
-	
-
-}
-
-function fn_detail(no,id){
-	//var  formData= $('#boardForm').serialize();
-	
-	if(id.length==0)
-		alert('로그인 후 이용해주세요');
-	else{
-		$('#boardForm #no').val(no);
-		$('#boardForm').attr({
-			action : '<c:url value="/boardDetail.do" />',
-			target : '_self'
-		}).submit();
-	}
-}
-
-$(function () {
-	   var bindDatePicker = function() {
-			$(".date").datetimepicker({
-	        format:'YYYY-MM-DD',
-				icons: {
-					time: "fa fa-clock-o",
-					date: "fa fa-calendar",
-					up: "fa fa-arrow-up",
-					down: "fa fa-arrow-down"
-				}
-			}).find('input:first').on("blur",function () {
-				// check if the date is correct. We can accept dd-mm-yyyy and yyyy-mm-dd.
-				// update the format if it's yyyy-mm-dd
-				var date = parseDate($(this).val());
-
-				if (! isValidDate(date)) {
-					//create date based on momentjs (we have that)
-					date = moment().format('YYYY-MM-DD');
-				}
-
-				$(this).val(date);
-			});
-		}
-	   
-	   var isValidDate = function(value, format) {
-			format = format || false;
-			// lets parse the date to the best of our knowledge
-			if (format) {
-				value = parseDate(value);
-			}
-
-			var timestamp = Date.parse(value);
-
-			return isNaN(timestamp) == false;
-	   }
-	   
-	   var parseDate = function(value) {
-			var m = value.match(/^(\d{1,2})(\/|-)?(\d{1,2})(\/|-)?(\d{4})$/);
-			if (m)
-				value = m[5] + '-' + ("00" + m[3]).slice(-2) + '-' + ("00" + m[1]).slice(-2);
-
-			return value;
-	   }
-	   
-	   bindDatePicker();
-	 });
-</script>
 
 </html>
 

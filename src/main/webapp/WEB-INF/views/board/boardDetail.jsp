@@ -111,6 +111,7 @@ body {
                     <div class="col-lg-8 mb-4">
                         <form id="boardForm" name="sentMessage" novalidate>
                         	<input type="hidden" id="currentPageNo" name="currentPageNo" value="1"/>
+                        	<input type="hidden" id="B_TYPE" name="B_TYPE" value="${paramMap.B_TYPE}"/>
                         	<input type="hidden" id="replyType" name="replyType" value="${paramMap.replyType}"/>
                         	<input type="hidden" id="originNo" name="originNo"
 	                                    <c:if test='${empty paramMap.originNo}'>
@@ -403,11 +404,14 @@ function fn_save() {
 	var id=$("#boardForm #id").val();
 	var title=$("#boardForm #title").val();
 	var content=$("#boardForm #content").val();
+	var B_TYPE=$("#boardForm #B_TYPE").val();
+	
 	alert("title:"+title);
 	formData.append("no",no);
 	formData.append("id",id);
 	formData.append("title",title);
 	formData.append("content",content);
+	formData.append("B_TYPE",B_TYPE);
 
 	var fileNoDel = new Array();
 	var fileNameDel = new Array();
@@ -433,7 +437,6 @@ function fn_save() {
 	formData.append("fileNoDel",fileNoDel);
 	formData.append("fileNameDel",fileNameDel);
 	//formData.append("no",$("#boardForm #no").val());
-	formData.append("B_TYPE",1);
 	formData.append("file",file);
 	
 	$.ajax({

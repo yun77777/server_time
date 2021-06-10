@@ -91,7 +91,7 @@ public class boardServiceImpl implements boardService {
 			MultipartHttpServletRequest multi) throws Exception {
 		System.err.println("$$$$$$$$$:" + paramMap);
 		boardMapper.mergeBoard(paramMap);
-		boardMapper.insertHisBoard(paramMap);
+		//boardMapper.insertHisBoard(paramMap);
 		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(paramMap, multi);
 		int size = list.size();
 		

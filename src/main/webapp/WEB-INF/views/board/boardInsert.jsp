@@ -33,6 +33,7 @@
 	<section class="py-5">
 		<div class="container">
 			<form id="boardForm" method="post" enctype="multipart/form-data">
+				<input type="hidden" id="B_TYPE" name="B_TYPE" value="${paramMap.B_TYPE}"> 
 
 				<!-- Page Heading/Breadcrumbs-->
 				<h1>
@@ -208,22 +209,27 @@ function fn_del(value, name){
 
 
 function fn_list() {
-	window.location='<c:url value="/boardList.do"/>';
+	$('#boardForm').attr({
+		action : '<c:url value="/boardList.do" />',
+		target : '_self'
+	}).submit();
 };
 
 function fn_insert() {
 	$('#boardForm #no').attr('disabled',false);
 	var  formData= new FormData($("#writeForm")[0]);
-/* 	var  formData= $('#writeForm').serialize(); */
 
 	var no=$("#boardForm #no").val();
 	var id=$("#boardForm #id").val();
 	var title=$("#boardForm #title").val();
 	var content=$("#boardForm #content").val();
+	var B_TYPE=$("#boardForm #B_TYPE").val();
+	
 	formData.append("no",no);
 	formData.append("id",id);
 	formData.append("title",title);
 	formData.append("content",content);
+	formData.append("B_TYPE",B_TYPE);
 
 	var fileNoDel = new Array();
 	var fileNameDel = new Array();
@@ -249,7 +255,6 @@ function fn_insert() {
 	formData.append("fileNoDel",fileNoDel);
 	formData.append("fileNameDel",fileNameDel);
 	//formData.append("no",$("#boardForm #no").val());
-	formData.append("B_TYPE",1);
 	formData.append("file",file);
 	
 	$.ajax({

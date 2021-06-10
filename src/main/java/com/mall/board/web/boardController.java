@@ -119,77 +119,6 @@ public class boardController {
 		return "/test";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value = "/boardListType.do")
-	public String boardListType(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="20") int recordCountPerPage ,Map<String, Object> paramMap, @ModelAttribute("loginDTO") LoginDTO loginDTO, HttpSession httpSession, Model model) {
-
-		System.err.println("test@@@:"+httpSession.getAttribute("login"));
-		System.err.println("member@@@:"+httpSession.getAttribute("member"));
-		model.addAttribute("login",httpSession.getAttribute("login"));
-		model.addAttribute("member",httpSession.getAttribute("member"));
-		model.addAttribute("k_userInfo", httpSession.getAttribute("k_userInfo"));
-		System.err.println("kxx:"+httpSession.getAttribute("k_userInfo"));
-
-		
-		 /* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
-        String naverAuthUrl = naverLoginBO.getAuthorizationUrl(httpSession);
-        
-        //https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=sE***************&
-        //redirect_uri=http%3A%2F%2F211.63.89.90%3A8090%2Flogin_project%2Fcallback&state=e68c269c-5ba9-4c31-85da-54c16c658125
-        System.out.println("네이버:" + naverAuthUrl);
-        
-        //네이버 
-        model.addAttribute("url", naverAuthUrl);
-        System.err.println("boardType:"+paramMap.get("boardType"));
-        
-		try {
-			paramMap.put("B_TYPE",4); // qna
-			if(paramMap.get("boardType")!=null) {
-				if(paramMap.get("boardType").toString().equals("qna"))
-					paramMap.put("B_TYPE",4); // qna
-
-				else if(paramMap.get("boardType").toString().equals("faq"))
-					paramMap.put("B_TYPE",3); // faq
-
-				else if(paramMap.get("boardType").toString().equals("notice"))
-					paramMap.put("B_TYPE",2); // notice
-				
-			}
-			paramMap.put("PAGE_TYPE","main");
-			
-			//카테고리별 페이징기능 추가@
-			
-			PaginationVO pg = new PaginationVO(currentPageNo, recordCountPerPage, 3, 
-					mngService.selectItemListCnt(paramMap));
-			
-			paramMap.put("length",recordCountPerPage);
-			paramMap.put("start",pg.getFirstRecordIndex()-1);
-			
-			paramMap.put("cateCode1",7);
-			List<Map<String, Object>> list1=mngService.selectItemMainList(paramMap);
-			paramMap.put("cateCode1",9);
-			List<Map<String, Object>> list2=mngService.selectItemMainList(paramMap);
-			paramMap.put("cateCode1",10);
-			List<Map<String, Object>> list3=mngService.selectItemMainList(paramMap);
-			paramMap.put("cateCode1",12);
-			List<Map<String, Object>> list4=mngService.selectItemMainList(paramMap);
-//			List<Map<String, Object>> list=mngService.selectItemList(paramMap);
-//			List<Map<String, Object>> list=boardService.selectItemList(paramMap);
-			System.err.println("list1:"+list1);
-			System.err.println("list2:"+list2);
-			
-			model.addAttribute("list1",list1);
-			model.addAttribute("list2",list2);
-			model.addAttribute("list3",list3);
-			model.addAttribute("list4",list4);
-			model.addAttribute("pg",pg);
-//			httpSession.setAttribute("destination", "/test.do");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return "a";
-	}
 	
 	@RequestMapping(value = "/about.do")
 	public String about(Map<String, Object> paramMap, @ModelAttribute("loginDTO") LoginDTO loginDTO, HttpSession httpSession, Model model) {
@@ -203,6 +132,7 @@ public class boardController {
 	@RequestMapping(value = "/boardList.do")
 	public String boardList(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="20") int recordCountPerPage,
 			@RequestParam(defaultValue="qna") String boardType, 
+			@RequestParam(defaultValue="1") int B_TYPE, 
 			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
 		model.addAttribute("login",httpSession.getAttribute("login"));
 		model.addAttribute("member",httpSession.getAttribute("member"));
@@ -211,7 +141,6 @@ System.err.println("APPASPASP:"+paramMap);
 		paramMap.put("recordCountPerPage", recordCountPerPage);
 		paramMap.put("currentPageNo", currentPageNo);
 		
-		paramMap.put("B_TYPE",1);
 		
 		try {
 			PaginationVO pg = new PaginationVO(currentPageNo, 20, 5, 
@@ -220,22 +149,12 @@ System.err.println("APPASPASP:"+paramMap);
 			paramMap.put("length",20);
 			paramMap.put("start",pg.getFirstRecordIndex()-1);
 			
+			
+			paramMap.put("B_TYPE", B_TYPE);
+
 			List<Map<String,Object>> list=boardService.selectBoardList(paramMap);
-			
-			
-			if(paramMap.get("boardType")!=null) {
-				if(paramMap.get("boardType").toString().equals("qna"))
-					paramMap.put("B_TYPE",4); // qna
-
-				if(paramMap.get("boardType").toString().equals("faq"))
-					paramMap.put("B_TYPE",3); // faq
-
-				else if(paramMap.get("boardType").toString().equals("notice"))
-					paramMap.put("B_TYPE",2); // notice
-		        System.err.println("boardType:"+paramMap.get("boardType"));
-			}
-			
-			model.addAttribute("boardType",paramMap.get("boardType"));
+			System.err.println("list:"+list);
+			model.addAttribute("B_TYPE",B_TYPE);
 			model.addAttribute("list",list);
 			model.addAttribute("paramMap",paramMap);
 			model.addAttribute("pg",pg);
@@ -254,22 +173,6 @@ System.err.println("APPASPASP:"+paramMap);
 			model.addAttribute("login",httpSession.getAttribute("login"));
 			model.addAttribute("member",httpSession.getAttribute("member"));
 
-			paramMap.put("B_TYPE",1);
-//			if(paramMap.get("replyType")!=null && paramMap.get("replyType").toString().equals("Y")) {
-//				//paramMap.put("originNo",paramMap.get("no"));
-//				paramMap.put("title",paramMap.get("title"));
-//				
-//				paramMap.put("B_NO",Integer.parseInt(boardService.selectBoardMaxNo(paramMap).toString())+1);
-//
-//				paramMap.put("groupOrd",Integer.parseInt(paramMap.get("groupOrd").toString())+1);//기존groupOrd+1
-//				paramMap.put("groupLayer",Integer.parseInt(paramMap.get("groupLayer").toString())+1);//부모글 groupLayer+1
-//				
-//				paramMap.put("newGroupOrd",Integer.parseInt(paramMap.get("groupOrd").toString()));//기존groupOrd+1
-//				paramMap.put("newGroupLayer",Integer.parseInt(paramMap.get("groupLayer").toString()));//부모글 groupLayer+1
-//				
-//				boardService.insertReply(paramMap, request);
-////				boardService.updateReply(paramMap);
-//			}
 			Map<String,Object> detail=boardService.selectBoardDetail(paramMap);
 			System.err.println("detailP");
 			System.err.println(paramMap);
@@ -279,18 +182,6 @@ System.err.println("APPASPASP:"+paramMap);
 			List<Map<String,Object>> fileList=boardService.selectBoardFileList(paramMap);
 			System.err.println(Integer.parseInt(paramMap.get("no").toString()));
 			List<Map<String,Object>> replyList=replyService.list(Integer.parseInt(paramMap.get("no").toString()));
-//			if(paramMap.get("replyType")!=null && paramMap.get("replyType").toString().equals("Y")) {
-//				paramMap.put("B_NO",paramMap.get("no"));
-//				paramMap.put("title",paramMap.get("title"));
-//				
-//				
-//				paramMap.put("newGroupOrd",Integer.parseInt(paramMap.get("groupOrd").toString())+1);//기존groupOrd+1
-//				paramMap.put("newGroupLayer",Integer.parseInt(paramMap.get("groupLayer").toString())+1);//부모글 groupLayer+1
-//				
-//				boardService.insertReply(paramMap, request);
-//				boardService.updateReply(paramMap);
-//			}
-			
 			
 			int len=boardService.selectBoardMaxNo(paramMap);
 
@@ -315,8 +206,7 @@ System.err.println("APPASPASP:"+paramMap);
 		try {
 			model.addAttribute("login",httpSession.getAttribute("login"));
 			model.addAttribute("member",httpSession.getAttribute("member"));
-			
-			paramMap.put("B_TYPE",1);
+			System.err.println("paramMap:"+paramMap);
 
 			paramMap.put("no",boardService.selectBoardMaxNo(paramMap)+1);
 			model.addAttribute("paramMap",paramMap);
@@ -339,10 +229,6 @@ System.err.println("APPASPASP:"+paramMap);
 		System.err.println("insert:"+paramMap);
 		System.err.println("file:"+multi);
 		
-		paramMap.put("B_TYPE",1);
-		//paramMap.put("no",Integer.parseInt(paramMap.get("no").toString())+1);
-		//paramMap.put("originNo",paramMap.get("no"));
-
 		try {
 			if(paramMap.get("no").toString()!=null||!paramMap.get("no").toString().trim().equals(""))
 				paramMap.put("no",paramMap.get("no"));
