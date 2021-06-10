@@ -149,8 +149,8 @@ public class orderServiceImpl implements orderService {
 	}
 
 	@Override
-	public int maxCartNum() throws Exception {
-		return orderMapper.maxCartNum();
+	public int maxCartNum(Map<String, Object> paramMap) throws Exception {
+		return orderMapper.maxCartNum(paramMap);
 	}
 
 	// 주문 목록

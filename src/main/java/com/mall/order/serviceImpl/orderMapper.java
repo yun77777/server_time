@@ -53,7 +53,7 @@ public interface orderMapper {
 
 	public int maxOrderId() throws Exception;
 
-	public int maxCartNum() throws Exception;
+	public int maxCartNum(Map<String, Object> paramMap) throws Exception;
 
 	public void updateCart(Map<String, Object> paramMap) throws Exception;
 

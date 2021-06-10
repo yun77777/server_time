@@ -554,7 +554,7 @@ System.err.println("LISITIIITITISITITIT:"+cartList);
 			orderService.deleteOrderDetails(paramMap);
 			
 			orderService.addCart(cart);
-			paramMap.put("cartNum",orderService.maxCartNum());
+			paramMap.put("cartNum",orderService.maxCartNum(paramMap));
 
 			orderService.orderInfo_Details(paramMap);
 			orderService.deleteSeparateCart(paramMap);

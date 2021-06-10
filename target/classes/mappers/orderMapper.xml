@@ -241,7 +241,7 @@ and c.orderProcess= #{orderProcess}
 		SELECT MAX(orderId) FROM tbl_order
 	</select>
 	
-	<select id="maxCartNum" resultType="int">
+	<select id="maxCartNum" parameterType="map" resultType="int">
 		SELECT MAX(cartNum) FROM tbl_cart where userId=#{userId,jdbcType=VARCHAR}
 	</select>
 	
