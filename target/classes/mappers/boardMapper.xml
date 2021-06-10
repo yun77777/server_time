@@ -4,15 +4,16 @@
 
 <mapper namespace="com.mall.board.serviceImpl.boardMapper">
 	<sql id="searchOption">
-		<if test="searchStartDate != ''.toString() and searchStartDate != null and searchEndDate != ''.toString() and searchEndDate != null">
+		<!-- <if test="searchStartDate != ''.toString() and searchStartDate != null and searchEndDate != ''.toString() and searchEndDate != null">
 		AND date_format(B.input_dt,'%Y-%m-%d') BETWEEN #{searchStartDate} AND #{searchEndDate}
 		
 		</if>
 		<if test="searchTitle != ''.toString() and searchTitle != null">
 			AND B.title LIKE CONCAT('%',TRIM(#{searchTitle}),'%')
-		</if>
+		</if> -->
 		<if test="searchId != ''.toString() and searchId != null">
-			AND B.title LIKE CONCAT('%',TRIM(#{searchId}),'%')
+			AND (B.title LIKE CONCAT('%',TRIM(#{searchId}),'%'))
+			OR (B.title LIKE CONCAT('%',TRIM(#{searchId}),'%'))
 		</if>
 	</sql>
 	
@@ -31,7 +32,7 @@
         ,IF(date_format(NOW(),'%Y-%m-%d')=date_format(input_dt,'%Y-%m-%d'),(SELECT date_format(input_dt,'%H:%m:%s') FROM board WHERE B_NO=B.B_NO AND B_TYPE=#{B_TYPE}),(SELECT date_format(input_dt,'%Y-%m-%d') FROM board WHERE B_NO=B.B_NO AND B_TYPE=#{B_TYPE})) input_dt
 		FROM board B,(SELECT @rownum:=0) R
 		where B.B_NO>0 AND B.B_TYPE=#{B_TYPE}
-		<!-- <include refid="searchOption"/> -->
+		<include refid="searchOption"/> 
 		ORDER BY B.originNo DESC, B.groupOrd ASC 
 	<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
 	</select>

@@ -3008,6 +3008,13 @@ input[type=button].btn-block {
   left: auto;
 }
 
+
+/* added 21/06/10 */
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
+
 @media (min-width: 576px) {
   .dropdown-menu-sm-left {
     right: auto;
@@ -6362,8 +6369,13 @@ button.bg-light:focus {
   background-color: #343a40 !important;
 }
 /* added 21/05/29 */
-.bg-cornflowerblue {
+/* .bg-slateblue { */
+.bg-conflowerblue {
   background-color: #5F9EA0 !important; /* SlateBlue */
+}
+/* added 21/06/10 */
+.bg-whitesmoke {
+  background-color: #F5F5F5 !important; /* WhiteSmoke */
 }
 
 a.bg-dark:hover, a.bg-dark:focus,

@@ -12,7 +12,7 @@
 	<div class="modal-dialog modal-login">
 		<div class="modal-content">
  		<form id="loginForm" method="post" enctype="">
-				<div class="modal-header">				
+				<div class="modal-header bg-whitesmoke">				
 					<h4 class="modal-title">로그인</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
@@ -31,29 +31,32 @@
 					</div>
 				</div>
 		</form>
-				<div class="modal-footer">
-					<label class="checkbox-inline pull-left"><input type="checkbox" name="useCookie" value="Y">로그인 유지</label>
-					<button type="submit" class="btn btn-primary pull-right" onclick="fn_sign_in()">로그인</button>
+	<div class="modal-footer align-self-center bg-whitesmoke">
+		<button type="submit" class="btn btn-primary pull-right" onclick="fn_sign_in()">로그인</button>
+		<label class="checkbox-inline pull-left"><input type="checkbox" name="useCookie" value="Y">로그인 유지</label>
 				
-				
-				</div>
-				
-				
-	<c:if test="${id eq null}">
-		<span>
-		      <a class="" href="https://kauth.kakao.com/oauth/authorize?client_id=8ec4c5e4b41aba30453d25fa8512e604&redirect_uri=http://localhost:8080/user/kakaoOauth.do&response_type=code">
-		          <span><img height="53" src="<c:url value='/resources/img/btn_kakao.png'/>"></span>
-		      </a>
-		      <a onclick="fn_naverUrl()" class="" href="#">
-		          <span><img height="53" src="<c:url value='/resources/img/btn_naver_green.png'/>"></span>
-		      </a>
-	      </span>
-		     <!--  <a href="javascript:void(0)" onclick="kakaoLogout();">
-		          <span>카카오 로그아웃</span>
-		      </a> -->
-	</c:if>
+		<c:if test="${id eq null}">
+		<div class="align-self-center mt-2">
+			<span class="pull-right">
+			      <a class="" href="https://kauth.kakao.com/oauth/authorize?client_id=8ec4c5e4b41aba30453d25fa8512e604&redirect_uri=http://localhost:8080/user/kakaoOauth.do&response_type=code">
+			          <img height="53" src="<c:url value='/resources/img/btn_kakao.png'/>">
+			      </a></span>
+			 <span class="pull-left">     
+			      <a onclick="fn_naverUrl()" class="ml-1" href="#">
+			          <img height="53" src="<c:url value='/resources/img/btn_naver_green.png'/>">
+			      </a>
+		      </span>
+			     <!--  <a href="javascript:void(0)" onclick="kakaoLogout();">
+			          <span>카카오 로그아웃</span>
+			      </a> -->
+	      </div>
+		</c:if>
+		<div class="align-self-center mt-2" style="width:100%; word-break:break-all;word-wrap:break-word;">
+				<a href="<c:url value='/signUp.do'/>" class="text-center">비밀번호 찾기</a> /
+				<a href="<c:url value='/signUp.do'/>" class="text-center">회원가입</a>
+		</div>
+	</div>
 			
-	        <a href="<c:url value='/signUp.do'/>" class="text-center">회원가입</a>
 		</div>
 	</div>
 </div>     

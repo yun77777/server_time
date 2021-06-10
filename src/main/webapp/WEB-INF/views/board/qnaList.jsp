@@ -45,52 +45,10 @@
 					Q&A
 				</h1>
 				
-				<%-- <div class="row styling">
-				<div class="col-lg-8 mb-4">
-					<div class="control-group form-group">
-			          <div class='input-group date' id='datetimepicker1'>
-			            <input type='text' class="form-control input-lg" id="searchStartDate" name="searchStartDate" value="${paramMap.searchStartDate}"/>
-			            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-			          </div>
-			        </div>
-					<div class="control-group form-group">
-			          <div class='input-group date' id='datetimepicker1'>
-			            <input type='text' class="form-control input-lg" id="searchEndDate" name="searchEndDate" value="${paramMap.searchEndDate}"/>
-			            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-			          </div>
-			        </div>
-			      </div>
-			    </div><br> --%>
-			    
-				<div class="row">
-				
-					<div class="col-lg-8 mb-4">
-						<%-- <div class="control-group form-group">
-							<div class="controls">
-								<label>title:</label> <input class="form-control" id="searchTitle"
-									name="searchTitle" type="text" value="${paramMap.searchTitle}" 
-									data-validation-required-message="Please enter your name." />
-								<p class="help-block"></p>
-							</div>
-						</div> --%>
-						
-						
-						<!-- <div class="form-group row"><div class="card mb-4">
-                            <h5 class="card-header">Search</h5>
-                            <div class="card-body">
-                                <div class="input-group">
-                                    <input class="form-control" type="text" placeholder="Search for..." />
-                                    <span class="inpug-group-append"><button class="btn btn-secondary" type="button">Go!</button></span>
-                                </div>
-                            </div>
-                        </div> -->
-						<div id="success"></div>
-						<!-- //search-->
-					<div class="row">
-						<div class="col-12">
-							<button class="btn btn-info btn-sm float-right" onclick="fn_insert('${member.ID}')" type="button">작성</button>
-						</div>
-					</div>
+			
+			<div class="row">
+				<div class="col-12">
+					<button class="btn btn-info btn-sm float-right" onclick="fn_insert('${member.ID}')" type="button">작성</button>
 				</div>
 			</div>
           		<span>총 <em>${pg.totalRecordCount}</em>건 </span>
@@ -121,24 +79,16 @@
 			</form>
 			
    			<%@ include file="/WEB-INF/views/common/paging.jsp"%>
-   			
-   			<div class="row float-right">
-				<div class="form-group row">
-					<div class="col-xs-4">
-						<label>id:</label> 
-					</div>
+			
+			<div class="row">
+				<div class="col-2 float-right">
+				<input class="form-control float-right" id="searchId"
+						name="searchId" type="text" value="${paramMap.searchId}" 
+						data- validation-required-message="Please enter your phone number." />
 				</div>
-				<div class="form-group row">
-					<div class="col-xs-4">
-						<input class="form-control" id="searchId"
-							name="searchId" type="text" value="${paramMap.searchId}" 
-							data-validation-required-message="Please enter your phone number." />
-					</div>
-				</div>
-				<div class="form-group row">
-					<button class="btn btn-secondary btn-sm right" onclick="fn_list('1')" type="button">검색</button>
-				</div>
+				<button class="btn btn-secondary btn-sm float-right" onclick="fn_list('1')" type="button">검색</button>
 			</div>
+			
 		</div>
 		<!-- //Container -->
 	</section>
