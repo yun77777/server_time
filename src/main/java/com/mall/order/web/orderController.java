@@ -348,10 +348,24 @@ System.err.println("LISITIIITITISITITIT:"+cartList);
 		
 		System.err.println("paramMap@:"+paramMap);
 
-		List<Map<String, Object>> orderList = orderService.orderList(paramMap);
+		
+		CartListVO cart=new CartListVO();
+		cart.setGdsNum(Integer.parseInt(paramMap.get("gdsNum").toString()));
+		cart.setCartStock(Integer.parseInt(paramMap.get("gdsStock").toString()));
+		cart.setUserId(paramMap.get("userId").toString());
+		//cartStockArr
+		
+		paramMap.put("orderProcess","Y");
+		
+		orderService.addCart(cart);
+		//orderService.updateCart(paramMap);
+		orderService.orderInfo_Details(paramMap);//상세주문에 선택 상품 추가
+		
+		
+//		List<Map<String, Object>> orderList = orderService.orderList(paramMap);
 		//orderService.orderInfo_Details(paramMap);
-		System.err.println(orderList);
-		model.addAttribute("orderList", orderList);
+//		System.err.println(orderList);
+//		model.addAttribute("orderList", orderList);
 		model.addAttribute("paramMap", paramMap);
 
 		return paramMap;
@@ -528,14 +542,13 @@ System.err.println("LISITIIITITISITITIT:"+cartList);
 			logger.info("orderProcess cart");
 			model.addAttribute("login", session.getAttribute("login"));
 			model.addAttribute("member", session.getAttribute("member"));
-			System.err.println("paramMap@"+paramMap);
 			
 			int cartNum=0;
 			int cartStock=0;
 			
 			CartListVO cart=new CartListVO();
 			cart.setGdsNum(Integer.parseInt(paramMap.get("gdsNum").toString()));
-			cart.setCartStock(Integer.parseInt(paramMap.get("cartStock").toString()));
+			cart.setCartStock(Integer.parseInt(paramMap.get("gdsStock").toString()));
 			cart.setUserId(paramMap.get("userId").toString());
 			
 			//카트리스트에서 선택된 내역 주문
@@ -547,8 +560,12 @@ System.err.println("LISITIIITITISITITIT:"+cartList);
 			//주문번호 orderId
 			paramMap.put("orderId", orderService.maxOrderId()+1);
 			paramMap.put("cartNum", orderService.maxCartNum()+1);
+			paramMap.put("cartStock", paramMap.get("gdsNum"));
+			paramMap.put("orderProcess","Y");
+			
+			System.err.println("ASDASDASDSDDSDASDASDASD@"+paramMap);
+
 			orderService.addCart(cart);//상세주문에 선택 상품 추가
-			orderService.updateCart(paramMap);//상세주문에 선택 상품 추가
 			orderService.orderInfo_Details(paramMap);//상세주문에 선택 상품 추가
 			orderService.deleteCart(paramMap);
 			// 주문할 상품

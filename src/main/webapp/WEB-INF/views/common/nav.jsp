@@ -96,7 +96,7 @@
 </c:if>
 				<li class="nav-item ml-5">
 				 <c:if test="${empty member}">
-		        	<a class="nav-link" href="#myModal" class="" data-toggle="modal">로그인</a>
+		        	<a href="#myModal" class="nav-link" data-toggle="modal">로그인</a>
 		        </c:if>
 		        <c:if test="${!empty member}">
 		        	<a onclick="fn_logout()" class="nav-link" href="/user/logout.do">로그아웃</a>
