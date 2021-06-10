@@ -309,6 +309,10 @@
         on b.orderId=o.orderId
 	    where od.orderDetailsNum=(SELECT MIN(a.orderDetailsNum) FROM tbl_order_details a inner join tbl_order b on a.orderId=o.orderId)
 		
+		<if test="delivery!='all'">
+			and o.delivery=#{delivery}
+		</if>
+		
 	</select>
 	
 	<update id="updateOrderState" parameterType="map">

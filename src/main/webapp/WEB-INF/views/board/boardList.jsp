@@ -24,6 +24,8 @@
 <body>
 
 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
+	<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
+
     <form id="boardListForm" method="post">
     	<input type="hidden" id="B_TYPE" name="B_TYPE">
 		<input type="hidden" id="currentPageNo" name="currentPageNo" value="${pg.currentPageNo}"/>
@@ -64,7 +66,6 @@
 		<!-- //Container -->
 	</section>
 	
-	<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
 
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 	

@@ -80,14 +80,16 @@ public class mngController {
 	
 	@RequestMapping(value = "/orderList.do")
 	public String orderListMng(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="5") int recordCountPerPage,
-			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+			@RequestParam(defaultValue="all") String delivery,
+			@RequestParam Map<String, Object> paramMap,
+			HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
 		model.addAttribute("login",httpSession.getAttribute("login"));
 		model.addAttribute("member",httpSession.getAttribute("member"));
 		
 		paramMap.put("recordCountPerPage", recordCountPerPage);
 		paramMap.put("currentPageNo", currentPageNo);
 		
-		paramMap.put("B_TYPE",4);
+		//paramMap.put("B_TYPE",4);
 		
 		try {
 			PaginationVO pg = new PaginationVO(currentPageNo, recordCountPerPage, 3, 
@@ -96,7 +98,16 @@ public class mngController {
 			paramMap.put("length",recordCountPerPage);
 			paramMap.put("start",pg.getFirstRecordIndex()-1);
 			
+//			if(delivery.toString().equals("cancel"))
+//				delivery="취소";
+//			else if(delivery.toString().equals("delivery"))
+//				delivery="발송";
+			
+			paramMap.put("delivery",delivery);
 			List<Map<String,Object>> list=mngService.selectOrderList(paramMap);
+			
+			System.err.println("PAPRAPRAP:"+paramMap);
+			System.err.println("LISTLSIT:"+list);
 			
 			model.addAttribute("list",list);
 			model.addAttribute("paramMap",paramMap);

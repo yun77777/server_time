@@ -36,33 +36,40 @@
 	<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
 	<%@ include file="/WEB-INF/views/common/popup/orderDetailPopup.jsp"%>
 	
-	<!-- Page Content-->
-	<section class="py-5">
-		<div class="container">
-			<form id="boardForm" method="post">
+	<form id="boardListForm" method="post">
+    	<input type="hidden" id="delivery" name="delivery">
+		<input type="hidden" id="currentPageNo" name="currentPageNo" value="${pg.currentPageNo}"/>
+		<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
+    </form>
+    <form id="boardForm" method="post">
 			<input type="hidden" id="orderId" name="orderId">
 			<input type="hidden" id="delivery" name="delivery">
 			<input type="hidden" id="currentPageNo" name="currentPageNo" value="${pg.currentPageNo}"/>
 			<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
+	</form>
+	<!-- Page Content-->
+	<section class="py-5">
+		<div class="container">
+			
 				<!-- Page Heading/Breadcrumbs-->
 				<h1 class="mt-4 mb-3">
 					주문 내역 관리
 				</h1>
 				<nav>
 				  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-				    <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">전체</a>
-				    <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">취소</a>
-				    <a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">발송</a>
+				  <a class="nav-link <c:if test="${delivery eq 'all'}"> active </c:if>" id="nav-home-tab" onclick="fn_boardList('all',1)" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">전체</a>
+				    <a class="nav-link <c:if test="${delivery eq 'cancel'}"> active </c:if>" id="nav-profile-tab" onclick="fn_boardList('cancel',1)" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">취소</a>
+				    <a class="nav-link <c:if test="${delivery eq 'delivery'}"> active </c:if>" id="nav-contact-tab" onclick="fn_boardList('delivery',1)" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">발송</a>
 				  </div>
 				</nav>
 				<div class="tab-content" id="nav-tabContent">
-				  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+				  <div class="tab-pane fade show <c:if test="${delivery eq 'all'}"> active </c:if>" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 					<%@ include file="/WEB-INF/views/mng/orderAllList.jsp"%>
 				  </div>
-				  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+				  <div class="tab-pane fade show <c:if test="${delivery eq 'cancel'}"> active </c:if>" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 				  	<%@ include file="/WEB-INF/views/mng/orderCancelList.jsp"%>
 				  </div>
-				  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+				  <div class="tab-pane fade show <c:if test="${delivery eq 'delivery'}"> active </c:if>" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
 				  	<%@ include file="/WEB-INF/views/mng/orderDeliveryList.jsp"%>
 				  </div>
 				</div>
@@ -104,7 +111,6 @@ $(document).ready(function(){
     });	
 	
  $("#cancel_btn").on("click",function(e){
-
     	var confirm_val = confirm("취소하시겠습니까?");
     	
     	if(confirm_val) {
@@ -165,27 +171,17 @@ $(document).ready(function(){
     	}
     });
 });
-function fn_list(no) {
-	$('#currentPageNo').val(no);
-	
-	$('#boardForm').attr({
+
+function fn_boardList(delivery, no) {
+	$('#boardListForm #delivery').val(delivery);
+	$('#boardListForm #currentPageNo').val(no);
+	alert(delivery);
+	$('#boardListForm').attr({
 		action : '<c:url value="/mng/orderList.do"/>',
 		target : '_self'
 	}).submit();
 };
 
-function fn_insert(id){
-	if(id.length==0)
-		alert("You need to log in first");
-	else{
-		$('#boardForm').attr({
-			action : '<c:url value="/boardInsert.do" />',
-			target : '_self'
-		}).submit();
-	}
-	
-
-}
 
 function fn_detail(orderId,delivery){
 	//var  formData= $('#boardForm').serialize();
@@ -199,52 +195,6 @@ function fn_detail(orderId,delivery){
 	}).submit();
 }
 
-$(function () {
-	   var bindDatePicker = function() {
-			$(".date").datetimepicker({
-	        format:'YYYY-MM-DD',
-				icons: {
-					time: "fa fa-clock-o",
-					date: "fa fa-calendar",
-					up: "fa fa-arrow-up",
-					down: "fa fa-arrow-down"
-				}
-			}).find('input:first').on("blur",function () {
-				// check if the date is correct. We can accept dd-mm-yyyy and yyyy-mm-dd.
-				// update the format if it's yyyy-mm-dd
-				var date = parseDate($(this).val());
-
-				if (! isValidDate(date)) {
-					//create date based on momentjs (we have that)
-					date = moment().format('YYYY-MM-DD');
-				}
-
-				$(this).val(date);
-			});
-		}
-	   
-	   var isValidDate = function(value, format) {
-			format = format || false;
-			// lets parse the date to the best of our knowledge
-			if (format) {
-				value = parseDate(value);
-			}
-
-			var timestamp = Date.parse(value);
-
-			return isNaN(timestamp) == false;
-	   }
-	   
-	   var parseDate = function(value) {
-			var m = value.match(/^(\d{1,2})(\/|-)?(\d{1,2})(\/|-)?(\d{4})$/);
-			if (m)
-				value = m[5] + '-' + ("00" + m[3]).slice(-2) + '-' + ("00" + m[1]).slice(-2);
-
-			return value;
-	   }
-	   
-	   bindDatePicker();
-	 });
 </script>
 
 </html>
