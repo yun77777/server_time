@@ -34,7 +34,8 @@
 
 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
 	<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
-
+	<%@ include file="/WEB-INF/views/common/popup/orderDetailPopup.jsp"%>
+	
 	<!-- Page Content-->
 	<section class="py-5">
 		<div class="container">
@@ -71,7 +72,6 @@
 		<!-- //Container -->
 	</section>
 	
-	<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
 
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
