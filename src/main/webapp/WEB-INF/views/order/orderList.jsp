@@ -52,65 +52,70 @@
 		<div class="container">
 			<h3>주문 완료 상품</h3>
 			<div class="orderInfo">
-				<div id="row">
-					<div class="table-responsive-lg">
+				
 					<c:forEach items="${orderList}" var="orderList">
-						<table class="table">
-							<tr>
-								<td></td><td><a href="#!"
-									onclick="fn_detail_pop('${orderList.gdsNum}')"
-									data-toggle="modal" data-target="#exampleModalLong"> <img
-										class="card-img-top"
-										src="<c:url value='/img/${orderList.representative_file}'/>"
-										style="width: 100px" alt="no image" />
-								</a></td>
-							</tr>
-							<tr>
-								<td>주문번호</td>
-								<td>${orderList.orderId}</td>
-							</tr>
-							<tr>
-								<td>수령인</td>
-								<td>${orderList.orderRec}</td>
-							</tr>
-							<tr>
-								<td>주소</td>
-								<td>(${orderList.userAddr1}) ${orderList.userAddr2}, ${orderList.userAddr3}
-								</td>
-							</tr>
-							<tr>
-								<td>가격</td>
-								<td><fmt:formatNumber pattern="###,###,###"
-										value="${orderList.amount}" /> 원
-									</p></td>
-							</tr>
-							<tr>
-								<td>가격</td>
-								<td><fmt:formatNumber pattern="###,###,###"
-										value="${orderList.amount}" /> 원
-									</p></td>
-							</tr>
-							<tr>
-								<td>상태</td>
-								<td>${orderList.delivery}</td>
-							</tr>
-							<tr>
-								<td>주문수량</td>
-								<td>${orderList.cartStock}</td>
-							</tr>
-							<tr>
-								<td>상품명</td>
-								<td>
-								<a href="#" onclick="fn_order_detail_pop('${orderList.orderId}')" onclick="fn_order_detail_pop('${orderList.orderId}')"
-											data-toggle="modal" data-target="#orderDetailPopup">
-								${orderList.gdsName} 외 ${orderList.cnt} 건</a>
-								</td>
-							</tr>
-						</table>
+					<div id="row">
+						<div class="table-responsive-lg">
+							<table class="table">
+								<tr>
+									<td></td>
+									<td><a href="#!"
+										onclick="fn_detail_pop('${orderList.gdsNum}')"
+										data-toggle="modal" data-target="#exampleModalLong"> <img
+											class="card-img-top"
+											src="<c:url value='/img/${orderList.representative_file}'/>"
+											style="width: 100px" alt="no image" />
+									</a></td>
+								</tr>
+								<tr>
+									<td>주문번호</td>
+									<td>${orderList.orderId}</td>
+								</tr>
+								<tr>
+									<td>수령인</td>
+									<td>${orderList.orderRec}</td>
+								</tr>
+								<tr>
+									<td>주소</td>
+									<td>(${orderList.userAddr1}) ${orderList.userAddr2}, ${orderList.userAddr3}
+									</td>
+								</tr>
+								<tr>
+									<td>가격</td>
+									<td><fmt:formatNumber pattern="###,###,###"
+											value="${orderList.amount}" /> 원
+										</p></td>
+								</tr>
+								<tr>
+									<td>가격</td>
+									<td><fmt:formatNumber pattern="###,###,###"
+											value="${orderList.amount}" /> 원
+										</p></td>
+								</tr>
+								<tr>
+									<td>상태</td>
+									<td>${orderList.delivery}</td>
+								</tr>
+								<tr>
+									<td>주문수량</td>
+									<td>${orderList.cartStock}</td>
+								</tr>
+								<tr>
+									<td>상품명</td>
+									<td>
+									<a href="#" onclick="fn_order_detail_pop('${orderList.orderId}')" onclick="fn_order_detail_pop('${orderList.orderId}')"
+												data-toggle="modal" data-target="#orderDetailPopup">
+									${orderList.gdsName} <c:if test="${orderList.cnt eq 1}"> 1</c:if><c:if test="${orderList.cnt ne 1}">외 ${orderList.cnt-1}</c:if> 건</a>
+									</td>
+								</tr>
+							</table>
+							</div>
+						</div>
+						
+						<br>
+						<br>
 						</c:forEach>
-					</div>
-					<hr>
-					<br><br>
+					
 				
 
 				<div id="row">
@@ -120,7 +125,7 @@
 						</p>
 					</c:if>
 				</div>
-			</div>
+			
 			</div>
 		</div>
 	</section>

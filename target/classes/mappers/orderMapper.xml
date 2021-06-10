@@ -26,8 +26,6 @@
 	
 	<!-- 주문 정보 -->
 <insert id="orderInfo" parameterType="map">
-<!-- <insert id="orderInfo" parameterType="com.mall.vo.OrderVO"> -->
-	
  	insert into tbl_order(
 		 orderId
 		 , userId
@@ -244,7 +242,7 @@ and c.orderProcess= #{orderProcess}
 	</select>
 	
 	<select id="maxCartNum" resultType="int">
-		SELECT MAX(cartNum) FROM tbl_cart
+		SELECT MAX(cartNum) FROM tbl_cart where userId=#{userId,jdbcType=VARCHAR}
 	</select>
 	
 	<select id="selectOrderDetailView" parameterType="java.util.HashMap"

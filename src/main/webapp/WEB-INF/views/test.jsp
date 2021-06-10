@@ -447,6 +447,7 @@ function fn_detail_pop(B_NO,B_TYPE){
 					data : data,
 					success : function(result){
 						$("#orderId").val(result.orderId);
+						$("#cartNum").val(result.cartNum);
 						
 						$('#orderForm').attr({
 	/* 					$('#boardForm').attr({ */

@@ -47,7 +47,7 @@
 					<input type="hidden" id="gdsNum" name="gdsNum" value="${paramMap.gdsNum}">	
 					<input type="hidden" id="gdsStock" name="gdsStock" value="${paramMap.gdsStock}">	
 					<input type="hidden" id="amount" name="amount" value="${paramMap.gdsStock * paramMap.gdsPrice}">	
-					<input type="hidden" id="cartNum" name="amount" value="${paramMap.cartNum}">	
+					<input type="hidden" id="cartNum" name="cartNum" value="${paramMap.cartNum}">	
 					   		
 					   		<!--  -->
 <div id="row">

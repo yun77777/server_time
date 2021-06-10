@@ -331,8 +331,6 @@ System.err.println("LISITIIITITISITITIT:"+cartList);
 
 		System.err.println("insert:"+paramMap);
 		System.err.println("$$$$$$$$$$");
-
-		
 		
 		//orderProcess='C'로 변경
 
@@ -348,24 +346,10 @@ System.err.println("LISITIIITITISITITIT:"+cartList);
 		
 		System.err.println("paramMap@:"+paramMap);
 
-		
-		CartListVO cart=new CartListVO();
-		cart.setGdsNum(Integer.parseInt(paramMap.get("gdsNum").toString()));
-		cart.setCartStock(Integer.parseInt(paramMap.get("gdsStock").toString()));
-		cart.setUserId(paramMap.get("userId").toString());
-		//cartStockArr
-		
-		paramMap.put("orderProcess","Y");
-		
-		orderService.addCart(cart);
-		//orderService.updateCart(paramMap);
-		orderService.orderInfo_Details(paramMap);//상세주문에 선택 상품 추가
-		
-		
-//		List<Map<String, Object>> orderList = orderService.orderList(paramMap);
+		List<Map<String, Object>> orderList = orderService.orderList(paramMap);
 		//orderService.orderInfo_Details(paramMap);
-//		System.err.println(orderList);
-//		model.addAttribute("orderList", orderList);
+		System.err.println(orderList);
+		model.addAttribute("orderList", orderList);
 		model.addAttribute("paramMap", paramMap);
 
 		return paramMap;
@@ -373,7 +357,7 @@ System.err.println("LISITIIITITISITITIT:"+cartList);
 	
 	
 	@ResponseBody
-	@RequestMapping(value = "/orderChk")
+	@RequestMapping(value = "/orderChk.do")
 //	@RequestMapping(value = "/deleteCart", method = RequestMethod.POST)
 	public int orderChk( @RequestParam(value="userId") String userId, @RequestParam(value = "cartStockArr[]") List<String> cartStockArr, @RequestParam(value = "chbox[]") List<String> chArr, @RequestParam Map<String, Object> paramMap, Model model, HttpSession session) throws Exception {
 		logger.info("orderChk cart");
@@ -521,8 +505,10 @@ System.err.println("LISITIIITITISITITIT:"+cartList);
 			paramMap.put("userId",userId);
 			System.err.println("@#@JWLEKJWJL:"+paramMap);
 			
+			
+			
 
-			paramMap.put("orderProcess","N");
+			paramMap.put("orderProcess","Y");
 			List<Map<String, Object>> cartList = orderService.cartList(paramMap);
 			orderService.deleteCart(paramMap);
 			
@@ -530,8 +516,8 @@ System.err.println("LISITIIITITISITITIT:"+cartList);
 			model.addAttribute("cartList", cartList);
 //			model.addAttribute("orderView", orderView);
 			model.addAttribute("paramMap",paramMap);
-			
-//			return "redirect:/order/cartList";
+
+			//			return "redirect:/order/cartList";
 			return "order/directOrderProcessDetail";
 		}
 		
@@ -558,18 +544,22 @@ System.err.println("LISITIIITITISITITIT:"+cartList);
 			//paramMap.put("orderProcess","Y");
 			//주문번호 orderId
 			paramMap.put("orderId", orderService.maxOrderId()+1);
-			paramMap.put("cartNum", orderService.maxCartNum()+1);
-			paramMap.put("cartStock", paramMap.get("gdsNum"));
+			//paramMap.put("cartNum", orderService.maxCartNum()+1);
+			paramMap.put("cartStock", paramMap.get("gdsStock"));
+			
+			
+			System.err.println("zxmcxczcxz:"+paramMap);
 			paramMap.put("orderProcess","Y");
+			orderService.deleteCart(paramMap);
+			orderService.deleteOrderDetails(paramMap);
+			
+			orderService.addCart(cart);
+			paramMap.put("cartNum",orderService.maxCartNum());
+
+			orderService.orderInfo_Details(paramMap);
+			orderService.deleteSeparateCart(paramMap);
 			
 			System.err.println("ASDASDASDSDDSDASDASDASD@"+paramMap);
-
-			orderService.addCart(cart);//상세주문에 선택 상품 추가
-			orderService.orderInfo_Details(paramMap);//상세주문에 선택 상품 추가
-			orderService.deleteSeparateCart(paramMap);
-			// 주문할 상품
-//			paramMap.put("orderProcessDetail","Y");
-//			model.addAttribute("paramMap", paramMap);
 
 			
 			return paramMap;

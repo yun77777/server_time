@@ -31,6 +31,7 @@
 <input type="hidden" id="gdsName" name="gdsName" />
 <input type="hidden" id="file" name="file" />
 <input type="hidden" id="orderId" name="orderId" />
+<input type="hidden" id="cartNum" name="cartNum">	
 </form>
 
 <!-- <aside style="float: left; width: 20%">
