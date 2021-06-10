@@ -36,6 +36,10 @@
 <section class="py-5">
 		<div class="container">
 				<table class="table">
+					<colgroup>
+						<col width="30%">
+						<col width="*">
+					</colgroup>
 				    <tr>
 				    	<td>
 				    		<div class="allCheck">
@@ -54,7 +58,8 @@
 				    	</td>
 				    </tr>
 			    <form id="deleteForm" method="post" enctype="multipart/form-data">
-				    <c:forEach items="${cartList}" var="cartList">
+				    <c:forEach items="${cartList}" var="cartList" varStatus="status">
+				    <th colspan="2" class="table-info">${status.index+1}</th>
 						<tr>
 							<td>
 							<div class="checkBox">
@@ -70,12 +75,17 @@
 							</div>
 							</td>
 							<td>
+								<!-- <div class="text-center"> -->
 								<div class="">
-									<img class="card-img-top" src="<c:url value='/img/${cartList.representative_file}'/>" style="width:100px" alt="no image" />
+										<a href="#!"
+											onclick="fn_detail_pop('${cartList.gdsNum}')"
+											data-toggle="modal" data-target="#exampleModalLong"> 
+											<!-- <img class="card-img-top rounded" -->
+											<img class="card-img-top"
+												src="<c:url value='/img/${cartList.representative_file}'/>"
+												style="height: 200px;width:auto" alt="no image" />
+										</a>
 								</div>
-<%-- 								<div class="thumb">
-									<img src="${cartList.gdsThumbImg}" />
-								</div> --%>
 							</td>
 						</tr>
 						<tr>
