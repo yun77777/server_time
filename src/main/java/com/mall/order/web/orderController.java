@@ -432,7 +432,6 @@ System.err.println("LISITIIITITISITITIT:"+cartList);
 
 	// 주문 목록
 	@RequestMapping(value = "/orderList2.do")
-//	@RequestMapping(value = "/orderList.do", method = RequestMethod.GET)
 	public String getOrderList(HttpServletRequest request, Map<String, Object> paramMap, HttpSession session, Model model) throws Exception {
 //		public void getOrderList(Map<String, Object> paramMap, HttpSession session, OrderVO order, Model model) throws Exception {
 		logger.info("get order list");
@@ -567,7 +566,7 @@ System.err.println("LISITIIITITISITITIT:"+cartList);
 
 			orderService.addCart(cart);//상세주문에 선택 상품 추가
 			orderService.orderInfo_Details(paramMap);//상세주문에 선택 상품 추가
-			orderService.deleteCart(paramMap);
+			orderService.deleteSeparateCart(paramMap);
 			// 주문할 상품
 //			paramMap.put("orderProcessDetail","Y");
 //			model.addAttribute("paramMap", paramMap);

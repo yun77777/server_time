@@ -31,13 +31,13 @@
 <body>
 
 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
+	<%@ include file="/WEB-INF/views/common/popup/orderPopup.jsp"%>
 
 	<section class="py-5">
 		<div class="container">
 		<h3>주문 상품</h3>
 			<div class="orderInfo">
 			<form id="boardForm" method="post" enctype="multipart/form-data">
-					<input type="hidden" name="amount" value="${sum}" />
 					<input type="hidden" id="userId" name="userId" value="${paramMap.ID}" />
 					<input type="hidden" id="imp_uid" name="imp_uid">	            
 					<input type="hidden" id="merchant_uid" name="merchant_uid">	            
@@ -46,6 +46,8 @@
 					<input type="hidden" id="orderId" name="orderId" value="${paramMap.orderId}">	
 					<input type="hidden" id="gdsNum" name="gdsNum" value="${paramMap.gdsNum}">	
 					<input type="hidden" id="gdsStock" name="gdsStock" value="${paramMap.gdsStock}">	
+					<input type="hidden" id="amount" name="amount" value="${paramMap.gdsStock * paramMap.gdsPrice}">	
+					<input type="hidden" id="cartNum" name="amount" value="${paramMap.cartNum}">	
 					   		
 					   		<!--  -->
 <div id="row">
@@ -53,7 +55,7 @@
 						<table class="table">
 							<tr>
 								<td></td><td><a href="#!"
-									onclick="fn_detail_pop('${paramMap.gdsNum}')"
+									onclick="fn_detail_pop('${paramMap.gdsNum}',1)"
 									data-toggle="modal" data-target="#exampleModalLong">
 	                           		<img class="card-img-top" src="<c:url value='/img/${paramMap.file}'/>" style="width:100px" alt="no image" /><br />
 								</a>
@@ -102,7 +104,7 @@
 							</tr>
 							<tr>
 								<td>주소</td>
-								<td colspan="2"><input type="text" id="sample2_postcode" placeholder="우편번호">
+								<td colspan="2"><input type="text" id="sample2_postcode" placeholder="우편번호" readonly>
 								<input type="button" onclick="sample2_execDaumPostcode()" value="우편번호 찾기" class="btn btn-secondary btn-sm"></td>
 							</tr>
 							<tr>
@@ -279,49 +281,6 @@ function fn_btn(no){
             alert(xhr + " : " + status);
         }
     }); // $.ajax */
-
-}
-//orderChkBtn
-function fn_order_check() {
-	$(".orderChk *").remove();
-	var checkArr = new Array();
-	var cartStockArr = new Array();
-	//var formData = new FormData($("#deleteForm")[0]);
-	var userId=$('#userId').val();
-
-	// 체크된 체크박스의 갯수만큼 반복
-	$("input[class='chBox']:checked").each(function(){
-		checkArr.push($(this).attr("data-cartNum"));  // 배열에 데이터 삽입
-		alert($(this).parent().parent().find('.cartStock').find('#cartStock').val());	
-		cartStockArr.push($(this).parent().parent().find('.cartStock').find('#cartStock').val());  // 배열에 데이터 삽입
-	});
-	
-	
-	alert(checkArr);
-	if(checkArr.length==0){
-		alert('상품 선택 후 주문하세요');
-	} else{
-		//orderChk
-		var str = "<p>"+checkArr+"</p>";
-	    $(".orderChk").append(str);
-		
-		
-		$.ajax({
-			url : "/orderChk.do",
-			type : "post",
-			//processData : false,
-			data : { chbox : checkArr , userId : userId , cartStockArr : cartStockArr},
-			success : function(result){
-				
-				if(result == 1) {						
-					alert("chk 완료");
-					location.href = "/orderList2.do";
-				} else {
-					alert("chk 실패");
-				}
-			}
-		});
-	}
 
 }
 

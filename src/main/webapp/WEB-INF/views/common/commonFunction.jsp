@@ -51,101 +51,149 @@
     }
     
     
-    function fn_order_detail_pop(orderId) {
-		$('#orderId').val(orderId);
+    function fn_detail_pop(B_NO,B_TYPE){
+    	$('#gdsNum').val(B_NO);
+    	$('#B_TYPE').val(B_TYPE);
+    	//itemDetailPopup
+    	var  formData= $('#boardForm').serialize();
+    	//alert(B_NO);
+    /* 	$('.modal-body').append("afkjzxczxc"+$('#gdsNum').val());
+     */	
+    	
+    	$.ajax({
+    		url : "${pageContext.request.contextPath}/itemDetailPopup.do",
+    		type : "post",
+    		data : { gdsNum : B_NO },
+    		success : function(result) {
+    						
+    		var obj=JSON.parse(result);
+    		var detail = obj.detail ;
+    		var imgList = obj.imgList ;
+    		
+    		$("#pp").html("");
+    		
+            $.each(detail, function( index, value ) {
+       			$("#"+index+"").val(value);
+       			//$("#pp").append(index+','+value+'<br>');
+                console.log('element' ,index, value ); 
+             });
+            
+    		 for (var i = 0; i <imgList.length; i++) {
+    			  console.log('element', i, imgList[i]);
+    			  console.log(imgList[i].gdsPrice);
+    			  //$("#pp").append(i+','+imgList[i]+'<br>');
+    			  //$("#pp").append(i+','+imgList[i].gdsPrice+'<br>');
+    			  
+    			  // #pp: 상세이미지 imgList div 영역
+    			 /*  $("#pp").append(i+','+imgList[i].file+'<br>'); */
+    			  
+    			var img=imgList[i].file;
+    			var file = $("#file").val(img);
+    			var image="<c:url value='/img/"+img+"'/>"; //상품 상세 이미지
+    			  $("#pp").append("<img class='card-img-top' src="+image+"><br><br>");
+    /* 			  $("#pp").append(i+"<img class='card-img-top scale' src="+image+"><br>"); */
+    			 
+    			};
+    			
+    		
+    		//상품상세설명
+    		$("#name").html(detail.gdsName);
+    		//상품상세설명
+    		$("#price").html(detail.gdsPrice);
+    		//상품상세설명
+    /* 		$("#gdsStock").parent().parent().find('td').append(detail.gdsStock);
+     */		//상품상세설명
+    		//상품상세설명
+    		$("#des").html(detail.gdsDes);
+    		
+    		$("#orderForm #gdsName").val(detail.gdsName);
+    		$("#orderForm #gdsPrice").val(detail.gdsPrice);
+    		$("#orderForm #gdsStock").val(detail.gdsStock);
+    /* 		$("#gdsStock").val(detail.gdsStock); */
+    		$("#orderForm #totalPrice").val(detail.totalPrice);
+    		$("#orderForm #gdsDes").val(detail.gdsDes);
+    		
+    		//$("#gdsDes").val("새로운 값을 지정합니다.");  //텍스트 에어리어에 새로 값을 지정.
+    		
+    		$("#rpsnImg").attr("src","<c:url value='/img/"+img+"'/>");
+    		console.log('================================');
+    		
+    		//제품상세(기존)
+    		$("#create2").on("click",function(){ 
+    			var gdsNum=$('#gdsNum').val();
 
-		$
-				.ajax({
-					url : "${pageContext.request.contextPath}/orderDetailViewPopup.do",
-					type : "post",
-					data : {
-						orderId : orderId
-					},
-					success : function(result) {
-						var obj = JSON.parse(result);
-						//var detail = obj.detail ;
-						var detailList = obj.detailList;
-						/*    $.each(detail, function( index, value ) {
-								$("#"+index+"").val(value);
-								//$("#pp").append(index+','+value+'<br>');
-						       console.log('element' ,index, value ); 
-						    }); */
-						var content = '<section id="content"><div class="table-responsive-lg"><table class="table">';
+    			//$(this).next().html("<button type='button' id='newButton'>ok</button>"); 
+    			
+    			fn_detail(gdsNum);
+    			
+    			});
+    		
+    		
+    		//주문
+    		$("#create").on("click",function(){ 
+    			var userId = '${member.ID}';
+    			if(userId.length==0){
+    				alert('로그인 후 이용해주세요');
+    			} else {
+    				var gdsNum = $("#gdsNum").val();
+    				var cartStock = 5;
+    	/* 			var cartStock = $(".numBox").val(); */
+    				//alert('gdsNum:'+gdsNum);
+    				
+    				var gdsNum = $("#gdsNum").val();
+    				var userId = $("#userId").val();
+    				var gdsName = $("#gdsName").val();
+    				var gdsPrice = $("#gdsPrice").val();
+    				var cartStock = $("#stock").val();
+    				var gdsStock = cartStock;
+    	/* 			var gdsStock = $(".numBox").val(); */
+    				$('#gdsStock').val(gdsStock);
+    				
+    				var data = {
+    						gdsNum : gdsNum,
+    						gdsStock : gdsStock,
+    						cartStock : cartStock,
+    						gdsName : gdsName,
+    						gdsPrice : gdsPrice,
+    						orderProcessDetail : 'Y',
+    						userId : userId ,
+    						};
+    				
+    			$.ajax({
+    					url : "/directOrderProcess.do",
+    					type : "post",
+    					data : data,
+    					success : function(result){
+    						$("#orderId").val(result.orderId);
+    						
+    						$('#orderForm').attr({
+    	/* 					$('#boardForm').attr({ */
+    							action : '<c:url value="/directOrderProcessDetail.do"/>',
+    							target : '_self'
+    						}).submit(); 
+    					   	//location.replace("/directOrderProcessDetail.do");
+    					},
+    					error : function(){
+    						alert("주문 실패");
+    					}
+    				});
+    			
+    			}
+    			
+    			
+    			
+    			});
+    		// 주문
+    		
+    		}, // success 
 
-						for (var i = 0; i < detailList.length; i++) {
-							console.log('element', i, detailList[i]);
-							console.log(detailList[i].gdsName);
-							//$("#pp").append(i+','+imgList[i]+'<br>');
-							//$("#pp").append(i+','+imgList[i].gdsPrice+'<br>');
-							var image = "<c:url value='/img/"+detailList[i].representative_file+"'/>";
-							// #pp: 상세이미지 imgList div 영역
-							/* $("#kk").append(
-									'<b>' + (i + 1) + '</b>. '
-											+ detailList[i].gdsName + '<br>');
-							$("#kk")
-									.append(
-											''
-													+ "<img class='card-img-top' src="
-													+ image
-													+ " style='width:20%;height:auto'><br>");
-							$("#kk").append(
-									'cartStock: ' + detailList[i].cartStock
-											+ '<br>');
-							$("#kk").append(
-									'gdsPrice: ' + detailList[i].amount
-											+ '<br>'); */
-							content+='<colgroup><col width="20%"><col width="*"></colgroup>';
-							content += '<tr><td>번호</td><td>'
-									+ (i+1) + '</td></tr>';
-							content += '<tr><td>상품명</td><td>'
-									+ (detailList[i].gdsName) + '</td></tr>';
-							content += '<tr><td></td><td>'
-									+ "<img class='card-img-top' src=" + image
-									+ " style='width:20%;height:auto'>"
-									+ '</td></tr>';
-							content += '<tr><td>주문 수량</td><td>'
-									+ (detailList[i].cartStock) + '</td></tr>';
-							content += '<tr><td>가격</td><td>'
-									+ (detailList[i].amount) + '</td></tr>';
+    		error : function(xhr, status) {
+    			alert(xhr + " : " + status);
+    		}
+    	});
+    	
+    }
 
-						}
-
-					/* 	$("#kk").append('<hr>');
-						$("#kk").append(
-								'orderId: ' + detailList[0].orderId + '<br>');
-						$("#kk").append(
-								'userId: ' + detailList[0].userId + '<br>');
-						$("#kk").append(
-								'orderPhon: ' + detailList[0].orderPhon
-										+ '<br>');
-						$("#kk").append(
-								'userAddr: ' + detailList[0].userAddr1 + ', '
-										+ detailList[0].userAddr2 + ', '
-										+ detailList[0].userAddr3 + '<br>'); */
-
-						content += '</table></div></section>';
-						$("#itemDetail").html('<hr>' + content);
-
-						var orderContent = '<table class="table table-hover table-dark">';
-						orderContent += '<tr><td>주문 번호</td><td>'
-								+ (detailList[0].orderId) + '</td></tr>';
-						orderContent += '<tr><td>주문 고객</td><td>'
-								+ (detailList[0].userId) + '</td></tr>';
-						orderContent += '<tr><td>연락처</td><td>'
-								+ (detailList[0].orderPhon) + '</td></tr>';
-						orderContent += '<tr><td>주소</td><td>'
-								+ (detailList[0].userAddr) + ', '
-								+ (detailList[0].userAddr2) + ', '
-								+ (detailList[0].userAddr3) + '</td></tr>';
-						orderContent += '</table>'
-
-						$("#orderInfo").html('<hr>' + orderContent);
-
-						//$("#rpsnImg").attr("src","<c:url value='/img/"+img+"'/>");
-
-					}
-				});
-	}
 </script>
 <script>
 Kakao.init('0280f7076bc693fac40abb703230b06b'); //발급받은 키 중 javascript키를 사용해준다.

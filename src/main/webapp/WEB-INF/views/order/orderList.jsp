@@ -43,19 +43,18 @@
 
 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
 	<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
-
+	<%@ include file="/WEB-INF/views/common/popup/orderPopup.jsp"%>
+	<%@ include file="/WEB-INF/views/common/popup/orderDetailPopup.jsp"%>
+	<form id="detailForm" method="post">
+		<input type="hidden" id="orderId" name="orderId">
+	</form>
 	<section class="py-5">
 		<div class="container">
-
-			<%@ include file="/WEB-INF/views/common/popup/orderPopup.jsp"%>
-			<%@ include file="/WEB-INF/views/common/popup/orderDetailPopup.jsp"%>
-			<form id="detailForm" method="post">
-				<input type="hidden" id="orderId" name="orderId">
-			</form>
-
-			<div id="row">
-				<c:forEach items="${orderList}" var="orderList">
+			<h3>주문 완료 상품</h3>
+			<div class="orderInfo">
+				<div id="row">
 					<div class="table-responsive-lg">
+					<c:forEach items="${orderList}" var="orderList">
 						<table class="table">
 							<tr>
 								<td></td><td><a href="#!"
@@ -64,9 +63,7 @@
 										class="card-img-top"
 										src="<c:url value='/img/${orderList.representative_file}'/>"
 										style="width: 100px" alt="no image" />
-								</a>
-									
-									</td>
+								</a></td>
 							</tr>
 							<tr>
 								<td>주문번호</td>
@@ -110,9 +107,11 @@
 								</td>
 							</tr>
 						</table>
+						</c:forEach>
 					</div>
 					<hr>
-				</c:forEach>
+					<br><br>
+				
 
 				<div id="row">
 					<c:if test="${empty orderList}">
@@ -122,6 +121,8 @@
 					</c:if>
 				</div>
 			</div>
+			</div>
+		</div>
 	</section>
 
 
@@ -485,7 +486,7 @@
 										+ detailList[0].userAddr3 + '<br>'); */
 
 						content += '</table></div></section>';
-						$("#itemDetail").html('<hr>' + content);
+						$("#itemDetail").html(content);
 
 						var orderContent = '<table class="table table-hover table-dark">';
 						orderContent += '<tr><td>주문 번호</td><td>'
