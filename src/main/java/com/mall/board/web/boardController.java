@@ -131,7 +131,6 @@ public class boardController {
 	
 	@RequestMapping(value = "/boardList.do")
 	public String boardList(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="20") int recordCountPerPage,
-			@RequestParam(defaultValue="qna") String boardType, 
 			@RequestParam(defaultValue="1") int B_TYPE, 
 			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
 		model.addAttribute("login",httpSession.getAttribute("login"));
@@ -143,6 +142,9 @@ System.err.println("APPASPASP:"+paramMap);
 		
 		
 		try {
+			
+			paramMap.put("B_TYPE", B_TYPE);
+			
 			PaginationVO pg = new PaginationVO(currentPageNo, 20, 5, 
 					boardService.selectBoardListCnt(paramMap));
 			
@@ -150,7 +152,7 @@ System.err.println("APPASPASP:"+paramMap);
 			paramMap.put("start",pg.getFirstRecordIndex()-1);
 			
 			
-			paramMap.put("B_TYPE", B_TYPE);
+			
 
 			List<Map<String,Object>> list=boardService.selectBoardList(paramMap);
 			System.err.println("list:"+list);

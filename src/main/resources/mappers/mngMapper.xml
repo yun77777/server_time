@@ -9,6 +9,19 @@
 		from goods_category
 <!-- 	    	start with cateCodeRef is null connect by prior cateCode = cateCodeRef
  -->	</select>
+ 	<sql id="searchOption">
+		<!-- <if test="searchStartDate != ''.toString() and searchStartDate != null and searchEndDate != ''.toString() and searchEndDate != null">
+		AND date_format(B.input_dt,'%Y-%m-%d') BETWEEN #{searchStartDate} AND #{searchEndDate}
+		
+		</if>
+		<if test="searchTitle != ''.toString() and searchTitle != null">
+			AND B.title LIKE CONCAT('%',TRIM(#{searchTitle}),'%')
+		</if> -->
+		<if test="searchId != ''.toString() and searchId != null">
+			AND (B.title LIKE CONCAT('%',TRIM(#{searchId}),'%'))
+			OR (B.title LIKE CONCAT('%',TRIM(#{searchId}),'%'))
+		</if>
+	</sql>
 
 	<insert id="register" parameterType="map">
 	<!-- <selectKey resultType="int" keyProperty="gdsNum" order="BEFORE">
@@ -291,6 +304,7 @@
 	
 	 <select id="selectOrderList" parameterType="java.util.HashMap"
 		resultType="java.util.HashMap">
+	<include refid="com.mall.common.commonMapper.pagingHeaderSql"/>
  		select 
 		    o.orderId, o.userId, o.orderRec,
 		    o.userAddr1, o.userAddr2, o.userAddr3,
@@ -315,7 +329,8 @@
         on b.orderId=o.orderId
 	    where od.orderDetailsNum=(SELECT MIN(a.orderDetailsNum) FROM tbl_order_details a inner join tbl_order b on a.orderId=o.orderId)
 		and o.delivery=#{delivery}
-		
+		<!-- <include refid="searchOption"/> -->
+	<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
 	</select>
 	
 	<update id="updateOrderState" parameterType="map">
@@ -330,7 +345,7 @@
 		FROM (
 			SELECT o.orderId
 		FROM tbl_order o
-		where o.orderId>0
+		where o.orderId>0 and delivery=#{delivery}
 		<!-- <include refid="searchOption"/> -->
 		) o
 	</select>

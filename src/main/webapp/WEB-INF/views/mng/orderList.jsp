@@ -175,6 +175,16 @@ function fn_boardList(delivery, no) {
 	}).submit();
 };
 
+function fn_list(no, delivery) {
+	$('#currentPageNo').val(no);
+	$('#boardForm #delivery').val(delivery);
+	
+	$('#boardForm').attr({
+		action : '<c:url value="/mng/orderList.do"/>',
+		target : '_self'
+	}).submit();
+};
+
 
 function fn_detail(orderId,delivery){
 	//var  formData= $('#boardForm').serialize();
