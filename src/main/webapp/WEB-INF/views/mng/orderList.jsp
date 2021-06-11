@@ -108,6 +108,7 @@ $(document).ready(function(){
     		$(".chBox").prop("checked", false);
     	}
     });	
+});
 	
  
 function fn_cancel(){
@@ -138,7 +139,8 @@ function fn_cancel(){
     				
     				if(result == 1) {						
     					alert("취소 완료");
-    					location.href = "/mng/orderList.do";
+    					fn_list('1');
+    					//location.href = "/mng/orderList.do";
     				} else {
     					alert("취소 실패");
     				}

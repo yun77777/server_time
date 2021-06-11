@@ -44,8 +44,8 @@
 				<!-- Page Heading/Breadcrumbs-->
 					<div class="row">
 						<div class="col-12">
-							<button type="button" id="deliver_btn" class="btn btn btn-info btn-sm float-right ml-1">발송</button>
-							<button type="button" id="cancel_btn" class="btn btn btn-danger btn-sm float-right">취소</button>
+							<button type="button" onclick="fn_deliver()" id="" class="btn btn btn-info btn-sm float-right ml-1">발송</button>
+							<button type="button" onclick="fn_cancel()" id="" class="btn btn btn-danger btn-sm float-right">취소</button>
 						</div>
 					</div>
 <%-- 						<button class="btn btn-primary" onclick="fn_insert('${login.ID}')" type="button">Insert</button> --%>
