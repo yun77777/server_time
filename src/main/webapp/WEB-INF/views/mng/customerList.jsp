@@ -33,12 +33,15 @@
 <body>
 
 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
-
+	<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
+	<%@ include file="/WEB-INF/views/common/popup/customerDetailPopup.jsp"%>
+	
 	<!-- Page Content-->
 	<section class="py-5">
 		<div class="container">
 			<form id="boardForm" method="post">
 			<input type="hidden" id="no" name="no">
+			<input type="hidden" id="userId" name="userId">
 			<input type="hidden" id="currentPageNo" name="currentPageNo" value="${pg.currentPageNo}"/>
 			<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
 				<!-- Page Heading/Breadcrumbs-->
@@ -70,7 +73,7 @@
 					    			</span>
 								</div>
 							</th>
-							<th scope="col">번호</th>
+							<!-- th scope="col">번호</th> -->
 							<th scope="col">아이디</th>
 							<th scope="col">이름</th>
 							<th scope="col">가입일자</th>
@@ -89,9 +92,12 @@
 										</script>
 									</div>
 								</th>
-								<th scope="row">${status.index}</th>
-								<td><a href="#" onclick="fn_detail('${member.ID}');">${result.ID}</a></td>
-<%-- 								<td><a href="#" onclick="fn_detail('${result.B_NO}','${login.ID}');">${result.title}</a></td> --%>
+								<%-- <th scope="row">${status.index}</th> --%>
+								<td>
+									<a href="#" onclick="fn_customer_detail_pop('${member.ID}')"
+													data-toggle="modal" data-target="#customerDetailPopup">${result.ID}
+									</a>
+								</td>
 								<td>${result.NAME}</td>
 								<td>${result.input_dt}</td>
 							</tr>
@@ -123,7 +129,6 @@
 		<!-- //Container -->
 	</section>
 	
-	<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
 
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
@@ -220,52 +225,6 @@ function fn_detail(id){
 	}
 }
 
-$(function () {
-	   var bindDatePicker = function() {
-			$(".date").datetimepicker({
-	        format:'YYYY-MM-DD',
-				icons: {
-					time: "fa fa-clock-o",
-					date: "fa fa-calendar",
-					up: "fa fa-arrow-up",
-					down: "fa fa-arrow-down"
-				}
-			}).find('input:first').on("blur",function () {
-				// check if the date is correct. We can accept dd-mm-yyyy and yyyy-mm-dd.
-				// update the format if it's yyyy-mm-dd
-				var date = parseDate($(this).val());
-
-				if (! isValidDate(date)) {
-					//create date based on momentjs (we have that)
-					date = moment().format('YYYY-MM-DD');
-				}
-
-				$(this).val(date);
-			});
-		}
-	   
-	   var isValidDate = function(value, format) {
-			format = format || false;
-			// lets parse the date to the best of our knowledge
-			if (format) {
-				value = parseDate(value);
-			}
-
-			var timestamp = Date.parse(value);
-
-			return isNaN(timestamp) == false;
-	   }
-	   
-	   var parseDate = function(value) {
-			var m = value.match(/^(\d{1,2})(\/|-)?(\d{1,2})(\/|-)?(\d{4})$/);
-			if (m)
-				value = m[5] + '-' + ("00" + m[3]).slice(-2) + '-' + ("00" + m[1]).slice(-2);
-
-			return value;
-	   }
-	   
-	   bindDatePicker();
-	 });
 </script>
 
 </html>

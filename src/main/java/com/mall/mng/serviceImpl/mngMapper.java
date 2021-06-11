@@ -40,6 +40,8 @@ public interface mngMapper {
 
 	public Map<String, Object> selectItemDetail(Map<String, Object> paramMap) throws Exception;
 
+	public Map<String, Object> selectCustomerDetail(Map<String, Object> paramMap) throws Exception;
+
 	public Integer selectItemListMaxNo(Map<String, Object> paramMap) throws Exception;
 
 	public List<Map<String, Object>> selectOrderList(Map<String, Object> paramMap) throws Exception;

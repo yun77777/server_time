@@ -37,6 +37,7 @@
 			, CONTACT
 			, PHONE
 			, EMAIL
+			, INPUT_DT
 		) values(
 			#{ID}
 			, #{PW}
@@ -45,6 +46,7 @@
 			, #{CONTACT}
 			, #{PHONE}
 			, #{EMAIL}
+			, NOW()
 		)
 		
 	</insert>

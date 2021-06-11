@@ -322,6 +322,42 @@ function fn_order_detail_pop(orderId) {
 		}
 	});
 }
+function fn_customer_detail_pop(userId) {
+	$('#userId').val(userId);
+
+	$.ajax({
+		url : "${pageContext.request.contextPath}/mng/customerDetailopup.do",
+		type : "post",
+		data : {
+			userId : userId
+		},
+		success : function(result) {
+			var obj = JSON.parse(result);
+			//var detail = obj.detail ;
+			var detail = obj.detail;
+			var content = '<section id="content"><div class="table-responsive-lg"><table class="table">';
+
+				console.log(detail.gdsName);
+				content+='<colgroup><col width="30%"><col width="*"></colgroup>';
+				content += '<tr><td>아이디</td><td>'
+						+ (detail.ID) + '</td></tr>';
+				content += '<tr><td>이름</td><td>'
+						+ (detail.NAME) + '</td></tr>';
+				content += '<tr><td>주소</td><td>'
+						+ (detail.ADDRESS) + '</td></tr>';
+				content += '<tr><td>연락처</td><td>'
+						+ (detail.CONTACT) + '</td></tr>';
+				content += '<tr><td>휴대폰번호</td><td>'
+						+ (detail.PHONE) + '</td></tr>';
+				content += '<tr><td>이메일</td><td>'
+						+ (detail.EMAIL) + '</td></tr>';
+
+			content += '</table></div></section>';
+			$("#itemDetail").html(content);
+
+		}
+	});
+}
   
 //카카오로그아웃  
 function kakaoLogout() {

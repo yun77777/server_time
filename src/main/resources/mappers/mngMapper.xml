@@ -391,10 +391,28 @@
 	SELECT @rownum:=@rownum+1 ROWNUM
 	 	, M.ID
 	 	, M.NAME
+	 	, M.input_dt
 	FROM member M, (SELECT @rownum:=0) R
 	<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
 		
 	</select>
+	
+	
+	<select id="selectCustomerDetail" parameterType="java.util.HashMap"
+	resultType="java.util.HashMap">
+		 SELECT 
+		 M.ID
+	 	, M.NAME
+	 	, M.ADDRESS
+	 	, M.CONTACT
+	 	, M.PHONE
+	 	, M.EMAIL
+	 	, M.INPUT_DT
+	FROM member M
+	WHERE M.ID=#{userId}
+	</select>
+	
+	
 	
 	<delete id="deleteCustomer" parameterType="map">
  	delete from member where ID=#{ID}

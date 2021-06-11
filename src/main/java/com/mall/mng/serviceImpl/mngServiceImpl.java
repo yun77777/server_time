@@ -114,6 +114,11 @@ public class mngServiceImpl implements mngService {
 	public Map<String, Object> selectItemDetail(Map<String, Object> paramMap) throws Exception {
 		return mngMapper.selectItemDetail(paramMap);
 	}
+	
+	@Override
+	public Map<String, Object> selectCustomerDetail(Map<String, Object> paramMap) throws Exception {
+		return mngMapper.selectCustomerDetail(paramMap);
+	}
 
 	@Override
 	public Integer selectItemListMaxNo(Map<String, Object> paramMap) throws Exception {

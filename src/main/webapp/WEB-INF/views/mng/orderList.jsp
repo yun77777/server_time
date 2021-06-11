@@ -52,8 +52,9 @@
 				  <div class="nav nav-tabs" id="nav-tab" role="tablist">
 				  <a class="nav-link <c:if test="${delivery eq 'all'}"> active </c:if>" id="nav-home-tab" onclick="fn_boardList('all',1)" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">전체</a>
 				  <a class="nav-link <c:if test="${delivery eq 'D1'}"> active </c:if>" id="nav-home-tab" onclick="fn_boardList('D1',1)" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">주문완료</a>
-				    <a class="nav-link <c:if test="${delivery eq 'D3'}"> active </c:if>" id="nav-profile-tab" onclick="fn_boardList('D3',1)" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">취소</a>
-				    <a class="nav-link <c:if test="${delivery eq 'D2'}"> active </c:if>" id="nav-contact-tab" onclick="fn_boardList('D2',1)" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">발송</a>
+				  <a class="nav-link <c:if test="${delivery eq 'D2'}"> active </c:if>" id="nav-contact-tab" onclick="fn_boardList('D2',1)" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">발송</a>
+				  <a class="nav-link <c:if test="${delivery eq 'D3'}"> active </c:if>" id="nav-profile-tab" onclick="fn_boardList('D3',1)" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">취소</a>
+				  
 				  </div>
 				</nav>
 				<div class="tab-content" id="nav-tabContent">
@@ -63,12 +64,13 @@
 				  <div class="tab-pane fade show <c:if test="${delivery eq 'D1'}"> active </c:if>" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 					<%@ include file="/WEB-INF/views/mng/orderCompleteList.jsp"%>
 				  </div>
-				  <div class="tab-pane fade show <c:if test="${delivery eq 'D3'}"> active </c:if>" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-				  	<%@ include file="/WEB-INF/views/mng/orderCancelList.jsp"%>
-				  </div>
 				  <div class="tab-pane fade show <c:if test="${delivery eq 'D2'}"> active </c:if>" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
 				  	<%@ include file="/WEB-INF/views/mng/orderDeliveryList.jsp"%>
 				  </div>
+				  <div class="tab-pane fade show <c:if test="${delivery eq 'D3'}"> active </c:if>" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+				  	<%@ include file="/WEB-INF/views/mng/orderCancelList.jsp"%>
+				  </div>
+				  
 				</div>
 				
 				
@@ -107,19 +109,28 @@ $(document).ready(function(){
     	}
     });	
 	
- $("#cancel_btn").on("click",function(e){
-    	var confirm_val = confirm("취소하시겠습니까?");
-    	
-    	if(confirm_val) {
-    		var checkArr = new Array();
+ 
+function fn_cancel(){
+	var confirm_val = confirm("취소하시겠습니까?");
+	var cnt=0;
+	if(confirm_val) {
+		var checkArr = new Array();
 
-    		// 체크된 체크박스의 갯수만큼 반복
-    		$("input[class='chBox']:checked").each(function(){
-    			checkArr.push($(this).attr("data-cid"));
-    		});
-    		
-    			
-    		$.ajax({
+		// 체크된 체크박스의 갯수만큼 반복
+		$("input[class='chBox']:checked").each(function(){
+			if($(this).next().val()!='취소'){
+				checkArr.push($(this).attr("data-cid"));
+			} else
+				cnt++;
+		});
+		
+		if(checkArr.length==0){
+			if(cnt>0)
+				alert('이미 취소된 주문입니다.');
+			else
+				alert('취소할 상품을 선택해주세요.');
+		} else{
+			$.ajax({
     			url : "/mng/cancelItems.do",
     			type : "post",
     			data : { chbox : checkArr },
@@ -133,22 +144,31 @@ $(document).ready(function(){
     				}
     			}
     		});
-    	}
-    });
+		}
+			
+	}
+}
  
- $("#deliver_btn").on("click",function(e){
+function fn_deliver(){
+	var confirm_val = confirm("발송처리하시겠습니까?");
+		var cnt=0;
+   	if(confirm_val) {
+   		var checkArr = new Array();
 
-    	var confirm_val = confirm("발송처리하시겠습니까?");
-    	
-    	if(confirm_val) {
-    		var checkArr = new Array();
-
-    		// 체크된 체크박스의 갯수만큼 반복
-    		$("input[class='chBox']:checked").each(function(){
-    			checkArr.push($(this).attr("data-cid"));
-    		});
-    		
-    			
+   		// 체크된 체크박스의 갯수만큼 반복
+   		$("input[class='chBox']:checked").each(function(){
+   			if($(this).next().val()!='발송')
+   				checkArr.push($(this).attr("data-cid"));
+   			else
+   				cnt++;
+   		});
+   		
+   		if(checkArr.length==0){
+   			if(cnt>0)
+   				alert('이미 발송완료된 상품입니다.');
+   			else
+   				alert('발송처리할 상품을 선택해주세요.');
+		} else{
     		$.ajax({
     			url : "/mng/deliverItems.do",
     			type : "post",
@@ -163,10 +183,10 @@ $(document).ready(function(){
     				}
     			}
     		});
-    	}
-    });
-});
-
+		}
+	}
+}
+	
 function fn_boardList(delivery, no) {
 	$('#delivery').val(delivery);
 	$('#boardForm #currentPageNo').val(no);
@@ -178,7 +198,6 @@ function fn_boardList(delivery, no) {
 };
 
 function fn_list(no) {
-/* function fn_list(no, delivery) { */
 	$('#boardForm #currentPageNo').val(no);
 	$('#boardForm #delivery').val('${delivery}');
 	
@@ -186,7 +205,7 @@ function fn_list(no) {
 		action : '<c:url value="/mng/orderList.do"/>',
 		target : '_self'
 	}).submit();
-};
+}
 
 
 function fn_detail(orderId,delivery){

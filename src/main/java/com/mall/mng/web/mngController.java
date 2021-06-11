@@ -28,6 +28,8 @@ import com.mall.mng.service.mngService;
 import com.mall.order.service.orderService;
 import com.mall.vo.GoodsVO;
 
+import net.sf.json.JSONObject;
+
 @Controller
 @RequestMapping("/mng")
 public class mngController {
@@ -781,5 +783,36 @@ System.err.println("fsdlmflmf:"+checkArr);
 			e.printStackTrace();
 		}		
 		return 1;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/customerDetailopup.do", produces = "application/text; charset=utf8")
+	public String customerDetailopup(Map<String, Object> paramMap,@RequestParam(value="userId") String userId, HttpSession session,
+			HttpServletRequest request, Model model) throws Exception {
+		logger.info("order");
+		model.addAttribute("login", session.getAttribute("login"));
+		model.addAttribute("member", session.getAttribute("member"));
+		Map<String,Object> login=(HashMap<String, Object>) session.getAttribute("member");
+		paramMap.put("userId",login.get("ID"));
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		
+		try {
+			paramMap.put("userId",userId);
+			System.err.println("param:"+paramMap);
+			
+			Map<String, Object> detail = mngService.selectCustomerDetail(paramMap);
+			//Map<String, Object> detail = detailList.get(0);
+			System.err.println("detail:"+detail);
+			System.err.println("result:"+result);
+			result.put("detail",detail);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return JSONObject.fromObject(result).toString();
 	}
 }

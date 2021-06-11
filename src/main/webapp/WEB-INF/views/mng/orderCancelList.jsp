@@ -44,8 +44,7 @@
 				<!-- Page Heading/Breadcrumbs-->
 					<div class="row">
 						<div class="col-12">
-							<button type="button" onclick="" id="delete_btn" class="btn btn btn-info btn-sm float-right">발송</button>
-							<button type="button" onclick="" id="cancel_btn" class="btn btn btn-danger btn-sm float-right">취소</button>
+							<button type="button" id="deliver_btn" class="btn btn btn-info btn-sm float-right ml-1">발송</button>
 						</div>
 					</div>
 <%-- 						<button class="btn btn-primary" onclick="fn_insert('${login.ID}')" type="button">Insert</button> --%>
@@ -76,6 +75,7 @@
 								<th>
 									<div class="checkBox">
 										<input type="checkbox" name="chBox" class="chBox" data-cid="${result.orderId}" />
+										<input type="hidden" name="chkDelivery" value="${result.delivery}" />
 										<script>
 											$(".chBox").click(function(){
 												$("#allCheck").prop("checked", false);
