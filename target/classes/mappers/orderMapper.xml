@@ -54,7 +54,8 @@
 	    , #{merchant_uid}
 	    , #{paid_amount}
 	    , #{apply_num}
-	    , '주문완료'
+	    , 'D1'
+	    <!-- , '주문완료' -->
      )
 </insert>
    
@@ -89,11 +90,17 @@
  -->		select 
 		    o.orderId, o.userId, o.orderRec,
 		    o.userAddr1, o.userAddr2, o.userAddr3,
-		    o.orderPhon, o.amount, o.orderDate, o.delivery
+		    o.orderPhon, o.amount, o.orderDate
 		    , od.cartStock
 		    , g.gdsName
 		    , g.gdsNum
 		    , b.cnt
+		    , (CASE
+		    	WHEN o.delivery='D1' THEN '주문완료'
+		    	WHEN o.delivery='D2' THEN '발송'
+		    	WHEN o.delivery='D3' THEN '취소'
+		    	ELSE ''
+	    		END) delivery
     	 	,(SELECT ORG_FILE_NAME FROM MP_FILE WHERE BNO=od.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE WHERE BNO=od.gdsNum)) representative_file
 		from tbl_order o
 		left outer join tbl_order_details od

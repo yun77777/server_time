@@ -42,27 +42,16 @@
 			<input type="hidden" id="currentPageNo" name="currentPageNo" value="${pg.currentPageNo}"/>
 			<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
 				<!-- Page Heading/Breadcrumbs-->
-				
-				<div class="row styling">
-						<!-- <div class="card mb-4">
-                            <h5 class="card-header">Search</h5>
-                            <div class="card-body">
-                                <div class="input-group">
-                                    <input class="form-control" type="text" placeholder="Search for..." />
-                                    <span class="inpug-group-append"><button class="btn btn-secondary" type="button">Go!</button></span>
-                                </div>
-                            </div>
-                        </div> -->
-						<div id="success"></div>
-						<!-- //search-->
-						<div class="row">
+				<h1 class="mt-4 mb-3">
+					전체
+				</h1>
+					<div class="row">
 						<div class="col-12">
 							<button type="button" onclick="" id="delete_btn" class="btn btn btn-info btn-sm float-right">발송</button>
 							<button type="button" onclick="" id="cancel_btn" class="btn btn btn-danger btn-sm float-right">취소</button>
 						</div>
 					</div>
 <%-- 						<button class="btn btn-primary" onclick="fn_insert('${login.ID}')" type="button">Insert</button> --%>
-					</div>
 				
           		<span>총 <em>${pg.totalRecordCount}</em>건 </span>
                 
@@ -97,12 +86,11 @@
 									</div>
 								</th>
 								<th scope="row">${result.orderId}</th>
-								
 								<td>
-								<a href="#" onclick="fn_order_detail_pop('${result.orderId}')" onclick="fn_order_detail_pop('${result.orderId}')"
-												data-toggle="modal" data-target="#orderDetailPopup">
-									${result.gdsName} <c:if test="${result.cnt eq 1}"> 1</c:if><c:if test="${result.cnt ne 1}">외 ${result.cnt-1}</c:if> 건</a>
-									</td>
+									<a href="#" onclick="fn_order_detail_pop('${result.orderId}')" onclick="fn_order_detail_pop('${result.orderId}')"
+													data-toggle="modal" data-target="#orderDetailPopup">
+										${result.gdsName} <c:if test="${result.cnt eq 1}"> 1</c:if><c:if test="${result.cnt ne 1}">외 ${result.cnt-1}</c:if> 건</a>
+								</td>
 								<%-- <td><a href="#" onclick="fn_detail('${result.orderId}','${result.delivery}');">${result.gdsName} 외 ${result.cnt-1} 건</a></td> --%>
 								<td>${result.gdsNum}</td>
 								<td>${result.amount}</td>

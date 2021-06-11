@@ -85,25 +85,27 @@
 					</thead>
 					<tbody>
 						<c:forEach var="result" items="${list}" varStatus="status">
-							<c:if test="${result.delivery eq '발송'}">
-								<tr>
-									<th>
-										<div class="checkBox">
-											<input type="checkbox" name="chBox" class="chBox" data-cid="${result.orderId}" />
-											<script>
-												$(".chBox").click(function(){
-													$("#allCheck").prop("checked", false);
-												});
-											</script>
-										</div>
-									</th>
-									<th scope="row">${result.orderId}</th>
-									<td><a href="#" onclick="fn_detail('${result.orderId}','${result.delivery}');">${result.gdsName} 외 ${result.cnt-1} 건</a></td>
-									<td>${result.gdsNum}</td>
-									<td>${result.amount}</td>
-									<td>${result.delivery}</td>
-								</tr>
-							</c:if>
+							<tr>
+								<th>
+									<div class="checkBox">
+										<input type="checkbox" name="chBox" class="chBox" data-cid="${result.orderId}" />
+										<script>
+											$(".chBox").click(function(){
+												$("#allCheck").prop("checked", false);
+											});
+										</script>
+									</div>
+								</th>
+								<th scope="row">${result.orderId}</th>
+								<td>
+									<a href="#" onclick="fn_order_detail_pop('${result.orderId}')" onclick="fn_order_detail_pop('${result.orderId}')"
+													data-toggle="modal" data-target="#orderDetailPopup">
+										${result.gdsName} <c:if test="${result.cnt eq 1}"> 1</c:if><c:if test="${result.cnt ne 1}">외 ${result.cnt-1}</c:if> 건</a>
+								</td>
+								<td>${result.gdsNum}</td>
+								<td>${result.amount}</td>
+								<td>${result.delivery}</td>
+							</tr>
 						</c:forEach>
 					</tbody>
 				</table>

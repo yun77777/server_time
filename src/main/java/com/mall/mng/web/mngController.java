@@ -80,7 +80,7 @@ public class mngController {
 	
 	@RequestMapping(value = "/orderList.do")
 	public String orderListMng(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="5") int recordCountPerPage,
-			@RequestParam(defaultValue="all") String delivery,
+			@RequestParam(defaultValue="D1") String delivery,
 			@RequestParam Map<String, Object> paramMap,
 			HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
 		model.addAttribute("login",httpSession.getAttribute("login"));
@@ -110,6 +110,7 @@ public class mngController {
 			System.err.println("LISTLSIT:"+list);
 			
 			model.addAttribute("list",list);
+			model.addAttribute("delivery",delivery);
 			model.addAttribute("paramMap",paramMap);
 			model.addAttribute("pg",pg);
 			
@@ -689,7 +690,7 @@ System.err.println("fsdlmflmf:"+checkArr);
 			if(checkArr != null) {
 				for(int i=0 ; i<checkArr.length ; i++) {
 					paramMap.put("orderId",checkArr[i]);
-					paramMap.put("delivery","발송");
+					paramMap.put("delivery","D2");//발송
 					model.addAttribute("paramMap",paramMap);
 					mngService.updateOrderState(paramMap);
 				}
@@ -716,7 +717,7 @@ System.err.println("fsdlmflmf:"+checkArr);
 			if(checkArr != null) {
 				for(int i=0 ; i<checkArr.length ; i++) {
 					paramMap.put("orderId",checkArr[i]);
-					paramMap.put("delivery","취소");
+					paramMap.put("delivery","D3");//취소
 					model.addAttribute("paramMap",paramMap);
 					mngService.updateOrderState(paramMap);
 				}
