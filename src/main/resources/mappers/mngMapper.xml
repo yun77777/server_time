@@ -18,8 +18,8 @@
 			AND B.title LIKE CONCAT('%',TRIM(#{searchTitle}),'%')
 		</if> -->
 		<if test="searchId != ''.toString() and searchId != null">
-			AND (B.title LIKE CONCAT('%',TRIM(#{searchId}),'%'))
-			OR (B.title LIKE CONCAT('%',TRIM(#{searchId}),'%'))
+			AND (g.gdsName LIKE CONCAT('%',TRIM(#{searchId}),'%'))
+			OR (g.gdsNum LIKE CONCAT('%',TRIM(#{searchId}),'%'))
 		</if>
 	</sql>
 
@@ -329,7 +329,7 @@
         on b.orderId=o.orderId
 	    where od.orderDetailsNum=(SELECT MIN(a.orderDetailsNum) FROM tbl_order_details a inner join tbl_order b on a.orderId=o.orderId)
 		and o.delivery=#{delivery}
-		<!-- <include refid="searchOption"/> -->
+		<include refid="searchOption"/>
 	<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
 	</select>
 	
@@ -344,9 +344,16 @@
 			SELECT COUNT(1) CNT
 		FROM (
 			SELECT o.orderId
-		FROM tbl_order o
-		where o.orderId>0 and delivery=#{delivery}
-		<!-- <include refid="searchOption"/> -->
+		from tbl_order o
+		left outer join tbl_order_details od
+		on od.orderId=o.orderId
+		left outer join tbl_goods g
+		on od.gdsNum=g.gdsNum
+		left outer join (SELECT orderId, COUNT(*) AS cnt FROM tbl_order_details GROUP BY orderId) b
+        on b.orderId=o.orderId
+	    where od.orderDetailsNum=(SELECT MIN(a.orderDetailsNum) FROM tbl_order_details a inner join tbl_order b on a.orderId=o.orderId)
+		and o.delivery=#{delivery}
+		<include refid="searchOption"/>
 		) o
 	</select>
 	
