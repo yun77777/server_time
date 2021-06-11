@@ -32,30 +32,25 @@
 </head>
 <body>
 
-	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
 
 	<!-- Page Content-->
 	<section class="py-5">
 		<div class="container">
 			<form id="boardForm" method="post">
+			<input type="hidden" id="B_TYPE" name="B_TYPE">
 			<input type="hidden" id="no" name="no">
 			<input type="hidden" id="currentPageNo" name="currentPageNo" value="${pg.currentPageNo}"/>
 			<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
 				<!-- Page Heading/Breadcrumbs-->
 				<h1 class="mt-4 mb-3">
-					게시판 관리
+					Q&A
 				</h1>
-				<div class="row">
 				
-					<div class="col-lg-8 mb-4">
-						<div id="success"></div>
-						<!-- //search-->
-					<div class="row">
-						<div class="col-12">
-							<button type="button" onclick="" id="delete_btn" class="btn btn btn-danger btn-sm float-right">삭제</button>
-							<button class="btn btn-info btn-sm float-right" onclick="fn_insert('${member.ID}')" type="button">추가</button>
-						</div>
-					</div>
+			
+			<div class="row">
+				<div class="col-12">
+					<button type="button" onclick="" id="delete_btn" class="btn btn btn-danger btn-sm float-right">삭제</button>
+					<button class="btn btn-info btn-sm float-right" onclick="fn_insert('${member.ID}','${B_TYPE}')" type="button">작성</button>
 				</div>
 			</div>
           		<span>총 <em>${pg.totalRecordCount}</em>건 </span>
@@ -91,7 +86,7 @@
 									</div>
 								</th>
 								<th scope="row">${result.B_NO}</th>
-								<td><a href="#" onclick="fn_detail('${result.B_NO}','${member.ID}');">${result.title}</a></td>
+								<td><a href="#" onclick="fn_detail('${result.B_NO}','${member.ID}','${B_TYPE}');">${result.title}</a></td>
 <%-- 								<td><a href="#" onclick="fn_detail('${result.B_NO}','${login.ID}');">${result.title}</a></td> --%>
 								<td>${result.id}</td>
 								<td>${result.input_dt}</td>
@@ -100,34 +95,23 @@
 						</c:forEach>
 					</tbody>
 				</table>
+			<div class="row">
+				<div class="col-2 float-right">
+				<input class="form-control float-right" id="searchId"
+						name="searchId" type="text" value="${paramMap.searchId}" 
+						data- validation-required-message="Please enter your phone number." />
+				</div>
+				<button class="btn btn-secondary btn-sm float-right" onclick="fn_list('1',3)" type="submit">검색</button>
+			</div>
 			</form>
 			
    			<%@ include file="/WEB-INF/views/common/paging.jsp"%>
-   			
-   			<div class="row float-right">
-				<div class="form-group row">
-					<div class="col-xs-4">
-						<label>id:</label> 
-					</div>
-				</div>
-				<div class="form-group row">
-					<div class="col-xs-4">
-						<input class="form-control" id="searchId"
-							name="searchId" type="text" value="${paramMap.searchId}" 
-							data-validation-required-message="Please enter your phone number." />
-					</div>
-				</div>
-				<div class="form-group row">
-					<button class="btn btn-secondary btn-sm right" onclick="fn_list('1')" type="button">검색</button>
-				</div>
-			</div>
+			
+			
 		</div>
 		<!-- //Container -->
 	</section>
 	
-	<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
-
-	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
 	<!-- Bootstrap core JS-->
 <!-- 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -145,85 +129,6 @@
  -->	
 </body>
 
-<script>
-$(document).ready(function(){
-	$("#allCheck").click(function(){
-    	var chk = $("#allCheck").prop("checked");
-    	
-    	if(chk) {
-    		$(".chBox").prop("checked", true);
-    	} else {
-    		$(".chBox").prop("checked", false);
-    	}
-    });	
-	
- $("#delete_btn").on("click",function(e){
-
-    	var confirm_val = confirm("정말 삭제하시겠습니까?");
-    	
-    	if(confirm_val) {
-    		var checkArr = new Array();
-
-    		// 체크된 체크박스의 갯수만큼 반복
-    		$("input[class='chBox']:checked").each(function(){
-    			checkArr.push($(this).attr("data-cid"));
-    		});
-    		
-    		alert(checkArr);
-    			
-    		$.ajax({
-    			url : "/mng/deleteBoards.do",
-    			type : "post",
-    			data : { chbox : checkArr },
-    			success : function(result){
-    				
-    				if(result == 1) {						
-    					alert("삭제 완료");
-    					location.href = "/mng/boardList.do";
-    				} else {
-    					alert("삭제 실패");
-    				}
-    			}
-    		});
-    	}
-    });
-});
-function fn_list(no) {
-	$('#currentPageNo').val(no);
-	
-	$('#boardForm').attr({
-		action : '<c:url value="/mng/boardList.do"/>',
-		target : '_self'
-	}).submit();
-};
-
-function fn_insert(id){
-	if(id.length==0)
-		alert("로그인 후 게시물 작성이 가능합니다.");
-	else{
-		$('#boardForm').attr({
-			action : '<c:url value="/mng/boardInsert.do" />',
-			target : '_self'
-		}).submit();
-	}
-	
-
-}
-
-function fn_detail(no,id){
-	//var  formData= $('#boardForm').serialize();
-	
-	if(id.length==0)
-		alert('로그인 후 이용해주세요');
-	else{
-		$('#boardForm #no').val(no);
-		$('#boardForm').attr({
-			action : '<c:url value="/mng/boardDetail.do" />',
-			target : '_self'
-		}).submit();
-	}
-}
-</script>
 
 </html>
 

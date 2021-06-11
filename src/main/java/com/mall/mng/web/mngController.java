@@ -496,35 +496,37 @@ System.err.println("fsdlmflmf:"+checkArr);
 	//BOARD
 	
 	@RequestMapping(value = "/boardList.do")
-	public String boardListMng(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="5") int recordCountPerPage,
+	public String boardListMng(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="20") int recordCountPerPage,
+			@RequestParam(defaultValue="1") int B_TYPE, 
 			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
 		model.addAttribute("login",httpSession.getAttribute("login"));
 		model.addAttribute("member",httpSession.getAttribute("member"));
 
-
-		paramMap.put("recordCountPerPage", recordCountPerPage);
+		paramMap.put("recordCountPerPage", 20);
 		paramMap.put("currentPageNo", currentPageNo);
 		
-		paramMap.put("B_TYPE",1);
-		
+		System.err.println("PRAMAMSPDMASPD:"+paramMap);
+		System.err.println("B_TYPE:"+B_TYPE);
 		try {
-			PaginationVO pg = new PaginationVO(currentPageNo, recordCountPerPage, 3, 
+			paramMap.put("B_TYPE", B_TYPE);
+			PaginationVO pg = new PaginationVO(currentPageNo, 20, 5, 
 					boardService.selectBoardListCnt(paramMap));
 			
-			paramMap.put("length",recordCountPerPage);
+			paramMap.put("length",20);
 			paramMap.put("start",pg.getFirstRecordIndex()-1);
 			
 			List<Map<String,Object>> list=boardService.selectBoardList(paramMap);
-			
+			System.err.println("LISISISI:"+list);
 			model.addAttribute("list",list);
 			model.addAttribute("paramMap",paramMap);
+			model.addAttribute("B_TYPE",B_TYPE);
 			model.addAttribute("pg",pg);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-	return "mng/boardList";
+	return "mng/board/boardList";
 	}
 	
 	
@@ -535,7 +537,6 @@ System.err.println("fsdlmflmf:"+checkArr);
 			model.addAttribute("login",httpSession.getAttribute("login"));
 			model.addAttribute("member",httpSession.getAttribute("member"));
 
-			paramMap.put("B_TYPE",1);
 			Map<String,Object> detail=boardService.selectBoardDetail(paramMap);
 			System.err.println("detailP");
 			System.err.println(paramMap);
@@ -571,8 +572,6 @@ System.err.println("fsdlmflmf:"+checkArr);
 			model.addAttribute("login",httpSession.getAttribute("login"));
 			model.addAttribute("member",httpSession.getAttribute("member"));
 			
-			paramMap.put("B_TYPE",1);
-
 			paramMap.put("no",boardService.selectBoardMaxNo(paramMap)+1);
 			model.addAttribute("paramMap",paramMap);
 		} catch (Exception e) {
@@ -594,16 +593,12 @@ System.err.println("fsdlmflmf:"+checkArr);
 		System.err.println("insert:"+paramMap);
 		System.err.println("file:"+multi);
 		
-		paramMap.put("B_TYPE",1);
-		//paramMap.put("no",Integer.parseInt(paramMap.get("no").toString())+1);
-		//paramMap.put("originNo",paramMap.get("no"));
 
 		try {
 			if(paramMap.get("no").toString()!=null||!paramMap.get("no").toString().trim().equals(""))
 				paramMap.put("no",paramMap.get("no"));
 			
 			if(paramMap.get("replyType")!=null && paramMap.get("replyType").toString().equals("Y")) {
-				//paramMap.put("originNo",paramMap.get("no"));
 				paramMap.put("title",paramMap.get("title"));
 				
 				paramMap.put("B_NO",Integer.parseInt(boardService.selectBoardMaxNo(paramMap).toString())+1);
