@@ -37,42 +37,63 @@
 	<section class="py-5">
 		<div class="container">
 			<form id="boardForm" method="post">
-			<input type="hidden" id="B_TYPE" name="B_TYPE">
-			<input type="hidden" id="no" name="no">
+			<input type="hidden" id="orderId" name="orderId">
+			<input type="hidden" id="delivery" name="delivery">
 			<input type="hidden" id="currentPageNo" name="currentPageNo" value="${pg.currentPageNo}"/>
 			<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
 				<!-- Page Heading/Breadcrumbs-->
-				<h1 class="mt-4 mb-3">
-					Q&A
-				</h1>
+					<div class="row">
+						<div class="col-12">
+							<button type="button" onclick="" id="delete_btn" class="btn btn btn-info btn-sm float-right">발송</button>
+							<button type="button" onclick="" id="cancel_btn" class="btn btn btn-danger btn-sm float-right">취소</button>
+						</div>
+					</div>
+<%-- 						<button class="btn btn-primary" onclick="fn_insert('${login.ID}')" type="button">Insert</button> --%>
 				
-			
-			<div class="row">
-				<div class="col-12">
-					<button class="btn btn-info btn-sm float-right" onclick="fn_insert('${member.ID}','${B_TYPE}')" type="button">작성</button>
-				</div>
-			</div>
           		<span>총 <em>${pg.totalRecordCount}</em>건 </span>
                 
 				<table class="table table-sm">
-					<thead class="thead-light">
+					<thead>
 						<tr>
-							<th scope="col">글번호</th>
-							<th scope="col">제목</th>
-							<th scope="col">아이디</th>
-							<th scope="col">등록일자</th>
-							<th scope="col">조회수</th>
+							<th scope="col">
+								<div class="allCheck">
+					    			<span>
+					    				<input type="checkbox" name="allCheck" id="allCheck" />
+					    			</span>
+								</div>
+							</th>
+							<th scope="col">orderId</th>
+							<th scope="col">gdsName</th>
+							<th scope="col">gdsNum</th>
+							<th scope="col">amount</th>
+							<th scope="col">orderDate</th>
+							<th scope="col">delivery</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="result" items="${list}" varStatus="status">
 							<tr>
-								<th scope="row">${result.B_NO}</th>
-								<td><a href="#" onclick="fn_detail('${result.B_NO}','${member.ID}','${B_TYPE}');">${result.title}</a></td>
-<%-- 								<td><a href="#" onclick="fn_detail('${result.B_NO}','${login.ID}');">${result.title}</a></td> --%>
-								<td>${result.id}</td>
-								<td>${result.input_dt}</td>
-								<td>${result.cnt}</td>
+								<th>
+									<div class="checkBox">
+										<input type="checkbox" name="chBox" class="chBox" data-cid="${result.orderId}" />
+										<script>
+											$(".chBox").click(function(){
+												$("#allCheck").prop("checked", false);
+											});
+										</script>
+									</div>
+								</th>
+								<th scope="row">${result.orderId}</th>
+								<td>
+									<a href="#" onclick="fn_order_detail_pop('${result.orderId}')" onclick="fn_order_detail_pop('${result.orderId}')"
+													data-toggle="modal" data-target="#orderDetailPopup">
+										${result.gdsName} <c:if test="${result.cnt eq 1}"> 1</c:if><c:if test="${result.cnt ne 1}">외 ${result.cnt-1}</c:if> 건</a>
+								</td>
+								<%-- <td><a href="#" onclick="fn_detail('${result.orderId}','${result.delivery}');">${result.gdsName} 외 ${result.cnt-1} 건</a></td> --%>
+								<td>${result.gdsNum}</td>
+								<td>${result.amount}</td>
+								<td>${result.orderDate}</td>
+								<td>${result.delivery}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -83,17 +104,14 @@
 						name="searchId" type="text" value="${paramMap.searchId}" 
 						data- validation-required-message="Please enter your phone number." />
 				</div>
-				<button class="btn btn-secondary btn-sm float-right" onclick="fn_list('1',1)" type="submit">검색</button>
+				<button class="btn btn-secondary btn-sm float-right" onclick="fn_list('1','D1')" type="submit">검색</button>
 			</div>
 			</form>
 			
    			<%@ include file="/WEB-INF/views/common/paging.jsp"%>
-			
-			
 		</div>
 		<!-- //Container -->
 	</section>
-	
 
 	<!-- Bootstrap core JS-->
 <!-- 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -110,7 +128,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/js/bootstrap-datetimepicker.min.js"></script>
  -->	
 </body>
-
 
 </html>
 

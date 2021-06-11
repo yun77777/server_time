@@ -137,25 +137,25 @@ public class boardController {
 		model.addAttribute("member",httpSession.getAttribute("member"));
 
 System.err.println("APPASPASP:"+paramMap);
+System.err.println("B_TYPEB_TYPEB_TYPEB_TYPE:"+B_TYPE);
+
 		paramMap.put("recordCountPerPage", recordCountPerPage);
 		paramMap.put("currentPageNo", currentPageNo);
-		
 		
 		try {
 			
 			paramMap.put("B_TYPE", B_TYPE);
+			System.err.println("PAPAPPAPAPAPAPAPPRRMAMAM:"+paramMap);
 			
 			PaginationVO pg = new PaginationVO(currentPageNo, 20, 5, 
 					boardService.selectBoardListCnt(paramMap));
 			
 			paramMap.put("length",20);
 			paramMap.put("start",pg.getFirstRecordIndex()-1);
-			
-			
-			
 
 			List<Map<String,Object>> list=boardService.selectBoardList(paramMap);
 			System.err.println("list:"+list);
+			
 			model.addAttribute("B_TYPE",B_TYPE);
 			model.addAttribute("list",list);
 			model.addAttribute("paramMap",paramMap);

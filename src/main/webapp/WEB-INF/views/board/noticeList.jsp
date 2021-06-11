@@ -37,19 +37,15 @@
 	<section class="py-5">
 		<div class="container">
 			<form id="boardForm" method="post">
-			<input type="hidden" id="no" name="no">
 			<input type="hidden" id="B_TYPE" name="B_TYPE">
+			<input type="hidden" id="no" name="no">
 			<input type="hidden" id="currentPageNo" name="currentPageNo" value="${pg.currentPageNo}"/>
 			<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
 				<!-- Page Heading/Breadcrumbs-->
-				<h1 class="mt-4 mb-3">
-					공지사항
-				</h1>
-				
 			
 			<div class="row">
 				<div class="col-12">
-					<button class="btn btn-info btn-sm float-right" onclick="fn_insert('${member.ID}','${B_TYPE}','${paramMap.B_TYPE}')" type="button">작성</button>
+					<button class="btn btn-info btn-sm float-right" onclick="fn_insert('${member.ID}','${B_TYPE}')" type="button">작성</button>
 				</div>
 			</div>
           		<span>총 <em>${pg.totalRecordCount}</em>건 </span>
@@ -68,7 +64,7 @@
 						<c:forEach var="result" items="${list}" varStatus="status">
 							<tr>
 								<th scope="row">${result.B_NO}</th>
-								<td><a href="#" onclick="fn_detail('${result.B_NO}','${member.ID}');">${result.title}</a></td>
+								<td><a href="#" onclick="fn_detail('${result.B_NO}','${member.ID}','${B_TYPE}');">${result.title}</a></td>
 <%-- 								<td><a href="#" onclick="fn_detail('${result.B_NO}','${login.ID}');">${result.title}</a></td> --%>
 								<td>${result.id}</td>
 								<td>${result.input_dt}</td>
@@ -88,8 +84,6 @@
 			</form>
 			
    			<%@ include file="/WEB-INF/views/common/paging.jsp"%>
-			
-			
 			
 		</div>
 		<!-- //Container -->

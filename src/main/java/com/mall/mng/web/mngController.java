@@ -80,7 +80,7 @@ public class mngController {
 	
 	@RequestMapping(value = "/orderList.do")
 	public String orderListMng(@RequestParam(defaultValue="1") int currentPageNo, @RequestParam(defaultValue="20") int recordCountPerPage,
-			@RequestParam(defaultValue="D1") String delivery,
+			@RequestParam(defaultValue="all") String delivery,
 			@RequestParam Map<String, Object> paramMap,
 			HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
 		model.addAttribute("login",httpSession.getAttribute("login"));

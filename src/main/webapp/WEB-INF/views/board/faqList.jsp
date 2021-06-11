@@ -37,8 +37,8 @@
 	<section class="py-5">
 		<div class="container">
 			<form id="boardForm" method="post">
-			<input type="hidden" id="no" name="no">
 			<input type="hidden" id="B_TYPE" name="B_TYPE">
+			<input type="hidden" id="no" name="no">
 			<input type="hidden" id="currentPageNo" name="currentPageNo" value="${pg.currentPageNo}"/>
 			<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
 				<!-- Page Heading/Breadcrumbs-->
@@ -68,7 +68,7 @@
 						<c:forEach var="result" items="${list}" varStatus="status">
 							<tr>
 								<th scope="row">${result.B_NO}</th>
-								<td><a href="#" onclick="fn_detail('${result.B_NO}','${member.ID}','${paramMap.B_TYPE}');">${result.title}</a></td>
+								<td><a href="#" onclick="fn_detail('${result.B_NO}','${member.ID}','${B_TYPE}');">${result.title}</a></td>
 <%-- 								<td><a href="#" onclick="fn_detail('${result.B_NO}','${login.ID}');">${result.title}</a></td> --%>
 								<td>${result.id}</td>
 								<td>${result.input_dt}</td>

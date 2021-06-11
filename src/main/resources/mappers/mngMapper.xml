@@ -308,7 +308,8 @@
  		select 
 		    o.orderId, o.userId, o.orderRec,
 		    o.userAddr1, o.userAddr2, o.userAddr3,
-		    o.orderPhon, o.amount, o.orderDate
+		    o.orderPhon, o.amount
+		    , SUBSTRING(o.orderDate,1,10) orderDate
 		    , od.cartStock
 		    , g.gdsName
 		    , g.gdsNum
@@ -328,8 +329,12 @@
 		left outer join (SELECT orderId, COUNT(*) AS cnt FROM tbl_order_details GROUP BY orderId) b
         on b.orderId=o.orderId
 	    where od.orderDetailsNum=(SELECT MIN(a.orderDetailsNum) FROM tbl_order_details a inner join tbl_order b on a.orderId=o.orderId)
+		
+		<if test="delivery != 'all'">
 		and o.delivery=#{delivery}
+		</if>
 		<include refid="searchOption"/>
+		order by o.orderDate desc
 	<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
 	</select>
 	
@@ -352,7 +357,9 @@
 		left outer join (SELECT orderId, COUNT(*) AS cnt FROM tbl_order_details GROUP BY orderId) b
         on b.orderId=o.orderId
 	    where od.orderDetailsNum=(SELECT MIN(a.orderDetailsNum) FROM tbl_order_details a inner join tbl_order b on a.orderId=o.orderId)
+		<if test="delivery != 'all'">
 		and o.delivery=#{delivery}
+		</if>
 		<include refid="searchOption"/>
 		) o
 	</select>

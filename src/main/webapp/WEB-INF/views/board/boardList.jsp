@@ -28,8 +28,6 @@
 
     <form id="boardListForm" method="post">
     	<input type="hidden" id="B_TYPE" name="B_TYPE">
-		<input type="hidden" id="currentPageNo" name="currentPageNo" value="${pg.currentPageNo}"/>
-		<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
     </form>
     
 	<!-- Page Content-->
@@ -80,37 +78,18 @@
 <script>
 function fn_boardList(B_TYPE,no) {
 	$('#B_TYPE').val(B_TYPE);
-	$('#currentPageNo').val(no);
+	$('#boardForm #currentPageNo').val(no);
 
 	$('#boardListForm').attr({
 		action : '<c:url value="/boardList.do"/>',
 		target : '_self'
 	}).submit();
-	
-	 
-/* 	alert("boardListForm:"+boardListForm);
-	var  formData= new FormData($("#boardListForm")[0]);
-		$.ajax({
-			url : "${pageContext.request.contextPath}/boardListType.do",
-			type : "post",
-			enctype: 'multipart/form-data',
-			data : formData,
-			processData : false,
-			contentType : false,
-			success : function(result) {
-			}, // success 
-
-			error : function(xhr, status) {
-				alert(xhr + " : " + status);
-			}
-		});  */
-	
-	
 }
 
-function fn_list(no, B_TYPE) {
-	$('#currentPageNo').val(no);
-	$('#boardForm #B_TYPE').val(B_TYPE);
+function fn_list(no) {
+/* function fn_list(no, B_TYPE) { */
+	$('#boardForm #currentPageNo').val(no);
+	$('#boardForm #B_TYPE').val('${B_TYPE}');
 	
 	$('#boardForm').attr({
 		action : '<c:url value="/boardList.do"/>',

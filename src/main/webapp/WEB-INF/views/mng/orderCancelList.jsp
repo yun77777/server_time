@@ -42,9 +42,6 @@
 			<input type="hidden" id="currentPageNo" name="currentPageNo" value="${pg.currentPageNo}"/>
 			<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
 				<!-- Page Heading/Breadcrumbs-->
-				<h1 class="mt-4 mb-3">
-					전체
-				</h1>
 					<div class="row">
 						<div class="col-12">
 							<button type="button" onclick="" id="delete_btn" class="btn btn btn-info btn-sm float-right">발송</button>
@@ -69,6 +66,7 @@
 							<th scope="col">gdsName</th>
 							<th scope="col">gdsNum</th>
 							<th scope="col">amount</th>
+							<th scope="col">orderDate</th>
 							<th scope="col">delivery</th>
 						</tr>
 					</thead>
@@ -94,6 +92,7 @@
 								<%-- <td><a href="#" onclick="fn_detail('${result.orderId}','${result.delivery}');">${result.gdsName} 외 ${result.cnt-1} 건</a></td> --%>
 								<td>${result.gdsNum}</td>
 								<td>${result.amount}</td>
+								<td>${result.orderDate}</td>
 								<td>${result.delivery}</td>
 							</tr>
 						</c:forEach>

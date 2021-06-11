@@ -38,8 +38,6 @@
 	
 	<form id="boardListForm" method="post">
     	<input type="hidden" id="delivery" name="delivery">
-		<input type="hidden" id="currentPageNo" name="currentPageNo" value="${pg.currentPageNo}"/>
-		<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
     </form>
     
 	<!-- Page Content-->
@@ -52,14 +50,18 @@
 				</h1>
 				<nav>
 				  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-				  <a class="nav-link <c:if test="${delivery eq 'D1'}"> active </c:if>" id="nav-home-tab" onclick="fn_boardList('D1',1)" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">전체</a>
+				  <a class="nav-link <c:if test="${delivery eq 'all'}"> active </c:if>" id="nav-home-tab" onclick="fn_boardList('all',1)" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">전체</a>
+				  <a class="nav-link <c:if test="${delivery eq 'D1'}"> active </c:if>" id="nav-home-tab" onclick="fn_boardList('D1',1)" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">주문완료</a>
 				    <a class="nav-link <c:if test="${delivery eq 'D3'}"> active </c:if>" id="nav-profile-tab" onclick="fn_boardList('D3',1)" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">취소</a>
 				    <a class="nav-link <c:if test="${delivery eq 'D2'}"> active </c:if>" id="nav-contact-tab" onclick="fn_boardList('D2',1)" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">발송</a>
 				  </div>
 				</nav>
 				<div class="tab-content" id="nav-tabContent">
-				  <div class="tab-pane fade show <c:if test="${delivery eq 'D1'}"> active </c:if>" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+				  <div class="tab-pane fade show <c:if test="${delivery eq 'all'}"> active </c:if>" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 					<%@ include file="/WEB-INF/views/mng/orderAllList.jsp"%>
+				  </div>
+				  <div class="tab-pane fade show <c:if test="${delivery eq 'D1'}"> active </c:if>" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+					<%@ include file="/WEB-INF/views/mng/orderCompleteList.jsp"%>
 				  </div>
 				  <div class="tab-pane fade show <c:if test="${delivery eq 'D3'}"> active </c:if>" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 				  	<%@ include file="/WEB-INF/views/mng/orderCancelList.jsp"%>
@@ -167,7 +169,7 @@ $(document).ready(function(){
 
 function fn_boardList(delivery, no) {
 	$('#delivery').val(delivery);
-	$('#currentPageNo').val(no);
+	$('#boardForm #currentPageNo').val(no);
 	
 	$('#boardListForm').attr({
 		action : '<c:url value="/mng/orderList.do"/>',
@@ -175,9 +177,10 @@ function fn_boardList(delivery, no) {
 	}).submit();
 };
 
-function fn_list(no, delivery) {
-	$('#currentPageNo').val(no);
-	$('#boardForm #delivery').val(delivery);
+function fn_list(no) {
+/* function fn_list(no, delivery) { */
+	$('#boardForm #currentPageNo').val(no);
+	$('#boardForm #delivery').val('${delivery}');
 	
 	$('#boardForm').attr({
 		action : '<c:url value="/mng/orderList.do"/>',
