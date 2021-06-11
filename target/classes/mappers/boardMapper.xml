@@ -12,8 +12,8 @@
 			AND B.title LIKE CONCAT('%',TRIM(#{searchTitle}),'%')
 		</if> -->
 		<if test="searchId != ''.toString() and searchId != null">
-			AND (B.id LIKE CONCAT('%',TRIM(#{searchId}),'%'))
-			OR (B.title LIKE CONCAT('%',TRIM(#{searchId}),'%'))
+			AND ((B.id LIKE CONCAT('%',TRIM(#{searchId}),'%'))
+			OR (B.title LIKE CONCAT('%',TRIM(#{searchId}),'%')))
 		</if>
 	</sql>
 	
@@ -28,22 +28,22 @@
 		,B.content
 		,B.cnt
 		,B.B_TYPE
-        ,IF(date_format(NOW(),'%Y-%m-%d')=date_format(input_dt,'%Y-%m-%d'),(SELECT date_format(input_dt,'%H:%m:%s') FROM board WHERE B_NO=B.B_NO AND B_TYPE=#{B_TYPE}),(SELECT date_format(input_dt,'%Y-%m-%d') FROM board WHERE B_NO=B.B_NO AND B_TYPE=#{B_TYPE})) input_dt
+		, SUBSTRING(B.input_dt,1,10) input_dt
 		FROM board B,(SELECT @rownum:=0) R
-		where B.B_NO>0 AND B.B_TYPE=#{B_TYPE}
+		where B.B_TYPE=#{B_TYPE}
 		<include refid="searchOption"/>
 		ORDER BY B.originNo DESC, B.groupOrd ASC 
 	<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
 	</select>
 	
-	<select id="selectBoardListCnt" parameterType="java.util.HashMap"
+	<select id="selectBoardListCnt" parameterType="map"
 		resultType="Integer">
 			SELECT COUNT(1) CNT
 		FROM (
 			SELECT B.B_NO
 		
 		FROM board B
-		where B.B_NO>0 AND B.B_TYPE=#{B_TYPE}
+		where B.B_TYPE=#{B_TYPE}
 		<include refid="searchOption"/>
 		) B
 	</select>

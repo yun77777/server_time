@@ -18,8 +18,8 @@
 			AND B.title LIKE CONCAT('%',TRIM(#{searchTitle}),'%')
 		</if> -->
 		<if test="searchId != ''.toString() and searchId != null">
-			AND (g.gdsName LIKE CONCAT('%',TRIM(#{searchId}),'%'))
-			OR (g.gdsNum LIKE CONCAT('%',TRIM(#{searchId}),'%'))
+			AND ((g.gdsName LIKE CONCAT('%',TRIM(#{searchId}),'%'))
+			OR (g.gdsNum LIKE CONCAT('%',TRIM(#{searchId}),'%')))
 		</if>
 	</sql>
 
