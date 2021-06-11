@@ -44,7 +44,7 @@
 				<!-- Contact Form-->
 				<!-- In order to set the email address and subject line for the contact form go to the assets/mail/contact_me.php file.-->
 				<div class="row">
-		            <button class="btn btn-secondary btn-sm float-right" id="" onclick="fn_list()" type="button">목록</button>
+		            <button class="btn btn-secondary btn-sm float-right" id="" onclick="fn_list('1',${paramMap.B_TYPE})" type="button">목록</button>
 				
 					<div class="col-lg-8 mb-4">
 						<div class="control-group form-group">
@@ -209,8 +209,10 @@ function fn_del(value, name){
 
 
 function fn_list() {
+	$('#boardForm #B_TYPE').val('${B_TYPE}');
+
 	$('#boardForm').attr({
-		action : '<c:url value="/boardList.do" />',
+		action : '<c:url value="/mng/boardList.do" />',
 		target : '_self'
 	}).submit();
 };
@@ -258,7 +260,7 @@ function fn_insert() {
 	formData.append("file",file);
 	
 	$.ajax({
-		url : "${pageContext.request.contextPath}/insertBoard.do",
+		url : "${pageContext.request.contextPath}/mng/insertBoard.do",
 		type : "post",
 		enctype: 'multipart/form-data',
 		//data : {fileNoDel : fileNoDel ,fileNameDel : fileNameDel },

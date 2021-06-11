@@ -443,7 +443,7 @@ function fn_save() {
 	formData.append("file",file);
 	
 	$.ajax({
-		url : "${pageContext.request.contextPath}/updateBoard.do",
+		url : "${pageContext.request.contextPath}/mng/updateBoard.do",
 		type : "post",
 		enctype: 'multipart/form-data',
 		//data : {fileNoDel : fileNoDel ,fileNameDel : fileNameDel },
@@ -485,12 +485,13 @@ function fn_delete() {
 }
 
 
-
-
-
-
 function fn_list() {
-	window.location='<c:url value="/boardList.do"/>';
+	$('#boardForm #B_TYPE').val('${paramMap.B_TYPE}');
+
+	$('#boardForm').attr({
+		action : '<c:url value="/mng/boardList.do" />',
+		target : '_self'
+	}).submit();
 };
 
 function fn_detail(no){
@@ -498,7 +499,7 @@ function fn_detail(no){
 	$('#boardForm #no').attr('disabled',false);
 	$('#boardForm #no').val(no);
 	$('#boardForm').attr({
-		action : '<c:url value="/boardDetail.do" />',
+		action : '<c:url value="/mng/boardDetail.do" />',
 		target : '_self'
 	}).submit();
 
@@ -508,7 +509,7 @@ function fn_btn(no){
 	var  formData= $('#boardForm').serialize();
     $.ajax({
         cache : false,
-        url : "${pageContext.request.contextPath}/boardDetail.do",
+        url : "${pageContext.request.contextPath}/mng/boardDetail.do",
         type : 'POST', 
         data : formData, 
         success : function(data) {
@@ -526,7 +527,7 @@ function fn_insert() {
 	$('#boardForm #no').attr('disabled',false);
 	var formData = new FormData($("#boardForm")[0]);
 	$.ajax({
-		url : "${pageContext.request.contextPath}/insertBoard.do",
+		url : "${pageContext.request.contextPath}/mng/insertBoard.do",
 		type : "post",
 		enctype: 'multipart/form-data',
 		data : formData,
@@ -547,7 +548,7 @@ function fn_delete() {
 	$('#boardForm #no').attr('disabled',false);
 	var formData = new FormData($("#boardForm")[0]);
 	$.ajax({
-		url : "${pageContext.request.contextPath}/deleteBoard.do",
+		url : "${pageContext.request.contextPath}/mng/deleteBoard.do",
 		type : "post",
 		enctype: 'multipart/form-data',
 		data : formData,
@@ -616,7 +617,7 @@ $(function() {
 			return;
 		}
 	});
-})
+});
 
 function fn_reply(no){
 	//var  formData= $('#boardForm').serialize();
