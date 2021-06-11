@@ -111,11 +111,13 @@ $(document).ready(function(){
 });
 	
  
-function fn_cancel(){
+function fn_cancel(orderId){
 	var confirm_val = confirm("취소하시겠습니까?");
 	var cnt=0;
 	if(confirm_val) {
 		var checkArr = new Array();
+		
+   		checkArr.push(orderId);
 
 		// 체크된 체크박스의 갯수만큼 반복
 		$("input[class='chBox']:checked").each(function(){
@@ -140,7 +142,6 @@ function fn_cancel(){
     				if(result == 1) {						
     					alert("취소 완료");
     					fn_list('1');
-    					//location.href = "/mng/orderList.do";
     				} else {
     					alert("취소 실패");
     				}
@@ -151,12 +152,14 @@ function fn_cancel(){
 	}
 }
  
-function fn_deliver(){
+function fn_deliver(orderId){
 	var confirm_val = confirm("발송처리하시겠습니까?");
 		var cnt=0;
    	if(confirm_val) {
    		var checkArr = new Array();
-
+   		
+   		checkArr.push(orderId);
+		
    		// 체크된 체크박스의 갯수만큼 반복
    		$("input[class='chBox']:checked").each(function(){
    			if($(this).next().val()!='발송')
@@ -179,7 +182,7 @@ function fn_deliver(){
     				
     				if(result == 1) {						
     					alert("발송처리 완료");
-    					location.href = "/mng/orderList.do";
+    					fn_list('1');
     				} else {
     					alert("발송처리 실패");
     				}

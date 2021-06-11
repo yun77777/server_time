@@ -239,65 +239,33 @@ function fn_order_detail_pop(orderId) {
 		},
 		success : function(result) {
 			var obj = JSON.parse(result);
-			//var detail = obj.detail ;
 			var detailList = obj.detailList;
-			/*    $.each(detail, function( index, value ) {
-					$("#"+index+"").val(value);
-					//$("#pp").append(index+','+value+'<br>');
-			       console.log('element' ,index, value ); 
-			    }); */
 			var content = '<section id="content"><div class="table-responsive-lg"><table class="table">';
 
 			for (var i = 0; i < detailList.length; i++) {
 				console.log('element', i, detailList[i]);
 				console.log(detailList[i].gdsName);
-				//$("#pp").append(i+','+imgList[i]+'<br>');
-				//$("#pp").append(i+','+imgList[i].gdsPrice+'<br>');
 				var image = "<c:url value='/img/"+detailList[i].representative_file+"'/>";
 				// #pp: 상세이미지 imgList div 영역
-				/* $("#kk").append(
-						'<b>' + (i + 1) + '</b>. '
-								+ detailList[i].gdsName + '<br>');
-				$("#kk")
-						.append(
-								''
-										+ "<img class='card-img-top' src="
-										+ image
-										+ " style='width:20%;height:auto'><br>");
-				$("#kk").append(
-						'cartStock: ' + detailList[i].cartStock
-								+ '<br>');
-				$("#kk").append(
-						'gdsPrice: ' + detailList[i].amount
-								+ '<br>'); */
-				content+='<colgroup><col width="20%"><col width="*"></colgroup>';
+						
+				content+='<colgroup><col width="*"><col width="20%"><col width="*"></colgroup>';
+				content += '<tr><td rowspan="5">'
+					+ "<img class='card-img-top' src=" + image
+					+ " style='width:200px; height:auto'>"
+					+ '</td><td colspan="2"></td></tr>';
+				
+				
 				content += '<tr><td>번호</td><td>'
 						+ (i+1) + '</td></tr>';
 				content += '<tr><td>상품명</td><td>'
 						+ (detailList[i].gdsName) + '</td></tr>';
-				content += '<tr><td></td><td>'
-						+ "<img class='card-img-top' src=" + image
-						+ " style='width:20%;height:auto'>"
-						+ '</td></tr>';
+				
 				content += '<tr><td>주문 수량</td><td>'
 						+ (detailList[i].cartStock) + '</td></tr>';
 				content += '<tr><td>가격</td><td>'
 						+ (detailList[i].amount) + '</td></tr>';
 
 			}
-
-		/* 	$("#kk").append('<hr>');
-			$("#kk").append(
-					'orderId: ' + detailList[0].orderId + '<br>');
-			$("#kk").append(
-					'userId: ' + detailList[0].userId + '<br>');
-			$("#kk").append(
-					'orderPhon: ' + detailList[0].orderPhon
-							+ '<br>');
-			$("#kk").append(
-					'userAddr: ' + detailList[0].userAddr1 + ', '
-							+ detailList[0].userAddr2 + ', '
-							+ detailList[0].userAddr3 + '<br>'); */
 
 			content += '</table></div></section>';
 			$("#itemDetail").html(content);
@@ -316,8 +284,13 @@ function fn_order_detail_pop(orderId) {
 			orderContent += '</table>'
 
 			$("#orderInfo").html('<hr>' + orderContent);
-
-			//$("#rpsnImg").attr("src","<c:url value='/img/"+img+"'/>");
+			
+			
+			var button='<button type="button" onclick="fn_deliver('+detailList[0].orderId+')" class="btn btn btn-info btn-sm float-right ml-1">발송</button>'
+			button+='<button type="button" onclick="fn_cancel('+detailList[0].orderId+')" class="btn btn btn-danger btn-sm float-right ml-1">취소</button>'
+			button+='<button type="button" class="btn btn-secondary btn-info btn-sm float-right ml-1"" data-dismiss="modal">확인</button>'
+			$(".modal-footer").html('<hr>' + button);
+			
 
 		}
 	});

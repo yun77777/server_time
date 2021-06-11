@@ -628,7 +628,6 @@ System.err.println("LISITIIITITISITITIT:"+cartList);
 		Map<String,Object> login=(HashMap<String, Object>) session.getAttribute("member");
 		paramMap.put("userId",login.get("ID"));
 		
-		
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		
