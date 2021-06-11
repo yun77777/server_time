@@ -59,8 +59,8 @@
 							<table class="table">
 							<c:forEach items="${orderList}" var="orderList" varStatus="status">
 							<tr>
-							<th class="table-info">${status.index+1}</th>
-								<td colspan="2" class="table-info"></td>
+							<th class="table-active">${status.index+1}</th>
+								<td colspan="2" class="table-active"></td>
 							</tr>
 								<tr>
 									<td rowspan="4">

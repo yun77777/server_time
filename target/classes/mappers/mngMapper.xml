@@ -22,7 +22,19 @@
 			OR (g.gdsNum LIKE CONCAT('%',TRIM(#{searchId}),'%')))
 		</if>
 	</sql>
-
+	<sql id="custmoerSearchOption">
+		<!-- <if test="searchStartDate != ''.toString() and searchStartDate != null and searchEndDate != ''.toString() and searchEndDate != null">
+		AND date_format(B.input_dt,'%Y-%m-%d') BETWEEN #{searchStartDate} AND #{searchEndDate}
+		
+		</if>
+		<if test="searchTitle != ''.toString() and searchTitle != null">
+			AND B.title LIKE CONCAT('%',TRIM(#{searchTitle}),'%')
+		</if> -->
+		<if test="searchId != ''.toString() and searchId != null">
+			AND ((M.ID LIKE CONCAT('%',TRIM(#{searchId}),'%'))
+			OR (M.NAME LIKE CONCAT('%',TRIM(#{searchId}),'%')))
+		</if>
+	</sql>
 	<insert id="register" parameterType="map">
 	<!-- <selectKey resultType="int" keyProperty="gdsNum" order="BEFORE">
 		SELECT COALESCE(MAX(gdsNum),0)+1 AS gdsNum FROM tbl_goods
@@ -393,6 +405,8 @@
 	 	, M.NAME
 	 	, M.input_dt
 	FROM member M, (SELECT @rownum:=0) R
+	where M.ID IS NOT NULL
+	<include refid="custmoerSearchOption"/>
 	<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
 		
 	</select>
@@ -413,7 +427,6 @@
 	</select>
 	
 	
-	
 	<delete id="deleteCustomer" parameterType="map">
  	delete from member where ID=#{ID}
 	</delete>
@@ -425,7 +438,7 @@
 			SELECT M.ID
 		FROM member M
 		where M.ID IS NOT NULL
-		<!-- <include refid="searchOption"/> -->
+		<include refid="custmoerSearchOption"/>
 		) M
 	</select>
 	

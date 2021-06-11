@@ -53,7 +53,7 @@
           		<span>총 <em>${pg.totalRecordCount}</em>건 </span>
                 
 				<table class="table table-sm">
-					<thead>
+					<thead class="thead-light">
 						<tr>
 							<th scope="col">
 								<div class="allCheck">
@@ -85,7 +85,7 @@
 								</th>
 								<th scope="row">${result.orderId}</th>
 								<td>
-									<a href="#" onclick="fn_order_detail_pop('${result.orderId}')" onclick="fn_order_detail_pop('${result.orderId}')"
+									<a href="#" onclick="fn_order_detail_pop('${result.orderId}','orderMng')"
 													data-toggle="modal" data-target="#orderDetailPopup">
 										${result.gdsName} <c:if test="${result.cnt eq 1}"> 1</c:if><c:if test="${result.cnt ne 1}">외 ${result.cnt-1}</c:if> 건</a>
 								</td>

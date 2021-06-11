@@ -97,6 +97,8 @@ body {
 <body>
 
 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
+	<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
+	
 <!-- Page Content-->
         <section class="py-5">
             <div class="container">
@@ -131,7 +133,7 @@ body {
 	                                    <c:if test='${!empty paramMap.groupLayer}'>
 	                                    value="${paramMap.groupLayer}"</c:if>
                         	/>
-                            <button class="btn btn-secondary btn-sm float-right" id="" onclick="fn_list()" type="button">목록</button>
+                            <button class="btn btn-secondary btn-sm float-right" onclick="fn_list()" type="button">목록</button>
                             <table class="table">
 							  <thead>
 							  </thead>

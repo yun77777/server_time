@@ -37,10 +37,11 @@
 		<form id="boardForm" method="post" enctype="multipart/form-data">
 
 		<div id="container_box">
-		<div class="inputArea">
-				<button type="button" id="addCodeBtn" class="btn btn-primary">추가</button>			
-				<button type="button" onclick="" id="delete_btn" class="btn btn-primary">삭제</button>			
-				<button type="button" id="insertBtn" onclick="" class="btn btn-primary">저장</button>			
+		<div class="inputArea mt-4 mb-4">
+			<span id="total">전체: ${pg.totalRecordCount} 건</span>
+				<button type="button" id="addCodeBtn" class="btn btn btn-info btn-sm float-right ml-1">추가</button>			
+				<button type="button" onclick="" id="delete_btn" class="btn btn btn-danger btn-sm float-right ml-1">삭제</button>			
+				<button type="button" id="insertBtn" onclick="" class="btn btn btn-secondary btn-sm float-right ml-1">저장</button>			
 		
 		</div>
 			<input type="hidden" id="gdsNum" name="gdsNum">
@@ -48,7 +49,7 @@
 			<input type="hidden" id="recordCountPerPage" name="recordCountPerPage" value="${pg.recordCountPerPage}"/>
 				<!-- Page Heading/Breadcrumbs-->
 				
-          		<span id="total">전체: ${pg.totalRecordCount} 건</span>
+          		
                 
 				<table class="table table-sm">
 					<colgroup>
@@ -58,7 +59,7 @@
 						<col width="20%">
 						<col width="*">
 					</colgroup>
-					<thead>
+					<thead class="thead-light">
 						<tr>
 						<th>
 						<div class="allCheck">

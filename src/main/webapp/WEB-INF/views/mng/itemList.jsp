@@ -52,7 +52,7 @@
           		<span>전체: <em>${pg.totalRecordCount}</em> 건</span>
                 
 				<table class="table table-sm">
-					<thead>
+					<thead class="thead-light">
 						<tr>
 							<th scope="col">
 							<div class="allCheck">

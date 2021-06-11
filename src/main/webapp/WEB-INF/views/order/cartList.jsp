@@ -60,7 +60,7 @@
 				    </tr>
 			    <form id="deleteForm" method="post" enctype="multipart/form-data">
 				    <c:forEach items="${cartList}" var="cartList" varStatus="status">
-				    <th colspan="2" class="table-info">${status.index+1}</th>
+				    <th colspan="2" class="table-active">${status.index+1}</th>
 						<tr>
 							<td>
 							<div class="checkBox">
@@ -78,14 +78,14 @@
 							<td>
 								<!-- <div class="text-center"> -->
 								<div class="">
-										<a href="#!"
-											onclick="fn_detail_pop('${cartList.gdsNum}')"
-											data-toggle="modal" data-target="#exampleModalLong"> 
-											<!-- <img class="card-img-top rounded" -->
-											<img class="card-img-top"
-												src="<c:url value='/img/${cartList.representative_file}'/>"
-												style="height: 200px;width:auto" alt="no image" />
-										</a>
+									<a href="#!"
+										onclick="fn_detail_pop('${cartList.gdsNum}')"
+										data-toggle="modal" data-target="#exampleModalLong"> 
+										<!-- <img class="card-img-top rounded" -->
+										<img class="card-img-top"
+											src="<c:url value='/img/${cartList.representative_file}'/>"
+											style="height: 200px;width:auto" alt="no image" />
+									</a>
 								</div>
 							</td>
 						</tr>

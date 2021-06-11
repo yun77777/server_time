@@ -104,27 +104,19 @@
 						</c:forEach>
 					</tbody>
 				</table>
-			</form>
+			
 			
    			<%@ include file="/WEB-INF/views/common/paging.jsp"%>
    			
-   			<div class="row float-right">
-				<div class="form-group row">
-					<div class="col-xs-4">
-						<label>id:</label> 
-					</div>
+   			<div class="row">
+				<div class="col-2 float-right">
+				<input class="form-control float-right" id="searchId"
+						name="searchId" type="text" value="${paramMap.searchId}" 
+						data- validation-required-message="Please enter your phone number." />
 				</div>
-				<div class="form-group row">
-					<div class="col-xs-4">
-						<input class="form-control" id="searchId"
-							name="searchId" type="text" value="${paramMap.searchId}" 
-							data-validation-required-message="Please enter your phone number." />
-					</div>
-				</div>
-				<div class="form-group row">
-					<button class="btn btn-secondary btn-sm right" onclick="fn_list('1')" type="button">검색</button>
-				</div>
+				<button class="btn btn-secondary btn-sm float-right" onclick="fn_list('1')" type="submit">검색</button>
 			</div>
+			</form>
 		</div>
 		<!-- //Container -->
 	</section>

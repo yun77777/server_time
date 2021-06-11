@@ -228,18 +228,25 @@ function kakaoLogin() {
   }
   
   
-function fn_order_detail_pop(orderId) {
+function fn_order_detail_pop(orderId, pageType) {
 	$('#orderId').val(orderId);
+	
+	var pageType=pageType;
+	if(pageType!='orderMng')
+		pageType='';
 
 	$.ajax({
 		url : "${pageContext.request.contextPath}/orderDetailViewPopup.do",
 		type : "post",
 		data : {
-			orderId : orderId
+			orderId : orderId,
+			pageType : pageType
+			
 		},
 		success : function(result) {
 			var obj = JSON.parse(result);
 			var detailList = obj.detailList;
+			var pageType = obj.pageType;
 			var content = '<section id="content"><div class="table-responsive-lg"><table class="table">';
 
 			for (var i = 0; i < detailList.length; i++) {
@@ -285,9 +292,12 @@ function fn_order_detail_pop(orderId) {
 
 			$("#orderInfo").html('<hr>' + orderContent);
 			
+			var button='';
 			
-			var button='<button type="button" onclick="fn_deliver('+detailList[0].orderId+')" class="btn btn btn-info btn-sm float-right ml-1">발송</button>'
-			button+='<button type="button" onclick="fn_cancel('+detailList[0].orderId+')" class="btn btn btn-danger btn-sm float-right ml-1">취소</button>'
+			if(pageType=='orderMng'){
+				button+='<button type="button" onclick="fn_deliver('+detailList[0].orderId+')" class="btn btn btn-info btn-sm float-right ml-1">발송</button>'
+				button+='<button type="button" onclick="fn_cancel('+detailList[0].orderId+')" class="btn btn btn-danger btn-sm float-right ml-1">취소</button>'
+			}
 			button+='<button type="button" class="btn btn-secondary btn-info btn-sm float-right ml-1"" data-dismiss="modal">확인</button>'
 			$(".modal-footer").html('<hr>' + button);
 			

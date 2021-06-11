@@ -738,7 +738,7 @@ System.err.println("fsdlmflmf:"+checkArr);
 		paramMap.put("currentPageNo", currentPageNo);
 		
 		try {
-			PaginationVO pg = new PaginationVO(currentPageNo, recordCountPerPage, 3, 
+			PaginationVO pg = new PaginationVO(currentPageNo, recordCountPerPage, 5, 
 					mngService.selectCustomerListCnt(paramMap));
 			
 			paramMap.put("length",recordCountPerPage);

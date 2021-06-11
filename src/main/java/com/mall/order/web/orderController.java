@@ -619,7 +619,10 @@ System.err.println("LISITIIITITISITITIT:"+cartList);
 	
 	@ResponseBody
 	@RequestMapping(value = "/orderDetailViewPopup.do", produces = "application/text; charset=utf8")
-	public String orderDetailViewPopup(Map<String, Object> paramMap,@RequestParam(value="orderId") int orderId, HttpSession session,
+	public String orderDetailViewPopup(Map<String, Object> paramMap,
+			@RequestParam int orderId,
+			@RequestParam String pageType,
+			HttpSession session,
 			HttpServletRequest request, Model model) throws Exception {
 			//		public Map<String, Object> orderDetailViewPopup( @RequestParam Map<String, Object> paramMap, Model model, HttpSession session) throws Exception {
 		logger.info("order");
@@ -633,6 +636,7 @@ System.err.println("LISITIIITITISITITIT:"+cartList);
 		
 		try {
 			paramMap.put("orderId",orderId);
+			paramMap.put("pageType",pageType);
 			//paramMap.put("orderId",orderId);
 			System.err.println("param:"+paramMap);
 			System.err.println("orderId:"+orderId);
@@ -642,6 +646,7 @@ System.err.println("LISITIIITITISITITIT:"+cartList);
 			System.err.println("detailList:"+detailList);
 			System.err.println("result:"+result);
 			result.put("detailList",detailList);
+			result.put("pageType",pageType);
 			//result.put("result",result);
 			
 //			model.addAttribute("detailList", detailList);
