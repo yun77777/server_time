@@ -152,8 +152,6 @@ function fn_insert(id, B_TYPE){
 			target : '_self'
 		}).submit();
 	}
-	
-
 }
 
 function fn_detail(no,id,B_TYPE){
