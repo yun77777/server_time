@@ -55,7 +55,7 @@
 			</div>
           		<span>총 <em>${pg.totalRecordCount}</em>건 </span>
                 
-				<table class="table table-sm">
+				<table class="table table-sm text-center">
 					<thead class="thead-light">
 						<tr>
 							<th scope="col">

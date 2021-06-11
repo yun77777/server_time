@@ -563,7 +563,7 @@ System.err.println("fsdlmflmf:"+checkArr);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
-	return "mng/boardDetail";
+	return "mng/board/boardDetail";
 	}
 	
 	
@@ -579,7 +579,7 @@ System.err.println("fsdlmflmf:"+checkArr);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
-	return "mng/boardInsert";
+	return "mng/board/boardInsert";
 	}
 	
 	@ResponseBody

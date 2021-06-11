@@ -102,11 +102,11 @@
 									<td colspan="2">${orderList.orderId}</td>
 								</tr> --%>
 								<tr>
-									<td>수령인</td>
+									<td class="text-center">수령인</td>
 									<td colspan="2">${orderList.orderRec}</td>
 								</tr>
 								<tr>
-									<td>주소</td>
+									<td class="text-center">주소</td>
 									<td colspan="2">(${orderList.userAddr1}) ${orderList.userAddr2}, ${orderList.userAddr3}
 									</td>
 								</tr>

@@ -51,7 +51,7 @@
 				
           		<span>총 <em>${pg.totalRecordCount}</em>건 </span>
                 
-				<table class="table table-sm">
+				<table class="table table-sm text-center">
 					<thead class="thead-light">
 						<tr>
 							<th scope="col">
@@ -61,12 +61,12 @@
 					    			</span>
 								</div>
 							</th>
-							<th scope="col">orderId</th>
-							<th scope="col">gdsName</th>
-							<th scope="col">gdsNum</th>
-							<th scope="col">amount</th>
-							<th scope="col">orderDate</th>
-							<th scope="col">delivery</th>
+							<th scope="col">주문번호</th>
+							<th scope="col">상품명</th>
+							<th scope="col">상품번호</th>
+							<th scope="col">주문금액</th>
+							<th scope="col">주문일자</th>
+							<th scope="col">주문상태</th>
 						</tr>
 					</thead>
 					<tbody>

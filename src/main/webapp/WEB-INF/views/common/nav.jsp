@@ -46,13 +46,15 @@
             
 	<!--                         <li class="nav-item"><a class="nav-link" href="/about.do">About</a></li>
 	 -->                        
-				<li class="nav-item ml-3"><a class="nav-link" href="#" onclick="fn_itemList('top')">상의</a></li>
-				<li class="nav-item ml-3"><a class="nav-link" href="#" onclick="fn_itemList('bottom')">하의</a></li>
-				<li class="nav-item ml-3"><a class="nav-link" href="#" onclick="fn_itemList('shoes')">신발</a></li>
-				<li class="nav-item ml-3"><a class="nav-link" href="#" onclick="fn_itemList('pet')">반려동물용품</a></li>
+				<li class="nav-item ml-5"><a class="nav-link" href="#" onclick="fn_itemList('top')">상의</a></li>
+				<li class="nav-item ml-5"><a class="nav-link" href="#" onclick="fn_itemList('bottom')">하의</a></li>
+				<li class="nav-item ml-5"><a class="nav-link" href="#" onclick="fn_itemList('shoes')">신발</a></li>
+				<li class="nav-item ml-5"><a class="nav-link" href="#" onclick="fn_itemList('pet')">반려동물용품</a></li>
 				
-				<li class="nav-item ml-3"><a class="nav-link" href="/boardList.do">게시판</a></li>
-                <li class="nav-item ml-3"><a class="nav-link" href="#" onclick="fn_chk_login('${member.ID}')">장바구니</a></li>
+				<li class="nav-item ml-5"><a class="nav-link" href="/boardList.do">게시판</a></li>
+                <li class="nav-item ml-5"><a class="nav-link" href="#" onclick="fn_chk_login('${member.ID}')">장바구니</a></li>
+<%--                 <li class="nav-item ml-5"><a class="nav-link" href="#" onclick="fn_chk_login('${member.ID}')"><img src="<c:url value='/resources/img/cart.png'/>" alt="..." style="width:35px; height:auto;"></a></li> --%>
+                <li class="nav-item ml-5"><a class="nav-link" href="/orderList2.do">주문 내역</a></li>
 <!--                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
  -->                        
 <!--  <li class="nav-item"><a class="nav-link" href="/chatting.do">Chat</a></li>
@@ -89,7 +91,7 @@
                        <a class="dropdown-item" href="/mng/boardList.do">게시판 관리</a>
                        <a class="dropdown-item" href="/mng/mngCommonCodes.do">공통코드 관리</a>
                        <a class="dropdown-item" href="/mng/orderList.do">주문 내역 관리</a>
-                       <a class="dropdown-item" href="portfolio-3-col.html">상품평 관리</a>
+                       <!-- <a class="dropdown-item" href="portfolio-3-col.html">상품평 관리</a> -->
                        <a class="dropdown-item" href="/mng/customerList.do">고객 관리</a>
                    </div>
                </li>

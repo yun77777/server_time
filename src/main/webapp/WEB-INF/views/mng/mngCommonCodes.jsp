@@ -16,8 +16,11 @@
 <meta name="author" content="" />
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+
+<script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"
+	crossorigin="anonymous"></script>
 <!-- Font Awesome icons (free version)-->
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="<c:url value='/resources/css/styles.css'/>" rel="stylesheet" />
@@ -25,6 +28,7 @@
 <body>
 
 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
+	<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
 	
 	<!-- Page content-->
 	<section class="py-5">
@@ -51,7 +55,7 @@
 				
           		
                 
-				<table class="table table-sm">
+				<table class="table table-sm text-center">
 					<colgroup>
 						<col width="10%">
 						<col width="20%">
@@ -110,9 +114,6 @@
 	</section>
 	
 	
-	
-	<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
-
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
 	<!-- Bootstrap core JS-->
@@ -120,7 +121,9 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
 	<script src="<c:url value='/resources/js/scripts.js'/>"></script>
-	
+		<!-- JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
 </body>
 
 <script>
@@ -154,7 +157,7 @@ $(document).ready(function(){
     	row+='<td><input type="text" name="DESCRPT" value=""></td></tr>';
     	
     	$("#codesSection").append(row);
-    	$("#total").html('Total: '+(total+(++idx)));
+    	$("#total").html('전체: '+(total+(++idx))+' 건');
     });
     
     
@@ -184,8 +187,6 @@ $(document).ready(function(){
     			checkArr.push($(this).attr("data-cid"));
     		});
     		
-    		alert(checkArr);
-    			
     		$.ajax({
     			url : "/mng/deleteCommonCodes.do",
     			type : "post",
@@ -193,10 +194,10 @@ $(document).ready(function(){
     			success : function(result){
     				
     				if(result == 1) {						
-    					alert("삭제 완료");
+    					alert("삭제되었습니다.");
     					location.href = "/mng/mngCommonCodes.do";
     				} else {
-    					alert("삭제 실패");
+    					alert("삭제실패했습니다.");
     				}
     			}
     		});
@@ -233,8 +234,6 @@ $(document).ready(function(){
 			descrptArr.push($(this).val());
 		});
 		
-		alert(cidArr);
-		alert('insert');
 		$.ajax({
 			url : "/mng/insertCommonCodes.do",
 			type : "post",
@@ -243,6 +242,7 @@ $(document).ready(function(){
 			//processData : false,
 			//contentType : false,
 			success : function(result) {
+				alert('저장되었습니다.')
 				//fn_list();
 			}, // success 
 
@@ -284,7 +284,7 @@ function fn_list(no) {
 function fn_insert() {
 	//var formData = $('#boardForm').serialize();
 	var formData = new FormData($("#boardForm")[0]);
-	alert('insert');
+
 	$.ajax({
 		url : "/mng/insertCommonCodes.do",
 		type : "post",

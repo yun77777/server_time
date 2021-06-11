@@ -68,23 +68,23 @@
  -->		<include refid="com.mall.common.commonMapper.pagingHeaderSql"/>
 <!-- 	</if>
  --> 	SELECT @rownum:=@rownum+1 ROWNUM
-	 	, B.gdsNum
-	 	, B.gdsName
-	 	, B.cateCode1
-	 	, B.cateCode2
-	 	, B.gdsPrice
-	 	, B.gdsStock
-	 	, B.gdsDes
-	 	, B.gdsImg
-	 	, B.gdsThumbImg
-	 	, (SELECT NAME FROM COMMON_TBL WHERE B.cateCode1=CID) cateCode
-	 	,(SELECT ORG_FILE_NAME FROM MP_FILE WHERE BNO=B.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE WHERE BNO=B.gdsNum)) representative_file
-	 	,(SELECT FILE_PATH FROM MP_FILE WHERE BNO=B.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE WHERE BNO=B.gdsNum)) file_src
-	 	,(SELECT SEQ_MP_FILE_NO FROM MP_FILE WHERE BNO=B.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE WHERE BNO=B.gdsNum)) file_no
-		FROM tbl_goods B,(SELECT @rownum:=0) R
-		where B.gdsNum>=0
-<!-- 		<include refid="searchOption"/>
- -->		ORDER BY B.gdsNum DESC
+	 	, g.gdsNum
+	 	, g.gdsName
+	 	, g.cateCode1
+	 	, g.cateCode2
+	 	, g.gdsPrice
+	 	, g.gdsStock
+	 	, g.gdsDes
+	 	, g.gdsImg
+	 	, g.gdsThumbImg
+	 	, (SELECT NAME FROM COMMON_TBL WHERE g.cateCode1=CID) cateCode
+	 	,(SELECT ORG_FILE_NAME FROM MP_FILE WHERE BNO=g.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE WHERE BNO=g.gdsNum)) representative_file
+	 	,(SELECT FILE_PATH FROM MP_FILE WHERE BNO=g.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE WHERE BNO=g.gdsNum)) file_src
+	 	,(SELECT SEQ_MP_FILE_NO FROM MP_FILE WHERE BNO=g.gdsNum and FILE_NO=(SELECT MIN(FILE_NO) FROM MP_FILE WHERE BNO=g.gdsNum)) file_no
+		FROM tbl_goods g,(SELECT @rownum:=0) R
+		where g.gdsNum>=0
+		<include refid="searchOption"/>
+ 		ORDER BY g.gdsNum DESC
 		<include refid="com.mall.common.commonMapper.pagingFooterSql"/>
 	</select>
 	
@@ -122,13 +122,13 @@
 		resultType="Integer">
 			SELECT COUNT(1) CNT
 		FROM (
-			SELECT B.gdsNum
+			SELECT g.gdsNum
 		
-		FROM tbl_goods B
-		where B.gdsNum>=0
-		ORDER BY B.gdsNum DESC
-		<!-- <include refid="searchOption"/> -->
-		) B
+		FROM tbl_goods g
+		where g.gdsNum>=0
+		<include refid="searchOption"/>
+		ORDER BY g.gdsNum DESC
+		) g
 	</select>
 	
 	<select id="selectItemDetail" parameterType="map"

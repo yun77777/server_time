@@ -46,13 +46,13 @@
 						<div id="success"></div>
 						<!-- //search-->
 						<button type="button" onclick="" id="delete_btn" class="btn btn btn-danger btn-sm float-right">삭제</button>			
-						<button class="btn btn btn-info btn-sm float-right" onclick="fn_insert('${member.ID}')" type="button">추가</button>
+						<button class="btn btn btn-info btn-sm float-right mr-1" onclick="fn_insert('${member.ID}')" type="button">추가</button>
 					</div>
 				</div>
           		<span>전체: <em>${pg.totalRecordCount}</em> 건</span>
                 
 				<table class="table table-sm">
-					<thead class="thead-light">
+					<thead class="thead-light text-center">
 						<tr>
 							<th scope="col">
 							<div class="allCheck">
@@ -93,31 +93,20 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				
+					<div class="col-2 float-right">
+						<input class="form-control float-right" id="searchId"
+								name="searchId" type="text" value="${paramMap.searchId}" 
+								data- validation-required-message="Please enter your phone number." />
+					</div>
+					<button class="btn btn-secondary btn-sm float-right" onclick="fn_list('1')" type="submit">검색</button>
+				</div>
 			</form>
 			
    			<%@ include file="/WEB-INF/views/common/paging.jsp"%>
 		
 		
-		
-		
 		</div>
-		<div class="row float-right">
-				<div class="form-group row">
-					<div class="col-xs-4">
-						<label>id:</label> 
-					</div>
-				</div>
-				<div class="form-group row">
-					<div class="col-xs-4">
-						<input class="form-control" id="searchId"
-							name="searchId" type="text" value="${paramMap.searchId}" 
-							data-validation-required-message="검색명 입력" />
-					</div>
-				</div>
-				<div class="form-group row">
-					<button class="btn btn-secondary btn-sm right" onclick="fn_list('1')" type="button">검색</button>
-				</div>
-			</div>
 		<!-- //Container -->
 	</section>
 	<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
