@@ -15,7 +15,17 @@
 		</div>
 	</form>
 	
-<%@ include file="/WEB-INF/views/common/popup/orderPopup.jsp"%> 
+<style>
+#orderPopup {
+  overflow: auto;
+}
+#reviewPopup {
+  overflow: auto;
+}
+</style>
+	
+<%@ include file="/WEB-INF/views/common/popup/orderPopup.jsp"%>
+<%@ include file="/WEB-INF/views/common/popup/reviewPopup.jsp"%> 
 <%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
 
 

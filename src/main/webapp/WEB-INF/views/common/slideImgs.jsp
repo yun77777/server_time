@@ -44,7 +44,7 @@
 			   <p>${result.gdsPrice} 원</p><i class="ion-ios-arrow-right"></i>
 			 </figcaption>
 			 <a href="#!" onclick="fn_detail_pop('${result.gdsNum}')" data-toggle="modal"
-				data-target="#exampleModalLong"></a>
+				data-target="#orderPopup"></a>
 		</figure>
 	</c:forEach>
 	          </div>

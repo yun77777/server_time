@@ -9,16 +9,17 @@
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
-<div class="modal fade bd-example-modal-lg" id="exampleModalLong"
-					tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-					aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" id="orderPopup"
+					
+					style="display: none; ">
+					<!-- tabindex="-1" role="dialog" aria-labelledby="orderPopupTitle" -->
 					<div class="modal-dialog modal-lg" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLongTitle">상품 상세</h5>
+								<h5 class="modal-title" id="orderPopupTitle">상품 상세</h5>
 								<button type="button" class="close" data-dismiss="modal"
 									aria-label="Close">
-									<span aria-hidden="true">&times;</span>
+									<!-- <span aria-hidden="true">&times;</span> -->
 								</button>
 							</div>
 							<div class="modal-body">
@@ -85,6 +86,11 @@
 							<div id="pp"></div>
 							
 							<div class="modal-footer">
+							<!-- 1. 맨위로 -->
+							<!-- 2. 리뷰 -->
+							<!-- 3. Q&A -->
+			        		<div id="reviewDiv"></div>
+							
 							<!-- <button type="submit" id="create2">상품상세(기존)</button> -->
 							<button type="submit" id="create" class="btn btn-info">주문</button>
 								<button type="button" class="btn btn-secondary"

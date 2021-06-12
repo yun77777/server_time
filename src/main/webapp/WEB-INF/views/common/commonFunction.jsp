@@ -118,6 +118,11 @@
     		$("#rpsnImg").attr("src","<c:url value='/img/"+img+"'/>");
     		console.log('================================');
     		
+    		$("#reviewDiv").html('zxczx');
+    		$("#reviewDiv").append('<a href="#reviewPopup" class="nav-link" data-toggle="modal" onclick="fn_detail_pop('+detail.gdsNum+')">리뷰</a>');
+    		
+    		
+    		
     		//제품상세(기존)
     		$("#create2").on("click",function(){ 
     			var gdsNum=$('#gdsNum').val();
@@ -305,6 +310,7 @@ function fn_order_detail_pop(orderId, pageType) {
 		}
 	});
 }
+
 function fn_customer_detail_pop(userId) {
 	$('#userId').val(userId);
 
@@ -342,6 +348,87 @@ function fn_customer_detail_pop(userId) {
 	});
 }
   
+  
+  
+  
+
+function fn_review_popup(orderId, pageType) {
+	$('#orderId').val(orderId);
+	
+	var pageType=pageType;
+	if(pageType!='orderMng')
+		pageType='';
+
+	$.ajax({
+		url : "${pageContext.request.contextPath}/reviewPopup.do",
+		type : "post",
+		data : {
+			orderId : orderId,
+			pageType : pageType
+			
+		},
+		success : function(result) {
+			var obj = JSON.parse(result);
+			var detailList = obj.detailList;
+			var pageType = obj.pageType;
+			var content = '<section id="content"><div class="table-responsive-lg"><table class="table">';
+
+			for (var i = 0; i < detailList.length; i++) {
+				console.log('element', i, detailList[i]);
+				console.log(detailList[i].gdsName);
+				var image = "<c:url value='/img/"+detailList[i].representative_file+"'/>";
+				// #pp: 상세이미지 imgList div 영역
+						
+				content+='<colgroup><col width="*"><col width="20%"><col width="*"></colgroup>';
+				content += '<tr><td rowspan="5">'
+					+ "<img class='card-img-top' src=" + image
+					+ " style='width:200px; height:auto'>"
+					+ '</td><td colspan="2"></td></tr>';
+				
+				
+				content += '<tr><td>번호</td><td>'
+						+ (i+1) + '</td></tr>';
+				content += '<tr><td>상품명</td><td>'
+						+ (detailList[i].gdsName) + '</td></tr>';
+				
+				content += '<tr><td>주문 수량</td><td>'
+						+ (detailList[i].cartStock) + '</td></tr>';
+				content += '<tr><td>가격</td><td>'
+						+ (detailList[i].amount) + '</td></tr>';
+
+			}
+
+			content += '</table></div></section>';
+			$("#a").html(content);
+
+			var orderContent = '<table class="table table-hover table-dark">';
+			orderContent += '<tr><td>주문 번호</td><td>'
+					+ (detailList[0].orderId) + '</td></tr>';
+			orderContent += '<tr><td>주문 고객</td><td>'
+					+ (detailList[0].userId) + '</td></tr>';
+			orderContent += '<tr><td>연락처</td><td>'
+					+ (detailList[0].orderPhon) + '</td></tr>';
+			orderContent += '<tr><td>주소</td><td>'
+					+ (detailList[0].userAddr) + ', '
+					+ (detailList[0].userAddr2) + ', '
+					+ (detailList[0].userAddr3) + '</td></tr>';
+			orderContent += '</table>'
+
+			$("#b").html('<hr>' + orderContent);
+			
+			var button='';
+			
+			if(pageType=='orderMng'){
+				button+='<button type="button" onclick="fn_deliver('+detailList[0].orderId+')" class="btn btn btn-info btn-sm float-right ml-1">발송</button>'
+				button+='<button type="button" onclick="fn_cancel('+detailList[0].orderId+')" class="btn btn btn-danger btn-sm float-right ml-1">취소</button>'
+			}
+			button+='<button type="button" class="btn btn-secondary btn-info btn-sm float-right ml-1"" data-dismiss="modal">확인</button>'
+			$(".modal-footer").html('<hr>' + button);
+			
+
+		}
+	});
+}  
 //카카오로그아웃  
 function kakaoLogout() {
     if (Kakao.Auth.getAccessToken()) {
