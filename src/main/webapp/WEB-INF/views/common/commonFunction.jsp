@@ -105,6 +105,7 @@
      */		//상품상세설명
     		//상품상세설명
     		$("#des").html(detail.gdsDes);
+    		$("#des").html(detail.gdsDes);
     		
     		$("#orderForm #gdsName").val(detail.gdsName);
     		$("#orderForm #gdsPrice").val(detail.gdsPrice);
