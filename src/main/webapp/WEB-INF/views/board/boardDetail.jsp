@@ -271,7 +271,9 @@ body {
             
 
 <div class="container mt-5">
+<h1>댓글</h1>
     <div class="row d-flex justify-content-center">
+    
         <div id="reply" class="col-md-8">
             <div class="headings d-flex justify-content-between align-items-center mb-3">
                 <h5 id="commentCnt">comment(${len})</h5>
@@ -303,48 +305,48 @@ body {
  
    
    
-   
+  
    <div class="container mt-5">
+     
     <div class="row d-flex justify-content-center">
+    
         <div id="reply" class="col-md-8">
           <form id="commentForm" method="post" enctype="multipart/form-data">
    <div class="card p-3 reply">
-   <h1>댓글</h1>
-   <table class="table">
-	<colgroup>
-		<col width="30%">
-		<col width="*">
-	</colgroup>
-	<tr>
-		<td>작성자</td>
-		<td>
-			<input type="text" class="form-control" id="writer" name="writer" value="${member.ID}" readonly>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-		 <div class="d-flex justify-content-between align-items-center">
+ <table class="table table-borderless">
+ <colgroup>
+	<col width="10%">
+	<col width="*">
+</colgroup>
+  <tbody>
+    <tr>
+      <th scope="row" colspan="2">${member.ID}</th>
+   </tr>
+   <tr>
+   	<td></td>
+   	<td>
+   		<div class="d-flex justify-content-between align-items-center">
              <div class="user d-flex flex-row align-items-center">
               <textarea rows="5" cols="100" class="form-control" id="content" name="content"></textarea>
               <span><small class="font-weight-bold text-primary">${result.writer}</small> <small class="font-weight-bold">${result.content}</small></span> </div> 
          </div>
-		</td>
-	</tr>
-	</table>
-   
-   
-   댓글 작성자
-   <input type="text" class="form-control" id="writer" name="writer" value="${member.ID}" readonly>
-         <div class="d-flex justify-content-between align-items-center">
-             <div class="user d-flex flex-row align-items-center">
-              <textarea rows="5" cols="50" class="form-control" id="content" name="content"></textarea>
-              <span><small class="font-weight-bold text-primary">${result.writer}</small> <small class="font-weight-bold">${result.content}</small></span> </div> 
-         </div>
-         <small>2 days ago</small>
-         <div class="action d-flex justify-content-between mt-2 align-items-center">
+   	</td>
+   </tr>
+   <tr>
+   	<td>
+   	</td>
+   	<td>
+   		<div class="action d-flex justify-content-between mt-2 align-items-center">
              <div class="reply px-4"> <small>Remove</small> <span class="dots"></span> <small>Reply</small> <span class="dots"></span> <small>Translate</small> </div>
              <div class="icons align-items-center"> <i class="fa fa-star text-warning"></i> <i class="fa fa-check-circle-o check-icon"></i> </div>
          </div>
+   	</td>
+   </tr>
+  </tbody>
+ </table>
+   
+         
+         
      </div>
      <input type="hidden" id="bno" name="bno">
 	</form>
@@ -739,7 +741,7 @@ function fn_comment() {
 			
 			
 			
-			
+		
 			$("#commentForm #content").val('');
 			//fn_list();
 		}, // success 
