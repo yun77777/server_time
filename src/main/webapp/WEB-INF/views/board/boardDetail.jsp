@@ -109,8 +109,6 @@ body {
                 <!-- Content Row-->
                 <!-- Contact Form-->
                 <!-- In order to set the email address and subject line for the contact form go to the assets/mail/contact_me.php file.-->
-                <div class="row">
-                    <div class="col-lg-8 mb-4">
                         <form id="boardForm" name="sentMessage" novalidate>
                         	<input type="hidden" id="currentPageNo" name="currentPageNo" value="1"/>
                         	<input type="hidden" id="B_TYPE" name="B_TYPE" value="${paramMap.B_TYPE}"/>
@@ -135,6 +133,10 @@ body {
                         	/>
                             <button class="btn btn-secondary btn-sm float-right" onclick="fn_list()" type="button">목록</button>
                             <table class="table">
+                            <colgroup>
+                            	<col width="15%">
+                            	<col width="*">
+                            </colgroup>
 							  <thead>
 							  </thead>
 							  <tbody>
@@ -185,9 +187,10 @@ body {
 							      </td>
 							      </tr>
 							      <tr>
-							       <td colspan="2">
+							      <td></td>
+							       <td>
 							      	<div class="controls">
-                                	<textarea rows="5" cols="50" id="content" name="content" class="form-control">${detail.content}</textarea>
+                                	<textarea rows="5" cols="100" id="content" name="content" class="form-control">${detail.content}</textarea>
                                 	</div>
 							      </td>
 							    </tr>
@@ -306,7 +309,32 @@ body {
         <div id="reply" class="col-md-8">
           <form id="commentForm" method="post" enctype="multipart/form-data">
    <div class="card p-3 reply">
-   댓글 작성자<input type="text" class="form-control" id="writer" name="writer" value="${member.ID}" readonly>
+   <h1>댓글</h1>
+   <table class="table">
+	<colgroup>
+		<col width="30%">
+		<col width="*">
+	</colgroup>
+	<tr>
+		<td>작성자</td>
+		<td>
+			<input type="text" class="form-control" id="writer" name="writer" value="${member.ID}" readonly>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		 <div class="d-flex justify-content-between align-items-center">
+             <div class="user d-flex flex-row align-items-center">
+              <textarea rows="5" cols="100" class="form-control" id="content" name="content"></textarea>
+              <span><small class="font-weight-bold text-primary">${result.writer}</small> <small class="font-weight-bold">${result.content}</small></span> </div> 
+         </div>
+		</td>
+	</tr>
+	</table>
+   
+   
+   댓글 작성자
+   <input type="text" class="form-control" id="writer" name="writer" value="${member.ID}" readonly>
          <div class="d-flex justify-content-between align-items-center">
              <div class="user d-flex flex-row align-items-center">
               <textarea rows="5" cols="50" class="form-control" id="content" name="content"></textarea>
@@ -320,8 +348,6 @@ body {
      </div>
      <input type="hidden" id="bno" name="bno">
 	</form>
-</div>
-</div>
 </div>
 </div>
 	
