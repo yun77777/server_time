@@ -272,11 +272,12 @@ body {
 
 <div class="container mt-5">
 <h1>댓글</h1>
+<h5 id="commentCnt">(${replyListLen})</h5>
     <div class="row d-flex justify-content-center">
     
         <div id="reply" class="col-md-8">
             <div class="headings d-flex justify-content-between align-items-center mb-3">
-                <h5 id="commentCnt">comment(${len})</h5>
+                
                 <!-- <div class="buttons"> 
                 <span class="badge bg-white d-flex flex-row align-items-center"> 
                 <span class="text-primary">Comments "ON"</span>
@@ -373,6 +374,9 @@ body {
 
 <script>
 $(document).ready(function(){
+var replyListLen=Number('${replyListLen}');
+$("#commentCnt").html('('+replyListLen+')');
+
 var formObj = $("form[name='writeForm']");
 	
 	$("input[type=file]").change(function(){
@@ -707,7 +711,7 @@ $("#delete_btn").click(function(){
 	$("#writer").val($("#boardForm #id").val());
 	$("#rno").val($(this).parent().parent().find(".rno").val());
 	var formData = new FormData($("#commentForm")[0]);
-	
+
 	if(confirm_val) {
 													
 		$.ajax({
@@ -718,6 +722,7 @@ $("#delete_btn").click(function(){
 			processData : false,
 			contentType : false,
 			success : function(result) {
+				fn_detail($("#bno").val());
 				alert("삭제되었습니다.");
 			}
 		});
@@ -764,7 +769,7 @@ $("#comment_btn").click(function() {
            	content+='<div class="icons align-items-center"> <i class="fa fa-star text-warning"></i> <i class="fa fa-check-circle-o check-icon"></i> </div></div></div>';
                 
 			$("#reply").append(content);
-			$("#commentCnt").html('comment('+result.len+')');
+			$("#commentCnt").html('('+result.len+')');
 			
 			
 			
