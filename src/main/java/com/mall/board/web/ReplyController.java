@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mall.board.service.ReplyService;
 import com.mall.common.PaginationVO;
@@ -54,5 +55,19 @@ public class ReplyController {
 		return result;
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping(value = "/reply/delete.do")
+	public Map<String,Object> deleteBoard(
+			MultipartHttpServletRequest multi, @RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+		try {
+			model.addAttribute("login",httpSession.getAttribute("login"));
+			model.addAttribute("member",httpSession.getAttribute("member"));
+
+			replyService.delete(paramMap);
+			model.addAttribute("paramMap", paramMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return paramMap;
+	}
 }

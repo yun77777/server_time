@@ -286,6 +286,7 @@ body {
             </div>
             
             <c:forEach var="result" items="${replyList}" varStatus="status">
+             
 			 <div class="card p-3 reply">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="user d-flex flex-row align-items-center">
@@ -293,7 +294,9 @@ body {
                      <span><small class="font-weight-bold text-primary">${result.writer}</small> <small class="font-weight-bold">${result.content}</small></span> </div> <small>2 days ago</small>
                 </div>
                 <div class="action d-flex justify-content-between mt-2 align-items-center">
-                    <div class="reply px-4"> <small>Remove</small> <span class="dots"></span> <small>Reply</small> <span class="dots"></span> <small>Translate</small> </div>
+                    <div class="reply px-4"> <small><a href="#" id="delete_btn">Remove</a></small>
+                    	<input type="hidden" class="rno" name="${result.rno}">
+                     <span class="dots"></span> <small>Reply</small> <span class="dots"></span> <small>Translate</small> </div>
                     <div class="icons align-items-center"> <i class="fa fa-star text-warning"></i> <i class="fa fa-check-circle-o check-icon"></i> </div>
                 </div>
             </div>
@@ -313,47 +316,45 @@ body {
         <div id="reply" class="col-md-8">
           <form id="commentForm" method="post" enctype="multipart/form-data">
    <div class="card p-3 reply">
- <table class="table table-borderless">
- <colgroup>
-	<col width="10%">
-	<col width="*">
-</colgroup>
-  <tbody>
-    <tr>
-      <th scope="row" colspan="2">${member.ID}</th>
-   </tr>
-   <tr>
-   	<td></td>
-   	<td>
-   		<div class="d-flex justify-content-between align-items-center">
-             <div class="user d-flex flex-row align-items-center">
-              <textarea rows="5" cols="100" class="form-control" id="content" name="content"></textarea>
-              <span><small class="font-weight-bold text-primary">${result.writer}</small> <small class="font-weight-bold">${result.content}</small></span> </div> 
-         </div>
-   	</td>
-   </tr>
-   <tr>
-   	<td>
-   	</td>
-   	<td>
-   		<div class="action d-flex justify-content-between mt-2 align-items-center">
-             <div class="reply px-4"> <small>Remove</small> <span class="dots"></span> <small>Reply</small> <span class="dots"></span> <small>Translate</small> </div>
-             <div class="icons align-items-center"> <i class="fa fa-star text-warning"></i> <i class="fa fa-check-circle-o check-icon"></i> </div>
-         </div>
-   	</td>
-   </tr>
-  </tbody>
- </table>
-   
-         
-         
+			 <table class="table table-borderless">
+			 <%-- <colgroup>
+				<col width="10%">
+				<col width="*">
+			</colgroup> --%>
+			  <tbody>
+			    <tr>
+			      <th scope="row" colspan="2">${member.ID}</th>
+			   </tr>
+			   <tr>
+			   	<td>
+			   		<div class="d-flex justify-content-between align-items-center">
+			             <div class="user d-flex flex-row align-items-center">
+			              <textarea rows="5" cols="100" class="form-control" id="content" name="content"></textarea>
+			              <span><small class="font-weight-bold text-primary">${result.writer}</small> <small class="font-weight-bold">${result.content}</small></span> </div> 
+			         </div>
+			   	</td>
+			   </tr>
+			   <tr>
+			   	<td>
+			   		<div class="action d-flex justify-content-between mt-2 align-items-center">
+			             <div class="reply px-4"> <small>Remove</small> <span class="dots"></span> <small>Reply</small> <span class="dots"></span> <small>Translate</small> </div>
+			             <div class="icons align-items-center"> <i class="fa fa-star text-warning"></i> <i class="fa fa-check-circle-o check-icon"></i> </div>
+			         </div>
+			         <button type="submit" class="btn btn-info btn-sm float-right" id="comment_btn" onclick="fn_comment()">댓글 작성</button>
+			         
+			   	</td>
+			   </tr>
+			  </tbody>
+			 </table>
      </div>
      <input type="hidden" id="bno" name="bno">
+     <input type="hidden" id=writer name="writer">
+    
 	</form>
 </div>
 </div>
 	
-	<button type="submit" class="btn btn-info btn-sm float-right" onclick="fn_comment()">댓글 작성</button>
+	
 
 
 
@@ -652,7 +653,9 @@ function fn_reply(no){
 	//var  formData= $('#boardForm').serialize();
 	
 	//$('#boardForm #no').attr('disabled',false);
-	$('#boardForm #no').val(${len}+1);
+	var len=Number('${len}')+1;
+	$('#boardForm #no').val(len);
+/* 	$('#boardForm #no').val(${len}+1); */
 /* 	$('#boardForm #no').val(Number(no)+1); */
 	$('#boardForm #replyType').val('Y');
 	alert("no:"+no);
@@ -697,9 +700,37 @@ function fn_reply2() {
 	});
 }
 
-function fn_comment() {
+$("#delete_btn").click(function(){
+	var confirm_val = confirm("정말 삭제하시겠습니까?");
 	$("#bno").val($("#boardForm #no").val());
-	alert($("#bno").val());
+	$("#writer").val($("#boardForm #id").val());
+	alert($(this).parent().parent().find(".rno").val());
+	alert($(this).parent().find(".rno").val());
+	var formData = new FormData($("#commentForm")[0]);
+	
+	if(confirm_val) {
+													
+		$.ajax({
+			url : "${pageContext.request.contextPath}/reply/delete.do",
+			type : "post",
+			enctype: 'multipart/form-data',
+			data : formData,
+			processData : false,
+			contentType : false,
+			success : function(result) {
+				if(result == 1) {												
+					//location.href = "/cartList.do";
+				} else {
+					alert("삭제 실패");
+				}
+			}
+		});
+	}	
+});
+
+$("#comment_btn").click(function() {
+	$("#bno").val($("#boardForm #no").val());
+	$("#writer").val($("#boardForm #id").val());
 	var formData = new FormData($("#commentForm")[0]);
 	/* $('#commentForm').attr({
 		action : '<c:url value="reply/write.do" />',
@@ -750,7 +781,8 @@ function fn_comment() {
 			alert(xhr + " : " + status);
 		}
 	});
-}
+});
+
 </script>
 
 </html>

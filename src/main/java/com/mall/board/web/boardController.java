@@ -169,7 +169,8 @@ public class boardController {
 		try {
 			model.addAttribute("login",httpSession.getAttribute("login"));
 			model.addAttribute("member",httpSession.getAttribute("member"));
-
+			if(paramMap.get("no")==null)
+				paramMap.put("no",paramMap.get("bno"));
 			Map<String,Object> detail=boardService.selectBoardDetail(paramMap);
 			System.err.println("detailP");
 			System.err.println(paramMap);
@@ -177,7 +178,7 @@ public class boardController {
 			
 			List<Map<String,Object>> list=boardService.selectBoardHisList(paramMap);
 			List<Map<String,Object>> fileList=boardService.selectBoardFileList(paramMap);
-			System.err.println(Integer.parseInt(paramMap.get("no").toString()));
+			
 			List<Map<String,Object>> replyList=replyService.list(Integer.parseInt(paramMap.get("no").toString()));
 			
 			int len=boardService.selectBoardMaxNo(paramMap);
