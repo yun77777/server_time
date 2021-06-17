@@ -62,7 +62,7 @@ public class ReplyController {
 		try {
 			model.addAttribute("login",httpSession.getAttribute("login"));
 			model.addAttribute("member",httpSession.getAttribute("member"));
-
+System.err.println("RRRRRRRR:"+paramMap);
 			replyService.delete(paramMap);
 			model.addAttribute("paramMap", paramMap);
 		} catch (Exception e) {

@@ -295,7 +295,7 @@ body {
                 </div>
                 <div class="action d-flex justify-content-between mt-2 align-items-center">
                     <div class="reply px-4"> <small><a href="#" id="delete_btn">Remove</a></small>
-                    	<input type="hidden" class="rno" name="${result.rno}">
+                    	<input type="hidden" class="rno" value="${result.rno}">
                      <span class="dots"></span> <small>Reply</small> <span class="dots"></span> <small>Translate</small> </div>
                     <div class="icons align-items-center"> <i class="fa fa-star text-warning"></i> <i class="fa fa-check-circle-o check-icon"></i> </div>
                 </div>
@@ -348,7 +348,8 @@ body {
 			 </table>
      </div>
      <input type="hidden" id="bno" name="bno">
-     <input type="hidden" id=writer name="writer">
+     <input type="hidden" id="writer" name="writer">
+     <input type="hidden" id="rno" name="rno">
     
 	</form>
 </div>
@@ -704,8 +705,7 @@ $("#delete_btn").click(function(){
 	var confirm_val = confirm("정말 삭제하시겠습니까?");
 	$("#bno").val($("#boardForm #no").val());
 	$("#writer").val($("#boardForm #id").val());
-	alert($(this).parent().parent().find(".rno").val());
-	alert($(this).parent().find(".rno").val());
+	$("#rno").val($(this).parent().parent().find(".rno").val());
 	var formData = new FormData($("#commentForm")[0]);
 	
 	if(confirm_val) {
@@ -718,11 +718,7 @@ $("#delete_btn").click(function(){
 			processData : false,
 			contentType : false,
 			success : function(result) {
-				if(result == 1) {												
-					//location.href = "/cartList.do";
-				} else {
-					alert("삭제 실패");
-				}
+				alert("삭제되었습니다.");
 			}
 		});
 	}	
