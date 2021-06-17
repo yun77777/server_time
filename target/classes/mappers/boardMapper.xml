@@ -28,6 +28,7 @@
 		,B.content
 		,B.cnt
 		,B.B_TYPE
+		,(SELECT COUNT(1) FROM tbl_reply WHERE bno=B.B_NO) RCNT
 		, SUBSTRING(B.input_dt,1,10) input_dt
 		FROM board B,(SELECT @rownum:=0) R
 		where B.B_TYPE=#{B_TYPE}

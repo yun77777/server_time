@@ -205,11 +205,15 @@ body {
 					<input type="hidden" id="fileNameDel" name="fileNameDel[]" value=""> 
 					<input type="hidden" id="type" name="type" value="save"> 
 					
-					<table>
+					<table id="fileIndex">
 						<tbody>
+						<colgroup>
+                           	<col width="15%">
+                           	<col width="*">
+                        </colgroup>
 							<tr>
-								<td id="fileIndex">
-								
+								<td></td>
+								<td>
 									<c:forEach var="file" items="${fileList}" varStatus="var">
 									<div>
 										<img class="card-img-top" style="width:20%;height:auto" name="itemImg${var.index}" id="itemImg${var.index}" src="<c:url value='/img/${file.ORG_FILE_NAME}'/>" alt="no image" />
@@ -219,7 +223,6 @@ body {
 										<button id="fileDelBtn" onclick="fn_del('${file.FILE_NO}','FILE_NO_${var.index}');" type="button">삭제</button><br>
 									</div>
 									</c:forEach>
-									
 								</td>
 							</tr>
 						</tbody>			
@@ -412,7 +415,7 @@ var formObj = $("form[name='writeForm']");
 function fn_addFile(){
 	var fileIndex = 1;
 	$(".fileAdd_btn").on("click", function(){
-		$("#fileIndex").append("<div><input type='file' style='float:left;' id='file_"+(fileIndex)+"' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
+		$("#fileIndex").append("<tr><td></td><td><div><input type='file' style='float:left;' id='file_"+(fileIndex)+"' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div></td></tr>");
 		//$("#fileIndex").append("<div><img class='card-img-top' style='width:20%;height:auto' name='itemImg$"+(fileIndex++)+"' id='itemImg"+(fileIndex++)+"' alt='no image' /><input type='file' style='float:left;' id='file_"+(fileIndex)+"' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
 	});
 	 
