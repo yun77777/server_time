@@ -30,70 +30,64 @@
 </head>
 <body>
 
-	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
-<section id="container">
-		<div id="container_box">
-		
-			<section id="content">
+<%@ include file="/WEB-INF/views/common/nav.jsp"%>
+<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
+<%@ include file="/WEB-INF/views/common/popup/orderPopup.jsp"%>
+<section class="py-5">
+		<div class="container">
+		<h3>주문 상품</h3>
+			<div class="orderInfo">
+			<form id="deleteForm" method="post" enctype="multipart/form-data">
+				<c:set var="sum" value="0" />
+				<c:forEach items="${cartList}" var="cartList">
+					<div id="row">
+						<div class="table-responsive-lg">
+							<table class="table">
+								<tr>
+									<td></td><td><a href="#!"
+										onclick="fn_detail_pop('${cartList.gdsNum}',1)"
+										data-toggle="modal" data-target="#exampleModalLong">
+		                           		<img class="card-img-top" src="<c:url value='/img/${cartList.representative_file}'/>" style="width:100px" alt="no image" /><br />
+									</a>
+									</td>
+								</tr>
+								<tr>
+									<td>상품명</td>
+									<td>${cartList.gdsName}</td>
+								</tr>
+								<tr>
+									<td>가격</td>
+									<td><fmt:formatNumber pattern="###,###,###" value="${cartList.gdsPrice}" /> 원</td>
+								</tr>
+								<tr>
+									<td>수량</td>
+									<td>${cartList.cartStock} 개
+									</td>
+								</tr>
+						<%-- jsp상의 변수 선언 --%>
+						<c:set var="sum" value="0" />
+						<c:set var="sum" value="${sum + (cartList.gdsPrice * cartList.cartStock)}" />
 					
-				<ul>
-				
-					<%-- jsp상의 변수 선언 --%>
-					<c:set var="sum" value="0" />
-				<form id="deleteForm" method="post" enctype="multipart/form-data">
-					<c:forEach items="${cartList}" var="cartList">
-					<li>
-					
-						<div class="thumb">
-							<img src="${cartList.gdsThumbImg}" />
+								<tr>
+									<td>총 합계</td>
+									<td> <fmt:formatNumber pattern="###,###,###" value="${sum}" />원</td>
+								</tr>
+								<tr>
+									<td>최종 가격</td>
+									<td><fmt:formatNumber pattern="###,###,###" value="${cartList.cartStock * cartList.gdsPrice}" /> 원</td>
+								</tr>
+							</table>
 						</div>
-						<div class="gdsInfo">
-							<p>
-                           		<img class="card-img-top" src="<c:url value='/img/${cartList.representative_file}'/>" style="width:100px" alt="no image" /><br />
-								<span>상품명</span>${cartList.gdsName}<br />
-								<span>개당 가격</span><fmt:formatNumber pattern="###,###,###" value="${cartList.gdsPrice}" /> 원<br />
-								<span>구입 수량</span>${cartList.cartStock} 개<br />
-								<span>최종 가격</span><fmt:formatNumber pattern="###,###,###" value="${cartList.gdsPrice * cartList.cartStock}" /> 원
-							</p>
-							
-							
-						</div>			
-					</li>
-					
-					<%-- 반복할 때마다 sum에 상품 가격(gdsPrice)*상품 갯수(cartStock)만큼을 더함 --%>
+					</div>
+				
 					<c:set var="sum" value="${sum + (cartList.gdsPrice * cartList.cartStock)}" />
-					
 					</c:forEach>
 				</form>
-				</ul>
-			
-			<div class="rorderOpne">
-			<button type="button" class="orderBtn" onclick="fn_order()">주문확인</button>
-				<script>
-					$(".orderBtn").click(function(){
-						$(".orderChk").slideDown();  // $(".orderInfo")를 나타내고
-						//$(".orderOpne_bnt").slideUp();  // $(".orderOpne_bnt")를 숨김
-					});						
-				</script>
-				
-			</div>
-			
-			<div class="orderChk"></div>
+
 			
 			<div class="listResult">
 				<div class="sum">
 					총 합계 : <fmt:formatNumber pattern="###,###,###" value="${sum}" />원
-				</div>
-				<div class="rorderOpne">
-					<button type="button" class="orderOpne_bnt">주문 정보 입력</button>
-					
-					<script>
-						$(".orderOpne_bnt").click(function(){
-							$(".orderInfo").slideDown();  // $(".orderInfo")를 나타내고
-							$(".orderOpne_bnt").slideUp();  // $(".orderOpne_bnt")를 숨김
-						});						
-					</script>
-					
 				</div>
 			</div>
 			
@@ -109,42 +103,29 @@
 					<input type="hidden" id="apply_num" name="apply_num">	
 					<input type="hidden" id="orderId" name="orderId" value="${paramMap.orderId}">	
 					   		
-					<div class="inputArea">
-						<label for="">수령인</label>
-						<input type="text" name="orderRec" id="orderRec" required="required" />
-					</div>
-					
-					<div class="inputArea">
-						<label for="orderPhon">수령인 연락처</label>
-						<input type="text" name="orderPhon" id="orderPhon" required="required" />
-					</div>
-					<!-- 
-					<div class="inputArea">
-						<label for="userAddr1">우편번호</label>
-						<input type="text" name="userAddr1" id="userAddr1" required="required" />
-					</div>
-					
-					<div class="inputArea">
-						<label for="userAddr2">1차 주소</label>
-						<input type="text" name="userAddr2" id="userAddr2" required="required" />
-					</div>
-					
-					<div class="inputArea">
-						<label for="userAddr3">2차 주소</label>
-						<input type="text" name="userAddr3" id="userAddr3" required="required" />
-					</div>
-					-->
-					<div class="inputArea">
-					
-						<p>
-							<input type="text" id="sample2_postcode" placeholder="우편번호">
-							<input type="button" onclick="sample2_execDaumPostcode()" value="우편번호 찾기">
-						</p>
-						<p>
-							<input type="text" name="userAddr1" id="sample2_address" placeholder="주소" >
-							<input type="text" name="userAddr2" id="sample2_detailAddress" placeholder="상세주소">
-							<input type="text" name="userAddr3" id="sample2_extraAddress" placeholder="참고항목">
-						</p>
+					<br><br>
+					   		<h3>주문 정보</h3>
+					   	<table class="table">
+							<tr>
+								<td>수령인</td>
+								<td colspan="2"><input type="text" name="orderRec" id="orderRec" required="required" /></td>
+							</tr>
+							<tr>
+								<td>수령인 연락처</td>
+								<td colspan="2"><input type="text" name="orderPhon" id="orderPhon" required="required" /></td>
+							</tr>
+							<tr>
+								<td>주소</td>
+								<td colspan="2"><input type="text" id="sample2_postcode" placeholder="우편번호" readonly>
+								<input type="button" onclick="sample2_execDaumPostcode()" value="우편번호 찾기" class="btn btn-secondary btn-sm"></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td colspan="2"><input type="text" name="userAddr1" id="sample2_address" placeholder="주소" >
+								<input type="text" name="userAddr2" id="sample2_detailAddress" placeholder="상세주소">
+								<input type="text" name="userAddr3" id="sample2_extraAddress" placeholder="참고항목"></td>
+							</tr>
+						</table>
 						
 						<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
 						<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
@@ -242,8 +223,8 @@
 					</div>
 					</form>	
 					<div class="inputArea">
-						<button type="submit" onclick="fn_order()" class="order_btn">주문</button>
-						<button type="button" class="cancel_btn">취소</button>
+						<button type="submit" onclick="fn_order()" class="order_btn btn btn-info btn-sm float-right ml-3">주문</button>
+						<button type="button" class="cancel_btn btn btn-danger btn-sm float-right">취소</button>
 						
 						<script>
 						$(".cancel_btn").click(function(){
@@ -257,14 +238,7 @@
 					
 				
 			</div>
-			<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
 			
-			</section>
-			
-			
-		</div>
-		
-	</section>        
 
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 

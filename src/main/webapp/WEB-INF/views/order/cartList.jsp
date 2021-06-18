@@ -209,7 +209,6 @@ function fn_delete() {
 			checkArr.push($(this).attr("data-cartNum"));  // 배열에 데이터 삽입
 		});
 		
-		alert(checkArr);
 			
 		$.ajax({
 			url : "/deleteCart.do",
@@ -238,7 +237,6 @@ $("input[class='chBox']").change(function(){
     	  sum-=Number($(this).next().next().val());
           //sum-=Number($(this).parent().parent().parent().find('.cartStock').find('.gdsPrice_hidden').val());  // 배열에 데이터 삽입
       }
-      alert(sum);
       $(".listResult").html('총 합계: '+sum+'원'); 
 
   });
@@ -338,14 +336,12 @@ function fn_order(){
 		//cartStockArr.push($(this).parent().parent().find('.cartStock').find('#cartStock').val());  // 배열에 데이터 삽입
 		
 	});
-	alert("checkArr:"+checkArr);
-	alert("cartStockArr:"+cartStockArr);
 	
 	if(checkArr.length==0){
 		alert('상품 선택 후 주문하세요');
 	} else{
-		var str = "<p>"+checkArr+"</p>";
-	    $(".orderChk").append(str);
+		/* var str = "<p>"+checkArr+"</p>";
+	    $(".orderChk").append(str); */
 
 	    $.ajax({
 			//선택 후 orderProcess(주문) 페이지로 이동
@@ -353,10 +349,8 @@ function fn_order(){
 			type : "post",
 			data : { chbox : checkArr , userId : userId , cartStockArr : cartStockArr,},
 			success : function(result){
-				alert(result);
 				if(result) {
 					$("#orderId").val(result.orderId);
-					alert(result.orderId);
 					
 					$('#boardForm').attr({
 						action : '<c:url value="/orderProcessDetail.do"/>',

@@ -31,6 +31,7 @@
 <body>
 
 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
+	<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
 	<%@ include file="/WEB-INF/views/common/popup/orderPopup.jsp"%>
 
 	<section class="py-5">
@@ -50,8 +51,8 @@
 					<input type="hidden" id="cartNum" name="cartNum" value="${paramMap.cartNum}">	
 					   		
 					   		<!--  -->
-<div id="row">
-<div class="table-responsive-lg">
+				<div id="row">
+					<div class="table-responsive-lg">
 						<table class="table">
 							<tr>
 								<td></td><td><a href="#!"
@@ -88,7 +89,7 @@
 							</tr>
 						</table>
 					</div>
-</div>
+				</div>
 					   		<!--  -->
 					   		
 					   		<br><br>
@@ -227,7 +228,6 @@
 					
 				
 			</div>
-			<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
 			
 			
 		</div>
