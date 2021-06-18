@@ -491,7 +491,7 @@ function fn_save() {
 	alert("no:"+no);
 
 	$.ajax({
-		url : "${pageContext.request.contextPath}/insertBoard.do",
+		url : "${pageContext.request.contextPath}/updateBoard.do",
 		type : "post",
 		enctype: 'multipart/form-data',
 		//data : {fileNoDel : fileNoDel ,fileNameDel : fileNameDel },
@@ -578,7 +578,7 @@ function fn_insert() {
 
 	var formData = new FormData($("#boardForm")[0]);
 	$.ajax({
-		url : "${pageContext.request.contextPath}/mng/insertBoard.do",
+		url : "${pageContext.request.contextPath}/mng/updateBoard.do",
 		type : "post",
 		enctype: 'multipart/form-data',
 		data : formData,

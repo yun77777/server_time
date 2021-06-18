@@ -380,9 +380,7 @@ $("#commentCnt").html('('+replyListLen+')');
 var formObj = $("form[name='writeForm']");
 	
 	$("input[type=file]").change(function(){
-		alert('f');
 		var itemImg="#"+$(this).prev().attr("id");
-		alert(itemImg);
 		if(this.files && this.files[0]) {
 			var reader = new FileReader;
 			reader.onload = function(data) {
@@ -451,8 +449,6 @@ function fn_save() {
 	var content=$("#boardForm #content").val();
 	var B_TYPE=$("#boardForm #B_TYPE").val();
 	
-	alert("title:"+title);
-	alert("no:"+no);
 	formData.append("no",no);
 	formData.append("id",id);
 	formData.append("title",title);
@@ -477,21 +473,17 @@ function fn_save() {
 	});
 	
 	$("input[type=file]").each(function(){
-		//alert('file:'+$(this).val());
 		file.push($(this).val());
 		
 	}); 
-	
-	//alert($("input[type=file]").val());
 	
 	formData.append("fileNoDel",fileNoDel);
 	formData.append("fileNameDel",fileNameDel);
 	//formData.append("no",$("#boardForm #no").val());
 	formData.append("file",file);
-	alert("no:"+no);
 
 	$.ajax({
-		url : "${pageContext.request.contextPath}/insertBoard.do",
+		url : "${pageContext.request.contextPath}/updateBoard.do",
 		type : "post",
 		enctype: 'multipart/form-data',
 		//data : {fileNoDel : fileNoDel ,fileNameDel : fileNameDel },
@@ -522,7 +514,6 @@ function fn_delete() {
 		processData : false,
 		contentType : false,
 		success : function(result) {
-			alert('success');
 			fn_list();
 		}, // success 
 
@@ -682,8 +673,6 @@ function fn_reply(no){
 /* 	$('#boardForm #no').val(${len}+1); */
 /* 	$('#boardForm #no').val(Number(no)+1); */
 	$('#boardForm #replyType').val('Y');
-	alert("no:"+no);
-	alert($('#boardForm #originNo').val());
 	//$('#boardForm #originNo').val(Number(no));
 	//$('#boardForm #groupOrd').val(Number(no)+1);
 	//$('#boardForm #groupLayer').val(Number(no)+1);

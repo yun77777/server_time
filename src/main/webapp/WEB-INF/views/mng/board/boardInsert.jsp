@@ -206,9 +206,7 @@ $(document).ready(function(){
 	
 	
 	$("input[type=file]").change(function(){
-		alert('f');
 		var itemImg="#"+$(this).prev().attr("id");
-		alert(itemImg);
 		if(this.files && this.files[0]) {
 			var reader = new FileReader;
 			reader.onload = function(data) {
@@ -303,7 +301,6 @@ function fn_insert() {
 	var fileNameDel = new Array();
 	var file = new Array();
 	
-	alert("no:"+no);
 	$(".FILE_NO").each(function(){
 		fileNoDel.push($(this).val());
 		fileNameDel.push($(this).next().val());
@@ -312,13 +309,9 @@ function fn_insert() {
 	});
 	
 	$("input[type=file]").each(function(){
-		//alert('file:'+$(this).val());
 		file.push($(this).val());
 		
 	}); 
-	alert("fileNameDel:"+fileNameDel);
-	
-	//alert($("input[type=file]").val());
 	
 	formData.append("fileNoDel",fileNoDel);
 	formData.append("fileNameDel",fileNameDel);

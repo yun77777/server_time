@@ -569,6 +569,28 @@ System.err.println("fsdlmflmf:"+checkArr);
 	return "mng/board/boardDetail";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/updateBoard.do")
+	public String updateBoard(
+			@RequestParam Map<String, Object> paramMap,
+			@RequestParam(value="fileNoDel[]") String[] files,
+			@RequestParam(value="fileNameDel[]") String[] fileNames,
+			 HttpSession httpSession,
+			 MultipartHttpServletRequest multi) throws Exception {
+		//paramMap.put("B_TYPE",1);
+		
+		System.err.println("PARAM:"+paramMap);
+		try {
+//			paramMap.put("update","Y");
+			boardService.updateBoard(paramMap, files, fileNames, multi);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "success";
+	}
+
+	
 	
 	@RequestMapping(value = "/boardInsert.do")
 	public String boardInsertMng(

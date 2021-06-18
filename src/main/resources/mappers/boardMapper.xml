@@ -242,7 +242,7 @@
 		  B_NO IN (
 		    (SELECT B_NO FROM board WHERE B_NO <![CDATA[<]]> #{no} ORDER BY B_NO DESC LIMIT 1),
 		    (SELECT B_NO FROM board WHERE B_NO <![CDATA[>]]> #{no} ORDER BY B_NO LIMIT 1)
-		   )
+		   ) and B_TYPE=#{B_TYPE}
 	</select>
 	
 	<insert id="insertFile" parameterType="hashMap">
@@ -257,7 +257,8 @@
 			FILE_SIZE,
 <!-- 			SEQ_MP_FILE_NO,
  -->			FILE_PATH,
-			B_TYPE
+			B_TYPE,
+			DEL_GB
 		)VALUES(
 			#{FILE_NO},
 			#{B_NO},
@@ -266,7 +267,8 @@
 			#{FILE_SIZE},
 <!-- 			#{SEQ_MP_FILE_NO},
  -->			#{FILE_PATH},
-			#{B_TYPE}
+			#{B_TYPE},
+			#{DEL_GB}
 		)
     </insert>
 
@@ -274,7 +276,7 @@
 	<update id="updateFile" parameterType="map">
 		UPDATE MP_FILE SET
     	DEL_GB = 'Y'
-    	WHERE FILE_NO = #{FILE_NO}
+    	WHERE FILE_NO = #{FILE_NO} and B_TYPE=#{B_TYPE}
 	</update>
 	
 	
@@ -317,12 +319,12 @@
 			FILE_PATH,
 			B_TYPE
 		FROM MP_FILE
-		WHERE FILE_NO=#{FILE_NO}
+		WHERE FILE_NO=#{FILE_NO} and #{B_TYPE}
 	</select>
 	
 	<delete id="deleteFile" parameterType="map">
    	  delete MP_FILE 
-   	  where BNO=#{no, jdbcType=VARCHAR}
+   	  where BNO=#{no, jdbcType=VARCHAR} and B_TYPE=#{B_TYPE}
 	</delete>
 	
 	
@@ -338,6 +340,6 @@
 			FILE_PATH,
 			B_TYPE
 		FROM MP_FILE
-		where BNO=#{no} and DEL_GB='N'
+		where BNO=#{no} and DEL_GB='N' and B_TYPE=#{B_TYPE}
 	</select>
 </mapper>
