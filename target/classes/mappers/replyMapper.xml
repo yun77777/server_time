@@ -4,12 +4,12 @@
 
 <mapper namespace="com.mall.board.serviceImpl.ReplyMapper">
 
-<select id="list" parameterType="int"
+<select id="list" parameterType="java.util.HashMap"
 		resultType="java.util.HashMap">
 		select *
 		from
 		tbl_reply
-		where bno=#{bno}
+		where bno=#{no} and B_TYPE=#{B_TYPE}
 </select>
 
 <insert id="write" parameterType="java.util.HashMap">
@@ -22,6 +22,7 @@
 			, writer
 			, content
 			, regDate
+			, B_TYPE
 		)
    		values (
 	   		#{rno}
@@ -29,19 +30,21 @@
 	   		, #{writer} 
 	   		, #{content}
 	   		, NOW()
+	   		, #{B_TYPE}
    		)
 </insert>
 
 <update id="updateItem" parameterType="java.util.HashMap">
 	update tbl_reply 
 	set 
-		gdsNum=#{content}
-	where rno=#{rno} and bno=#{bno} and writer=#{writer}
+		gdsNum=#{content},
+		B_TYPE=#{B_TYPE}
+	where rno=#{rno} and bno=#{bno} and writer=#{writer} and B_TYPE=#{B_TYPE}
 </update>
 
 <delete id="delete" parameterType="java.util.HashMap">
 	delete from tbl_reply 
-	where rno=#{rno} and bno=#{bno}
+	where rno=#{rno} and bno=#{bno} and B_TYPE=#{B_TYPE}
 </delete>
 
 </mapper>

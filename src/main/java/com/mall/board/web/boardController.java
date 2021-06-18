@@ -178,7 +178,7 @@ public class boardController {
 			
 			List<Map<String,Object>> list=boardService.selectBoardHisList(paramMap);
 			List<Map<String,Object>> fileList=boardService.selectBoardFileList(paramMap);
-			List<Map<String,Object>> replyList=replyService.list(Integer.parseInt(paramMap.get("no").toString()));
+			List<Map<String,Object>> replyList=replyService.list(paramMap);
 			
 			int len=boardService.selectBoardMaxNo(paramMap);
 			int replyListLen=replyList.size();
@@ -193,7 +193,6 @@ public class boardController {
 			model.addAttribute("fileList",fileList);
 			model.addAttribute("len",len);
 			model.addAttribute("replyListLen",replyListLen);
-
 			model.addAttribute("paramMap",paramMap);
 			
 

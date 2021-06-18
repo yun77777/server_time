@@ -45,7 +45,8 @@ public class ReplyController {
 //		paramMap.put("writer",writer);
 //		paramMap.put("content",content);
 		replyService.write(paramMap);
-		List<Map<String, Object>> list=replyService.list(Integer.parseInt(paramMap.get("bno").toString()));
+		List<Map<String, Object>> list=replyService.list(paramMap);
+//		List<Map<String, Object>> list=replyService.list(Integer.parseInt(paramMap.get("bno").toString()));
 		Map<String, Object> result=new HashMap<String, Object>();
 		int len=list.size();
 		System.err.println("list@:"+list);

@@ -97,6 +97,8 @@ body {
 <body>
 
 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
+	<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
+	
 <!-- Page Content-->
         <section class="py-5">
             <div class="container">
@@ -107,8 +109,6 @@ body {
                 <!-- Content Row-->
                 <!-- Contact Form-->
                 <!-- In order to set the email address and subject line for the contact form go to the assets/mail/contact_me.php file.-->
-                <div class="row">
-                    <div class="col-lg-8 mb-4">
                         <form id="boardForm" name="sentMessage" novalidate>
                         	<input type="hidden" id="currentPageNo" name="currentPageNo" value="1"/>
                         	<input type="hidden" id="B_TYPE" name="B_TYPE" value="${paramMap.B_TYPE}"/>
@@ -131,8 +131,12 @@ body {
 	                                    <c:if test='${!empty paramMap.groupLayer}'>
 	                                    value="${paramMap.groupLayer}"</c:if>
                         	/>
-                            <button class="btn btn-secondary btn-sm float-right" id="" onclick="fn_list()" type="button">목록</button>
+                            <button class="btn btn-secondary btn-sm float-right" onclick="fn_list()" type="button">목록</button>
                             <table class="table">
+                            <colgroup>
+                            	<col width="15%">
+                            	<col width="*">
+                            </colgroup>
 							  <thead>
 							  </thead>
 							  <tbody>
@@ -171,21 +175,17 @@ body {
                                      <c:if test='${empty paramMap.title}'>
 	                                    value="${detail.title}"</c:if>
 	                                    <c:if test='${!empty paramMap.title}'>
-<%-- 	                                    value="${paramMap.title}"</c:if>
- --%>
- <%-- 	                            
-        
- --%>
-                                      value="[Re:] ${paramMap.title}"</c:if>
+                                      value="${paramMap.title}"</c:if>
                                      
                                      required data-validation-required-message="Please enter your email address." />
                                 	</div>
 							      </td>
 							      </tr>
 							      <tr>
-							       <td colspan="2">
+							      <td></td>
+							       <td>
 							      	<div class="controls">
-                                	<textarea rows="5" cols="50" id="content" name="content" class="form-control">${detail.content}</textarea>
+                                	<textarea rows="5" cols="100" id="content" name="content" class="form-control">${detail.content}</textarea>
                                 	</div>
 							      </td>
 							    </tr>
@@ -193,18 +193,24 @@ body {
 							</table>
 				</form>			
                 <form id="writeForm" method="post" enctype="multipart/form-data">
-		
-					
-					<input type="hidden" id="no" name="no" value="${detail.B_NO}"/>
+					<input type="hidden" id="no" name="no" 
+					<c:if test='${empty paramMap.no}'>
+                    value="${detail.B_NO}"</c:if>
+                    <c:if test='${!empty paramMap.no}'>
+                    value="${paramMap.no}"</c:if> />
 					<input type="hidden" id="fileNoDel" name="fileNoDel[]" value=""> 
 					<input type="hidden" id="fileNameDel" name="fileNameDel[]" value=""> 
 					<input type="hidden" id="type" name="type" value="save"> 
 					
-					<table>
+					<table id="fileIndex">
 						<tbody>
+						<colgroup>
+                           	<col width="15%">
+                           	<col width="*">
+                        </colgroup>
 							<tr>
-								<td id="fileIndex">
-								
+								<td></td>
+								<td>
 									<c:forEach var="file" items="${fileList}" varStatus="var">
 									<div>
 										<img class="card-img-top" style="width:20%;height:auto" name="itemImg${var.index}" id="itemImg${var.index}" src="<c:url value='/img/${file.ORG_FILE_NAME}'/>" alt="no image" />
@@ -214,7 +220,6 @@ body {
 										<button id="fileDelBtn" onclick="fn_del('${file.FILE_NO}','FILE_NO_${var.index}');" type="button">삭제</button><br>
 									</div>
 									</c:forEach>
-									
 								</td>
 							</tr>
 						</tbody>			
@@ -266,10 +271,13 @@ body {
             
 
 <div class="container mt-5">
+<h1>댓글</h1>
+<h5 id="commentCnt">(${replyListLen})</h5>
     <div class="row d-flex justify-content-center">
+    
         <div id="reply" class="col-md-8">
             <div class="headings d-flex justify-content-between align-items-center mb-3">
-                <h5 id="commentCnt">comment(${len})</h5>
+                
                 <!-- <div class="buttons"> 
                 <span class="badge bg-white d-flex flex-row align-items-center"> 
                 <span class="text-primary">Comments "ON"</span>
@@ -279,6 +287,7 @@ body {
             </div>
             
             <c:forEach var="result" items="${replyList}" varStatus="status">
+             
 			 <div class="card p-3 reply">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="user d-flex flex-row align-items-center">
@@ -286,7 +295,9 @@ body {
                      <span><small class="font-weight-bold text-primary">${result.writer}</small> <small class="font-weight-bold">${result.content}</small></span> </div> <small>2 days ago</small>
                 </div>
                 <div class="action d-flex justify-content-between mt-2 align-items-center">
-                    <div class="reply px-4"> <small>Remove</small> <span class="dots"></span> <small>Reply</small> <span class="dots"></span> <small>Translate</small> </div>
+                    <div class="reply px-4"> <small><a href="#" id="delete_btn">Remove</a></small>
+                    	<input type="hidden" class="rno" value="${result.rno}">
+                     <span class="dots"></span> <small>Reply</small> <span class="dots"></span> <small>Translate</small> </div>
                     <div class="icons align-items-center"> <i class="fa fa-star text-warning"></i> <i class="fa fa-check-circle-o check-icon"></i> </div>
                 </div>
             </div>
@@ -298,32 +309,54 @@ body {
  
    
    
-   
+  
    <div class="container mt-5">
+     
     <div class="row d-flex justify-content-center">
+    
         <div id="reply" class="col-md-8">
           <form id="commentForm" method="post" enctype="multipart/form-data">
    <div class="card p-3 reply">
-   댓글 작성자<input type="text" class="form-control" id="writer" name="writer" value="${member.ID}" readonly>
-         <div class="d-flex justify-content-between align-items-center">
-             <div class="user d-flex flex-row align-items-center">
-              <textarea rows="5" cols="50" class="form-control" id="content" name="content"></textarea>
-              <span><small class="font-weight-bold text-primary">${result.writer}</small> <small class="font-weight-bold">${result.content}</small></span> </div> 
-         </div>
-         <small>2 days ago</small>
-         <div class="action d-flex justify-content-between mt-2 align-items-center">
-             <div class="reply px-4"> <small>Remove</small> <span class="dots"></span> <small>Reply</small> <span class="dots"></span> <small>Translate</small> </div>
-             <div class="icons align-items-center"> <i class="fa fa-star text-warning"></i> <i class="fa fa-check-circle-o check-icon"></i> </div>
-         </div>
+			 <table class="table table-borderless">
+			 <%-- <colgroup>
+				<col width="10%">
+				<col width="*">
+			</colgroup> --%>
+			  <tbody>
+			    <tr>
+			      <th scope="row" colspan="2">${member.ID}</th>
+			   </tr>
+			   <tr>
+			   	<td>
+			   		<div class="d-flex justify-content-between align-items-center">
+			             <div class="user d-flex flex-row align-items-center">
+			              <textarea rows="5" cols="100" class="form-control" id="content" name="content"></textarea>
+			              <span><small class="font-weight-bold text-primary">${result.writer}</small> <small class="font-weight-bold">${result.content}</small></span> </div> 
+			         </div>
+			   	</td>
+			   </tr>
+			   <tr>
+			   	<td>
+			   		<div class="action d-flex justify-content-between mt-2 align-items-center">
+			             <div class="reply px-4"> <small>Remove</small> <span class="dots"></span> <small>Reply</small> <span class="dots"></span> <small>Translate</small> </div>
+			             <div class="icons align-items-center"> <i class="fa fa-star text-warning"></i> <i class="fa fa-check-circle-o check-icon"></i> </div>
+			         </div>
+			         <button type="submit" class="btn btn-info btn-sm float-right" id="comment_btn" onclick="fn_comment()">댓글 작성</button>
+			         
+			   	</td>
+			   </tr>
+			  </tbody>
+			 </table>
      </div>
      <input type="hidden" id="bno" name="bno">
+     <input type="hidden" id="writer" name="writer">
+     <input type="hidden" id="rno" name="rno">
+    
 	</form>
 </div>
 </div>
-</div>
-</div>
 	
-	<button type="submit" class="btn btn-info btn-sm float-right" onclick="fn_comment()">댓글 작성</button>
+	
 
 
 
@@ -341,6 +374,9 @@ body {
 
 <script>
 $(document).ready(function(){
+var replyListLen=Number('${replyListLen}');
+$("#commentCnt").html('('+replyListLen+')');
+
 var formObj = $("form[name='writeForm']");
 	
 	$("input[type=file]").change(function(){
@@ -376,7 +412,7 @@ var formObj = $("form[name='writeForm']");
 function fn_addFile(){
 	var fileIndex = 1;
 	$(".fileAdd_btn").on("click", function(){
-		$("#fileIndex").append("<div><input type='file' style='float:left;' id='file_"+(fileIndex)+"' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
+		$("#fileIndex").append("<tr><td></td><td><div><input type='file' style='float:left;' id='file_"+(fileIndex)+"' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div></td></tr>");
 		//$("#fileIndex").append("<div><img class='card-img-top' style='width:20%;height:auto' name='itemImg$"+(fileIndex++)+"' id='itemImg"+(fileIndex++)+"' alt='no image' /><input type='file' style='float:left;' id='file_"+(fileIndex)+"' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
 	});
 	 
@@ -401,8 +437,14 @@ function fn_del(value, name){
 function fn_save() {
 	$('#boardForm #no').attr('disabled',false);
 	var  formData= new FormData($("#writeForm")[0]);
-/* 	var  formData= $('#writeForm').serialize(); */
 
+	
+	var replyType=$("#boardForm #replyType").val();
+	var originNo=$("#boardForm #originNo").val();
+	var groupOrd=$("#boardForm #groupOrd").val();
+	var groupLayer=$("#boardForm #groupLayer").val();
+    	
+	
 	var no=$("#boardForm #no").val();
 	var id=$("#boardForm #id").val();
 	var title=$("#boardForm #title").val();
@@ -410,11 +452,17 @@ function fn_save() {
 	var B_TYPE=$("#boardForm #B_TYPE").val();
 	
 	alert("title:"+title);
+	alert("no:"+no);
 	formData.append("no",no);
 	formData.append("id",id);
 	formData.append("title",title);
 	formData.append("content",content);
 	formData.append("B_TYPE",B_TYPE);
+	
+	formData.append("replyType",replyType);
+	formData.append("originNo",originNo);
+	formData.append("groupOrd",groupOrd);
+	formData.append("groupLayer",groupLayer);
 
 	var fileNoDel = new Array();
 	var fileNameDel = new Array();
@@ -433,7 +481,6 @@ function fn_save() {
 		file.push($(this).val());
 		
 	}); 
-	alert("fileNameDel:"+fileNameDel);
 	
 	//alert($("input[type=file]").val());
 	
@@ -441,9 +488,10 @@ function fn_save() {
 	formData.append("fileNameDel",fileNameDel);
 	//formData.append("no",$("#boardForm #no").val());
 	formData.append("file",file);
-	
+	alert("no:"+no);
+
 	$.ajax({
-		url : "${pageContext.request.contextPath}/mng/updateBoard.do",
+		url : "${pageContext.request.contextPath}/insertBoard.do",
 		type : "post",
 		enctype: 'multipart/form-data',
 		//data : {fileNoDel : fileNoDel ,fileNameDel : fileNameDel },
@@ -485,21 +533,22 @@ function fn_delete() {
 }
 
 
-function fn_list() {
-	$('#boardForm #B_TYPE').val('${paramMap.B_TYPE}');
 
-	$('#boardForm').attr({
-		action : '<c:url value="/mng/boardList.do" />',
-		target : '_self'
-	}).submit();
+
+
+
+function fn_list() {
+	window.location='<c:url value="/boardList.do"/>';
 };
 
 function fn_detail(no){
 	//var  formData= $('#boardForm').serialize();
+	//$('#boardForm #replyType').val('N');
+
 	$('#boardForm #no').attr('disabled',false);
 	$('#boardForm #no').val(no);
 	$('#boardForm').attr({
-		action : '<c:url value="/mng/boardDetail.do" />',
+		action : '<c:url value="/boardDetail.do" />',
 		target : '_self'
 	}).submit();
 
@@ -509,7 +558,7 @@ function fn_btn(no){
 	var  formData= $('#boardForm').serialize();
     $.ajax({
         cache : false,
-        url : "${pageContext.request.contextPath}/mng/boardDetail.do",
+        url : "${pageContext.request.contextPath}/boardDetail.do",
         type : 'POST', 
         data : formData, 
         success : function(data) {
@@ -525,9 +574,11 @@ function fn_btn(no){
 function fn_insert() {
 	//var formData = $('#boardForm').serialize();
 	$('#boardForm #no').attr('disabled',false);
+	//$('#boardForm #replyType').val('N');
+
 	var formData = new FormData($("#boardForm")[0]);
 	$.ajax({
-		url : "${pageContext.request.contextPath}/mng/insertBoard.do",
+		url : "${pageContext.request.contextPath}/insertBoard.do",
 		type : "post",
 		enctype: 'multipart/form-data',
 		data : formData,
@@ -548,7 +599,7 @@ function fn_delete() {
 	$('#boardForm #no').attr('disabled',false);
 	var formData = new FormData($("#boardForm")[0]);
 	$.ajax({
-		url : "${pageContext.request.contextPath}/mng/deleteBoard.do",
+		url : "${pageContext.request.contextPath}/deleteBoard.do",
 		type : "post",
 		enctype: 'multipart/form-data',
 		data : formData,
@@ -617,13 +668,15 @@ $(function() {
 			return;
 		}
 	});
-});
+})
 
 function fn_reply(no){
 	//var  formData= $('#boardForm').serialize();
 	
 	//$('#boardForm #no').attr('disabled',false);
-	$('#boardForm #no').val(${len}+1);
+	var len=Number('${len}')+1;
+	$('#boardForm #no').val(len);
+/* 	$('#boardForm #no').val(${len}+1); */
 /* 	$('#boardForm #no').val(Number(no)+1); */
 	$('#boardForm #replyType').val('Y');
 	alert("no:"+no);
@@ -668,9 +721,33 @@ function fn_reply2() {
 	});
 }
 
-function fn_comment() {
+$("#delete_btn").click(function(){
+	var confirm_val = confirm("정말 삭제하시겠습니까?");
 	$("#bno").val($("#boardForm #no").val());
-	alert($("#bno").val());
+	$("#writer").val($("#boardForm #id").val());
+	$("#rno").val($(this).parent().parent().find(".rno").val());
+	var formData = new FormData($("#commentForm")[0]);
+
+	if(confirm_val) {
+													
+		$.ajax({
+			url : "${pageContext.request.contextPath}/reply/delete.do",
+			type : "post",
+			enctype: 'multipart/form-data',
+			data : formData,
+			processData : false,
+			contentType : false,
+			success : function(result) {
+				fn_detail($("#bno").val());
+				alert("삭제되었습니다.");
+			}
+		});
+	}	
+});
+
+$("#comment_btn").click(function() {
+	$("#bno").val($("#boardForm #no").val());
+	$("#writer").val($("#boardForm #id").val());
 	var formData = new FormData($("#commentForm")[0]);
 	/* $('#commentForm').attr({
 		action : '<c:url value="reply/write.do" />',
@@ -708,11 +785,11 @@ function fn_comment() {
            	content+='<div class="icons align-items-center"> <i class="fa fa-star text-warning"></i> <i class="fa fa-check-circle-o check-icon"></i> </div></div></div>';
                 
 			$("#reply").append(content);
-			$("#commentCnt").html('comment('+result.len+')');
+			$("#commentCnt").html('('+result.len+')');
 			
 			
 			
-			
+		
 			$("#commentForm #content").val('');
 			//fn_list();
 		}, // success 
@@ -721,7 +798,8 @@ function fn_comment() {
 			alert(xhr + " : " + status);
 		}
 	});
-}
+});
+
 </script>
 
 </html>

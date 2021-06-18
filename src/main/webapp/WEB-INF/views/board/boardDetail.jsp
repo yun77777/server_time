@@ -341,7 +341,7 @@ body {
 			             <div class="reply px-4"> <small>Remove</small> <span class="dots"></span> <small>Reply</small> <span class="dots"></span> <small>Translate</small> </div>
 			             <div class="icons align-items-center"> <i class="fa fa-star text-warning"></i> <i class="fa fa-check-circle-o check-icon"></i> </div>
 			         </div>
-			         <button type="submit" class="btn btn-info btn-sm float-right" id="comment_btn" onclick="fn_comment()">댓글 작성</button>
+			         <button type="submit" class="btn btn-info btn-sm float-right" id="comment_btn">댓글 작성</button>
 			         
 			   	</td>
 			   </tr>
@@ -351,7 +351,7 @@ body {
      <input type="hidden" id="bno" name="bno">
      <input type="hidden" id="writer" name="writer">
      <input type="hidden" id="rno" name="rno">
-    
+     <input type="hidden" id="B_TYPE" name="B_TYPE">
 	</form>
 </div>
 </div>
@@ -538,7 +538,10 @@ function fn_delete() {
 
 
 function fn_list() {
-	window.location='<c:url value="/boardList.do"/>';
+	$('#boardForm').attr({
+		action : '<c:url value="/boardList.do"/>',
+		target : '_self'
+	}).submit();
 };
 
 function fn_detail(no){
@@ -684,7 +687,7 @@ function fn_reply(no){
 	//$('#boardForm #originNo').val(Number(no));
 	//$('#boardForm #groupOrd').val(Number(no)+1);
 	//$('#boardForm #groupLayer').val(Number(no)+1);
-	
+
 	$('#boardForm').attr({
 		action : '<c:url value="/boardDetail.do" />',
 		target : '_self'
@@ -726,6 +729,7 @@ $("#delete_btn").click(function(){
 	$("#bno").val($("#boardForm #no").val());
 	$("#writer").val($("#boardForm #id").val());
 	$("#rno").val($(this).parent().parent().find(".rno").val());
+	
 	var formData = new FormData($("#commentForm")[0]);
 
 	if(confirm_val) {
@@ -748,6 +752,7 @@ $("#delete_btn").click(function(){
 $("#comment_btn").click(function() {
 	$("#bno").val($("#boardForm #no").val());
 	$("#writer").val($("#boardForm #id").val());
+	$("#commentForm #B_TYPE").val($("#boardForm #B_TYPE").val());
 	var formData = new FormData($("#commentForm")[0]);
 	/* $('#commentForm').attr({
 		action : '<c:url value="reply/write.do" />',

@@ -547,7 +547,8 @@ System.err.println("fsdlmflmf:"+checkArr);
 			List<Map<String,Object>> list=boardService.selectBoardHisList(paramMap);
 			List<Map<String,Object>> fileList=boardService.selectBoardFileList(paramMap);
 			System.err.println(Integer.parseInt(paramMap.get("no").toString()));
-			List<Map<String,Object>> replyList=replyService.list(Integer.parseInt(paramMap.get("no").toString()));
+			List<Map<String, Object>> replyList=replyService.list(paramMap);
+//			List<Map<String,Object>> replyList=replyService.list(Integer.parseInt(paramMap.get("no").toString()));
 			
 			int len=boardService.selectBoardMaxNo(paramMap);
 

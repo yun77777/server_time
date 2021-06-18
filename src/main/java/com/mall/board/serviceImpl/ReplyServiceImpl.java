@@ -13,8 +13,8 @@ public class ReplyServiceImpl implements ReplyService {
 	private ReplyMapper replyMapper;
 
 		@Override
-		public List<Map<String, Object>> list(int bno) throws Exception {
-			return replyMapper.list(bno);
+		public List<Map<String, Object>> list(Map<String, Object> paramMap) throws Exception {
+			return replyMapper.list(paramMap);
 		}
 
 		@Override
