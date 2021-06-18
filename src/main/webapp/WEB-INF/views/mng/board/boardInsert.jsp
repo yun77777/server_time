@@ -29,90 +29,156 @@
 <body>
 
 	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
-	<!-- Page Content-->
+	<%@ include file="/WEB-INF/views/common/popup/loginPopup.jsp"%> 
+	
 	<section class="py-5">
-		<div class="container">
-			<form id="boardForm" method="post" enctype="multipart/form-data">
-				<input type="hidden" id="B_TYPE" name="B_TYPE" value="${paramMap.B_TYPE}"> 
-
-				<!-- Page Heading/Breadcrumbs-->
-				<h1>
-					게시글 작성
-				</h1>
-				
-				<!-- Content Row-->
-				<!-- Contact Form-->
-				<!-- In order to set the email address and subject line for the contact form go to the assets/mail/contact_me.php file.-->
-				<div class="row">
-		            <button class="btn btn-secondary btn-sm float-right" id="" onclick="fn_list('1',${paramMap.B_TYPE})" type="button">목록</button>
-				
-					<div class="col-lg-8 mb-4">
-						<div class="control-group form-group">
-							<div class="controls">
-								<label>글번호:</label> <input class="form-control" id="no"
-									name="no" type="text" value="${paramMap.no}" disabled
-									data-validation-required-message="Please enter your name." />
-								<p class="help-block"></p>
-							</div>
-						</div>
-						<div class="control-group form-group">
-							<div class="controls">
-								<label>아이디:</label> <input class="form-control" id="id"
-									name="id" type="text" value="${member.ID}" required
-<%-- 									name="id" type="text" value="${login.ID}" required --%>
-									data-validation-required-message="Please enter your phone number." />
-							</div>
-						</div>
-						<div class="control-group form-group">
-							<div class="controls">
-								<label>제목:</label> <input class="form-control" id="title"
-									name="title" type="text" value="${detail.title}" required
-									data-validation-required-message="Please enter your email address." />
-							</div>
-						</div>
-						<div class="control-group form-group">
-							<div class="controls">
-		                        <textarea rows="5" cols="50" id="content" name="content" class="form-control">${detail.content}</textarea>
-							</div>
-						</div>
-						
-			</div>
-			</div>
-			</form>
-			
-			
-			<form id="writeForm" method="post" enctype="multipart/form-data">
+            <div class="container">
+                <!-- Page Heading/Breadcrumbs-->
+                <h1>
+                    게시글 상세
+                </h1>
+                        <form id="boardForm" name="sentMessage" novalidate>
+                        	<input type="hidden" id="currentPageNo" name="currentPageNo" value="1"/>
+                        	<input type="hidden" id="B_TYPE" name="B_TYPE" value="${paramMap.B_TYPE}"/>
+                        	<input type="hidden" id="replyType" name="replyType" value="${paramMap.replyType}"/>
+                        	<input type="hidden" id="originNo" name="originNo"
+	                                    <c:if test='${empty paramMap.originNo}'>
+	                                    value="${detail.originNo}"</c:if>
+	                                    <c:if test='${!empty paramMap.originNo}'>
+	                                    value="${paramMap.originNo}"</c:if>
+                        	/>
+                        	<input type="hidden" id="groupOrd" name="groupOrd"
+                        	<c:if test='${empty paramMap.groupOrd}'>
+	                                    value="${detail.groupOrd}"</c:if>
+	                                    <c:if test='${!empty paramMap.groupOrd}'>
+	                                    value="${paramMap.groupOrd}"</c:if>
+                        	/>
+                        	<input type="hidden" id="groupLayer" name="groupLayer"
+                        	<c:if test='${empty paramMap.groupLayer}'>
+	                                    value="${detail.groupLayer}"</c:if>
+	                                    <c:if test='${!empty paramMap.groupLayer}'>
+	                                    value="${paramMap.groupLayer}"</c:if>
+                        	/>
+                            <button class="btn btn-secondary btn-sm float-right" onclick="fn_list()" type="button">목록</button>
+                            <table class="table">
+                            <colgroup>
+                            	<col width="15%">
+                            	<col width="*">
+                            </colgroup>
+							  <thead>
+							  </thead>
+							  <tbody>
+							    <tr>
+							      <th scope="row">no</th>
+							      <td>
+							      	<div class="controls">
+	                                    <input class="form-control" id="no" name="no" type="text" 
+	                                    <c:if test='${empty paramMap.no}'>
+	                                    value="${detail.B_NO}"</c:if>
+	                                    <c:if test='${!empty paramMap.no}'>
+	                                    value="${paramMap.no}"</c:if>
+	                                    
+	                                     readonly data-validation-required-message="Please enter your name." />
+                                	</div>
+							      </td>
+							     </tr>
+							     <tr>
+							     <th scope="row">id</th>
+							      <td>
+							      	<div class="controls">
+                                    <input class="form-control" id="id" name="id" type="text" readonly
+	                                    value="${member.ID}" required data-validation-required-message="Please enter your phone number." />
+                                	</div>
+							      </td>
+							      </tr>
+							      <tr>
+							      <th scope="row">title</th>
+							      <td>
+							      	<div class="controls">
+                                    <input class="form-control" id="title" name="title" type="text" 
+                                     <c:if test='${empty paramMap.title}'>
+	                                    value="${detail.title}"</c:if>
+	                                    <c:if test='${!empty paramMap.title}'>
+                                      value="${paramMap.title}"</c:if>
+                                     
+                                     required data-validation-required-message="Please enter your email address." />
+                                	</div>
+							      </td>
+							      </tr>
+							      <tr>
+							      <td></td>
+							       <td>
+							      	<div class="controls">
+                                	<textarea rows="5" cols="100" id="content" name="content" class="form-control">${detail.content}</textarea>
+                                	</div>
+							      </td>
+							    </tr>
+							  </tbody>
+							</table>
+				</form>			
+                <form id="writeForm" method="post" enctype="multipart/form-data">
+					<input type="hidden" id="no" name="no" 
+					<c:if test='${empty paramMap.no}'>
+                    value="${detail.B_NO}"</c:if>
+                    <c:if test='${!empty paramMap.no}'>
+                    value="${paramMap.no}"</c:if> />
 					<input type="hidden" id="fileNoDel" name="fileNoDel[]" value=""> 
 					<input type="hidden" id="fileNameDel" name="fileNameDel[]" value=""> 
+					<input type="hidden" id="type" name="type" value="save"> 
 					
-					<table>
+					<table id="fileIndex">
 						<tbody>
+						<colgroup>
+                           	<col width="15%">
+                           	<col width="*">
+                        </colgroup>
 							<tr>
-								<td id="fileIndex">
-								
-									<c:forEach var="file" items="${imgList}" varStatus="var">
+								<td></td>
+								<td>
+									<c:forEach var="file" items="${fileList}" varStatus="var">
 									<div>
-										<img class="card-img-top" style="width:20%;height:auto" name="itemImg${var.index}" id="itemImg${var.index}" src="<c:url value='/img/${file.file}'/>" alt="no image" />
-										<input type="hidden" class="FILE_NO" id="FILE_NO" name="FILE_NO_${var.index}" value="${file.file_no}">
+										<img class="card-img-top" style="width:20%;height:auto" name="itemImg${var.index}" id="itemImg${var.index}" src="<c:url value='/img/${file.ORG_FILE_NAME}'/>" alt="no image" />
+										<input type="hidden" class="FILE_NO" id="FILE_NO" name="FILE_NO_${var.index}" value="${file.FILE_NO}">
 										<input type="hidden" id="FILE_NAME" name="FILE_NAME" value="FILE_NO_${var.index}">
-										<a href="#" id="fileName" onclick="return false;">${file.file}</a>${file.file_no}
-										<button id="fileDelBtn" onclick="fn_del('${file.file_no}','FILE_NO_${var.index}');" type="button">삭제</button><br>
+										<a href="#" id="fileName" onclick="return false;">${file.ORG_FILE_NAME}</a>${file.FILE_NO}
+										<button id="fileDelBtn" onclick="fn_del('${file.FILE_NO}','FILE_NO_${var.index}');" type="button">삭제</button><br>
 									</div>
 									</c:forEach>
-									
 								</td>
 							</tr>
 						</tbody>			
 					</table>
 					
 				</form>
-			<div>
-				<button type="button" class="cancel_btn">취소</button>
-				<button type="button" class="fileAdd_btn">파일추가</button>
+                <div>
+					<button type="button" class="fileAdd_btn">파일추가</button>
+				</div>        
+                            
+                            
+                            <div id="success"></div>
+                            
+                            <div class="inputArea">
+ 
 			</div>
-			<button type="submit" id="register_Btn" class="btn btn-info">등록</button>			
-			
-	</section>
+                            
+                            <!-- For success/fail messages-->
+                        	<button class="btn btn-info btn-sm float-right" id="saveBtn" type="button">작성</button>
+			                
+                        
+                    </div>
+                </div>
+            
+            
+
+
+ 
+   
+   
+  
+
+
+
+   </section>
 
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
@@ -298,7 +364,7 @@ nhn.husky.EZCreator.createInIFrame({
 });
 
 $(function() {
-	$("#register_Btn").click(function() {
+	$("#saveBtn").click(function() {
 		oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []); 
 		//textarea의 id를 적어줍니다.
 

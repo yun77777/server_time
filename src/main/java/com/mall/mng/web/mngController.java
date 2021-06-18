@@ -543,21 +543,23 @@ System.err.println("fsdlmflmf:"+checkArr);
 			System.err.println("detailP");
 			System.err.println(paramMap);
 			System.err.println(detail);
-			
+
 			List<Map<String,Object>> list=boardService.selectBoardHisList(paramMap);
 			List<Map<String,Object>> fileList=boardService.selectBoardFileList(paramMap);
-			System.err.println(Integer.parseInt(paramMap.get("no").toString()));
-			List<Map<String, Object>> replyList=replyService.list(paramMap);
-//			List<Map<String,Object>> replyList=replyService.list(Integer.parseInt(paramMap.get("no").toString()));
+			List<Map<String,Object>> replyList=replyService.list(paramMap);
 			
 			int len=boardService.selectBoardMaxNo(paramMap);
+			int replyListLen=replyList.size();
+			
+			if(paramMap.get("replyType")!=null && paramMap.get("replyType").toString().equals("Y"))
+				paramMap.put("title","[Re:] "+paramMap.get("title").toString());
 
 			model.addAttribute("detail",detail);
 			model.addAttribute("list",list);
 			model.addAttribute("replyList",replyList);
 			model.addAttribute("fileList",fileList);
 			model.addAttribute("len",len);
-
+			model.addAttribute("replyListLen",replyListLen);
 			model.addAttribute("paramMap",paramMap);
 			
 

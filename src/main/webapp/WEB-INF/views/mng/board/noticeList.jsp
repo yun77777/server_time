@@ -86,7 +86,7 @@
 									</div>
 								</th>
 								<th scope="row">${result.B_NO}</th>
-								<td><a href="#" onclick="fn_detail('${result.B_NO}','${member.ID}','${B_TYPE}');">${result.title}</a></td>
+								<td><a href="#" onclick="fn_detail('${result.B_NO}','${member.ID}','${B_TYPE}');">${result.title}<c:if test="${result.RCNT>0}"><b class="text-danger">&nbsp;[${result.RCNT}]</b></c:if></a></td>
 <%-- 								<td><a href="#" onclick="fn_detail('${result.B_NO}','${login.ID}');">${result.title}</a></td> --%>
 								<td>${result.id}</td>
 								<td>${result.input_dt}</td>

@@ -548,7 +548,7 @@ function fn_detail(no){
 	$('#boardForm #no').attr('disabled',false);
 	$('#boardForm #no').val(no);
 	$('#boardForm').attr({
-		action : '<c:url value="/boardDetail.do" />',
+		action : '<c:url value="/mng/boardDetail.do" />',
 		target : '_self'
 	}).submit();
 
@@ -558,7 +558,7 @@ function fn_btn(no){
 	var  formData= $('#boardForm').serialize();
     $.ajax({
         cache : false,
-        url : "${pageContext.request.contextPath}/boardDetail.do",
+        url : "${pageContext.request.contextPath}/mng/boardDetail.do",
         type : 'POST', 
         data : formData, 
         success : function(data) {
@@ -578,7 +578,7 @@ function fn_insert() {
 
 	var formData = new FormData($("#boardForm")[0]);
 	$.ajax({
-		url : "${pageContext.request.contextPath}/insertBoard.do",
+		url : "${pageContext.request.contextPath}/mng/insertBoard.do",
 		type : "post",
 		enctype: 'multipart/form-data',
 		data : formData,
@@ -599,7 +599,7 @@ function fn_delete() {
 	$('#boardForm #no').attr('disabled',false);
 	var formData = new FormData($("#boardForm")[0]);
 	$.ajax({
-		url : "${pageContext.request.contextPath}/deleteBoard.do",
+		url : "${pageContext.request.contextPath}/mng/deleteBoard.do",
 		type : "post",
 		enctype: 'multipart/form-data',
 		data : formData,
@@ -702,7 +702,7 @@ function fn_reply2() {
 	$("#content").html(''); */
 	
 	$.ajax({
-		url : "${pageContext.request.contextPath}/insertReply.do",
+		url : "${pageContext.request.contextPath}/mng/insertReply.do",
 		type : "post",
 		//data : {bno:bno, writer:writer, content:content},
 		enctype: 'multipart/form-data',
