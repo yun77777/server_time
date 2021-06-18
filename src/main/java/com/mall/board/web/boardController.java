@@ -183,6 +183,10 @@ public class boardController {
 			int len=boardService.selectBoardMaxNo(paramMap);
 			int replyListLen=replyList.size();
 			
+			if(paramMap.get("replyType")!=null && paramMap.get("replyType").toString().equals("Y"))
+				paramMap.put("title","[Re:] "+paramMap.get("title").toString());
+
+			
 			model.addAttribute("detail",detail);
 			model.addAttribute("list",list);
 			model.addAttribute("replyList",replyList);
@@ -244,7 +248,6 @@ public class boardController {
 				paramMap.put("newGroupOrd",Integer.parseInt(paramMap.get("groupOrd").toString()));//기존groupOrd+1
 				paramMap.put("newGroupLayer",Integer.parseInt(paramMap.get("groupLayer").toString()));//부모글 groupLayer+1
 				
-				paramMap.put("title","[Re:] "+paramMap.get("title").toString());
 				boardService.insertReply(paramMap, request);
 //				boardService.updateReply(paramMap);
 			}else {

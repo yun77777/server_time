@@ -442,7 +442,7 @@ function fn_save() {
 	var title=$("#boardForm #title").val();
 	var content=$("#boardForm #content").val();
 	var B_TYPE=$("#boardForm #B_TYPE").val();
-	
+	alert(no);
 	alert("title:"+title);
 	formData.append("no",no);
 	formData.append("id",id);
@@ -529,6 +529,8 @@ function fn_list() {
 
 function fn_detail(no){
 	//var  formData= $('#boardForm').serialize();
+	$('#boardForm #replyType').val('N');
+
 	$('#boardForm #no').attr('disabled',false);
 	$('#boardForm #no').val(no);
 	$('#boardForm').attr({
@@ -558,6 +560,8 @@ function fn_btn(no){
 function fn_insert() {
 	//var formData = $('#boardForm').serialize();
 	$('#boardForm #no').attr('disabled',false);
+	$('#boardForm #replyType').val('N');
+
 	var formData = new FormData($("#boardForm")[0]);
 	$.ajax({
 		url : "${pageContext.request.contextPath}/insertBoard.do",
