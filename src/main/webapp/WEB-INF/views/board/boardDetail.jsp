@@ -175,12 +175,7 @@ body {
                                      <c:if test='${empty paramMap.title}'>
 	                                    value="${detail.title}"</c:if>
 	                                    <c:if test='${!empty paramMap.title}'>
-<%-- 	                                    value="${paramMap.title}"</c:if>
- --%>
- <%-- 	                            
-        
- --%>
-                                      value="[Re:] ${paramMap.title}"</c:if>
+                                      value="${paramMap.title}"</c:if>
                                      
                                      required data-validation-required-message="Please enter your email address." />
                                 	</div>

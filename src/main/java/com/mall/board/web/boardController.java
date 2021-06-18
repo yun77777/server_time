@@ -178,7 +178,6 @@ public class boardController {
 			
 			List<Map<String,Object>> list=boardService.selectBoardHisList(paramMap);
 			List<Map<String,Object>> fileList=boardService.selectBoardFileList(paramMap);
-			
 			List<Map<String,Object>> replyList=replyService.list(Integer.parseInt(paramMap.get("no").toString()));
 			
 			int len=boardService.selectBoardMaxNo(paramMap);
@@ -245,6 +244,7 @@ public class boardController {
 				paramMap.put("newGroupOrd",Integer.parseInt(paramMap.get("groupOrd").toString()));//기존groupOrd+1
 				paramMap.put("newGroupLayer",Integer.parseInt(paramMap.get("groupLayer").toString()));//부모글 groupLayer+1
 				
+				paramMap.put("title","[Re:] "+paramMap.get("title").toString());
 				boardService.insertReply(paramMap, request);
 //				boardService.updateReply(paramMap);
 			}else {
