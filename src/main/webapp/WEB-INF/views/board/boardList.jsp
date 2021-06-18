@@ -112,13 +112,23 @@ function fn_insert(id, B_TYPE){
 
 }
 
-function fn_detail(no,id,B_TYPE){
+function fn_detail(no,id,B_TYPE,M_ID){
 	//var  formData= $('#boardForm').serialize();
 	$('#boardForm #B_TYPE').val(B_TYPE);
 
 	if(id.length==0)
 		alert('로그인 후 이용해주세요');
 	else{
+		/* if(id!=M_ID){
+			alert('게시물 확인 권한이 없습니다.');
+		}else{
+			$('#boardForm #no').val(no);
+			$('#boardForm').attr({
+				action : '<c:url value="/boardDetail.do" />',
+				target : '_self'
+			}).submit();
+		} */
+		
 		$('#boardForm #no').val(no);
 		$('#boardForm').attr({
 			action : '<c:url value="/boardDetail.do" />',
