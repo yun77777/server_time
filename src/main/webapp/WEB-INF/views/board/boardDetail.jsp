@@ -193,9 +193,11 @@ body {
 							</table>
 				</form>			
                 <form id="writeForm" method="post" enctype="multipart/form-data">
-		
-					
-					<input type="hidden" id="no" name="no" value="${detail.B_NO}"/>
+					<input type="hidden" id="no" name="no" 
+					<c:if test='${empty paramMap.no}'>
+                    value="${detail.B_NO}"</c:if>
+                    <c:if test='${!empty paramMap.no}'>
+                    value="${paramMap.no}"</c:if> />
 					<input type="hidden" id="fileNoDel" name="fileNoDel[]" value=""> 
 					<input type="hidden" id="fileNameDel" name="fileNameDel[]" value=""> 
 					<input type="hidden" id="type" name="type" value="save"> 
@@ -435,15 +437,16 @@ function fn_del(value, name){
 function fn_save() {
 	$('#boardForm #no').attr('disabled',false);
 	var  formData= new FormData($("#writeForm")[0]);
-/* 	var  formData= $('#writeForm').serialize(); */
-
 	var no=$("#boardForm #no").val();
+	//$("#writeForm #no").val(no);
+
 	var id=$("#boardForm #id").val();
 	var title=$("#boardForm #title").val();
 	var content=$("#boardForm #content").val();
 	var B_TYPE=$("#boardForm #B_TYPE").val();
-	alert(no);
+	
 	alert("title:"+title);
+	alert("no:"+no);
 	formData.append("no",no);
 	formData.append("id",id);
 	formData.append("title",title);
@@ -467,7 +470,6 @@ function fn_save() {
 		file.push($(this).val());
 		
 	}); 
-	alert("fileNameDel:"+fileNameDel);
 	
 	//alert($("input[type=file]").val());
 	
@@ -475,9 +477,10 @@ function fn_save() {
 	formData.append("fileNameDel",fileNameDel);
 	//formData.append("no",$("#boardForm #no").val());
 	formData.append("file",file);
-	
+	alert("no:"+no);
+
 	$.ajax({
-		url : "${pageContext.request.contextPath}/updateBoard.do",
+		url : "${pageContext.request.contextPath}/insertBoard.do",
 		type : "post",
 		enctype: 'multipart/form-data',
 		//data : {fileNoDel : fileNoDel ,fileNameDel : fileNameDel },
@@ -529,7 +532,7 @@ function fn_list() {
 
 function fn_detail(no){
 	//var  formData= $('#boardForm').serialize();
-	$('#boardForm #replyType').val('N');
+	//$('#boardForm #replyType').val('N');
 
 	$('#boardForm #no').attr('disabled',false);
 	$('#boardForm #no').val(no);
@@ -560,7 +563,7 @@ function fn_btn(no){
 function fn_insert() {
 	//var formData = $('#boardForm').serialize();
 	$('#boardForm #no').attr('disabled',false);
-	$('#boardForm #replyType').val('N');
+	//$('#boardForm #replyType').val('N');
 
 	var formData = new FormData($("#boardForm")[0]);
 	$.ajax({
