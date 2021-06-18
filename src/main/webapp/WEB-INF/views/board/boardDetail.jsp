@@ -437,9 +437,15 @@ function fn_del(value, name){
 function fn_save() {
 	$('#boardForm #no').attr('disabled',false);
 	var  formData= new FormData($("#writeForm")[0]);
-	var no=$("#boardForm #no").val();
-	//$("#writeForm #no").val(no);
 
+	
+	var replyType=$("#boardForm #replyType").val();
+	var originNo=$("#boardForm #originNo").val();
+	var groupOrd=$("#boardForm #groupOrd").val();
+	var groupLayer=$("#boardForm #groupLayer").val();
+    	
+	
+	var no=$("#boardForm #no").val();
 	var id=$("#boardForm #id").val();
 	var title=$("#boardForm #title").val();
 	var content=$("#boardForm #content").val();
@@ -452,6 +458,11 @@ function fn_save() {
 	formData.append("title",title);
 	formData.append("content",content);
 	formData.append("B_TYPE",B_TYPE);
+	
+	formData.append("replyType",replyType);
+	formData.append("originNo",originNo);
+	formData.append("groupOrd",groupOrd);
+	formData.append("groupLayer",groupLayer);
 
 	var fileNoDel = new Array();
 	var fileNameDel = new Array();
