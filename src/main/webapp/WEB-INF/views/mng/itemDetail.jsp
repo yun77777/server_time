@@ -41,13 +41,11 @@
 			<!-- Content Row-->
 			<!-- Contact Form-->
 			<!-- In order to set the email address and subject line for the contact form go to the assets/mail/contact_me.php file.-->
-			<div class="row">
-				<div class="col-lg-8 mb-4">
 				<button class="btn btn-secondary btn-sm float-right mb-3" id=""
 					onclick="fn_list()" type="button">목록</button>
 		<form id="itemForm" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="userId" value="${member.ID}" />
-					<table class="table mt-3">
+					<table class="table">
 						<thead>
 						</thead>
 						<tbody>
@@ -112,11 +110,7 @@
 						</tbody>
 					</table>
 				</form>
-			</div>
-		</div>
 		
-		<div class="row">
-				<div class="col-lg-8 mb-4">
 		<form id="writeForm" method="post" enctype="multipart/form-data">
 
 
@@ -157,8 +151,6 @@
 			</table>
 
 		</form>
-		</div>
-	</div>
 		<div>
 			<button type="button" class="fileAdd_btn btn btn btn-info btn-sm">파일추가</button>
 		</div>
