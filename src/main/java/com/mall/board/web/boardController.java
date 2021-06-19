@@ -202,6 +202,45 @@ public class boardController {
 	return "board/boardDetail";
 	}
 	
+	@RequestMapping(value = "/boardUpdate.do")
+	public String boardUpdate(
+			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {
+		try {
+			model.addAttribute("login",httpSession.getAttribute("login"));
+			model.addAttribute("member",httpSession.getAttribute("member"));
+			if(paramMap.get("no")==null)
+				paramMap.put("no",paramMap.get("bno"));
+			Map<String,Object> detail=boardService.selectBoardDetail(paramMap);
+			System.err.println("detailP");
+			System.err.println(paramMap);
+			System.err.println(detail);
+			
+			List<Map<String,Object>> list=boardService.selectBoardHisList(paramMap);
+			List<Map<String,Object>> fileList=boardService.selectBoardFileList(paramMap);
+			List<Map<String,Object>> replyList=replyService.list(paramMap);
+			
+			int len=boardService.selectBoardMaxNo(paramMap);
+			int replyListLen=replyList.size();
+			
+			if(paramMap.get("replyType")!=null && paramMap.get("replyType").toString().equals("Y"))
+				paramMap.put("title","[Re:] "+paramMap.get("title").toString());
+			
+			
+			model.addAttribute("detail",detail);
+			model.addAttribute("list",list);
+			model.addAttribute("replyList",replyList);
+			model.addAttribute("fileList",fileList);
+			model.addAttribute("len",len);
+			model.addAttribute("replyListLen",replyListLen);
+			model.addAttribute("paramMap",paramMap);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return "board/boardUpdate";
+	}
+	
 	@RequestMapping(value = "/boardInsert.do")
 	public String boardInsert(
 			@RequestParam Map<String, Object> paramMap, HttpSession httpSession, HttpServletRequest request, Model model) throws Exception {

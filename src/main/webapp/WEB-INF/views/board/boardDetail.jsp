@@ -113,6 +113,12 @@ body {
                         	<input type="hidden" id="currentPageNo" name="currentPageNo" value="1"/>
                         	<input type="hidden" id="B_TYPE" name="B_TYPE" value="${paramMap.B_TYPE}"/>
                         	<input type="hidden" id="replyType" name="replyType" value="${paramMap.replyType}"/>
+                        	<input id="no" name="no" type="hidden" 
+	                                    <c:if test='${empty paramMap.no}'>
+	                                    value="${detail.B_NO}"</c:if>
+	                                    <c:if test='${!empty paramMap.no}'>
+	                                    value="${paramMap.no}"</c:if>>
+                        	
                         	<input type="hidden" id="originNo" name="originNo"
 	                                    <c:if test='${empty paramMap.originNo}'>
 	                                    value="${detail.originNo}"</c:if>
@@ -141,54 +147,47 @@ body {
 							  </thead>
 							  <tbody>
 							    <tr>
-							      <th scope="row">no</th>
+							      <th scope="row">글번호</th>
 							      <td>
 							      	<div class="controls">
-	                                    <input class="form-control" id="no" name="no" type="text" 
 	                                    <c:if test='${empty paramMap.no}'>
-	                                    value="${detail.B_NO}"</c:if>
+	                                    ${detail.B_NO}</c:if>
 	                                    <c:if test='${!empty paramMap.no}'>
-	                                    value="${paramMap.no}"</c:if>
-	                                    
-	                                     readonly data-validation-required-message="Please enter your name." />
+	                                    ${paramMap.no}</c:if>
                                 	</div>
 							      </td>
 							     </tr>
 							     <tr>
-							     <th scope="row">id</th>
+							     <th scope="row">아이디</th>
 							      <td>
 							      	<div class="controls">
-                                    <input class="form-control" id="id" name="id" type="text" readonly
                                     <c:if test='${empty paramMap.id}'>
-	                                    value="${detail.id}"</c:if>
+	                                    ${detail.id}</c:if>
 	                                    <c:if test='${!empty paramMap.id}'>
-	                                    value="${member.ID}"</c:if>
-                                    required data-validation-required-message="Please enter your phone number." />
+	                                    ${member.ID}</c:if>
                                 	</div>
 							      </td>
 							      </tr>
 							      <tr>
-							      <th scope="row">title</th>
+							      <th scope="row">제목</th>
 							      <td>
 							      	<div class="controls">
-                                    <input class="form-control" id="title" name="title" type="text" 
                                      <c:if test='${empty paramMap.title}'>
-	                                    value="${detail.title}"</c:if>
+	                                    ${detail.title}</c:if>
 	                                    <c:if test='${!empty paramMap.title}'>
-                                      value="${paramMap.title}"</c:if>
-                                     
-                                     required data-validation-required-message="Please enter your email address." />
+                                      ${paramMap.title}</c:if>
                                 	</div>
 							      </td>
 							      </tr>
-							      <tr>
-							      <td></td>
+							      <tr style="height:500px;">
+							      <th scope="row">내용</th>
 							       <td>
 							      	<div class="controls">
-                                	<textarea rows="5" cols="100" id="content" name="content" class="form-control">${detail.content}</textarea>
+							      	${detail.content}
                                 	</div>
 							      </td>
 							    </tr>
+							    <tr><td></td><td></td></tr>
 							  </tbody>
 							</table>
 				</form>			
@@ -197,7 +196,7 @@ body {
 					<c:if test='${empty paramMap.no}'>
                     value="${detail.B_NO}"</c:if>
                     <c:if test='${!empty paramMap.no}'>
-                    value="${paramMap.no}"</c:if> />
+                    value="${paramMap.no}"z</c:if> />
 					<input type="hidden" id="fileNoDel" name="fileNoDel[]" value=""> 
 					<input type="hidden" id="fileNameDel" name="fileNameDel[]" value=""> 
 					<input type="hidden" id="type" name="type" value="save"> 
@@ -217,7 +216,6 @@ body {
 										<input type="hidden" class="FILE_NO" id="FILE_NO" name="FILE_NO_${var.index}" value="${file.FILE_NO}">
 										<input type="hidden" id="FILE_NAME" name="FILE_NAME" value="FILE_NO_${var.index}">
 										<a href="#" id="fileName" onclick="return false;">${file.ORG_FILE_NAME}</a>${file.FILE_NO}
-										<button id="fileDelBtn" onclick="fn_del('${file.FILE_NO}','FILE_NO_${var.index}');" type="button">삭제</button><br>
 									</div>
 									</c:forEach>
 								</td>
@@ -226,9 +224,6 @@ body {
 					</table>
 					
 				</form>
-                <div>
-					<button type="button" class="fileAdd_btn">파일추가</button>
-				</div>        
                             
                             
                             <div id="success"></div>
@@ -239,7 +234,7 @@ body {
                             
                             <!-- For success/fail messages-->
                         	<button class="btn btn-secondary btn-sm float-right" id="sbumit" onclick="fn_reply('${detail.B_NO}')" type="submit">답글</button>
-                        	<button class="btn btn-info btn-sm float-right" id="saveBtn" type="button">저장</button>
+                        	<button class="btn btn-info btn-sm float-right" id="updateBtn" type="button">수정</button>
 			                <button class="btn btn-danger btn-sm float-right" id="sendMessageButton" onclick="fn_delete()" type="button">삭제</button>
 			                
 			                <table class="table table-sm">
@@ -266,7 +261,6 @@ body {
 							</table>
                         
                     </div>
-                </div>
             
             
 
@@ -376,216 +370,32 @@ body {
 $(document).ready(function(){
 var replyListLen=Number('${replyListLen}');
 $("#commentCnt").html('('+replyListLen+')');
-
-var formObj = $("form[name='writeForm']");
-	
-	$("input[type=file]").change(function(){
-		var itemImg="#"+$(this).prev().attr("id");
-		if(this.files && this.files[0]) {
-			var reader = new FileReader;
-			reader.onload = function(data) {
-				$(itemImg).attr("src", data.target.result).width(500);
-				
-/* 								$(".select_img img").attr("src", data.target.result).width(500);								 */
-			}
-			reader.readAsDataURL(this.files[0]);
-		}
-	});
-	
-	
-	fn_addFile();
-	
-	$(".update_btn").on("click", function(){
-		if(fn_valiChk()){
-			return false;
-		}
-		/* formObj.attr("action", "/mng/updateItem.do");
-		formObj.attr("method", "post");
-		formObj.submit(); */
-		
-		fn_save();
-	});
 	
 });
-function fn_addFile(){
-	var fileIndex = 1;
-	$(".fileAdd_btn").on("click", function(){
-		$("#fileIndex").append("<tr><td></td><td><div><input type='file' style='float:left;' id='file_"+(fileIndex)+"' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div></td></tr>");
-		//$("#fileIndex").append("<div><img class='card-img-top' style='width:20%;height:auto' name='itemImg$"+(fileIndex++)+"' id='itemImg"+(fileIndex++)+"' alt='no image' /><input type='file' style='float:left;' id='file_"+(fileIndex)+"' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
-	});
-	 
-	
-	$(document).on("click","#fileDelBtn", function(){
-		$(this).parent().remove();
-		
-	});
-}
-
-var fileNoArry = new Array();
-var fileNameArry = new Array();
-
-function fn_del(value, name){
-	
-	fileNoArry.push(value);
-	fileNameArry.push(name);
-	$("#fileNoDel").attr("value", fileNoArry);
-	$("#fileNameDel").attr("value", fileNameArry);
-}
-
-function fn_save() {
-	$('#boardForm #no').attr('disabled',false);
-	var  formData= new FormData($("#writeForm")[0]);
-
-	
-	var replyType=$("#boardForm #replyType").val();
-	var originNo=$("#boardForm #originNo").val();
-	var groupOrd=$("#boardForm #groupOrd").val();
-	var groupLayer=$("#boardForm #groupLayer").val();
-    	
-	
-	var no=$("#boardForm #no").val();
-	var id=$("#boardForm #id").val();
-	var title=$("#boardForm #title").val();
-	var content=$("#boardForm #content").val();
-	var B_TYPE=$("#boardForm #B_TYPE").val();
-	
-	formData.append("no",no);
-	formData.append("id",id);
-	formData.append("title",title);
-	formData.append("content",content);
-	formData.append("B_TYPE",B_TYPE);
-	
-	formData.append("replyType",replyType);
-	formData.append("originNo",originNo);
-	formData.append("groupOrd",groupOrd);
-	formData.append("groupLayer",groupLayer);
-
-	var fileNoDel = new Array();
-	var fileNameDel = new Array();
-	var file = new Array();
-	
-	
-	$(".FILE_NO").each(function(){
-		fileNoDel.push($(this).val());
-		fileNameDel.push($(this).next().val());
-		//checkArr.push($(this).attr("data-cartNum"));  // 배열에 데이터 삽입
-		
-	});
-	
-	$("input[type=file]").each(function(){
-		file.push($(this).val());
-		
-	}); 
-	
-	formData.append("fileNoDel",fileNoDel);
-	formData.append("fileNameDel",fileNameDel);
-	//formData.append("no",$("#boardForm #no").val());
-	formData.append("file",file);
-
-	$.ajax({
-		url : "${pageContext.request.contextPath}/updateBoard.do",
-		type : "post",
-		enctype: 'multipart/form-data',
-		//data : {fileNoDel : fileNoDel ,fileNameDel : fileNameDel },
-		data : formData,
-/* 		data : {formData: formData, fileNoDel : fileNoDel ,fileNameDel : fileNameDel }, */
-		processData : false,
-		contentType : false,
-		success : function(result) {
-			//fn_list();
-		}, // success 
-
-		error : function(xhr, status) {
-			alert(xhr + " : " + status);
-		}
-	}); 
-}
-
-function fn_delete() {
-	//var formData = $('#itemForm').serialize();
-	$('#itemForm #gdsNum').attr('disabled',false);
-/* 	$('#itemForm #no').attr('disabled',false); */
-	var formData = new FormData($("#itemForm")[0]);
-	$.ajax({
-		url : "${pageContext.request.contextPath}/mng/deleteItem.do",
-		type : "post",
-		enctype: 'multipart/form-data',
-		data : formData,
-		processData : false,
-		contentType : false,
-		success : function(result) {
-			fn_list();
-		}, // success 
-
-		error : function(xhr, status) {
-			alert(xhr + " : " + status);
-		}
-	});
-}
-
-
-
-
-
 
 function fn_list() {
 	$('#boardForm').attr({
 		action : '<c:url value="/boardList.do"/>',
 		target : '_self'
 	}).submit();
-};
+}
 
-function fn_detail(no){
+function fn_detail(no,type){
 	//var  formData= $('#boardForm').serialize();
 	//$('#boardForm #replyType').val('N');
 
 	$('#boardForm #no').attr('disabled',false);
 	$('#boardForm #no').val(no);
+
+	if(type==null){
+		type='Detail';
+	}
+	
 	$('#boardForm').attr({
-		action : '<c:url value="/boardDetail.do" />',
+		action : '<c:url value="/board'+type+'.do" />',
 		target : '_self'
 	}).submit();
 
-}
-
-function fn_btn(no){
-	var  formData= $('#boardForm').serialize();
-    $.ajax({
-        cache : false,
-        url : "${pageContext.request.contextPath}/boardDetail.do",
-        type : 'POST', 
-        data : formData, 
-        success : function(data) {
-        }, // success 
-
-        error : function(xhr, status) {
-            alert(xhr + " : " + status);
-        }
-    }); // $.ajax */
-
-}
-
-function fn_insert() {
-	//var formData = $('#boardForm').serialize();
-	$('#boardForm #no').attr('disabled',false);
-	//$('#boardForm #replyType').val('N');
-
-	var formData = new FormData($("#boardForm")[0]);
-	$.ajax({
-		url : "${pageContext.request.contextPath}/insertBoard.do",
-		type : "post",
-		enctype: 'multipart/form-data',
-		data : formData,
-		processData : false,
-		contentType : false,
-		success : function(result) {
-			fn_list();
-		}, // success 
-
-		error : function(xhr, status) {
-			alert(xhr + " : " + status);
-		}
-	});
 }
 
 function fn_delete() {
@@ -608,59 +418,11 @@ function fn_delete() {
 		}
 	});
 }
-var oEditors = [];
-nhn.husky.EZCreator.createInIFrame({
-	oAppRef : oEditors,
-	elPlaceHolder : "content", //저는 textarea의 id와 똑같이 적어줬습니다.
-	sSkinURI : "se2/SmartEditor2Skin.html", //경로를 꼭 맞춰주세요!
-	fCreator : "createSEditor2",
-	htParams : {
-		// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-		bUseToolbar : true,
-
-		// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-		bUseVerticalResizer : false,
-
-		// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-		bUseModeChanger : false
-	}
-});
 
 $(function() {
-	$("#saveBtn").click(function() {
-		oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []); 
-		//textarea의 id를 적어줍니다.
-
-		var selcatd = $("#selcatd > option:selected").val();
-		var title = $("#title").val();
-		var content = document.getElementById("content").value;
-		if (selcatd == "") {
-			alert("카테고리를 선택해주세요.");
-			return;
-		}
-		if (title == null || title == "") {
-			alert("제목을 입력해주세요.");
-			$("#title").focus();
-			return;
-		}
-		if(content == "" || content == null || content == '&nbsp;' || 
-				content == '<br>' || content == '<br/>' || content == '<p>&nbsp;</p>'){
-			alert("본문을 작성해주세요.");
-			oEditors.getById["content"].exec("FOCUS"); //포커싱
-			return;
-		} //이 부분은 스마트에디터 유효성 검사 부분이니 참고하시길 바랍니다.
-		
-		var result = confirm("작성하시겠습니까?");
-		
-		if(result){
-			alert("작성 완료!");
-/* 			$("#boardForm").submit();
- */			
-			fn_save();
-			/*  fn_insert(); */
-		}else{
-			return;
-		}
+	$("#updateBtn").click(function() {
+		var no=$("#boardForm #no").val();
+		fn_detail(no,'Update');
 	});
 })
 
@@ -684,34 +446,6 @@ function fn_reply(no){
 
 }
 
-function fn_reply2() {
-	$('#boardForm #no').attr('disabled',false);
-	var formData = new FormData($("#boardForm")[0]);
-	/* $("#no").val('');
-	$("#id").val('');
-	$("#title").val('');
-	$("#file").val('');
-	$("#content").html(''); */
-	
-	$.ajax({
-		url : "${pageContext.request.contextPath}/insertReply.do",
-		type : "post",
-		//data : {bno:bno, writer:writer, content:content},
-		enctype: 'multipart/form-data',
-		data : formData,
-		processData : false,
-		contentType : false,
-		success : function(result) {
-			fn_detail(result.replyNo);
-			
-			//fn_list();
-		}, // success 
-
-		error : function(xhr, status) {
-			alert(xhr + " : " + status);
-		}
-	});
-}
 
 $("#delete_btn").click(function(){
 	var confirm_val = confirm("정말 삭제하시겠습니까?");
