@@ -234,9 +234,10 @@ body {
                             
                             <!-- For success/fail messages-->
                         	<button class="btn btn-secondary btn-sm float-right" id="sbumit" onclick="fn_reply('${detail.B_NO}')" type="submit">답글</button>
-                        	<button class="btn btn-info btn-sm float-right" id="updateBtn" type="button">수정</button>
-			                <button class="btn btn-danger btn-sm float-right" id="sendMessageButton" onclick="fn_delete()" type="button">삭제</button>
-			                
+                        	<c:if test="${member.ID eq detail.id}">
+	                        	<button class="btn btn-info btn-sm float-right" id="updateBtn" type="button">수정</button>
+				                <button class="btn btn-danger btn-sm float-right" id="sendMessageButton" onclick="fn_delete()" type="button">삭제</button>
+			                </c:if>
 			                <table class="table table-sm">
 								<tbody>
 									<tr>
