@@ -273,12 +273,6 @@ body {
         <div id="reply" class="col-md-8">
             <div class="headings d-flex justify-content-between align-items-center mb-3">
                 
-                <!-- <div class="buttons"> 
-                <span class="badge bg-white d-flex flex-row align-items-center"> 
-                <span class="text-primary">Comments "ON"</span>
-                        <div class="form-check form-switch"> <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked> </div>
-                </span> 
-                </div> -->
             </div>
             
             <c:forEach var="result" items="${replyList}" varStatus="status">
