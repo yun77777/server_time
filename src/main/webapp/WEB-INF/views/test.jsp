@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -8,564 +9,323 @@
 <%@ page session="false"%>
 
 
-<!DOCTYPE html>
-<html lang="en">
+
+
+<!doctype html>
+<html lang="ko">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<meta name="description" content="" />
-<meta name="author" content="" />
-<title>Modern Business - Start Bootstrap Template</title>
-<!-- Favicon-->
-<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-<link href="<c:url value='/resources/css/styles.css'/>" rel="stylesheet" />
-
-<style>
-    body {
-		font-family: 'Varela Round', sans-serif;
-	}
-	.modal-login {
-		width: 320px;
-		margin: 30px auto;
-	}
-	.modal-login .modal-content {
-		border-radius: 1px;
-		border: none;
-	}
-	.modal-login .modal-header {
-        position: relative;
-		justify-content: center;
-        background: #f2f2f2;
-	}
-    .modal-login .modal-body {
-        padding: 30px;
-    }
-    .modal-login .modal-footer {
-        background: #f2f2f2;
-    }
-	.modal-login h4 {
-		text-align: center;
-		font-size: 26px;
-	}
-    .modal-login label {
-        font-weight: normal;
-        font-size: 13px;
-    }
-	.modal-login .form-control, .modal-login .btn {
-		min-height: 38px;
-		border-radius: 2px; 
-	}
-	.modal-login .hint-text {
-		text-align: center;
-	}
-	.modal-login .close {
-        position: absolute;
-		top: 15px;
-		right: 15px;
-	}
-    .modal-login .checkbox-inline {
-        margin-top: 12px;
-    }
-    .modal-login input[type="checkbox"]{
-        margin-top: 2px;
-    }
-	.modal-login .btn {
-        min-width: 100px;
-		background: #3498db;
-		border: none;
-		line-height: normal;
-	}
-	.modal-login .btn:hover, .modal-login .btn:focus {
-		background: #248bd0;
-	}
-	.modal-login .hint-text a {
-		color: #999;
-	}
-	.trigger-btn {
-		display: inline-block;
-		margin: 100px auto;
-	}
-</style>
-<style>
-/* scale */
-.scale {
-  transform: scale(1);
-  -webkit-transform: scale(1);
-  -moz-transform: scale(1);
-  -ms-transform: scale(1);
-  -o-transform: scale(1);
-  transition: all 0.3s ease-in-out;   /* 부드러운 모션을 위해 추가*/
-}
-.scale:hover {
-  transform: scale(1.2);
-  -webkit-transform: scale(1.2);
-  -moz-transform: scale(1.2);
-  -ms-transform: scale(1.2);
-  -o-transform: scale(1.2);
-}
-.img {width:325px; height:280px; overflow:hidden }   /* 부모를 벗어나지 않고 내부 이미지만 확대 */
-
-/*  */
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,700);
-@import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
-figure.snip1384{
-  font-family: 'Raleway', Arial, sans-serif;
-  position: relative;
-  overflow: hidden;
-  margin: 10px;
-  min-width: 230px;
-  max-width: 315px; 
-  width: 100%;
-  color: #fff; /* color */
-/*   color: #6495ED; /* color */ */
-  text-align: left;
-  font-size: 16px;
-  background-color: #1fe0;
-}
-
-/* modified 21/05/30 */
-figure.snip1384.firstRow{
-  min-width: 180px;
-  max-width: 315px; 
-}
-figure.snip1384 * {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-transition: all 0.35s ease;
-  transition: all 0.35s ease;
-}
-figure.snip1384 img {
-  max-width: 100%;
-  backface-visibility: hidden;
-  vertical-align: top;
-}
-figure.snip1384:after,
-figure.snip1384 figcaption {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-figure.snip1384:after {
-  content: '';
-  background-color: #ffffff;
-  background-color: rgba( 255, 255, 255, 0.5 );
-  /*   background-color: rgba(0, 0, 0, 0.65); */
-  -webkit-transition: all 0.35s ease;
-  transition: all 0.35s ease;
-  opacity: 0;
-/*   opacity: 0; */
-}
-figure.snip1384 figcaption {
-  z-index: 1;
-  padding: 40px;
-}
-figure.snip1384 h3,
-figure.snip1384 .links {
-  width: 100%;
-  margin: 5px 0;
-  padding: 0;
-}
-figure.snip1384 h3 {
-  line-height: 1.1em;
-  font-weight: 700;
-  font-size: 1.4em;
-  text-transform: uppercase;
-  opacity: 0;
-}
-figure.snip1384 p {
-  font-size: 0.8em;
-  font-weight: 300;
-  letter-spacing: 1px;
-  opacity: 0;
-  top: 50%;
-  -webkit-transform: translateY(40px);
-  transform: translateY(40px);
-}
-figure.snip1384 i {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  padding: 20px 25px;
-  font-size: 34px;
-  opacity: 0;
-  -webkit-transform: translateX(-10px);
-  transform: translateX(-10px);
-}
-figure.snip1384 a {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-}
-figure.snip1384:hover img,
-figure.snip1384.hover img {
-  zoom: 1;
-  filter: alpha(opacity=50);
-  -webkit-opacity: 0.5;
-  opacity: 0.5;
-}
-figure.snip1384:hover:after,
-figure.snip1384.hover:after {
-  opacity: 1;
-  position: absolute;
-  top: 10px;
-  bottom: 10px;
-  left: 10px;
-  right: 10px;
-}
-figure.snip1384:hover h3,
-figure.snip1384.hover h3,
-figure.snip1384:hover p,
-figure.snip1384.hover p,
-figure.snip1384:hover i,
-figure.snip1384.hover i {
-  -webkit-transform: translate(0px, 0px);
-  transform: translate(0px, 0px);
-  opacity: 1;
-}
-
-
-/* @@@@@@@@@@@@ */
-
-/* @@@@@@@@@@@@ */
-
-</style>
-<!-- Font Awesome icons (free version)-->
-<script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"
-	crossorigin="anonymous"></script>
-	
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<!-- Bootstrap core JS-->
-<!-- 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
- -->	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
-	<!-- Core theme JS-->
-	<script src="<c:url value='/resources/js/scripts.js'/>"></script>
-<!-- Core theme CSS (includes Bootstrap)-->
-
-</head>
-<body>
-
-
-	<%@ include file="/WEB-INF/views/common/nav.jsp"%>
-	<%@ include file="/WEB-INF/views/common/header.jsp"%> 
-	
-	<%@ include file="/WEB-INF/views/common/content.jsp"%>
-	
-	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
-	
-	
-	
-	<div id="image_container"> 
-	<!-- 이미지 마크업 생성 공간 --> </div>
-
-</body>
-
-
+<title>네이비즘 서버시간</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="description"
+	content="티켓팅 서버시간,수강신청 서버시간,인터파크 티켓팅 시계,표준시간,웹사이트 시계" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="네이비즘 서버시간" />
+<meta property="og:url" content="https://time.navyism.com" />
+<meta property="og:description"
+	content="티켓팅 서버시간,수강신청 서버시간,인터파크 티켓팅 시계,표준시간,웹사이트 시계" />
+<meta property="og:image" content="http://data.navyism.com/og.jpg" />
+<meta property="fb:app_id" content="229339130480164" />
+<meta property="fb:admins" content="1198798522" />
+<meta name="robots" content="index,follow" />
+<meta name="verify-v1"
+	content="nuIg8QGoDVEVSnRMWQItR7bcCf9De5x0OvxJvHxgpjg=" />
+<meta name="msvalidate.01" content="F0FFB511BB609D783E0E92382BE99DDA" />
+<meta name="google-translate-customization"
+	content="f3d3b6aff9d0040d-5c48419936d9e7d1-g53efe460fb364d0f-10" />
+<meta name="naver-site-verification"
+	content="f394203f08156d995073aca183f25701ec2c93d7" />
+<meta name="apple-mobile-web-app-title" content="네이비즘" />
+<meta name="application-name" content="네이비즘" />
+<meta name="msapplication-config"
+	content="//data.navyism.com/favicon/browserconfig.xml" />
+<meta name="theme-color" content="#ffffff" />
+<link rel="canonical" href="https://time.navyism.com" />
+<link rel="apple-touch-icon" sizes="180x180"
+	href="//data.navyism.com/favicon/apple-touch-icon.png" />
+<link rel="icon" type="image/png"
+	href="//data.navyism.com/favicon/favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png"
+	href="//data.navyism.com/favicon/favicon-16x16.png" sizes="16x16" />
+<link rel="icon" type="image/png"
+	href="//data.navyism.com/navyism_speeddial.png" sizes="264x168" />
+<link rel="manifest" href="//data.navyism.com/favicon/manifest.json" />
+<link rel="mask-icon"
+	href="//data.navyism.com/favicon/safari-pinned-tab.svg" color="#da532c" />
+<link rel="shortcut icon" href="//data.navyism.com/favicon/favicon.ico" />
+<link rel="stylesheet" type="text/css"
+	href="//data.navyism.com/time.css?20200729-1" />
 <script>
-$(document).ready(function() {
-	
-	/* Demo purposes only */
-	$(".hover").mouseleave(
-	  function () {
-	    $(this).removeClass("hover");
-	  }
-	);
-	
-	
-	$(".saveBtn2").click(function(){
-		//alert("saveBtn");
-	});
-	
-	
-	var floatPosition = parseInt($(".floatMenu").css('top'));
-	$(window).scroll(function() {
-		var scrollTop = $(window).scrollTop();
-		var newPosition = scrollTop + floatPosition + "px";
- 
-		$(".floatMenu").stop().animate({
-			"top" : newPosition
-		}, 500);
- 
-	}).scroll();
- 
-});
-
-function fn_detail(B_NO,B_TYPE){
-	//var  formData= $('#boardForm').serialize();
-	$('#gdsNum').val(B_NO);
-/* 	$('#B_NO').val(B_NO); */
-	$('#B_TYPE').val(B_TYPE);
-	
-	$('#boardForm').attr({
-		action : '<c:url value="/orderDetail.do" />',
-		target : '_self'
-	}).submit();
-}
-function sampleModalPopup(){
-    // 팝업 호출 url
-    var url = "/WEB-INF/common/popup/itemDetailPopup.jsp";
-	
-
-    $.ajax({
-		url : "${pageContext.request.contextPath}/itemDetailPopup.do",
-		type : "post",
-		enctype: 'multipart/form-data',
-		data : { gdsNum : 1 },
-		success : function(result) {
-			//alert('success');
-		}, // success 
-
-		error : function(xhr, status) {
-			alert(xhr + " : " + status);
-		}
-	});
-    
-    // 팝업 호출
-    $("#sampleModalPopup > .modal-dialog").load(url, function() { 
-        $("#sampleModalPopup").modal("show"); 
-    });
-}
-
-
-function fn_detail_pop(B_NO,B_TYPE){
-	$('#gdsNum').val(B_NO);
-	$('#B_TYPE').val(B_TYPE);
-	//itemDetailPopup
-	var  formData= $('#boardForm').serialize();
-	//alert(B_NO);
-/* 	$('.modal-body').append("afkjzxczxc"+$('#gdsNum').val());
- */	
-	
-	$.ajax({
-		url : "${pageContext.request.contextPath}/itemDetailPopup.do",
-		type : "post",
-		data : { gdsNum : B_NO },
-		success : function(result) {
-						
-		var obj=JSON.parse(result);
-		var detail = obj.detail ;
-		var imgList = obj.imgList ;
-		
-		$("#pp").html("");
-		
-        $.each(detail, function( index, value ) {
-   			$("#"+index+"").val(value);
-   			//$("#pp").append(index+','+value+'<br>');
-            console.log('element' ,index, value ); 
-         });
-        
-		 for (var i = 0; i <imgList.length; i++) {
-			  console.log('element', i, imgList[i]);
-			  console.log(imgList[i].gdsPrice);
-			  //$("#pp").append(i+','+imgList[i]+'<br>');
-			  //$("#pp").append(i+','+imgList[i].gdsPrice+'<br>');
-			  
-			  // #pp: 상세이미지 imgList div 영역
-			 /*  $("#pp").append(i+','+imgList[i].file+'<br>'); */
-			  
-			var img=imgList[i].file;
-			var file = $("#file").val(img);
-			var image="<c:url value='/img/"+img+"'/>"; //상품 상세 이미지
-			  $("#pp").append("<img class='card-img-top' src="+image+"><br><br>");
-/* 			  $("#pp").append(i+"<img class='card-img-top scale' src="+image+"><br>"); */
-			 
-			};
-			
-		
-		//상품상세설명
-		$("#name").html(detail.gdsName);
-		//상품상세설명
-		$("#price").html(detail.gdsPrice);
-		//상품상세설명
-/* 		$("#gdsStock").parent().parent().find('td').append(detail.gdsStock);
- */		//상품상세설명
-		//상품상세설명
-		$("#des").html(detail.gdsDes);
-		
-		$("#orderForm #gdsName").val(detail.gdsName);
-		$("#orderForm #gdsPrice").val(detail.gdsPrice);
-		$("#orderForm #gdsStock").val(detail.gdsStock);
-/* 		$("#gdsStock").val(detail.gdsStock); */
-		$("#orderForm #totalPrice").val(detail.totalPrice);
-		$("#orderForm #gdsDes").val(detail.gdsDes);
-		
-		//$("#gdsDes").val("새로운 값을 지정합니다.");  //텍스트 에어리어에 새로 값을 지정.
-		
-		$("#rpsnImg").attr("src","<c:url value='/img/"+img+"'/>");
-		console.log('================================');
-		
-		//제품상세(기존)
-		$("#create2").on("click",function(){ 
-			var gdsNum=$('#gdsNum').val();
-
-			//$(this).next().html("<button type='button' id='newButton'>ok</button>"); 
-			
-			fn_detail(gdsNum);
-			
-			});
-		
-		
-		//주문
-		$("#create").on("click",function(){ 
-			var userId = '${member.ID}';
-			if(userId.length==0){
-				alert('로그인 후 이용해주세요');
-			} else {
-				var gdsNum = $("#gdsNum").val();
-				var cartStock = 5;
-	/* 			var cartStock = $(".numBox").val(); */
-				//alert('gdsNum:'+gdsNum);
-				
-				var gdsNum = $("#gdsNum").val();
-				var userId = $("#userId").val();
-				var gdsName = $("#gdsName").val();
-				var gdsPrice = $("#gdsPrice").val();
-				var cartStock = $("#stock").val();
-				var gdsStock = cartStock;
-	/* 			var gdsStock = $(".numBox").val(); */
-				$('#gdsStock').val(gdsStock);
-				
-				var data = {
-						gdsNum : gdsNum,
-						gdsStock : gdsStock,
-						cartStock : cartStock,
-						gdsName : gdsName,
-						gdsPrice : gdsPrice,
-						orderProcessDetail : 'Y',
-						userId : userId ,
-						};
-				
-			$.ajax({
-					url : "/directOrderProcess.do",
-					type : "post",
-					data : data,
-					success : function(result){
-						$("#orderId").val(result.orderId);
-						$("#cartNum").val(result.cartNum);
-						
-						$('#orderForm').attr({
-	/* 					$('#boardForm').attr({ */
-							action : '<c:url value="/directOrderProcessDetail.do"/>',
-							target : '_self'
-						}).submit(); 
-					   	//location.replace("/directOrderProcessDetail.do");
-					},
-					error : function(){
-						alert("주문 실패");
-					}
-				});
-			
-			}
-			
-			
-			
-			});
-		// 주문
-		
-		}, // success 
-
-		error : function(xhr, status) {
-			alert(xhr + " : " + status);
-		}
-	});
+	var time_sep = " ";
+	var uhost1 = "";
+	var uhost2 = "";
+	var isChrome = true;
+	var isSSL = true;
+	var host = "";
+	var user = "116.43.60.128";
+	var isMobile = false;
+	var pageOpen = new Date();
+	docTitle = "서버시간";
+	var lang = "ko";
+</script>
+<style type="text/css">
+.txt1 {
 	
 }
 
-
-function fn_list(no) {
-	$('#currentPageNo').val(no);
-	var currentPageNo=no;
-	$('#boardForm').attr({
-		action : '<c:url value="/test.do"/>',
-		target : '_self'
-	}).submit();
+.txt2 {
 	
 }
 
-
-
-
-
-$(".addCart_btn").click(function(){
-	var userId = $("#userId").val();
+.txt3 {
 	
-	if(userId==""){
-		alert('로그인 후 이용해주세요');
-	}
-	else{
-		var gdsNum = $("#gdsNum").val();
-		var cartStock = $(".numBox").val();
-		var msg="장바구니로 이동하시겠습니까?";
+}
 
-		var data = {
-				gdsNum : gdsNum,
-				userId : userId,
-				cartStock : cartStock
-				};
-		
-		$.ajax({
-			url : "/view/addCart.do",
-			type : "post",
-			data : data,
-			success : function(result){
-				
-				if(result == 1) {
-					//alert("카트 담기 성공");
-					$(".numBox").val(1);
-					
-					var goToCart=confirm(msg);
-	 				if(goToCart){
-						window.location='<c:url value="/cartList.do"/>';
-					}
-	 
-				} else {
-					alert("회원만 사용할 수 있습니다.")
-					window.location='<c:url value="/user/login.do"/>';
+.communityArticle {
+	margin-top: 4px;
+	list-style: none;
+	height: 16px;
+	overflow-y: hidden;
+	letter-spacing: -1px;
+}
 
-				}
-			},
-			error : function(){
-				alert("카트 담기 실패");
-			}
-		});
-	}
-});
+.communityArticle a {
+	text-decoration: none;
+}
 
-// + 버튼을 누르면 수량이 증가하되, 상품의 전체 수량보다 커지지 않음
-$(".plus").click(function(){
-	var num = $(".numBox").val();
-	var plusNum = Number(num) + 1;
-	//var stock = ${view.gdsStock};
-	var stock = $(".gdsStock_hidden");
+.buttonFight {
+	border-width: 1px;
+	border-style: solid;
+	border-color: #FF754B;
+	color: #ffffff;
+	background: #FF754B;
+	height: 50px;
+	font-weight: bold;
+	padding: 5px 1px 4px 1px;
+	width: 90px;
+	font-size: 15pt;
+	-webkit-border-radius: 4px;
+	text-shadow: rgb(150, 150, 150) -1px -1px 1px;
+	cursor: pointer;
+	-webkit-appearance: none;
+	background: -webkit-gradient(linear, left top, left bottom, from(#FF754B),
+		to(#E14819));
+	padding-bottom: 1px;
+	height: 51px;
+}
+
+#time_area {
+	letter-spacing: -6px;
+	font-size: 40pt;
+	color: #FF6815;
+	font-weight: bold;
+	text-shadow: rgb(80, 80, 80) -1px -1px 1px;
+	float: left;
+}
+
+#msec_area {
+	float: left;
+	letter-spacing: -3px;
+	font-size: 27pt;
+	color: #FF6815;
+	font-weight: bold;
+	text-shadow: rgb(80, 80, 80) -1px -1px 1px;
+	padding-top: 2px;
+	padding-left: 10px;
+}
+
+#summary li {
+	overflow: unset;
+}
+
+.noRnHost {
 	
-	if(plusNum >= stock) {
-		$(".numBox").val(num);
-	} else {
-		$(".numBox").val(plusNum);										
-	}
+}
+</style>
+<script async
+	src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+<body onload="initOk();">
+	<span itemscope="" itemtype="http://schema.org/Organization">
+		<div style="margin: 0 auto; width: 1090px; position: relative">
+			<div id="navyismMainContainer" style="width: 728px">
+				<div style="width: 698px; background: #ffea8d; padding: 15px;">
+					<div style="padding-bottom: 15px"></div>
+					<div style="position: relative" id="searchFormArea">
+						<div style="display: inline;">
+							<font id="protocolArea"
+								style="color: #777; font-size: 28pt; font-weight: bold; font-family: arial; letter-spacing: -1px; text-shadow: rgb(20, 20, 20) -1px -1px 1px;"><div
+									style="display: inline; padding-right: 7px">
+									<a href="/" title="네이비즘 서버시간 표준시간"><img
+										src="//data.navyism.com/title_logo.png" border="0"
+										align="absmiddle" style="width: 55px; padding-bottom: 5px"
+										alt="네이비즘 로고"></a>
+								</div></font>
+
+							<form style="display: inline">
+								<input type="text" name="host" value="codeu.kr" size="29"
+									class="input" id='inputhere'
+									style="background-color: rgba(255, 255, 255, 0); position: absolute; height: 33px;"
+									onkeyup="hostSuggest()"> <input type="text" value=""
+									size="29" class="input" id='inputhereSuggest'
+									style="height: 32px; padding-top: 4px; color: #d0d0d0" readonly
+									onfocus="document.getElementById('inputthere').focus()">
+
+								<input type="submit" value="Fight!" class="buttonFight" onclick="getServerTime();">
+
+							</form>
+<script>
+$(document).ready(function(){
+	$("#inputhere").val();
 });
+function getServerTime(){
+	var url=$("#inputhere").val();
+	var xhr = new XMLHttpRequest();  
+	xhr.open("GET", url, false);  
+	xhr.send(null);
+	eval("reg.timer").value = xhr.getResponseHeader("Date");
+	xhr = null;
+}
 
-
-// - 버튼을 누르면 수량이 감소하되, 1보다 밑으로 감소하지 않음
-$(".minus").click(function(){
-	var num = $(".numBox").val();
-	var minusNum = Number(num) - 1; 
-	
-	if(minusNum <= 0) {
-		$(".numBox").val(num);
-	} else {
-		$(".numBox").val(minusNum);										
-	}
-});
-
-
+window.setInterval("getServerTime();",100);
 
 </script>
+						</div>
 
+					</div>
+				</div>
+				<div style="width: 728px;">
+					<div style="width: 728px; height: 90px; padding-top: 15px">
+						<ins class="adsbygoogle"
+							style="display: inline-block; width: 728px; height: 90px"
+							data-ad-client="ca-pub-7080544515747498"
+							data-ad-slot="7271672926"></ins>
+					</div>
+				</div>
+				<br />
+
+				<div id="time_area"></div>
+				<div id="msec_area"></div>
+				<div id="time_error_area" style="clear: both; width: 720px"></div>
+				<div id="title_history" class="nodrag"
+					style="display: none; width: 728px; font-size: 15pt; letter-spacing: -1px; line-height: 29px; padding-top: 10px; padding-bottom: 15px"></div>
+
+
+				<div
+					style="padding-top: 15px; width: 728px; letter-spacing: -1px; position: relative"
+					class="nodrag">
+					<div>
+						<div style="display: inline">
+							<input type=checkbox id='playAlram'
+								onclick="this.checked ? setCookie('alram', '1', 7) : setCookie('alram', '0', 7)"
+								checked> <label for='playAlram'
+								style="margin-right: 3px">정각알람</label> <input type=checkbox
+								id='playAlramBefore'
+								onclick="this.checked ? setCookie('alram1', '1', 7) : setCookie('alram1', '0', 7)">
+							<label for='playAlramBefore' style="margin-right: 3px">1분전</label>
+							<input type=checkbox id='playAlramBefore2'
+								onclick="this.checked ? setCookie('alram2', '1', 7) : setCookie('alram2', '0', 7)">
+							<label for='playAlramBefore2' style="margin-right: 3px">2분전</label>
+							<input type=checkbox id='playAlramBefore3'
+								onclick="this.checked ? setCookie('alram3', '1', 7) : setCookie('alram3', '0', 7)">
+							<label for='playAlramBefore3' style="margin-right: 3px">3분전</label>
+						</div>
+						<div style="display: inline">
+							<input type="checkbox" id="no30_check"
+								onclick="this.checked ? setCookie('no30', '1', 7) : setCookie('no30', '0', 7)">
+							<label for="no30_check" style="margin-right: 5px">30분 알람
+								끄기</label> <input type="checkbox" id="nowarn_check"
+								onclick="this.checked ? setCookie('nowarn', '1', 7) : setCookie('nowarn', '0', 7)">
+							<label for="nowarn_check" style="margin-right: 5px">빨간색
+								싫어</label> <input type="checkbox" id="onlyTime"
+								onclick="this.checked ? setCookie('onlyTime', '1', 7) : setCookie('onlyTime', '0', 7)">
+							<label for="onlyTime" style="margin-right: 5px">날짜 제거</label> <input
+								type="checkbox" onclick="msec_control()" id="msec_check">
+							<label for="msec_check" style="margin-right: 3px" id="msec_title">밀리초</label>
+						</div>
+					</div>
+				</div>
+
+
+				<script src="//data.navyism.com/time.js?20210421-1" charset="utf-8"></script>
+
+				<script>
+					show(1624280256 - time() + 1);
+				</script>
+
+				<div id="chatLayer"
+					style="display: none; width: 728px; height: 450px">
+					<div style="padding-top: 10px; padding-bottom: 10px; height: 450px"
+						id="chatContents">
+						<iframe style="width: 728px; height: 480px" scrolling="no"
+							frameborder="0" id="cifs"></iframe>
+					</div>
+				</div>
+
+				<div style="width: 728px; padding-bottom: 7px; padding-top: 7px">
+					<div style="padding-top: 10px">
+
+						<ins class="adsbygoogle"
+							style="display: inline-block; width: 728px; height: 90px"
+							data-ad-client="ca-pub-7080544515747498"
+							data-ad-slot="5041600138"></ins>
+
+
+
+					</div>
+				</div>
+			</div>
+			<br /> <br /> <br /> <br />
+		</div> <br />
+	<br />
+		<div style="width: 336px; height: 550px; left: 755px; top: 0px; position: absolute">
+
+			<br />
+			<iframe allow="autoplay" id="alramVoiceForChrome"
+				style="display: none"></iframe>
+			<audio id="alramVoice" src="//data.navyism.com/clock.mp3" controls
+				preload="auto" autobuffer style="display: none"></audio>
+			<script>
+				var onlyTimeAutoCheck = false;
+
+				window.onresize = function() {
+					if (window.outerHeight < 600) {
+						window
+								.scrollTo(
+										0,
+										document.getElementById("siteName").offsetHeight
+												+ document
+														.getElementById("siteName").offsetTop
+												+ 14);
+
+						if (document.getElementById("msec_check").checked) {
+							var authCheckLimit = 703;
+						} else {
+							var authCheckLimit = 644;
+						}
+
+						if (window.outerWidth < authCheckLimit) {
+							if (!document.getElementById("onlyTime").checked) {
+								document.getElementById("onlyTime").checked = true;
+								onlyTimeAutoCheck = true;
+							}
+						} else {
+							if (onlyTimeAutoCheck
+									&& document.getElementById("onlyTime").checked) {
+								document.getElementById("onlyTime").checked = false;
+								onlyTimeAutoCheck = false;
+							}
+						}
+					}
+				}
+			</script>
+			<script async src="//wcs.naver.net/wcslog.js"></script>
+			<script>
+				if (!wcs_add)
+					var wcs_add = {};
+				wcs_add["wa"] = "85c90fb7f148";
+				wcs_do();
+			</script>
+		</div>
+</body>
 </html>
+
