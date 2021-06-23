@@ -27,23 +27,32 @@
 <body>
 
 	<form style="display: inline">
-			<input type="text" value="window.location.href.toString()"
+			<input type="text" value=""
 			class="input" id="searchInput"
 			onfocus="document.getElementById('searchInput').focus()"> 
 			<input
-			type="submit" value="Search"eclass="buttonSearch"
+			type="submit" value="Search" class="buttonSearch"
 			onclick="getServerTime();">
 	</form>
 	<br>
 
 		<div id="timeDiv"></div>
 		<script type="text/javascript">
-
-	    window.onload = function() {
+		$(document).ready(function(){
 	    	var url=window.location.href.toString();
-	    	$(".buttonSearch").on("click",function(){
-				alert(url);
+    		$("#searchInput").val(url);
+
+			$(".buttonSearch").on("click",function(){
+				//alert(url);
 			});
+			
+		}); 
+	    window.onload = function() {
+	    	var url=$("#searchInput").val();
+/* 	    	var url=window.location.href.toString(); */
+	    	/* $(".buttonSearch").on("click",function(){
+				alert(url);
+			}); */
 	    	getServerTime();
 	      };
 
@@ -78,7 +87,8 @@
 			
 		}
 		
-		/* $(document).ready(function(){
+		/*
+		$(document).ready(function(){
 			$(".buttonSearch").on("click",function(){
 				alert(url);
 			});
