@@ -27,20 +27,22 @@
 <body>
 
 	<form style="display: inline">
-			<input type="text" value=""
+			<input type="text" value="http://localhost:8080/test.do"
 			class="input" id="searchInput"
 			onfocus="document.getElementById('searchInput').focus()"> 
 			<input
 			type="submit" value="Search" class="buttonSearch"
-			onclick="getServerTime();">
+			onclick="getServerTime('Y');">
 	</form>
 	<br>
 
 		<div id="timeDiv"></div>
 		<script type="text/javascript">
+    	//var url=window.location.href.toString();
+		var url=$("#searchInput").val();
+
 		$(document).ready(function(){
-	    	var url=window.location.href.toString();
-    		$("#searchInput").val(url);
+    		//$("#searchInput").val(url);
 
 			$(".buttonSearch").on("click",function(){
 				//alert(url);
@@ -56,8 +58,8 @@
 	    	getServerTime();
 	      };
 
-		function getServerTime() {
-			url=$("#searchInput").val();
+		function getServerTime(input) {
+			//url=$("#searchInput").val();
 		    try {
 	            //FF, Opera, Safari, Chrome
 	            xmlHttp = new XMLHttpRequest();
@@ -77,7 +79,13 @@
 	                }
 	            }
 	        }
-	        xmlHttp.open('HEAD', url, false);
+	        if(input=='Y'){
+	    		url=$("#searchInput").val();
+	        	alert(url);
+	        }
+	        	
+        	xmlHttp.open('HEAD', url, false);
+
 	        xmlHttp.setRequestHeader("Content-Type", "text/html");
 	        xmlHttp.send('');
 	       var date=xmlHttp.getResponseHeader("Date");
