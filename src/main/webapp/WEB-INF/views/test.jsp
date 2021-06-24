@@ -26,76 +26,88 @@
 </head>
 <body>
 
-	<form style="display: inline">
-			<input type="text" value="http://localhost:8080/test.do"
-			class="input" id="searchInput"
-			onfocus="document.getElementById('searchInput').focus()"> 
-			<input
-			type="submit" value="Search" class="buttonSearch"
-			onclick="getServerTime('Y');">
-	</form>
-	<br>
+<script type="text/javascript">
+    //서버시간 불러오기
+    var xmlHttp;
+	var url=window.location.href.toString();
+	$(document).ready(function(){
+		$("#inputUrl").val(url);
+	});
+    function srvTime(){
 
-		<div id="timeDiv"></div>
-		<script type="text/javascript">
-    	//var url=window.location.href.toString();
-		var url=$("#searchInput").val();
+        if (window.XMLHttpRequest) {//분기하지 않으면 IE에서만 작동된다.
 
-		$(document).ready(function(){
-    		//$("#searchInput").val(url);
+            xmlHttp = new XMLHttpRequest(); // IE 7.0 이상, 크롬, 파이어폭스 등
 
-			$(".buttonSearch").on("click",function(){
-				//alert(url);
-			});
-			
-		}); 
-	    window.onload = function() {
-	    	var url=$("#searchInput").val();
-/* 	    	var url=window.location.href.toString(); */
-	    	/* $(".buttonSearch").on("click",function(){
-				alert(url);
-			}); */
-	    	getServerTime();
-	      };
+            //헤더 정보만 받기 위해 HEAD방식으로 요청.
+            xmlHttp.open('HEAD', url, false); // window.location.href.toString() or Target URL
+/*             xmlHttp.open('HEAD', window.location.href.toString(), false); // window.location.href.toString() or Target URL */
 
-		function getServerTime(input) {
-			//url=$("#searchInput").val();
-		    try {
-	            //FF, Opera, Safari, Chrome
-	            xmlHttp = new XMLHttpRequest();
-	        }
-	        catch (err1) {
-	            //IE
-	            try {
-	                xmlHttp = new ActiveXObject('Msxml2.XMLHTTP');
-	            }
-	            catch (err2) {
-	                try {
-	                    xmlHttp = new ActiveXObject('Microsoft.XMLHTTP');
-	                }
-	                catch (eerr3) {
-	                    //AJAX not supported, use CPU time.
-	                    alert("AJAX not supported");
-	                }
-	            }
-	        }
-	        if(input=='Y'){
-	    		url=$("#searchInput").val();
-	        	alert(url);
-	        }
-	        	
-        	xmlHttp.open('HEAD', url, false);
+            xmlHttp.setRequestHeader("Content-Type", "text/html");
+            xmlHttp.send('');
 
-	        xmlHttp.setRequestHeader("Content-Type", "text/html");
-	        xmlHttp.send('');
-	       var date=xmlHttp.getResponseHeader("Date");
+            return xmlHttp.getResponseHeader("Date");   //받은 헤더정보에서 Date 속성만 적출
 
-            document.getElementById('timeDiv').innerHTML = '<h1>'+date+'</h1><br>';
-			setInterval(getServerTime,1000);
-			
-		}
-		
-	</script>
+        }else if (window.ActiveXObject) {
+            xmlHttp = new ActiveXObject('Msxml2.XMLHTTP');
+            xmlHttp.open('HEAD',url,false);
+            //xmlHttp.open('HEAD',window.location.href.toString(),false);
+            xmlHttp.setRequestHeader("Content-Type", "text/html");
+            xmlHttp.send('');
+            return xmlHttp.getResponseHeader("Date");
+        }
+    }
+
+    var st = srvTime();         // 한국 시간 -9
+    var today = new Date(st);   // 한국 시간 +9
+
+    function dpTime() {
+        //var now = new Date();
+        var now = new Date(srvTime());
+        hours = now.getHours();
+        minutes = now.getMinutes();
+        seconds = now.getSeconds();
+
+        if (hours > 12) {
+            hours -= 12;
+            ampm = "오후 ";
+        } else {
+            ampm = "오전 ";
+        }
+        if (hours < 10) {
+            hours = "0" + hours;
+        }
+        if (minutes < 10) {
+            minutes = "0" + minutes;
+        }
+        if (seconds < 10) {
+            seconds = "0" + seconds;
+        }
+        document.getElementById("dpTime").innerHTML = "( " + ampm + hours + ":" + minutes + ":" + seconds + " )";
+    }
+
+    setInterval("dpTime()", 1000);
+    
+    
+
+    function fn_search(){
+		url=$("#inputUrl").val();
+		alert(url);
+   		/* $('#timeForm').attr({
+   			action : '<c:url value="/test.do" />',
+   			target : '_self'
+   		}).submit(); */
+    }
+</script>
+
+<body>
+    실시간 <b><span id="dpTime">loading...</span></b>
+    
+    <form id="timeForm" method="post">
+    	<input type="text" id="inputUrl">
+    </form>
+    <button type="submit" onclick="fn_search()">검색</button>
+</body>
 </body>
 
 </html>
