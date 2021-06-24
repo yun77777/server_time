@@ -87,14 +87,6 @@
 			
 		}
 		
-		/*
-		$(document).ready(function(){
-			$(".buttonSearch").on("click",function(){
-				alert(url);
-			});
-			
-		}); */
-		
 	</script>
 </body>
 
