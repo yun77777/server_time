@@ -93,10 +93,6 @@
     function fn_search(){
 		url=$("#inputUrl").val();
 		alert(url);
-   		/* $('#timeForm').attr({
-   			action : '<c:url value="/test.do" />',
-   			target : '_self'
-   		}).submit(); */
     }
 </script>
 
