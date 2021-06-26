@@ -8,7 +8,6 @@
 
 <%@ page session="false"%>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,7 +91,6 @@
 
     function fn_search(){
 		url=$("#inputUrl").val();
-		alert(url);
     }
 </script>
 
